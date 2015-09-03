@@ -1,0 +1,666 @@
+.triangle-isosceles {
+  position:relative;
+  padding:15px;
+  margin:1em 0 3em;
+  color:#000;
+  background:#f3961c; /* default background for browsers without gradient support */
+  /* css3 */
+  background:-webkit-gradient(linear, 0 0, 0 100%, from(#f9d835), to(#f3961c));
+  background:-moz-linear-gradient(#f9d835, #f3961c);
+  background:-o-linear-gradient(#f9d835, #f3961c);
+  background:linear-gradient(#f9d835, #f3961c);
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+
+.triangle-isoscelesalt {
+  position:relative;
+  padding:15px;
+  margin:1em 0 3em;
+  color:#000;
+  background:#ccc; /* default background for browsers without gradient support */
+  /* css3 */
+  background:-webkit-gradient(linear, 0 0, 0 100%, from(#ccc), to(#C2C2C2));
+  background:-moz-linear-gradient(#ccc, #C2C2C2);
+  background:-o-linear-gradient(#ccc, #C2C2C2);
+  background:linear-gradient(#ccc, #C2C2C2);
+  -webkit-border-radius:10px;
+  -moz-border-radius:10px;
+  border-radius:10px;
+}
+
+/* Variant : for top positioned triangle
+------------------------------------------ */
+
+.triangle-isosceles.top {
+  background:-webkit-gradient(linear, 0 0, 0 100%, from(#f3961c), to(#f9d835));
+  background:-moz-linear-gradient(#f3961c, #f9d835);
+  background:-o-linear-gradient(#f3961c, #f9d835);
+  background:linear-gradient(#f3961c, #f9d835);
+}
+
+.triangle-isoscelesalt.top {
+  background:-webkit-gradient(linear, 0 0, 0 100%, from(#ccc), to(#C2C2C2));
+  background:-moz-linear-gradient(#ccc, #C2C2C2);
+  background:-o-linear-gradient(#ccc, #C2C2C2);
+  background:linear-gradient(#ccc, #C2C2C2);
+}
+
+/* Variant : for left/right positioned triangle
+------------------------------------------ */
+
+.triangle-isosceles.left {
+  margin-left:50px;
+  background:#f3961c;
+}
+
+/* Variant : for right positioned triangle
+------------------------------------------ */
+
+.triangle-isosceles.right {
+  margin-right:50px;
+  background:#f3961c;
+}
+
+/* THE TRIANGLE
+------------------------------------------------------------------------------------------------------------------------------- */
+
+/* creates triangle */
+.triangle-isosceles:after {
+  content:"";
+  position:absolute;
+  bottom:-15px; /* value = - border-top-width - border-bottom-width */
+  left:50px; /* controls horizontal position */
+  border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+  border-style:solid;
+  border-color:#f3961c transparent;
+  /* reduce the damage in FF3.0 */
+  display:block;
+  width:0;
+}
+
+/* Variant : top
+------------------------------------------ */
+
+.triangle-isosceles.top:after {
+  top:-15px; /* value = - border-top-width - border-bottom-width */
+  right:50px; /* controls horizontal position */
+  bottom:auto;
+  left:auto;
+  border-width:0 15px 15px; /* vary these values to change the angle of the vertex */
+  border-color:#f3961c transparent;
+}
+
+/* Variant : left
+------------------------------------------ */
+
+.triangle-isosceles.left:after {
+  top:16px; /* controls vertical position */
+  left:-50px; /* value = - border-left-width - border-right-width */
+  bottom:auto;
+  border-width:10px 50px 10px 0;
+  border-color:transparent #f3961c;
+}
+
+/* Variant : right
+------------------------------------------ */
+
+.triangle-isosceles.right:after {
+  top:16px; /* controls vertical position */
+  right:-50px; /* value = - border-left-width - border-right-width */
+  bottom:auto;
+  left:auto;
+  border-width:10px 0 10px 50px;
+  border-color:transparent #f3961c;
+}
+
+
+
+
+
+/* Variant Alt : for left/right positioned triangle
+------------------------------------------ */
+
+.triangle-isoscelesalt.left {
+  margin-left:50px;
+  background:#ccc;
+}
+
+/* Variant Alt: for right positioned triangle
+------------------------------------------ */
+
+.triangle-isoscelesalt.right {
+  margin-right:50px;
+  background:#ccc;
+}
+
+/* THE TRIANGLE Alt
+------------------------------------------------------------------------------------------------------------------------------- */
+
+/* creates triangle */
+.triangle-isoscelesalt:after {
+  content:"";
+  position:absolute;
+  bottom:-15px; /* value = - border-top-width - border-bottom-width */
+  left:50px; /* controls horizontal position */
+  border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+  border-style:solid;
+  border-color:#ccc transparent;
+  /* reduce the damage in FF3.0 */
+  display:block;
+  width:0;
+}
+
+/* Variant : top
+------------------------------------------ */
+
+.triangle-isoscelesalt.top:after {
+  top:-15px; /* value = - border-top-width - border-bottom-width */
+  right:50px; /* controls horizontal position */
+  bottom:auto;
+  left:auto;
+  border-width:0 15px 15px; /* vary these values to change the angle of the vertex */
+  border-color:#ccc transparent;
+}
+
+/* Variant : left
+------------------------------------------ */
+
+.triangle-isoscelesalt.left:after {
+  top:16px; /* controls vertical position */
+  left:-50px; /* value = - border-left-width - border-right-width */
+  bottom:auto;
+  border-width:10px 50px 10px 0;
+  border-color:transparent #ccc;
+}
+
+/* Variant : right
+------------------------------------------ */
+
+.triangle-isoscelesalt.right:after {
+  top:16px; /* controls vertical position */
+  right:-50px; /* value = - border-left-width - border-right-width */
+  bottom:auto;
+  left:auto;
+  border-width:10px 0 10px 50px;
+  border-color:transparent #ccc;
+}
+            .logadoNone{
+                display: none !important;
+            }
+            /***Alterações para background do aplicativo****/
+            input{
+                background: #FFFFFF;
+            }
+            ul.ui-grid-b a:visited{
+                 background: #820f13 !important;
+
+            }
+            /*background mudar
+            .contentPage{
+                background: #DCD5BB  !important;
+            }*/
+
+             ul.ui-grid-b a:hover{
+                 background: #820f13 !important;
+
+            }
+	body{
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+
+            }
+            .submitFormCliente{
+             /* background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+
+
+            .imgAvancarLogin{
+                 /*background-image: url("../images/backgroun2.jpg");*/
+                 background-color: #fcee21;
+            }
+            .infoProduto{
+               /* background-image: url("../images/backgroun2.jpg");*/
+               background-color: #fcee21;
+            }
+            .addProduto{
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+            .ui-content{
+                /* background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+            .ui-collapsible-content{
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+            .ui-page{
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+             #envChat{
+                 background: #ED1C24;
+            }
+
+            .imgAvancarLogin{
+                  width: 59px;
+                  height: 59px ;
+                  display: block;
+                  margin: 29px auto;
+                    float: left;
+                   margin-left: 38%;
+                   border: none;
+                   outline: none;
+                   /*background-image: url("../images/backgroun2.jpg");*/
+                   background-color: #fcee21;
+            }
+            .imgLogin{
+                    width: 170px;
+                    margin: 0 auto;
+                    display: block;
+
+            }
+
+
+             /***Fim das Alterações para background do aplicativo****/
+
+	#produtos{display:none;}
+	#atendimentos{display:none;}
+
+	.vermelho{color:red;}
+	.menuSair .ui-body-a  {display:none;}
+	.menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-white.png");}
+	.novopedido:after{background-image: url("images/icons-png/shop-white.png");}
+            .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
+	.listarpedido:after{background-image: url("images/icons-png/bullets-white.png");}
+	.meucadastro:after{background-image: url("images/icons-png/user-white.png");}
+	.mensagemChat:after{background-image: url("images/icons-png/comment-white.png");}
+	.linkTelefone:after{background-image: url("images/icons-png/phone-white.png");}
+	.menuSair:after{background-image: url("images/icons-png/power-white.png");}
+	/*.ui-btn{border:1px solid white !important;}
+	.ui-header ,.ui-footer,.ui-footer .ui-btn{border:none !important;}*/
+	.ui-footer .ui-btn{border:none !important;}
+
+
+
+	.pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #fcee21; /*background-image: url("../images/backgroun2.jpg");*/
+                }
+	.hideFooter{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%;}
+	.ui-collapsible-set{ margin-top: 2.4em !important; }
+	.content h2{text-align: center;}
+	small {
+	display: block;
+	width: 97%;
+	margin-left: 2%;
+	}
+            .listview li{
+                  outline: none;
+            }
+	.table-stripe thead th,
+	.table-stripe tbody tr:last-child {
+	    border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+	    border-bottom: 1px solid rgba(0,0,0,.1);
+	}
+	.table-stripe tbody th,
+	.table-stripe tbody td {
+	    border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+	    border-bottom: 1px solid rgba(0,0,0,.05);
+	}
+	.table-stripe tbody tr:last-child th,
+	.table-stripe tbody tr:last-child td {
+	    border-bottom: 0;
+	}
+	.table-stripe tbody tr:nth-child(odd) td,
+	.table-stripe tbody tr:nth-child(odd) th {
+	    background-color: #eeeeee; /* non-RGBA fallback  */
+	    background-color: rgba(0,0,0,.04);
+	}
+	.slider{max-width: 302px;}
+	/*.slider img{ margin: 0 auto;  display: block;}*/
+	.slider  h4{   text-align: center; font-size: 17pt; color: #ff0a0a;  height: 5px;   font-weight: bolder;   margin-top: 9px;}
+	.slider small{margin-top: 12px;}
+	.slider .icone-mais{margin-left: 85%;}
+	.textoProduto{display:none;}
+
+	.popDiv{display:none;}
+	.ui-icon-info:after {
+		background-image: url("images/icons-png/info-white.png") !important;
+		background-color: #666 !important;
+		background-color: rgba(0,0,0,.3) !important;
+	}
+	.divControles input{ }
+	.divControles{   width:  255px;   margin-left: 22%;   margin-top: 4%;}
+	.imgProduto{background-color:#B37700;  padding: 3px; }
+
+	.owl-theme .owl-controls .owl-buttons div {background: none; }
+	 .addProduto{
+	 	width: 17%;
+		border: 0;
+		 outline: none;
+	 }
+	 .infoProduto{
+	 	width: 17%;
+	 	border: 0;
+  		outline: none;
+	 }
+	.imgProduto img{
+		max-width: 220px;
+		max-height: 150px;
+		display: block;
+		margin: 10px auto;
+	}
+	.preco{
+		display: block;
+		text-align: center;
+		font-size: 18pt;
+		font-style: italic;
+		font-weight: bold;
+	}
+	.erroqtde{display:none;}
+	#pedido{font-size: 0.8em;}
+
+            .verde-background{
+                  background-color: rgb(173, 255, 47);
+
+            }
+             .verde-background dt{
+                background-color: rgb(173, 255, 47) !important;
+            }
+            .verde-background dd{
+                background-color: rgb(173, 255, 47) !important;
+            }
+            .compostoAdd{
+                max-width:193px;
+            }
+
+
+/** Scaffold View **/
+	dl {
+		line-height: 2em;
+		margin: 0em 0em;
+		width: 98%;
+		font-size: 0.9em;
+	}
+		dl dd:nth-child(4n+2),
+		dl dt:nth-child(4n+1) {
+		/*background: #f4f4f4;*/
+	}
+
+	dt {
+		font-weight: bold;
+		padding-left: 4px;
+		vertical-align: top;
+		width: 10em;
+	}
+	dd {
+		margin-left: 9em;
+		margin-top: -2em;
+		vertical-align: top;
+	}
+	.tabela{font-size: 0.8em;}
+	.h3content{ width: 217px; margin: 0 auto; margin-bottom:1em; text-align: center;}
+	#atendimentosView{display:none;}
+	#atendimentosView2{display:none;}
+	#usuario{display:none;}
+	#itensdepedido{display:none;}
+	#previsaoAtend{display:none;}
+	.ui-table-columntoggle-btn{display:none;}
+	.erroqtde2{display:none;}
+	#divPagamento{display:none;}
+	.dispNone{display:none;}
+	/*.gmap {
+	width:100%;
+	height:100%;
+	min-height:500px;
+
+	}
+
+	.gmap_image img {
+		max-width:100%;
+	}*/
+
+	.gmap2 {
+		height: 7em;
+
+	}
+	/*.map-page, .map-canvas { width: 100%; height: 100%; padding: 0; }*/
+	#map-canvas{height: 25em !important; width:100%;}
+
+	.ui-header, .ui-footer{background-color: #ED1C24; color: white;}
+	.ui-footer {min-height: 87px; border-bottom-color: #FF0A0A }
+	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 3%;}
+	.ui-header{min-height: 4em; width: 100%;}
+	.applogo{width: 4em;   margin-top: 2px !important; }
+	.tituloHeader{margin-top: 1em !important;}
+	.imgEntrada{width: 95%; display: block; margin: 3em auto; margin-bottom:3em; display: block;}
+	.ui-header .ui-btn-left{margin-top: 1em;}
+
+	.inputAdd{height: 35px; width: 45px; float: left; margin-top: 1.6%; margin-right: 5px;   background: black;   color: white;}
+
+
+	.ui-popup-container .ui-header{position:relative !important;}
+	#page2 .ui-body-d{ border-style:none !important;}
+	.ui-icon-share:after {
+	background-image: url("../images/icons-png/share-white1.png") !important;
+	}
+	#avaliarPedido{margin: 0 2em;}
+
+	/*tabelas*/
+	.tabelaPadrao thead th,
+	.tabelaPadrao tbody tr:last-child {
+	    border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+	    border-bottom: 1px solid rgba(0,0,0,.1);
+	}
+	.tabelaPadrao tbody th,
+	.tabelaPadrao tbody td {
+	    border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+	    border-bottom: 1px solid rgba(0,0,0,.05);
+	}
+	.tabelaPadrao tbody tr:last-child th,
+	.tabelaPadrao tbody tr:last-child td {
+	    border-bottom: 0;
+	}
+	.tabelaPadrao tbody tr:nth-child(odd) td,
+	.tabelaPadrao tbody tr:nth-child(odd) th {
+	    background-color: #eeeeee; /* non-RGBA fallback  */
+	    background-color: rgba(0,0,0,.04);
+	}
+/*chat atendimento***/
+/*body{
+ font-family: "Comic Sans MS", Helvetica, Arial, sans-serif;
+ font-size: 14px;
+ line-height: 32px;
+ color: #333333;
+ font-weight: normal;
+}*/
+.container{
+ margin: 0 auto;
+ width: 600px;
+}
+/*.chat-zone{
+ padding: 20px;
+
+}*/
+.chatmsg {
+margin: 0 5px;
+}
+.chatmsg b{
+ text-transform: uppercase;
+ color: #B34007;
+}
+
+.chatmsgb {
+margin: 0 5px;
+}
+.chatmsgb b{
+ text-transform: uppercase;
+ color: orange;
+}
+.chat{
+ margin: 0 auto;
+}
+#chatZone{
+/*overflow-y: scroll !important;
+outline: none;
+margin-top: 4em;
+padding-top: 0em;
+height: 243px;
+width:100%;
+positon:absolute;
+padding-top: 1em;
+padding-bottom: 1em;
+/*border-radius: 7px;*/
+padding-bottom: 0px;
+min-height: 261px;
+max-height:40%;
+
+
+   -webkit-overflow-scrolling: touch;
+}
+
+
+#footerchat .ui-input-text { margin-left: 10%; margin-right: 1%; margin-top: 0%; max-height:48px;}
+#formChat{max-height:69px; width: 100%; margin-left: 0 auto;}
+input, textarea {
+-webkit-user-modify: read-write-plaintext-only;
+}
+.chat form{
+/* margin: 10px 0 0 0;*/
+}
+
+#envChat{}
+.linkEnviaChat{width:30% !important;}
+
+.linkInputChat{width:70% !important;}
+#audioPlayer{display:none;}
+.audioPlayer{display:none;}
+
+.btnPopLeft{float:left !important; margin-right: 4%; margin-left: 12.5%; }
+.btnPop{width: 19%;}
+.circulodivGrande{
+	height: 100px;
+	width: 100px;
+	-moz-border-radius: 55px;
+	-webkit-border-radius: 55px;
+	border-radius: 55px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.circulodivFoto{
+    height: 44px;
+    width: 44px;
+    -moz-border-radius: 22px;
+    -webkit-border-radius: 22px;
+    border-radius: 22px;
+    margin: 0 auto;
+    overflow: hidden;
+    margin-top: 0.4em;
+}
+
+.countBubl {float:left;margin-top:-42px;margin-left:35px;background:#ed1d24;color:#fff;padding:2px;}
+.owl-controls .owl-buttons .owl-next{   position: absolute; right: 0%;  top: 37%;}
+.owl-controls .owl-buttons .owl-prev{
+
+	position: absolute;
+  	left: 0px;
+ 	 top: 37%;
+
+}
+
+.ui-panel{
+	background-color: #ED1C24;
+}
+
+.ui-panel ul li a{
+	background-color: #ED1C24 !important;
+	color: white !important;
+	/*text-shadow: 1px 1px #ccc !important;*/
+	  text-shadow: 0 1px 0 #111 !important;
+}
+.owl-carousel .owl-wrapper-outer {
+	 margin-top: 15px;
+}
+.ui-header{
+	  box-shadow: 0px 9px 10px -8px black;
+	 border: 0;
+}
+
+.ui-footer{
+	-webkit-box-shadow: -1px -2px 9px 1px rgba(0,0,0,0.85);
+	-moz-box-shadow: -1px -2px 9px 1px rgba(0,0,0,0.85);
+	box-shadow: -1px -2px 9px 1px rgba(0,0,0,0.85);
+	border: 0px;
+}
+.imgAvancar{
+	  width: 59px;
+	  height: 59px ;
+	  display: block;
+	  margin: 29px auto;
+	float: left;
+	margin-left: 38%;
+            border: none;
+            outline: none;
+}
+.voltarPedido{
+	  width: 59px;
+	  height: 59px;
+	  display: block;
+	  margin: 29px auto;
+	    float: left;
+	    margin-left: 29%;
+	    display: none;
+            border: none;
+            outline: none;
+}
+.pedir{
+	width: 59px;
+	  height: 59px;
+	  display: block;
+	  margin: 29px auto;
+	    float: left;
+	    margin-left: 1%;
+	    display: none;
+             border: none;
+               outline: none;
+}
+#divAuxTroco{
+	    display: none;
+
+}
+
+
+.envChat{
+	width: 48px;
+ 	display: block;
+ 	  margin-left: 29%;
+ 	border: 0px;
+ 	outline: none;
+}
+.submitFormCliente{
+      width: 59px;
+      height: 59px ;
+      display: block;
+      margin: 29px auto;
+        float: left;
+       margin-left: 38%;
+}
+.fotoRotate{
+      transform: rotate(-90deg);
+}
+
+.compostoAdd{
+    margin-left: 10%;
+      margin-top: 3%;
+      color: white;
+      background-color: black;
+}
+.addProdutoComposto{
+    display: none;
+}
+.precoComposto{
+    display: none;
+}

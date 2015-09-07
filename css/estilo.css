@@ -466,7 +466,7 @@
 	.ui-footer {min-height: 87px; border-bottom-color: #FF0A0A }
 	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 3%;}
 	.ui-header{min-height: 4em; width: 100%;}
-	.applogo{width: 4em;   margin-top: 2px !important; }
+	.applogo{width: 5em;   margin-top: -1px !important; }
 	.tituloHeader{margin-top: 1em !important;}
 	.imgEntrada{width: 95%; display: block; margin: 3em auto; margin-bottom:3em; display: block;}
 	.ui-header .ui-btn-left{margin-top: 1em;}

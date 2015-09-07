@@ -213,37 +213,68 @@
 
             }
             .submitFormCliente{
-             /* background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+
+                background-color: #648272;
             }
 
 
             .imgAvancarLogin{
-                 /*background-image: url("../images/backgroun2.jpg");*/
-                 background-color: #fcee21;
+
+                 background-color: #648272;
             }
             .infoProduto{
-               /* background-image: url("../images/backgroun2.jpg");*/
-               background-color: #fcee21;
+
+               background-color: #FFFF00;
             }
             .addProduto{
-                /*background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+
+                background-color: #FFFF00;
             }
+            #pedido{font-size: 0.8em; color: black !important; text-shadow: 1px 1px #648272 !important;}
             .ui-content{
-                /* background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+
+                background-color: #648272;
             }
             .ui-collapsible-content{
-                /*background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+
+                background-color: #FFFF00;
             }
             .ui-page{
-                /*background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+
+                background-color: #648272;
+                 text-shadow: 0 1px 0 #648272 !important;
+                 color: black;
+            }
+          .ui-grid-a{
+            text-shadow: 0 1px 0 #648272 !important;
+            color: black !important;
+          }
+          .ui-body-a{
+             text-shadow: 0 1px 0 #648272 !important;
+            color: black !important;
+          }
+
+            .pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #648272; /*background-image: url("../images/backgroun2.jpg");*/
+                }
+          .ui-panel{
+              background-color: #648272;
+          }
+          .logoPainel{
+              width: 232px;
+              margin: 0 auto;
+              padding: 7%;
+               margin-bottom: 15px;
+               display: block;
+               margin-left: -15px;
+          }
+            .ui-panel ul li a{
+              background-color: #648272 !important;
+              color: black !important;
+              /*text-shadow: 1px 1px #ccc !important;*/
+                text-shadow: 0 1px 0 #648272 !important;
             }
              #envChat{
-                 background: #ED1C24;
+                 background: #E0414E;
             }
 
             .imgAvancarLogin{
@@ -264,7 +295,9 @@
                     display: block;
 
             }
-
+            .ui-popup{
+               background-color: #648272;
+            }
 
              /***Fim das Alterações para background do aplicativo****/
 
@@ -273,22 +306,21 @@
 
 	.vermelho{color:red;}
 	.menuSair .ui-body-a  {display:none;}
-	.menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-white.png");}
-	.novopedido:after{background-image: url("images/icons-png/shop-white.png");}
-            .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
-	.listarpedido:after{background-image: url("images/icons-png/bullets-white.png");}
-	.meucadastro:after{background-image: url("images/icons-png/user-white.png");}
+	.menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-black.png");}
+	.novopedido:after{background-image: url("images/icons-png/shop-black.png");}
+            .fazerlogin:after{background-image: url("images/icons-png/action-black.png");}
+	.listarpedido:after{background-image: url("images/icons-png/bullets-black.png");}
+	.meucadastro:after{background-image: url("images/icons-png/user-black.png");}
 	.mensagemChat:after{background-image: url("images/icons-png/comment-white.png");}
-	.linkTelefone:after{background-image: url("images/icons-png/phone-white.png");}
-	.menuSair:after{background-image: url("images/icons-png/power-white.png");}
+	.linkTelefone:after{background-image: url("images/icons-png/phone-black.png");}
+	.menuSair:after{background-image: url("images/icons-png/power-black.png");}
 	/*.ui-btn{border:1px solid white !important;}
 	.ui-header ,.ui-footer,.ui-footer .ui-btn{border:none !important;}*/
 	.ui-footer .ui-btn{border:none !important;}
 
 
 
-	.pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #fcee21; /*background-image: url("../images/backgroun2.jpg");*/
-                }
+
 	.hideFooter{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%;}
 	.ui-collapsible-set{ margin-top: 2.4em !important; }
 	.content h2{text-align: center;}
@@ -361,7 +393,7 @@
 		font-weight: bold;
 	}
 	.erroqtde{display:none;}
-	#pedido{font-size: 0.8em;}
+
 
             .verde-background{
                   background-color: rgb(173, 255, 47);
@@ -571,16 +603,7 @@ input, textarea {
 
 }
 
-.ui-panel{
-	background-color: #ED1C24;
-}
 
-.ui-panel ul li a{
-	background-color: #ED1C24 !important;
-	color: white !important;
-	/*text-shadow: 1px 1px #ccc !important;*/
-	  text-shadow: 0 1px 0 #111 !important;
-}
 .owl-carousel .owl-wrapper-outer {
 	 margin-top: 15px;
 }

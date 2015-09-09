@@ -191,7 +191,7 @@
             }
             /***Alterações para background do aplicativo****/
             input{
-                background: #ff6600;
+                background: #FFFFFF;
             }
             ul.ui-grid-b a:visited{
                  background: #820f13 !important;
@@ -212,49 +212,78 @@
 
 
             }
-            #pedido{
-             color: black;
-              text-shadow: 0 1px 0 #444444;
-
-            }
             .submitFormCliente{
-             /* background-image: url("../images/backgroun2.jpg");*/
+
                 background-color: #ff6600;
             }
 
 
             .imgAvancarLogin{
-                 /*background-image: url("../images/backgroun2.jpg");*/
+
                  background-color: #ff6600;
             }
             .infoProduto{
-               /* background-image: url("../images/backgroun2.jpg");*/
+
                background-color: #ff6600;
             }
             .addProduto{
-                /*background-image: url("../images/backgroun2.jpg");*/
+
                 background-color: #ff6600;
             }
+            #pedido{font-size: 0.8em; color: black !important; text-shadow: 1px 1px #ff6600 !important;}
             .ui-content{
-                /* background-image: url("../images/backgroun2.jpg");*/
+
                 background-color: #ff6600;
             }
             .ui-collapsible-content{
-                /*background-image: url("../images/backgroun2.jpg");*/
+
                 background-color: #ff6600;
             }
             .ui-page{
-                /*background-image: url("../images/backgroun2.jpg");*/
+
                 background-color: #ff6600;
+                 text-shadow: 0 1px 0 #ff6600 !important;
+                 color: black;
             }
-            #page2 .ui-body-d{ border-style:none !important; background-color: #ff6600; color: black;  text-shadow: 0 1px 0 #ff6600;}
+          .ui-grid-a{
+            text-shadow: 0 1px 0 #ff6600 !important;
+            color: black !important;
+          }
+          .ui-body-a{
+             text-shadow: 0 1px 0 #ff6600 !important;
+            color: black !important;
+          }
+
+            .pageContent{
+                height: 100% !important;
+                position:relative !important;
+                padding-bottom:97px;
+                 margin-bottom:20px;
+                 background-color: #ff6600; /*background-image: url("../images/backgroun2.jpg");*/
+                 text-shadow: 0 1px 0 #ff6600 !important;
+            color: black !important;
+            }
+          .ui-panel{
+              background-color: #ff6600;
+          }
+          .logoPainel{
+              width: 232px;
+              margin: 0 auto;
+              padding: 7%;
+               margin-bottom: 15px;
+               display: block;
+               margin-left: -15px;
+          }
+            .ui-panel ul li a{
+              background-color: #ff6600 !important;
+              color: black !important;
+              /*text-shadow: 1px 1px #ccc !important;*/
+                text-shadow: 0 1px 0 #ff6600 !important;
+            }
              #envChat{
                  background: #b30000;
             }
-            #msg{
-                text-shadow: 0 1px 0 white !important;
-                color: black !important;
-            }
+
             .imgAvancarLogin{
                   width: 59px;
                   height: 59px ;
@@ -265,7 +294,7 @@
                    border: none;
                    outline: none;
                    /*background-image: url("../images/backgroun2.jpg");*/
-                   background-color: #ff6600;
+                   background-color: #fcee21;
             }
             .imgLogin{
                     width: 170px;
@@ -273,7 +302,9 @@
                     display: block;
 
             }
-
+            .ui-popup{
+               background-color: #ff6600;
+            }
 
              /***Fim das Alterações para background do aplicativo****/
 
@@ -281,24 +312,50 @@
 	#atendimentos{display:none;}
 
 	.vermelho{color:red;}
-      #menuSair{ margin-top: -1px;}
 	.menuSair .ui-body-a  {display:none;}
 	.menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-black.png");}
 	.novopedido:after{background-image: url("images/icons-png/shop-black.png");}
             .fazerlogin:after{background-image: url("images/icons-png/action-black.png");}
 	.listarpedido:after{background-image: url("images/icons-png/bullets-black.png");}
 	.meucadastro:after{background-image: url("images/icons-png/user-black.png");}
-	.mensagemChat:after{background-image: url("images/icons-png/comment-black.png");}
+	.mensagemChat:after{background-image: url("images/icons-png/comment-white.png");}
 	.linkTelefone:after{background-image: url("images/icons-png/phone-black.png");}
 	.menuSair:after{background-image: url("images/icons-png/power-black.png");}
-	.ui-btn{border-top:1px solid black !important; border-bottom:1px solid black !important; color: black !important;}
-	.ui-header ,.ui-footer,.ui-footer .ui-btn{border:none !important;}
+      .ui-icon-bars:after {
+        background-image: url('images/icons-png/bars-black.png');
+      }
+      .ui-icon-plus:after {
+        background-image: url('images/icons-png/plus-black.png');
+      }
+      .ui-icon-minus:after {
+        background-image: url('images/icons-png/minus-black.png');
+      }
+
+      .ui-icon-eye:after {
+        background-image: url('images/icons-png/eye-black.png');
+      }
+      .ui-icon-share:after {
+        background-image: url("../images/icons-png/action-black.png") !important;
+        }
+        .ui-icon-comment:after {
+          background-image: url('images/icons-png/comment-black.png');
+        }
+    .ui-icon-location:after {
+      background-image: url('images/icons-png/location-black.png');
+    }
+      .ui-icon-carat-l:after {
+      background-image: url('images/icons-png/carat-l-black.png');
+    }
+    .ui-icon-carat-d:after {
+      background-image: url('images/icons-png/carat-d-black.png');
+    }
+	/*.ui-btn{border:1px solid white !important;}
+	.ui-header ,.ui-footer,.ui-footer .ui-btn{border:none !important;}*/
 	.ui-footer .ui-btn{border:none !important;}
-      .ui-icon-bars:after {background-image: url("images/icons-png/bars-black.png");}
-      .ui-icon-plus:after {background-image: url("images/icons-png/plus-black.png");}
-      .ui-icon-eye:after {background-image: url("images/icons-png/eye-black.png");}
-	.pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #ff6600; /*background-image: url("../images/backgroun2.jpg");*/
-                }
+
+
+
+
 	.hideFooter{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%;}
 	.ui-collapsible-set{ margin-top: 2.4em !important; }
 	.content h2{text-align: center;}
@@ -338,12 +395,12 @@
 
 	.popDiv{display:none;}
 	.ui-icon-info:after {
-		background-image: url("images/icons-png/info-white.png") !important;
+		background-image: url("images/icons-png/info-black.png") !important;
 		background-color: #666 !important;
 		background-color: rgba(0,0,0,.3) !important;
 	}
 	.divControles input{ }
-	.divControles{   width:  255px;   margin-left: 25%;   margin-top: 4%;}
+	.divControles{   width:  255px;   margin-left: 22%;   margin-top: 4%;}
 	.imgProduto{background-color:#B37700;  padding: 3px; }
 
 	.owl-theme .owl-controls .owl-buttons div {background: none; }
@@ -371,7 +428,7 @@
 		font-weight: bold;
 	}
 	.erroqtde{display:none;}
-	#pedido{font-size: 0.8em;}
+
 
             .verde-background{
                   background-color: rgb(173, 255, 47);
@@ -444,20 +501,18 @@
 	.ui-footer {min-height: 87px; border-bottom-color: #FF0A0A }
 	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 3%;}
 	.ui-header{min-height: 4em; width: 100%;}
-	.applogo{width: 4em;   margin-top: 2px !important; }
+	.applogo{width: 5em;   margin-top: -1px !important; }
 	.tituloHeader{margin-top: 1em !important;}
 	.imgEntrada{width: 95%; display: block; margin: 3em auto; margin-bottom:3em; display: block;}
 	.ui-header .ui-btn-left{margin-top: 1em;}
 
-	.inputAdd{height: 35px; width: 45px; float: left; margin-top: 1.6%; margin-right: 5px;   background: black;   color: white;}
+	.inputAdd{height: 35px; width: 45px; float: left; margin-top: 1.6%; margin-right: 5px;   background: black;   color: white;  color: white;
+  border: none;}
 
 
 	.ui-popup-container .ui-header{position:relative !important;}
+	#page2 .ui-body-d{ border-style:none !important;}
 
-
-	.ui-icon-share:after {
-	background-image: url("../images/icons-png/share-white1.png") !important;
-	}
 	#avaliarPedido{margin: 0 2em;}
 
 	/*tabelas*/
@@ -582,16 +637,7 @@ input, textarea {
 
 }
 
-.ui-panel{
-	background-color: #FF5500;
-}
 
-.ui-panel ul li a{
-	background-color: #B30000 !important;
-	 color: black !important;
-	/*text-shadow: 1px 1px #ccc !important;*/
-	  text-shadow: 0 1px 0 red !important;
-}
 .owl-carousel .owl-wrapper-outer {
 	 margin-top: 15px;
 }

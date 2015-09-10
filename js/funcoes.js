@@ -1,12 +1,12 @@
 //Bloco de Configurações do aplicativo inicio
 var cliente ="";
-var empresa='3';
+var empresa='2';
 var URLAPP = 'http://sistema.entregapp.com.br/';
 var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-var filialPadrao="7";
+var filialPadrao="6";
 var prodId1='';
 var prodId2='';
-var telefonePadrao="tel:2792-6699";
+var telefonePadrao='tel:3249-0306';
 //Bloco de Configurações do aplicativo Fim
 $(document).ready(function() {
 
@@ -379,71 +379,80 @@ function atualizarProduto(){
 
 	$('body').on('click', '.addProduto', function () {
 
+				var idn=  $(this).attr('id');
+
 		if(cliente != ''){
-			var idn=  $(this).attr('id');
-			var expReg01 = /\D+/gi;
-			idnumero= idn.replace(expReg01,'');
+				var idn=  $(this).attr('id');
+				var expReg01 = /\D+/gi;
+				idnumero= idn.replace(expReg01,'');
+				$('.erroqtde').hide();
+				$('.erroqtde2').hide();
+
+				numero = $(this).attr('id');
+				numero = numero.substring(10);
+				codigo = $(this).attr('data-codigo');
+				produto = $(this).attr('data-produto');
+				vlUnitarioAut = $(this).attr('data-vlu');
+				vlUnitarioAut = vlUnitarioAut.replace(",",".");
+				vlUnitario =  parseFloat(vlUnitarioAut);
+				vlUnitario = vlUnitario.toFixed(2);
+				valor = $('#pedido tr').length;
+				qtdeAux = $('#inputAdd'+numero).val();
+
+				var expReg02 = /\D+/gi;
+				qtdeAux = qtdeAux.replace(expReg02,'');
+
+				$('#inputAdd'+numero).val(1);
+				qtde = parseFloat(qtdeAux);
+
+				vlTotal=vlUnitario * qtde;
+
+				vlTotal = vlTotal.toFixed(2);
+
+				vlUnitarioAux= vlUnitario.toString();
+				vlUnitario = vlUnitarioAux.replace('.', ',');
 
 
-			$('.erroqtde').hide();
-			$('.erroqtde2').hide();
-
-			numero = $(this).attr('id');
-			numero = numero.substring(10);
-			codigo = $(this).attr('data-codigo');
-			produto = $(this).attr('data-produto');
-			vlUnitarioAut = $(this).attr('data-vlu');
-			vlUnitarioAut = vlUnitarioAut.replace(",",".");
-			vlUnitario =  parseFloat(vlUnitarioAut);
-			vlUnitario = vlUnitario.toFixed(2);
-			valor = $('#pedido tr').length;
-			qtdeAux = $('#inputAdd'+numero).val();
-
-			var expReg02 = /\D+/gi;
-			qtdeAux = qtdeAux.replace(expReg02,'');
-
-			$('#inputAdd'+numero).val(1);
-			qtde = parseFloat(qtdeAux);
-
-			vlTotal=vlUnitario * qtde;
-
-			vlTotal = vlTotal.toFixed(2);
-
-			vlUnitarioAux= vlUnitario.toString();
-			vlUnitario = vlUnitarioAux.replace('.', ',');
+				vu = $(this).attr('data-vlu');
 
 
-			vu = $(this).attr('data-vlu');
+				vlTotalAux = vlTotal.toString();
+				vlTotal =vlTotalAux.replace('.',',');
+				$('.popDiv').hide();
+				$('.ui-icon-minus').trigger('click');
+
+			setTimeout(function(){
 
 
-			vlTotalAux = vlTotal.toString();
-			vlTotal =vlTotalAux.replace('.',',');
 
 
-			if(qtdeAux ==""){
-				$('.erroqtde').show();
-			}else if(qtdeAux <=0){
-				$('.erroqtde').show();
-			}else{
-				$('#popProdItem').html(produto);
-				$('#popQtdeItem').html(qtde);
-				$('#popVlUnitItem').html(vlUnitario);
-				$('#popVlTotalItem').html(vlTotal);
-				$("#popupConfirmaProd").popup( "open" );
-
-			}
 
 
-			$('html, body').animate({
-		   	 scrollTop: ($('#proximoPedido').first().offset().top)
+				if(qtdeAux ==""){
+					$('.erroqtde').show();
+				}else if(qtdeAux <=0){
+					$('.erroqtde').show();
+				}else{
+					$('#popProdItem').html(produto);
+					$('#popQtdeItem').html(qtde);
+					$('#popVlUnitItem').html(vlUnitario);
+					$('#popVlTotalItem').html(vlTotal);
+					$("#popupConfirmaProd").popup( "open" );
+
+				}
+
+
+				$('html, body').animate({
+			   	 scrollTop: ($('#proximoPedido').first().offset().top)
+				},500);
+				/*$("#linhaTotal").css("background-color","yellow");*/
+				$("#linhaTotal").css("height","1em");
+				$('#linhaTotal').animate({height: '1em'}, 1000);
+				/*setTimeout(function(){
+				$("#linhaTotal").css("background-image"," url('../images/backgroun2.jpg')");
+				}, 1500);*/
 			},500);
-			$('.ui-icon-minus').trigger('click');
-			/*$("#linhaTotal").css("background-color","yellow");*/
-			$("#linhaTotal").css("height","1em");
-			$('#linhaTotal').animate({height: '1em'}, 1000);
-			/*setTimeout(function(){
-			$("#linhaTotal").css("background-image"," url('../images/backgroun2.jpg')");
-			}, 1500);*/
+
 		}else{
 			$.mobile.changePage("#Pagelogin",{ transition: "none",  });
 		}

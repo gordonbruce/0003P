@@ -194,16 +194,16 @@
                 background: #FFFFFF;
             }
             ul.ui-grid-b a:visited{
-                 background: #820f13 !important;
+                 background: #822700 !important;
 
             }
-            /*background mudar
+            /*background mudar*/
             .contentPage{
                 background: #DCD5BB  !important;
-            }*/
+            }
 
              ul.ui-grid-b a:hover{
-                 background: #820f13 !important;
+                 background: #822700 !important;
 
             }
 	body{
@@ -213,37 +213,30 @@
 
             }
             .submitFormCliente{
-             /* background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+               background-image: url("../images/backgroun2.jpg");
             }
 
 
             .imgAvancarLogin{
-                 /*background-image: url("../images/backgroun2.jpg");*/
-                 background-color: #fcee21;
+                 background-image: url("../images/backgroun2.jpg");
             }
             .infoProduto{
-               /* background-image: url("../images/backgroun2.jpg");*/
-               background-color: #fcee21;
+                background-image: url("../images/backgroun2.jpg");
             }
             .addProduto{
-                /*background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+                background-image: url("../images/backgroun2.jpg");
             }
             .ui-content{
-                /* background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+                 background-image: url("../images/backgroun2.jpg");
             }
             .ui-collapsible-content{
-                /*background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+                background-image: url("../images/backgroun2.jpg");
             }
             .ui-page{
-                /*background-image: url("../images/backgroun2.jpg");*/
-                background-color: #fcee21;
+                background-image: url("../images/backgroun2.jpg");
             }
              #envChat{
-                 background: #ED1C24;
+                 background: #822700;
             }
 
             .imgAvancarLogin{
@@ -255,28 +248,18 @@
                    margin-left: 38%;
                    border: none;
                    outline: none;
-                   /*background-image: url("../images/backgroun2.jpg");*/
-                   background-color: #fcee21;
+                   background-image: url("../images/backgroun2.jpg");
             }
             .imgLogin{
-                    width: 72%;
+                    width: 170px;
                     margin: 0 auto;
                     display: block;
-                    margin-top: 8%;
-                      margin-bottom: 6%;
+
             }
 
 
              /***Fim das Alterações para background do aplicativo****/
-        .painelMenu{
-                width: 190px;
-                margin: 0 auto;
-                padding: 7%;
-                margin-bottom: 19px;
-                display: block;
-                margin-left: -7px;
-                height: 85px;
-        }
+
 	#produtos{display:none;}
 	#atendimentos{display:none;}
 
@@ -296,7 +279,7 @@
 
 
 
-	.pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #fcee21; /*background-image: url("../images/backgroun2.jpg");*/
+	.pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px; background-image: url("../images/backgroun2.jpg");
                 }
 	.hideFooter{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%;}
 	.ui-collapsible-set{ margin-top: 2.4em !important; }
@@ -342,7 +325,7 @@
 		background-color: rgba(0,0,0,.3) !important;
 	}
 	.divControles input{ }
-	.divControles{   width:  255px;   margin-left: 22%;   margin-top: 4%;}
+	.divControles{   width:  255px;   margin-left: 25%;   margin-top: 4%;}
 	.imgProduto{background-color:#B37700;  padding: 3px; }
 
 	.owl-theme .owl-controls .owl-buttons div {background: none; }
@@ -439,11 +422,11 @@
 	/*.map-page, .map-canvas { width: 100%; height: 100%; padding: 0; }*/
 	#map-canvas{height: 25em !important; width:100%;}
 
-	.ui-header, .ui-footer{background-color: #ED1C24; color: white;}
+	.ui-header, .ui-footer{background-color: #822700; color: white;}
 	.ui-footer {min-height: 87px; border-bottom-color: #FF0A0A }
 	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 3%;}
 	.ui-header{min-height: 4em; width: 100%;}
-	.applogo{width: 4em;   margin-top: 2px !important; }
+	.applogo{width: 5em;   margin-top: 8px !important; }
 	.tituloHeader{margin-top: 1em !important;}
 	.imgEntrada{width: 95%; display: block; margin: 3em auto; margin-bottom:3em; display: block;}
 	.ui-header .ui-btn-left{margin-top: 1em;}
@@ -581,11 +564,11 @@ input, textarea {
 }
 
 .ui-panel{
-	background-color: #ED1C24;
+	background-color: #822700;
 }
 
 .ui-panel ul li a{
-	background-color: #ED1C24 !important;
+	background-color: #822700 !important;
 	color: white !important;
 	/*text-shadow: 1px 1px #ccc !important;*/
 	  text-shadow: 0 1px 0 #111 !important;

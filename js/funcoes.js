@@ -1,9 +1,9 @@
 //Bloco de Configurações do aplicativo inicio
 var cliente ="";
-var empresa='3';
+var empresa='6';
 var URLAPP = 'http://sistema.entregapp.com.br/';
 var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-var filialPadrao="7";
+var filialPadrao="10";
 var prodId1='';
 var prodId2='';
 var telefonePadrao ='3783-2362';

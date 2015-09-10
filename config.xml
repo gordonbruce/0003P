@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.entregapp.principedaspizzas"
+    id          = "com.entregapp.obaobapizzas"
     version     = "1.0.0" >
-	<name>Príncipe das Pizzas</name>
+	<name>Oba Oba Pizzas</name>
         <description>
-           Faça seu pedido pelo celular, com rapidez e praticidade, sistema Entregapp.
+           Faça seu pedido pelo celular, com rapidez e praticidade Oba Oba Pizzas By Sistema Entregapp.
         </description>
         <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
             Eduardo Alves

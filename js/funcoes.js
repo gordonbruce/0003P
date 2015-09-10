@@ -6,6 +6,7 @@ var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh22
 var filialPadrao="8";
 var prodId1='';
 var prodId2='';
+var telefonePadrao='tel:2792-4584';
 //Bloco de Configurações do aplicativo Fim
 $(document).ready(function() {
 
@@ -997,7 +998,7 @@ $("#pedir").click(function(event){
 	});
 
 	$(".linkTelefone").click(function(){
-		window.open('tel:998342008', '_system');
+		window.open(telefonePadrao, '_system');
 
 
 	});

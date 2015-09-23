@@ -313,7 +313,7 @@
 	}
 	.slider{max-width: 302px;}
 	/*.slider img{ margin: 0 auto;  display: block;}*/
-	.slider  h4{   text-align: center; font-size: 17pt; color: #ff0a0a;  height: 5px;   font-weight: bolder;   margin-top: 9px;}
+	.slider  h4{   text-align: center; font-size: 17pt; color: #ff0a0a;   margin-bottom: 2px;  font-weight: bolder;   margin-top: 9px;}
 	.slider small{margin-top: 12px;}
 	.slider .icone-mais{margin-left: 85%;}
 	.textoProduto{display:none;}
@@ -404,6 +404,10 @@
 	.erroqtde2{display:none;}
 	#divPagamento{display:none;}
 	.dispNone{display:none;}
+            .dispNoneTam{
+                display: none;
+            }
+
 	/*.gmap {
 	width:100%;
 	height:100%;

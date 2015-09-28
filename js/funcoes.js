@@ -7,1947 +7,18 @@ var filialPadrao="7";
 var prodId1='';
 var prodId2='';
 var telefonePadrao="tel:2792-6699";
+var prodId1='';
+var prodId2='';
+var prodTamanho="";
+var itenObs="";
+var bebidas=null;
+var pagueGanhe=null;
+var itemPagueGanheId=null;
+var itemPagueGanheNome=null;
+var itemBebidaId =null;
+var itemBebidaNome  = null;
 //Bloco de Configurações do aplicativo Fim
-$(document).ready(function() {
-
-
-
-$(document).on("pageshow","#index",function(){
-	//cliente ="";
-	$('.limpar').val('');
-});
-
-
-
-//$("html, body").niceScroll({cursorcolor:"#FF5C0A" });
- 		$(".MenuListaProdutos, #btnEntrega, #submitAtendimento").click(function(){
-
-			//atualizarProduto();
-			$.mobile.loading( "hide" );
-		});
-		$('.novopedido').click(function(){
-
-			//atualizarProduto();
-
-			$.mobile.loading( "hide" );
-			$('#sendToMoip').hide();
-		});
-
-	$(document).on("pageshow","#page3",function(){ // When entering pagetwo
-		atualizarProduto();
-		if(cliente !=""){
-			$('#clientePedido').val(cliente.Cliente.id);
-		}
-
-	});
-
-	$(document).on("change", ".compostoAdd", function(){
-	 	prodId1='';
-		prodId2='';
-
-
-	  var idString = $(this).attr('id');;
-
-	  var minhaId = idString.substring(12);
-
-	  vlUm = $("#compostoAdd1"+minhaId).find('option:selected').val();
-
-	  vlDois = $("#compostoAdd2"+minhaId).find('option:selected').val();
-
-	 if(vlUm != 0 &&  vlDois !=0){
-
-
-	 	prodOpt1  = $("#compostoAdd1"+minhaId).find('option:selected').attr('id');
-	 	prodId1 =  prodOpt1.substring(12);
-
-	 	prodOpt2  = $("#compostoAdd2"+minhaId).find('option:selected').attr('id');
-	 	prodId2 =  prodOpt2.substring(12);
-
-
-	 	vt = vlUm;
-	 	if(vlUm > vlDois){
-	 		vt = vlUm;
-	 	}else{
-	 		vt = vlDois;
-	 	}
-	 	vt= parseFloat(vt);
-	 	vt = vt.toFixed(2);
-	 	vt = String(vt);
-	 	vt = vt.replace('.',',');
-	 	$('#btnAddProd'+minhaId).attr('data-vlu',vt);
-	 	$('#precoComposto'+minhaId).html('R$ '+vt);
-	 	$('#precoComposto'+minhaId).css('display', 'block');
-	 	$('#btnAddProd'+minhaId).css('display', 'inline-block');
-	 }else{
-	 	$('.precoComposto').css('display', 'none');
-	 	$('.addProdutoComposto').css('display', 'none');
-	 }
-
-
-	});
-
-
- 	function gerarListaProdutos(ob, j){
- 		if(ob.ativo == 1){
-
- 			if(ob.disponivel == 1){
- 				vlunit= parseFloat(ob.preco_venda);
- 				vlunit = vlunit.toFixed(2);
- 				if(ob.composto == 1){
- 					compostoAddValues = "<option value='0'>Selecione</option>";
- 					$.each(ob.produtoscomposicao, function(n, composicao){
-
-
- 						$.each(composicao, function(m, composto){
- 							vlunitComposto= parseFloat(composto.Produto.preco_venda);
-	 						vlunitComposto = vlunitComposto.toFixed(2);
-
- 							compostoAddValues = compostoAddValues+ " <option id=produtoComb"+n+composto.Produto.id+" value='"+vlunitComposto+"'>"+composto.Produto.nome+"</option> ";
- 						});
-
- 					});
-
- 					return '<div class= "slider">\
-					<div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-					<h4>'+ob.nome+'</h4><span class="preco precoComposto" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
-					<small>'+ob.descricao+'</small>\
-					</div></div>\
-					<select type="text" class="compostoAdd" id="compostoAdd1'+ob.id+'"  data-theme="b"  data-mini="true">'+compostoAddValues+'</select>\
-					<select type="text" class="compostoAdd" id="compostoAdd2'+ob.id+'"  data-theme="b"  data-mini="true">'+compostoAddValues+'</select>\
-					<div class="divControles" data-role="controlgroup" data-mini="true">\
-					<select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
-				  	<input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-				  	<input type="image" src="images/carrinho.png" class="addProduto addProdutoComposto" alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-produtoid1="" data-produtoid2=""  id="btnAddProd'+ob.id+'" ></div></div>';
-				}else{
-		 			return '<div class= "slider">\
-					<div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-					<h4>'+ob.nome+'</h4><span class="preco" >R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
-					<small>'+ob.descricao+'</small>\
-					</div></div>\
-					<div class="divControles" data-role="controlgroup" data-mini="true">\
-						<select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
-				  	<input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-				  	<input type="image" src="images/carrinho.png" class="addProduto" alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" id="btnAddProd'+ob.id+'" ></div></div>';
-				  	}
- 			}else{
- 				vlunit= parseFloat(ob.preco_venda);
- 				vlunit = vlunit.toFixed(2);
-	 			return '<div class= "slider">\
-				<div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-				<h4>'+ob.nome+'</h4><span class="preco">Indispon&iacute;vel<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
-				<small>'+ob.descricao+'</small>\
-				</div></div>\
-				<div class="divControles" data-role="controlgroup" data-mini="true">\
-					<select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
-			  	<input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-			  	<input type="image" src="images/carrinho.png" class="addProduto" DISABLED alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" id="btnAddProd'+ob.id+'" ></div></div>';
- 			}
-
- 		}else{
- 			nda="";
- 			return nda;
- 		}
-
-
-	 }
-
-	 var optionsValues='<option value="1" selected="selected">1</option>';
-	 function geraoption(){
-	 	for(k=2; k<=50; k++){
-			optionsValues= optionsValues + '<option value="'+k+'">'+k+'</option>';
-		}
-		return optionsValues;
-	 }
-
-	 geraoption();
-
-	 var colapsableTrue='';
-	 var contColapsable=0;
-	 function gerarListaCategoria(obj, z){
-
-					varprod="";
-					objProd =obj.Produto;
-					var ncat=0;
-					$.each(objProd, function(i, ob){
-
-						varprod = varprod + gerarListaProdutos(ob, i);
-
-
-					});
-
-		if(z == 0){
-			colapsableTrue= 'data-collapsed="false"';
-		}else{
-			colapsableTrue="";
-		}
-		 var content = '<div data-role="collapsible" id="set'+z+'" data-theme="b" data-content-theme="b" class ="abaconteudo" >\
-		 <h3>'+obj.Categoria.nome+'</h3><div id="owl-example'+z+'" data-role="listview" data-inset="true" class="listview" >'+varprod+'</div></div>';
-
-
-			//$('.listview').owlCarousel({navigation : true,  navigationText : ["ant","prox"], pagination : false,});
-
-
-
-
-		return content;
-
-	 }
-
-
-function atualizarProduto(){
-
-		$('#set').html('');
-		$.mobile.loading( "show" ,{theme: 'b'});
-		minhaUrl=URLAPP+"RestProdutos/prodsmobile.json?se="+empresa+"&sf=&fp="+filialPadrao+"";
-		 $.ajax({
-				type: "GET",
-				url: minhaUrl,
-				dataType: 'json',
-				crossDomain: true,
-
-
-
-				success: function(data){
-					$('#set').html('');
-
-
-					$.each(data, function(i, resultados){
-		     			z=0;
-						$.each(resultados, function(z, resultado){
-
-						 //$("div").append(field + " ");
-
-
-							$( "#set" ).append( gerarListaCategoria(resultado,z) ).collapsibleset( "refresh" );
-						 	z=z+1;
-								//$("#owl-example"+z).owlCarousel({navigation : true,  navigationText : ["ant","prox"], pagination : false,});
-			    			});
-						d=0;
-						$(".listview").each( function() {
-
-							$('#owl-example'+d).owlCarousel({navigation : true,  navigationText : ["<img src='images/setaesquerda.png' class='setaSlider' width='56px' />","<img src='images/setadireita.png' class='setaSlider' width='56px' />"], pagination : false,});
-
-							d=d+1;
-						});
-					 //$("div").append(field + " ");
-	    		});
-
-					$.mobile.loading( "hide" );
-
-
-				},error: function(data){
-
-
-					$.mobile.loading( "hide" );
-					$("#popupDialogLogin4").popup( "open" );
-
-				}
-
-			});
-
-
-		}
-
- 	});
-
-
-
- $( window ).load(function() {
-
-	$('body').on('click', '.infoProduto', function () {
-
-		var id=  $(this).attr('id');
-		var expReg01 = /\D+/gi;
-		numero= id.replace(expReg01,'');
-
-		if ($('#popupCloseRight'+numero).is(":hidden")) {
-
-			$('#popupCloseRight'+numero).slideDown();
-			//$('#infoProduto'+numero).html('Menos');
-		}else{
-			$('#popupCloseRight'+numero).slideUp();
-			//$('#infoProduto'+numero).html('Mais');
-		}
-
-
-	});
-
-});
-
-	$( document ).ready(function() {
-
-
-	$('body').on('keyup', '.inputAdd', function () {
-
-		var numero = $(this).attr('id');
-		//numero = numero.substring(10);
-		var dInput = this.value;
-
-		$("#"+numero).val(dInput);
-
-
-	});
-
-	var chekaProduto="falso";
-
-
-	 var cont=0;
-	 var itens=0;
-	var codigo="";
-	var contador=0;
-	var vlUnitarioAut=0;
-	var produto="";
-	var qtde =0;
-	var vlTotal=0;
-
-	function adicionarLinhaPedido(codigo, produto, cont, vlUnitarioAut, qtde, vlTotal ){
-
-		itens=itens+1;
-
-		$("#pedido").append('<tr class="clone clone'+contador+'" id="linha'+contador+'"><td class="tbcodigo">'+codigo+'</td><td>'+produto+'</td><td  class="dinheiro" id="dinheiro'+cont+'" >'+vlUnitarioAut+'</td><td>'+qtde+'</td><td class="soma dinheiro" id="soma'+cont+'">'+vlTotal+'</td></tr>');
-
-
-			$('.dinheiro').priceFormat({
-			    prefix: 'R$ ',
-			    centsSeparator: ',',
-			    thousandsSeparator: '.',
-				centsLimit: 2,
-			});
-			var sum = 0;
-			$('.soma').each(function() {
-				var value = $(this).text();
-
-				value = value.substring(3);
-				value = value.replace(".","");
-				value = value.replace(",",".");
-
-
-				value = parseFloat(value);
-				if(!isNaN(value) && value.length != 0) {
-
-		        	sum = sum + value;
-		    	}
-			  $("#linhaTotal").remove();
-
-		    });
-			$("#linhaTotal").remove();
-			sum = sum.toFixed(2);
-			sum = sum.toString();
-
-		  	sum = sum.replace('.', ',');
-
-
-		  	$("#pedido").append('<tr id="linhaTotal"><td colspan="4">Total</td><td id="totalPedido">'+sum+'</td></tr>');
-			$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][produto_id]" id="Itensdepedido'+contador+'ProdutoId" value="'+codigo+'">');
-			$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][qtde]" id="Itensdepedido'+contador+'Qtde" value="'+qtde+'">');
-			if(prodId1 != '' && prodId2 != ''){
-				$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostoum_id]" id="Itensdepedido'+contador+'compostoum_id" value="'+prodId1+'">');
-				prodId1='';
-
-				$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostodois_id]" id="Itensdepedido'+contador+'compostodois_id" value="'+prodId2+'">');
-				prodId2='';
-				$('.addProdutoComposto').css('display', 'none');
-				$('.precoComposto').css('display', 'none');
-			}
-
-
-
-			$('#totalPedido').priceFormat({
-			    prefix: 'R$ ',
-			    centsSeparator: ',',
-			    thousandsSeparator: '.'
-			});
-			cont= cont + 1;
-			contador = contador + 1;
-
-			valorTotalPag = $("#totalPedido").text();
-			$('#totalPedidoPag').html(valorTotalPag);
-
-	}
-	$('body').on('click', '#btn-confirmarProd', function () {
-		adicionarLinhaPedido(codigo, produto, cont, vlUnitarioAut, qtde, vlTotal );
-		vlUnitarioAut=0;
-		produto="";
-		qtde =0;
-		vlTotal=0;
-		$('#popProdItem').html(' ');
-		$('#popQtdeItem').html(' ');
-		$('#popVlUnitItem').html(' ');
-		$('#popVlTotalItem').html(' ');
-		$("#popupConfirmaProd").popup( "close" );
-	});
-
-	$('body').on('click', '.addProduto', function () {
-
-		if(cliente != ''){
-			var idn=  $(this).attr('id');
-			var expReg01 = /\D+/gi;
-			idnumero= idn.replace(expReg01,'');
-
-
-			$('.erroqtde').hide();
-			$('.erroqtde2').hide();
-
-			numero = $(this).attr('id');
-			numero = numero.substring(10);
-			codigo = $(this).attr('data-codigo');
-			produto = $(this).attr('data-produto');
-			vlUnitarioAut = $(this).attr('data-vlu');
-			vlUnitarioAut = vlUnitarioAut.replace(",",".");
-			vlUnitario =  parseFloat(vlUnitarioAut);
-			vlUnitario = vlUnitario.toFixed(2);
-			valor = $('#pedido tr').length;
-			qtdeAux = $('#inputAdd'+numero).val();
-
-			var expReg02 = /\D+/gi;
-			qtdeAux = qtdeAux.replace(expReg02,'');
-
-			$('#inputAdd'+numero).val(1);
-			qtde = parseFloat(qtdeAux);
-
-			vlTotal=vlUnitario * qtde;
-
-			vlTotal = vlTotal.toFixed(2);
-
-			vlUnitarioAux= vlUnitario.toString();
-			vlUnitario = vlUnitarioAux.replace('.', ',');
-
-
-			vu = $(this).attr('data-vlu');
-
-
-			vlTotalAux = vlTotal.toString();
-			vlTotal =vlTotalAux.replace('.',',');
-
-
-			if(qtdeAux ==""){
-				$('.erroqtde').show();
-			}else if(qtdeAux <=0){
-				$('.erroqtde').show();
-			}else{
-				$('#popProdItem').html(produto);
-				$('#popQtdeItem').html(qtde);
-				$('#popVlUnitItem').html(vlUnitario);
-				$('#popVlTotalItem').html(vlTotal);
-				$("#popupConfirmaProd").popup( "open" );
-
-			}
-
-
-			$('html, body').animate({
-		   	 scrollTop: ($('#proximoPedido').first().offset().top)
-			},500);
-			$('.ui-icon-minus').trigger('click');
-			/*$("#linhaTotal").css("background-color","yellow");*/
-			$("#linhaTotal").css("height","1em");
-			$('#linhaTotal').animate({height: '1em'}, 1000);
-			/*setTimeout(function(){
-			$("#linhaTotal").css("background-image"," url('../images/backgroun2.jpg')");
-			}, 1500);*/
-		}else{
-			$.mobile.changePage("#Pagelogin",{ transition: "none",  });
-		}
-
-	});
-	var pagamento;
-	var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-	$('#submitForm').click(function(event){
-		event.preventDefault();
-		$('.loginsalt').val(salt);
-		var urlAction = URLAPP+"RestClientes/loginmobile.json";
-		var dadosForm = $("#login").serialize();
-
-
-		$.mobile.loading( "show" ,{theme: 'b'});
-		$.ajax({
-			type: "POST",
-			url: urlAction,
-			data:  dadosForm,
-			dataType: 'json',
-			crossDomain: true,
-
-
-
-			success: function(data){
-
-				var res = data.ultimopedido;
-				$.mobile.loading( "hide" );
-
-
-				if(res == 'ErroLogin'){
-
-
-					$("#popupDialog").popup( "open" );
-
-				}else{
-
-					cliente_id = data.ultimopedido.Cliente.id;
-					cliente = data.ultimopedido;
-
-					console.log(cliente);
-					if(fezPedidoSemLogar=='sim'){
-						fezPedidoSemLogar="nao";
-						$('.showLogado').removeClass('logadoNone');
-						filialPadrao=data.ultimopedido.Cliente.filial_id;
-						$.mobile.changePage("#page3",{ transition: "none",  });
-
-					}else{
-						fezPedidoSemLogar="nao";
-						$('.showLogado').removeClass('logadoNone');
-						$.mobile.changePage("#index",{ transition: "none",  });
-
-					}
-
-				}
-				$('#loginSalt').val('');
-				setInterval(function(){
-					getSituacaoCampainha();
-				},20000);
-			},error: function(data){
-				//criar tratatmento de erros
-				$.mobile.loading( "hide" );
-
-				$("#popupDialogLogin").popup( "open" );
-				$('#loginSalt').val('')
-			}
-			});
-		});
-var pedido_id ="";
-function atendimentoView(atendimentos){
-	//$.each(atendimentos, function(i, atendiment){
-		$("#atendimentostab").html('');
-
-		difHora=atendimentos.Atendimento.difhora;
-		$("#codigoAtend").html(atendimentos.Atendimento.codigo+'&nbsp;');
-
-		$("#dataAtend").html(atendimentos.Pedido.data+' '+atendimentos.Pedido.hora+'&nbsp;');
-		//$("#clienteAtend").html(atendimentos.Cliente.nome+'&nbsp;');
-		$("#AtendAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
-		$("#pagamentoAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
-		$("#situacaoAtend").html(atendimentos.Pedido.status+'&nbsp;');
-		$("#posFilaAtend").html(atendimentos.Pedido.status+'&nbsp;');
-		$("#idPedidoAux").html(atendimentos.Pedido.id);
-
-		$("#previsaoAtend").html(atendimentos.Atendimento.difhora+'&nbsp;');
-		 $("#counter").html('');
-		 $('#counter').countdown({
-	          image: 'images/digits2.png',
-	          startTime: difHora,
-			  digitWidth: 34,
-			    digitHeight: 45,
-			    format: 'hh:mm:ss',
-       	 });
-
-	//});
-}
-var validarPd="";
-var pag ="dh";
-var tipoTroco ="Sim";
-var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-function getTokenMoip(){
-
-
-	var valorPedido =$('#totalPedidoPag').text();
-		valorPedido = valorPedido.substring(3);
-		valorPedido = valorPedido.replace(".","");
-		valorPedido = valorPedido.replace(",",".");
-
-		valorPedido = parseFloat(valorPedido);
-
-		var urlAction = URLAPP+"RestPedidos/pgtomoip.json";
-		var dadosForm = {'id':'7', 'cliente_id':cliente.Cliente.id, 'nome':cliente.Cliente.nome, 'token':cliente.Cliente.token, 'salt':salt,'email': cliente.Cliente.email, 'logradouro':cliente.Cliente.logradouro,'numero':cliente.Cliente.numero,'complemento':cliente.Cliente.complemento, 'cidade':cliente.Cliente.cidade, 'uf':cliente.Cliente.uf, 'cep':cliente.Cliente.cep,'telefone':cliente.Cliente.telefone,'celular':cliente.Cliente.celular,'valor':valorPedido};
-
-
-		$.mobile.loading( "show" ,{theme: 'b'});
-		$.ajax({
-			type: "POST",
-			url: urlAction,
-			data:  dadosForm,
-			dataType: 'json',
-			crossDomain: true,
-
-
-
-			success: function(data){
-
-				var res = data.resultados;
-				$('#token').val(data.resultados.token);
-				$('#MoipWidget').attr('data-token',data.resultados.token);
-				$('#pgmoip_id').val(data.resultados.pgmoip_id);
-
-				$.mobile.loading( "hide" );
-
-
-			},error: function(data){
-				//criar tratatmento de erros
-				$.mobile.loading( "hide" );
-				$("#popupDialogLogin4").popup( "open" );
-
-			}
-			});
-}
-
-function enviaDadosCartao(){
-
-
-	var numeroCart =$('.ncartao').val();
-	var expiracao =$('#Expiracao').val();
-	var codigoSeguranca =$('#CodigoSeguranca').val();
-	var instituicao = $('#instituicao').val();
-	var portador = $('#Portador').val();
-	var CPF = $('#CPF').val();
-	var dataNascimento = $('#DataNascimento').val();
-
-	dia = dataNascimento.substring(0, 2);
-	mes = dataNascimento.substring(3, 5);
-	ano = dataNascimento.substring(6, 10);
-	dataNascimento = ano + "-" + mes + "-" + dia;
-	var telefone = $('#Telefone').val();
-
-
-	var urlAction = URLAPP+"RestClientes/addmobile.json";
-	var dadosForm = {'id':cliente.Cliente.id, 'numerocart':numeroCart,'salt':salt,'codigoseguranca': codigoSeguranca, 'portador':portador,'cpf':CPF,'nasc':dataNascimento, 'telefone':telefone, 'expiracao':expiracao, 'instituicao':instituicao};
-
-
-		$.mobile.loading( "show" ,{theme: 'b'});
-		$.ajax({
-			type: "POST",
-			url: urlAction,
-			data:  dadosForm,
-			dataType: 'json',
-			crossDomain: true,
-
-
-
-			success: function(data){
-
-				//var res = data.resultados;
-				$.mobile.loading( "hide" ,{theme: 'b'});
-
-
-			},error: function(data){
-				//criar tratatmento de erros
-				$("#popupDialogLogin4").popup( "open" );
-
-			}
-		});
-}
-$("#sendToMoip").click(function(){
-
-	if($("#cksimCart").hasClass("ui-checkbox-on")){
-		enviaDadosCartao();
-	}
-});
-$('.ncartao').mask('9999999999999999');
-$('#Expiracao').mask('99/99');
-$.mask.definitions['~'] = '([0-9] )?';
-$("#Telefone").mask("(99)9999-9999~");
-$("#CPF").mask("999.999.999-99");
-$("#DataNascimento").mask("99/99/9999");
-function verificaCartao(nome){
-	if(nome == 'Visa'){
-		idcartao = 5;
-	}else if(nome == 'Mastercard'){
-		idcartao = 3;
-	}else if(nome == 'AmericanExpress'){
-		idcartao = 7;
-	}else{
-		idcartao = "Escolha";
-	}
-
-	if(idcartao  != 'Escolha'){
-		$('#pagamentoPedido').val(idcartao);
-	}
-}
-
-
-
-
-
-
-$('#instituicao').change(function(){
-	var selecionadoCart2 = $(this).val();
-	verificaCartao(selecionadoCart2);
-
-});
-
-
-
-function validarPedido(){
-
-
-	if(pag == 'dh' ){
-
-		if(tipoTroco=='Sim'){
-			texto = $('#respTroco').html();
-
-			if(texto=='Inválido'){
-				validarPd = 'falso'
-				return validarPd;
-			}else if(texto=='R$ 0,00'){
-				validarPd = 'falso'
-				return validarPd;
-			}else{
-				validarPd = 'verdadeiro'
-				return validarPd;
-			}
-
-		}else{
-
-			validarPd = 'verdadeiro'
-			return validarPd;
-		}
-	}else{
-		validarPd = 'verdadeiro'
-		return validarPd;
-	}
-}
-$("#pedir").click(function(event){
-
-	validarPedido();
-
-	formPagamento = $('formaDEpagamento').val();
-	if(formPagamento==''){
-		validarPd="falso";
-		$("#avisoTroco2").popup( "open" );
-	}
-
-	/*minhaLoja2= $('#filialPedido').val();
-
-	if(minhaLoja2==''){
-		validarPd="falso";
-		$("#avisoPedido").popup( "open" );
-	}*/
-	$('#empresaPedido').val(empresa);
-	$('#filialPedido').val(filialPadrao);
-	clientePedido
-	if(validarPd== 'verdadeiro'){
-		nAtendimento= $('#PedidoA').val();
-
-
-		$.mobile.loading( "show" ,{theme: 'b'});
-		event.preventDefault();
- 		var sum = 0;
-		var atendimento="";
-		$('.soma').each(function() {
-			var value = $(this).text();
-			value = value.substring(3);
-
-			value = value.replace(".","");
-			value = value.replace(",",".");
-			value = parseFloat(value);
-			if(!isNaN(value) && value.length != 0) {
-
-	        	sum = sum + value;
-	    	}
-
-
-	    });
-
-
-		if(sum !=0){
-
-
-			var urlAction2 = URLAPP+"RestPedidos/addmobile.json";
-
-
-			//$(".loaderAjax").show();
-			$("#pedir").hide();
-			$('#pedidoSalt').val(salt);
-			$('#pedidoToken').val(cliente.Cliente.token);
-			$('#PedidoA').val('entrega');
-
-			var dadosForm2 = $("#PedidoAddForm").serializeArray();
-
-			$.ajax({
-				type: "POST",
-				url: urlAction2,
-				data:  dadosForm2,
-				dataType: 'json',
-				crossDomain: true,
-				success: function(data){
-					console.log(data);
-					$("#pedir").show();
-					$.mobile.loading( "hide" );
-
-
-					atendimento=data.resultados;
-
-					console.log(data);
-
-					if(atendimento.Pedido.id){
-
-						$('.clone').remove();
-						$("#totalPedido").html('00,00');
-						cont=0;
-						limparPedido();
-						$.mobile.changePage("#page2",{ transition: "pop",  });
-						getAtendimento(atendimento.Pedido.atendimento_id);
-						getItens(atendimento.Pedido.atendimento_id);
-						$("#idAtend").html(atendimento.Pedido.atendimento_id);
-
-					}else{
-
-					}
-					//$('#pedidoToken').val('');
-				},error: function(data){
-					console.log(data);
-					$.mobile.loading( "hide" );
-					$("#pedir").show();
-
-					$("#popupDialogLogin4").popup( "open" );
-					//$('#pedidoToken').val('');
-				}
-			});
-
-
-		}else{
-			$('.erroqtde').show();
-		}
-	}else{
-		//alert(validarPd);
-		$("#avisoTroco").popup( "open" );
-
-
-	}
-
-
- });
-	$("#popupSucEnvPedido").click(function(){
-
-	});
-
-	$("#bt-vermaisPedidos").click(function(){
-
-		limitPedido= limitPedido +4;
-		$("#atendimentostab").html('');
-		if(cliente != ""){
-			atualizarAtendimentos(cliente.Cliente.id);
-		}
-
-
-
-
-
-
-	});
-
-	var limitPedido=4;
-	function atualizarAtendimentos(clienteid){
-
-
-		$.mobile.loading( "show" ,{theme: 'b'});
-		 $.ajax({
-
-
-				type: "GET",
-				url: URLAPP+"RestAtendimentos/indexmobile.json?lj="+empresa+"&clt="+clienteid+"&limit="+limitPedido+"&token="+cliente.Cliente.token+"&fp="+filialPadrao+"",
-				dataType: 'json',
-				crossDomain: true,
-
-
-
-				success: function(data){
-
-
-					$("#atendimentos").html('');
-					$.mobile.loading( "hide" );
-
-					$.each(data.resultados, function(i, atendimento){
-
-						$.each(atendimento.Pedido, function(i, pedidoAtend){
-
-							//2014-09-15
-							pedidoData=pedidoAtend.data;
-							var anoDt = pedidoData.substring(0, 4);
-							var mesDt = pedidoData.substring(5, 7);
-							var diaDt = pedidoData.substring(8, 10);
-							pedidoData = diaDt+"/"+mesDt+"/"+anoDt;
-							pedidoStatus=pedidoAtend.status;
-						});
-				 		$("#atendimentostab").append('<tr><td>'+atendimento.Atendimento.codigo+'</td>\
-						<td>'+pedidoData+'</td><td>'+pedidoStatus+'</td>\
-						<td><a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-eye ui-btn-icon-notext ui-btn-b ui-btn-inline acaoAtend" id="acaoAtend'+i+'"data-atendimento="'+atendimento.Atendimento.id+'">Visualisar</a></td></tr>');
-
-						if(limitPedido > 4){
-
-							//$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-						}
-
-					});
-
-				},error: function(data){
-
-					$.mobile.loading( "hide" );
-					$("#popupDialogLogin13").popup( "open" );
-					//tratar o erro
-
-				}
-
-			});
-
-
-		}
-	function atualizarLojas(){
-
-		 $.ajax({
-				type: "GET",
-				url: URLAPP+"RestFilials/indexmobile?e="+empresa,
-				dataType: 'json',
-				crossDomain: true,
-
-
-
-				success: function(data){
-
-
-					i=0;
-					 $('.cloneOptLoja').remove();
-					$.each(data, function(i, resultado){
-
-
-
-						 //$("div").append(field + " ");
-
-						 $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
-
-
-						 i++;
-	    				});
-					$.mobile.loading( "hide" );
-					if(cliente != ''){
-						$('filialSelect').val(cliente.Cliente.filial_id);
-					}
-
-
-				},error: function(data){
-
-
-					setTimeout(function() {
-						atualizarLojas();
-					},2000);
-
-				}
-
-			});
-
-
-		}
-
-
-	//atualizarAtendimentos();
-
-
-	$(document).on( "pagecreate",'#page1', function(){
-		$("#atendimentostab").html('');
-		//atualizarAtendimentos(cliente_id);
-
-	});
-	$(document).on("pageshow","#page1",function(){ // When entering pagetwo
-		$("#atendimentostab").html('');
-		limitPedido = 4;
-		if(cliente !=""){
-			atualizarAtendimentos(cliente.Cliente.id);
-		}
-
-	});
-	$("#MenuListaPedido").click(function(){
-		//$("#atendimentostab").html('');
-		//atualizarAtendimentos(cliente_id);
-
-	});
-	$(".listarpedido").click(function(){
-		$.mobile.changePage("#page1",{ transition: "none",  });
-
-
-	});
-
-
-	$(".localizarpedido").click(function(){
-		$.mobile.changePage("#page7",{ transition: "none",  });
-	});
-
-	$(".meucadastro").click(function(){
-
-		$.mobile.changePage("#page5",{ transition: "none",  });
-
-
-	});
-
-	$('.fazerlogin').click(function(){
-		$.mobile.changePage("#Pagelogin",{ transition: "none",  });
-	});
-
-	$(".Menusair").click(function(){
-		$.mobile.changePage("#page11", { transition: "none",  });
-
-
-	});
-	$("#cancel-button").click(function(){
-		$.mobile.changePage("#page0", { transition: "none",  });
-
-
-	});
-
-	$(".linkTelefone").click(function(){
-		window.open(telefonePadrao, '_system');
-
-
-	});
-	$("#mensagemChat").click(function(){
-		$.mobile.changePage("#page10", { transition: "none",  });
-		setTimeout(function() {
-			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-		}, 4000);
-	});
-
-	$("#exit-button").click(function(){
-
-
-		navigator.app.exitApp();
-	});
-
-	$( document ).on( "pageinit", "#page5", function() {
-
-
-		if(cliente !=""){
-			setTimeout(function() {
-		        function initialize252() {
-				   	$("#gmapLEntrega2").html('');
-				    var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
-
-				    var options = {
-				        zoom: 16,
-				        center: latlng,
-						scrollwheel:false,
-				        mapTypeId: google.maps.MapTypeId.ROADMAP
-				    };
-
-				    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-				}
-				initialize252();
-			    var newLatLng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
-
-
-			    marker = new google.maps.Marker({
-			        position: newLatLng,
-			        map: map,
-			         icon:'images/usuario2.png',
-			       // draggable: true
-			    });
-				google.maps.event.trigger(map, 'resize');
-		    }, 5000);
-		}
-
-	});
-
-
-	var atendimentos="";
-	var atendimento="";
-	function getAtendimento(atendimentoid){
-
-
-		$.mobile.loading( "show" ,{theme: 'b'});
-		var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"&lj="+empresa+"";
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
-
-
-
-				success: function(data){
-
-
-				$.mobile.loading( "hide" );
-
-					$.mobile.loading( "hide" );
-					var atendimento = data.resultados;
-					difHora=atendimento.Atendimento.difhora;
-					$("#codigoAtend").html(atendimento.Atendimento.codigo+'&nbsp;');
-					$('#clienteAtend').html(atendimento.Cliente.nome);
-
-					$.each(atendimento.Pedido, function(i, pedido){
-							var dataPedido = pedido.data
-							var pedAnoDt = dataPedido.substring(0, 4);
-							var pedMesDt = dataPedido.substring(5, 7);
-							var pedDiaDt = dataPedido.substring(8, 10);
-							dataPedido = pedDiaDt+"/"+pedMesDt+"/"+pedAnoDt;
-
-						$("#dataAtend").html(dataPedido+' &agraves '+pedido.hora_atendimento+'&nbsp;');
-
-						if(pedido.user_id == undefined){
-							pedido.user_id ="Atendimento Virtual";
-						}
-						$("#AtendAtend").html(pedido.user_id+'&nbsp;');
-						$("#pagamentoAtend").html(pedido.status_pagamento+'&nbsp;');
-
-						$("#situacaoAtend").html(pedido.status+'&nbsp;');
-						$("#posFilaAtend").html(pedido.posicao_fila+'&nbsp;');
-						$("#previsaoAtend").html(pedido.tempo_estimado+'&nbsp;');
-						$("#obsPedido").html(pedido.obs+'&nbsp;');
-						$("#idPedidoAux").html(pedido.id);
-						$('#avaliacaoPedido').raty({ half: false,score    : pedido.avaliacao });
-						$('#avaliacaoPedido').raty({
-					 	 	half     : false,
-							score    : pedido.avaliacao,
-							click: function(score, evt) {
-						    	//alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
-								pedido_id = $('#idPedidoAux').html();
-
-								$.mobile.loading( "show" ,{theme: 'b'});
-							 $.ajax({
-
-
-									type: "GET",
-									url: URLAPP+"RestPedidos/avalpedidomobile.json?id="+pedido_id+"&nota="+score+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"",
-									dataType: 'json',
-									crossDomain: true,
-
-
-
-									success: function(data){
-										//alert(pedido_id);
-										//console.log(data);
-										$.mobile.loading( "hide" );
-									},error: function(data){
-
-										$.mobile.loading( "hide" );
-										$("#popupDialogLogin16").popup( "open" );
-										//tratar o erro
-
-									}
-
-								});
-						 	}
-						});
-					});
-
-
-					 $("#counter").html('');
-					 $('#counter').countdown({
-				          image: 'images/digits2.png',
-				          startTime: difHora,
-						  digitWidth: 34,
-						    digitHeight: 45,
-						    format: 'hh:mm:ss',
-				        });
-
-
-
-
-				},error: function(data){
-					$.mobile.loading( "hide" );
-					$(".erroconexao").popup( "open" );
-					//tratar essa rotina
-
-
-				}
-
-			});
-
-
-}
-
-
-
-
-	var itens="";
-	function getItens(atendimentoid){
-
-		var url= URLAPP+"RestAtendimentos/itensmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
-
-
-
-				success: function(data){
-
-
-					$.mobile.loading( "hide" );
-
-
-					$('.clonePedido').remove();
-
-					//atendimentos = JSON.parse(atend);
-					$.each(data.resultados, function(i, iten){
-						vlunit =parseFloat(iten.Itensdepedido.valor_unit) ;
-						vlunit = vlunit.toFixed(2);
-						vtot=parseFloat(iten.Itensdepedido.valor_total);
-						vtot = vtot.toFixed(2);
-						$('#itensdoPedido').append('<tr class="clonePedido"><td>'+iten.Itensdepedido.produto_id+'</td><td>'+iten.Produto.nome+'</td><td class="dinheiro">'+vlunit+'</td><td>'+iten.Itensdepedido.qtde+'</td><td class="dinheiro somaIten">'+vtot+'</td></tr>');
-					});
-					$('#linhaTotalPedido').remove();
-
-					$('.dinheiro').priceFormat({
-					    prefix: 'R$ ',
-					    centsSeparator: ',',
-					    thousandsSeparator: '.'
-					});
-
-
-					var sum = 0;
-					$('.somaIten').each(function() {
-						var value = $(this).text();
-						value = value.substring(3);
-						value = value.replace(",",".");
-						value = value.replace(".","");
-						value = parseFloat(value);
-						if(!isNaN(value) && value.length != 0) {
-
-				        	sum = sum + value;
-				    	}
-
-
-				    });
-					$('#itensdoPedido').append('<tr id="linhaTotalPedido"><td colspan="4">Total</td><td id="valorTotalPedido" class="dinheiro">'+sum+'</td></tr>');
-
-					$('#valorTotalPedido').priceFormat({
-					    prefix: 'R$ ',
-					    centsSeparator: ',',
-					    thousandsSeparator: '.'
-					});
-
-
-				},error: function(data){
-
-
-					$.mobile.loading( "hide" );
-					$("popupDialogLogin16").popup( "open" );
-					//tratar esta rotina
-
-
-
-
-				}
-
-			});
-
-
-}
-
-var atendimentoid="";
-$('#popupCancelaitem').click(function(){
-		contador=contador-1;
-		$('#linhaTotal').remove();
-		 $('#pedido tr:last').remove();
-		$('#linha'+contador+'').remove();
-		$("#Itensdepedido"+contador+"ProdutoId").remove();
-		$('#Itensdepedido'+contador+'Qtde').remove();
-
-		var sum = 0;
-		$('.soma').each(function() {
-			//sum = sum.toFixed(2);
-			var value = $(this).text();
-			value = value.substring(3);
-			value = value.replace(".","");
-			value = value.replace(",",".");
-
-			value = parseFloat(value);
-
-			if(!isNaN(value) && value.length != 0) {
-
-	        	sum = sum + value;
-	    	}
-
-
-
-	    });
-
-		$('#pedido').append('<tr id="linhaTotal"><td colspan="4">Total</td><td id="totalPedido"></td></tr>');
-		sum = sum.toFixed(2);
-		$("#totalPedido").html(sum);
-
-		$('#totalPedido').priceFormat({
-					    prefix: 'R$ ',
-					    centsSeparator: ',',
-					    thousandsSeparator: '.'
-					});
-
-		totalPedidoPag= $("#totalPedido").text();
-		$('#totalPedidoPag').html(totalPedidoPag);
-
-
-
-});
-
-$('#removerItem').click(function(){
-
-	if(itens == 0){
-		$('.erroqtde2').show();
-	}else{
-		$("#popupCancelaitempop").popup( "open" );
-	}
-});
-$('#popupCancelaitemFechar').click(function(){
-	$("#popupCancelaitempop").popup( "close" );
-});
-$('body').on('click', '.acaoAtend', function () {
-	difHora="";
-	atendimentoid=$(this).attr('data-atendimento');
-
-	$('.clonePedido').remove();
-	$('#valorTotalPedido').html('R$ 00,00');
-	$.mobile.changePage("#page2", { transition: "none",  });
-	getAtendimento(atendimentoid);
-
-	getItens(atendimentoid);
-	$("#idAtend").html(atendimentoid);
-
-
-
-});
-
-	var codigoAtend="";
-	$(document).on( "pagecreate",'#page0', function(){
-
-		var codigoAtend="";
-
-
-	});
-
-
-function checaAtendimento(atendimentocod){
-
-		var url=URLAPP+"RestAtendimentos/checaatendimento.json?a="+atendimentocod+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
-
-
-
-				success: function(data){
-
-
-					$.mobile.loading( "hide" );
-
-
-					if(data.resultados.resposta=='Existe'){
-						$( "#popupDialogAtendimento2" ).popup( "open" );
-						$.mobile.changePage("#page3", { transition: "none",  });
-						$("#PedidoA").val(data.resultados.resposta);
-						codigoAtend=data.resultados.resposta;
-					}else{
-						$( "#popupDialogAtendimento1" ).popup( "open" );
-					}
-
-
-
-				},error: function(data){
-					$.mobile.loading( "hide" );
-					$("#popupDialogLogin16").popup( "open" );
-					//tratar
-
-				}
-
-			});
-
-
-}
-	$('body').on('click', '#btnEntrega', function () {
-		codigo="entrega";
-		$.mobile.changePage("#page3", { transition: "none",  });
-		$("#PedidoA").val(codigo);
-	});
-
-	$('body').on('click', '.novopedido', function () {
-		codigo="entrega";
-		$.mobile.changePage("#page1", { transition: "none",  });
-		$.mobile.changePage("#page3", { transition: "none",  });
-		limparPedido();
-		$("#PedidoA").val(codigo);
-	});
-
-	$('body').on('click', '#submitAtendimento', function (event) {
-
-		event.preventDefault();
-		atendimento=$('#nAtendimento').val();
-		checaAtendimento(atendimento);
-	});
-
-	$(document).on("pageshow","#page3",function(){ // When entering pagetwo
-		 $('#filialPedido').val(filialPadrao);
-		 $("#empresaPedido").val(empresa);
-		 $("#PedidoA").val(codigoAtend);
-
-
-
-	});
-	function getMoney( str ){
-	        return parseInt( str.replace(/[\D]+/g,'') );
-	}
-
-	function formatReal(mixed) {
-		var inteiro = parseInt(mixed.toFixed(2).toString().replace(/[^\d]+/g, ''));
-		var tmp = inteiro + '';
-		tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
-		if (tmp.length > 6)
-		tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
-
-		return tmp;
-	}
-
-	var fezPedidoSemLogar ="";
-	$("#proximoPedido").click(function(){
-		if(cliente ==''){
-			$.mobile.changePage("#Pagelogin", { transition: "none",  });
-			fezPedidoSemLogar='sim';
-
-		}else{
-			if(contador==0){
-				$(".erroqtde").show();
-			}else{
-				$(".erroqtde").hide();
-				$('#divProdutos').hide();
-				$('#divPagamento').show();
-				$('#proximoPedido').hide();
-				$('#pedir').show();
-				$('#voltarPedido').show();
-			}
-
-		}
-
-	});
-
-
-
-	$("#voltarPedido").click(function(){
-
-			$(".erroqtde").hide();
-			$('#divProdutos').show();
-			$('#divPagamento').hide();
-			$('#proximoPedido').show();
-			$('#pedir').hide();
-			$("#auxvalortroco").val('');
-			$("#respTrocoAux").val('');
-			$("#respTroco").html('R$ 0,00');
-			$('#voltarPedido').hide();
-
-
-	});
-
-
-
-	$("#auxvalortroco").keyup(function() {
-		var valor = $("#auxvalortroco").val().replace(/[^0,1,2,3,4,5,6,7,8,9]+/g,'');
-		$("#auxvalortroco").val(valor);
-	});
-
-	 function limparPedido() {
-		cont=0;
-		itens=0;
-		//codigo="";
-		contador=0;
-		pag='dh';
-		tipoTroco='Sim';
-	 	itens=0;
-   		$('.clone').remove();
-		$('#totalPedido').html('');
-	 	$('#respTroco').html('');
-	  	$('#respTrocoAux').val('');
-		$("#PedidoA").val('entrega');
-		$("#pagamentoPedido").val('0');
-		$("#trocoRespostaPedido").val('0');
- 	 	$(".erroqtde").hide();
-		$('#divProdutos').show();
-		$('#divPagamento').hide();
-		$('#proximoPedido').show();
-		$('#pedir').hide();
-		$("#auxvalortroco").val('');
-		$("#respTrocoAux").val('');
-		$("#respTroco").html('0,00');
-		$('#totalPedidoPag').html('0,00');
-		$('#voltarPedido').hide();
-		$('#lradio-choice-t-6a').removeClass('ui-radio-on');
-
-		$('#lradio-choice-t-6b').removeClass('ui-radio-on');
-		$('#lradio-choice-t-6c').removeClass('ui-radio-on');
-		$('#lradio-choice-t-6a').removeClass('ui-radio-off');
-		$('#lradio-choice-t-6b').removeClass('ui-radio-off');
-		$('#lradio-choice-t-6c').removeClass('ui-radio-off');
-
-		$('#lradio-choice-t-6a').addClass('ui-radio-on');
-		$('#lradio-choice-t-6b').addClass('ui-radio-off');
-		$('#lradio-choice-t-6c').addClass('ui-radio-off');
-
-		$('#radio-choice-t-6a').attr('data-cacheval', true);
-		$('#radio-choice-t-6b').attr('data-cacheval', false);
-		$('#radio-choice-t-6c').attr('data-cacheval', false);
-
-		$('#lbchoicea').removeClass('ui-radio-on');
-		$('#lbchoicea').removeClass('ui-radio-off');
-		$('#lbchoiceb').removeClass('ui-radio-on');
-		$('#lbchoiceb').addClass('ui-radio-off');
-
-
-		$('#radio-choice-t-7a').attr('data-cacheval', true);
-		$('#radio-choice-t-7b').attr('data-cacheval', false);
-
-		$('#trocoRespostaPedido').val('Sim');
-		$('#pagamentoPedido').val(1);
-
-		$('#divAuxTroco').hide();
-		$('#auxCartao').hide();
-		$('#respTroco').html('R$ 0,00');
-
-	}
-
-	/*$('#auxvalortroco').priceFormat({
-					    prefix: '',
-					    centsSeparator: ',',
-					    thousandsSeparator: '.'
-					});*/
-
-
-
-	var erroVAlidacaoPedido =0;
-	$('#auxvalortroco').focusout(function(){
-		valorTroco=0;
-		valorCompra= $('#totalPedidoPag').text();
-		valorCompra = valorCompra.substring(3);
-		valorCompra = valorCompra.replace(".","");
-		valorCompra = valorCompra.replace(",",".");
-
-
-		valorNotaPg = $('#auxvalortroco').val();
-
-		//valorNotaPg= valorNotaPg.substring(3);
-
-		valorNotaPg= valorNotaPg.replace(".","");
-		valorNotaPg= valorNotaPg.replace(",",".");
-
-
-
-		valorCompra=  parseFloat(valorCompra);
-		valorNotaPg = parseFloat(valorNotaPg);
-
-		valorTroco = valorNotaPg - valorCompra;
-
-		if(valorTroco < 0){
-			$('#respTroco').html('Inválido');
-			$('#respTrocoAux').val(' ');
-			erroVAlidacaoPedido =1;
-		}else{
-			valorTroco = valorTroco.toFixed(2);
-			$('#respTrocoAux').val(valorTroco);
-			$('#respTrocoAux').priceFormat({
-					    prefix: 'R$ ',
-					    centsSeparator: ',',
-					    thousandsSeparator: '.'
-					});
-			$('#respTroco').html($('#respTrocoAux').val());
-
-			$('#trocoValorPedido').val(valorNotaPg);
-			$('#trocoRespostaPedido').val('Sim');
-			erroVAlidacaoPedido = 0;
-
-		}
-
-
-	});
-
-
-
-
-
-
-
-
-	var tpPgto;
-	$("input[type='radio']").bind( "change", function(event, ui) {
-	 var checkBoxId =$(this).attr('id');
-
-
-	 if(checkBoxId == 'radio-choice-t-6a'){
-	 	tpPgto ="DH";
-	 	pag='dh';
-		$("#radio-choice-t-6a").checkboxradio("refresh");
-
-
-
-		$('#pagamentoPedido').val(1);
-		$('#pgmoip_id').val('');
-
-	 	$('#divAuxTroco').show();
-		$('#pedir').show();
-		$('#auxCartao').hide();
-		$('#sendToMoip').hide();
-
-
-		//$('#trocoValorPedido').val('');
-		//$('#trocoRespostaPedido').val('Sim');
-		//$('#pagamentoPedido').val(1);
-		//$('.radio-choice-t-7b input').prop('checked', false);
-		//$('.radio-choice-t-7a input').prop('checked', true);
-
-
-		//$('#lbchoiceb').removeClass('ui-btn-active');
-		//$('#lbchoicea').addClass('ui-btn-active');
-	 }
-
-	 if(checkBoxId == 'radio-choice-t-6b'){
-	 		tpPgto="CT";
-	 		pag='cartao';
-
-	 		$('#pedir').hide();
-			$("radio-choice-t-6b").checkboxradio("refresh");
-
-
-			var selecionadoCart = $('#instituicao').find(":selected").text();
-			$('#sendToMoip').show();
-
-			verificaCartao(selecionadoCart);
-			getTokenMoip();
-			nCart = cliente.Cliente.numerocart;
-			dtExpiracao = cliente.Cliente.expiracao;
-			cdSeg = cliente.Cliente.codigoseguranca;
-			portad= cliente.Cliente.portador;
-			cpf = cliente.Cliente.cpf;
-			nasc =  cliente.Cliente.nasc;
-			ano = nasc.substring(0, 4);
-			mes = nasc.substring(5, 7);
-			dia = nasc.substring(8, 10);
-			nasc = dia + "/" + mes + "/" + ano;
-			tel = cliente.Cliente.telefone;
-			instituicao= cliente.Cliente.instituicao;
-
-
-
-			if(nCart !=""){
-				$('.ncartao').val(nCart);
-
-				$('#cksimCart').removeClass('ui-checkbox-off');
-				$('#cksimCart').addClass('ui-checkbox-on');
-			}
-			if(instituicao !=""){
-
-
-				var myselect = $("#instituicao");
-				//myselect[0].selectedIndex = 3;
-
-
-				$('#instituicao option[value='+instituicao+']').prop('selected', true);
-				myselect.selectmenu("refresh");
-				//$('#instituicao').val(instituicao);
-				//$('#mymenu option[value="5"]').prop('selected', true)
-			}
-
-			if(dtExpiracao !=""){
-				$('#Expiracao').val(dtExpiracao);
-			}
-
-			if(cdSeg !=""){
-				$('#CodigoSeguranca').val(cdSeg);
-			}
-			if(portad !=""){
-				$('#Portador').val(portad);
-			}
-			if(cpf !=""){
-				$('#CPF').val(cpf);
-			}
-			if(nasc !=""){
-				$('#DataNascimento').val(nasc);
-			}
-			if(tel !=""){
-				$('#Telefone').val(tel);
-			}
-
-			$('#divAuxTroco').hide();
-			$('#auxCartao').show();
-			$('#trocoValorPedido').val('');
-			$('#trocoRespostaPedido').val('Não');
-	 }
-
-	 if(checkBoxId == 'radio-choice-t-7a'){
-	 	tipoTroco='Sim';
-		$('#auxvalortroco').val('');
-		$('#respTroco').html('');
-		$('#divAuxTroco').show();
-		$('#trocoRespostaPedido').val('Sim');
-		$('#holdValorTroco').show();
-		$('#txtValorTroco').show();
-
-		$('#trocoresposta').val('Sim');
-
-
-	 }
-
-	 if(checkBoxId == 'radio-choice-t-7b'){
-	 	tipoTroco='Nao';
-		$('#auxvalortroco').val('');
-		//$('#divAuxTroco').hide();
-		$('#trocoValorPedido').val('');
-		$('#respTroco').html('');
-		$('#holdValorTroco').hide();
-		$('#txtValorTroco').hide();
-		$('#trocoRespostaPedido').val('Não');
-		$('#trocoresposta').val('Não');
-
-	 }
-
-	});
-
-	var respValida ='';
-	$('.meucadastroForm').submit(function(event){
-
-		event.preventDefault();
-
-		validaFormCad();
-
-		if(respValida == 'ok'){
-			$( ".ui-icon-minus" ).trigger('click');
-			getCoordenadas();
-			latDest= $('latEditDest').val();
-			lngDest= $('lngEditDest').val();
-			lat = $('latEdit').val();
-			lng = $('lngEdit').val();
-
-			setSubmit();
-		}
-	});
-
-	function validaFormCad(){
-		nome = $('.nome').val();
-		username = $('.username').val();
-		password = $('.password').val();
-		//cep = $('.cep').val();
-		logradouro = $('.logradouro').val();
-		numero = $('.numero').val();
-		bairro = $('.bairro').val();
-		cidade = $('.cidade').val();
-		uf = $('.uf').val();
-		telefone = $('.telefone').val();
-		celular = $('.celular').val();
-		minhaFilial=$("#filial_id").val();
-
-
-		if(cliente ==''){
-			if(nome ==''){
-				$('#msgErroValidacao').html('nome');
-				$("#erroValidaPop").popup( "open" );
-
-			}else if(username ==''){
-				$('#msgErroValidacao').html('usu&aacute;rio');
-				$("#erroValidaPop").popup( "open" );
-			}else if(password ==''){
-				$('#msgErroValidacao').html('senha');
-				$("#erroValidaPop").popup( "open" );
-			}else if(logradouro ==''){
-				$('#msgErroValidacao').html('logradouro');
-				$("#erroValidaPop").popup( "open" );
-			}else if(numero ==''){
-				$('#msgErroValidacao').html('numero');
-				$("#erroValidaPop").popup( "open" );
-			}else if(bairro ==''){
-				$('#msgErroValidacao').html('bairro');
-				$("#erroValidaPop").popup( "open" );
-			}else if(cidade ==''){
-				$('#msgErroValidacao').html('cidade');
-				$("#erroValidaPop").popup( "open" );
-			}else if(uf ==''){
-				$('#msgErroValidacao').html('uf');
-				$("#erroValidaPop").popup( "open" );
-			}else if((telefone == '') && (celular == '')){
-				$('#msgErroValidacao').html('telefone ou celular');
-				$("#erroValidaPop").popup( "open" );
-			}else if(minhaFilial ==''){
-
-				$('#msgErroValidacao').html('loja');
-				$("#erroValidaPop").popup( "open" );
-			}else{
-				respValida = "ok";
-				return respValida;
-			}
-
-		}else{
-			if(nome ==''){
-				$('#msgErroValidacao').html('nome');
-				$("#erroValidaPop").popup( "open" );
-
-			}else if(username ==''){
-				$('#msgErroValidacao').html('usu&aacute;rio');
-				$("#erroValidaPop").popup( "open" );
-			}else if(logradouro ==''){
-				$('#msgErroValidacao').html('logradouro');
-				$("#erroValidaPop").popup( "open" );
-			}else if(numero ==''){
-				$('#msgErroValidacao').html('numero');
-				$("#erroValidaPop").popup( "open" );
-			}else if(bairro ==''){
-				$('#msgErroValidacao').html('bairro');
-				$("#erroValidaPop").popup( "open" );
-			}else if(cidade ==''){
-				$('#msgErroValidacao').html('cidade');
-				$("#erroValidaPop").popup( "open" );
-			}else if(uf ==''){
-				$('#msgErroValidacao').html('uf');
-				$("#erroValidaPop").popup( "open" );
-			}else if((telefone == '') && (celular == '')){
-				$('#msgErroValidacao').html('telefone ou celular');
-				$("#erroValidaPop").popup( "open" );
-			}else if(minhaFilial ==''){
-
-				$('#msgErroValidacao').html('loja');
-				$("#erroValidaPop").popup( "open" );
-			}else{
-				respValida = "ok";
-				return respValida;
-			}
-
-		}
-	}
-
-	var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-	function setSubmit(){
-		var dataNascimento = $('.nasc').val();
-		var dataNascimentoAux = $('.nasc').val();
-		dia = dataNascimento.substring(0, 2);
-		mes = dataNascimento.substring(3, 5);
-		ano = dataNascimento.substring(6, 10);
-		dataNascimento = ano + "-" + mes + "-" + dia;
-		$('.nasc').val(dataNascimento);
-		$("#saltEdit").val(salt);
-		var urlAction = URLAPP+"RestClientes/addmobile.json";
-			var dadosForm = $(".meucadastroForm").serialize();
-			$.mobile.loading( "show" ,{theme: 'b'});
-				$.ajax({
-					type: "POST",
-					url: urlAction,
-					data:  dadosForm,
-					dataType: 'json',
-					crossDomain: true,
-
-
-
-					success: function(data){
-
-
-						var res = data.ultimocliente;
-						cliente =  data.ultimocliente;
-						$.mobile.loading( "hide" );
-						$("#saltEdit").val('');
-
-						if(res == 'Erro'){
-
-							$("#popupSenhaIncorreta").popup( "open" );
-							//$( "#popupDialog" ).popup( "open" );
-						}else{
-							if(res=='ErroUsuarioDuplo'){
-
-								$("#popupUsuarioDuplo").popup( "open" );
-							}else{
-
-								$("#popupCaadastroSuccess").popup( "open" );
-							}
-
-							//cliente_id = data.ultimopedido.Cliente.id;
-							//cliente = data.ultimopedido;
-							//$.mobile.changePage("#page0");
-						}
-					},error: function(data){
-						console.log(data);
-						//criar tratatmento de erros
-						$.mobile.loading( "hide" );
-						$("#popupDialogLogin5").popup( "open" );
-						$("#saltEdit").val('');
-					}
-			});
-		$('.nasc').val(dataNascimentoAux);
-	}
-	function getEndereco(cep) {
-	   	$.mobile.loading( "show" );
-	    if($.trim(cep) != ""){
-	        $(".loadingCep").html('Pesquisando...');
-	        $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+cep, function(){
-	            if (resultadoCEP["resultado"] != 0) {
-	                $(".logradouro").val(unescape(resultadoCEP["tipo_logradouro"]) + " " + unescape(resultadoCEP["logradouro"]));
-					$(".bairro").val(unescape(resultadoCEP["bairro"]));
-					$(".cidade").val(unescape(resultadoCEP["cidade"]));
-					$(".uf").val(unescape(resultadoCEP["uf"]));
-					$(".complemento").focus();
-					$.mobile.loading( "hide" );
-	            }else{
-	                //$("#loadingCep").html(unescape(resultadoCEP["resultado_txt"]));
-					$.mobile.loading( "hide" );
-
-	            }
-	        });
-	    }
-	    else{
-	        $(".loadingCep").html('Informe o CEP');
-	    }
-	}
-	$('.cep').focusout(function(){
-		getEndereco($('.cep').val());
-		setTimeout(function(){
-			lograd= $('.logradouro').val();
-			if(lograd != ''){
-				getCoordenadas();
-			}
-		}, 3000);
-		google.maps.event.trigger(map, 'resize');
-
-	});
-
-	$('.numero').focusout(function(){
-		lograd= $('.logradouro').val();
-		if(lograd != ''){
-			getCoordenadas();
-		}
-		google.maps.event.trigger(map, 'resize');
-
-	});
-
-	$('.logradouro').focusout(function(){
-		lograd= $('.logradouro').val();
-		if(lograd != ''){
-			getCoordenadas();
-		}
-		google.maps.event.trigger(map, 'resize');
-
-	});
-	$('.uf').focusout(function(){
-		lograd= $('.logradouro').val();
-		if(lograd != ''){
-			getCoordenadas();
-		}
-		google.maps.event.trigger(map, 'resize');
-
-	});
-	$('.cidade').focusout(function(){
-		lograd= $('.logradouro').val();
-		if(lograd != ''){
-			getCoordenadas();
-		}
-		google.maps.event.trigger(map, 'resize');
-
-	});
-	$('.bairro').focusout(function(){
-		lograd= $('.logradouro').val();
-		if(lograd != ''){
-			getCoordenadas();
-		}
-		google.maps.event.trigger(map, 'resize');
-
-	});
-
-	$('.cep').mask('99999999');
-	$('.telefone').mask('(99) 9999-9999');
-	$.mask.definitions['~'] = '([0-9] )?';
-	$(".celular").mask("(99) 9999-9999~");
-	$(".uf").mask("aa");
-	$(".nasc").mask("99/99/9999");
-
-
-    function removeDiacritics (str) {
+function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
     {'base':'A', 'letters':/[\u0041\u24B6\uFF21\u00C0\u00C1\u00C2\u1EA6\u1EA4\u1EAA\u1EA8\u00C3\u0100\u0102\u1EB0\u1EAE\u1EB4\u1EB2\u0226\u01E0\u00C4\u01DE\u1EA2\u00C5\u01FA\u01CD\u0200\u0202\u1EA0\u1EAC\u1EB6\u1E00\u0104\u023A\u2C6F]/g},
@@ -2043,1170 +114,3622 @@ function checaAtendimento(atendimentocod){
   return str;
 
 }
-	function getCoordenadas() {
 
-		numero = removeDiacritics($('.numero').val());
-		numero = numero.split(' ').join('+');
-		logradouro = removeDiacritics($('.logradouro').val());
-		logradouro = logradouro.split(' ').join('+');
-		bairro = removeDiacritics($('.bairro').val());
-		bairro = bairro.split(' ').join('+');
-		complemento= removeDiacritics($('.complemento').val());
-		complemento = complemento.split(' ').join('+');
-		cidade = removeDiacritics($('.cidade').val());
-		cidade = cidade.split(' ').join('+');
-		uf = removeDiacritics($('.uf').val());
-		uf = uf.split(' ').join('+');
+$(document).ready(function() {
 
-		pesquisa=numero+','+logradouro+','+bairro+','+cidade+','+uf;
 
 
-		var url="http://maps.googleapis.com/maps/api/geocode/json?address="+pesquisa+"&sensor=true";
+$(document).on("pageshow","#index",function(){
+    //cliente ="";
+    $('.limpar').val('');
+});
 
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
 
-				success: function(data){
 
+//$("html, body").niceScroll({cursorcolor:"#FF5C0A" });
+        $(".MenuListaProdutos, #btnEntrega, #submitAtendimento").click(function(){
 
-				i=0;
-				var lat=0;
-				var lng =0;
-				$.each(data.results, function(i, resultados){
+            //atualizarProduto();
+            $.mobile.loading( "hide" );
+        });
+        $('.novopedido').click(function(){
 
-					$('#lngEdit').val(resultados.geometry.location.lng);
-					lat =resultados.geometry.location.lat;
-					lng = resultados.geometry.location.lng
-					$('#lng').val(resultados.geometry.location.lng);
-					$('#latEdit').val(resultados.geometry.location.lat);
-					$('#lat').val(resultados.geometry.location.lat);
-				});
+            //atualizarProduto();
 
-				latorigin = $('#latEdit').val();
-				lngorigin =$('#lngEditDest').val();
-				latDest= $('#latEditDest').val();
-				lngDest=$('#lngEditDest').val();
-				CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
-				$('#gmapLEntrega2').val('');
+            $.mobile.loading( "hide" );
+            $('#sendToMoip').hide();
+        });
 
-			    var latlng = new google.maps.LatLng(lat,lng);
+    $(document).on("pageshow","#page3",function(){ // When entering pagetwo
+        atualizarProduto();
+        if(cliente !=""){
+            $('#clientePedido').val(cliente.Cliente.id);
+        }
 
-			    var options = {
-			        zoom: 16,
-			        center: latlng,
-					scrollwheel:false,
-			        mapTypeId: google.maps.MapTypeId.ROADMAP
-			    };
+    });
 
-			    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-				position = new google.maps.LatLng(lat,lng);
+    $(document).on("change", ".compostoAdd", function(){
 
+        prodId1='';
+        prodId2='';
+        prodTamanho="";
+        itenObs="";
+        comboId = $(this).attr('data-produto');
 
-				 marker = new google.maps.Marker({
-			        position: position,
-			        icon:'images/usuario2.png',
-			        map: map,
-			       // draggable: true
-			    });
+        tamanhoChange  = $("#comboTamanho"+comboId).find('option:selected').attr('data-tamanho');
 
-	  			marker.setPosition(position);
-				//atualiza o ponteiro
-				map.panTo( new google.maps.LatLng( lat,lng ) );
-				$.mobile.loading( "hide" );
+        vlUm  = $("#compostoAdd1"+comboId).find('option:selected').attr('data-'+tamanhoChange);
+        vlDois  = $("#compostoAdd2"+comboId).find('option:selected').attr('data-'+tamanhoChange);
 
-				return true;
-				},error: function(data){
-					$.mobile.loading( "hide" );
-					//$(".erroconexao").popup( "open" );
-					//tratar
+        if(typeof vlUm !== "undefined" &&  typeof vlDois !== "undefined")
+        {
 
-				}
+            prodOpt1  = $("#compostoAdd1"+comboId).find('option:selected').attr('id');
+            nomeProd1  = $("#compostoAdd1"+comboId).find('option:selected').text();
+            prodId1 =  prodOpt1.substring(12);
 
-			});
-	}
+            prodOpt2  = $("#compostoAdd2"+comboId).find('option:selected').attr('id');
+            prodId2 =  prodOpt2.substring(12);
+            nomeProd2  = $("#compostoAdd2"+comboId).find('option:selected').text();
+            prodTamanho=tamanhoChange;
 
+            if(prodTamanho==''){
+                prodTamanho="NT";
+            }
 
+            vt = vlUm;
+            if(vlUm > vlDois){
+                vt = vlUm;
+            }else{
+                vt = vlDois;
+            }
+            vt= parseFloat(vt);
+            vt = vt.toFixed(2);
+            vt = String(vt);
+            vt = vt.replace('.',',');
 
-	 function CalculaDistancia(lat,lng, latDest,lngDest) {
+            $('#btnAddProd'+comboId).attr('data-produtoid1',prodId1);
+            $('#btnAddProd'+comboId).attr('data-produtoid2',prodId2);
 
+            $('#btnAddProd'+comboId).attr('data-produtoNome1',nomeProd1);
+            $('#btnAddProd'+comboId).attr('data-produtoNome2',nomeProd2);
 
+            $('#btnAddProd'+comboId).attr('data-tamanho',prodTamanho);
 
+            $('#btnAddProd'+comboId).attr('data-vlu',vt);
 
+            $('#precoComposto'+comboId).html('R$ '+vt);
+            $('#precoComposto'+comboId).css('display', 'block');
+            $('#btnAddProd'+comboId).css('display', 'inline-block');
 
-		var startOrigin= new google.maps.LatLng(lat,lng);
-		var endDest =new google.maps.LatLng(latDest,lngDest);
 
+        }else{
+            $('.precoComposto').css('display', 'none');
+            $('.addProdutoComposto').css('display', 'none');
+            $('#btnAddProd'+comboId).attr('data-produtoid1','');
+            $('#btnAddProd'+comboId).attr('data-produtoid2','');
+            $('#btnAddProd'+comboId).attr('data-tamanho','');
+            $('#btnAddProd'+comboId).attr('data-produtoNome1','');
+            $('#btnAddProd'+comboId).attr('data-produtoNome2','');
 
-		var service = new google.maps.DistanceMatrixService();
-		service.getDistanceMatrix(
-		  {
-		    origins: [startOrigin],
-		    destinations: [endDest],
-		    travelMode: google.maps.TravelMode.DRIVING,
-		    avoidHighways: false,
-		    avoidTolls: false
-		  }, callback);
+        }
 
 
 
 
+     /* ;
 
-	}
+      vlUm = $("#compostoAdd1"+minhaId).find('option:selected').val();
 
-	function callback(response, status) {
-	  if (status == google.maps.DistanceMatrixStatus.OK) {
-	    var origins = response.originAddresses;
-	    var destinations = response.destinationAddresses;
+      vlDois = $("#compostoAdd2"+minhaId).find('option:selected').val();
 
-	    for (var i = 0; i < origins.length; i++) {
-	      var results = response.rows[i].elements;
-	      for (var j = 0; j < results.length; j++) {
-	        var element = results[j];
-	        if(element.status !=  'ZERO_RESULTS'){
-	        	var distance = element.distance.text;
-	        	var duration = element.duration.text;
-	        	var from = origins[i];
-	        	var to = destinations[j];
-		$('#distanciaCli').val(distance);
-		$('#duracaoCli').val(duration);
-	        }
+     if(vlUm != 0 &&  vlDois !=0){
 
 
-	      }
-	    }
-	  }
-	}
-	function getCoordenadasLatLng(lat, lng) {
+        prodOpt1  = $("#compostoAdd1"+minhaId).find('option:selected').attr('id');
+        prodId1 =  prodOpt1.substring(12);
 
-		var url="http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+','+lng+"&sensor=true";
+        prodOpt2  = $("#compostoAdd2"+minhaId).find('option:selected').attr('id');
+        prodId2 =  prodOpt2.substring(12);
 
-		$.mobile.loading( "show" );
 
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
+        vt = vlUm;
+        if(vlUm > vlDois){
+            vt = vlUm;
+        }else{
+            vt = vlDois;
+        }
+        vt= parseFloat(vt);
+        vt = vt.toFixed(2);
+        vt = String(vt);
+        vt = vt.replace('.',',');
+        $('#btnAddProd'+minhaId).attr('data -vlu',vt);
 
+        $('#precoComposto'+minhaId).html('R$ '+vt);
+        $('#precoComposto'+minhaId).css('display', 'block');
+        $('#btnAddProd'+minhaId).css('display', 'inline-block');
+     }else{
+        $('.precoComposto').css('display', 'none');
+        $('.addProdutoComposto').css('display', 'none');
+     }
+     */
 
+    });
 
+    $(document).on("change", ".bebidas", function(){
 
-				success: function(data){
+         selectBebidasId= $(this).attr('data-id');
 
+        bebId  = $("#selectBebidas_"+selectBebidasId).find('option:selected').attr('data-id');
+        bebNome  = $("#selectBebidas_"+selectBebidasId).find('option:selected').attr('data-nome');
 
-				i=0;
-				$.each(data.results, function(i, resultados){
-					if(i ==0){
-						var endereco = resultados.formatted_address;
+        $('#btnAddProd'+selectBebidasId).attr('data-bebidaid',bebId);
+        $('#btnAddProd'+selectBebidasId).attr('data-bebidanome',bebNome);
+    });
 
-						var  res = endereco.split(",");
-						cep =res[1];
-						cep =  cep.split("-");
-						cepAux = cep[0] + cep[1];
-						$('#logradouroEdit').val(res[0]);
-						$('#cepEdit').val(cepAux);
-						//console.log(res);
-						return true;
-					}
-					$.mobile.loading( "hide" );
+    $(document).on("change", ".pagueGanhe", function(){
 
-				});
+         selectPagueGanheId= $(this).attr('data-id');
 
-				},error: function(data){
-					$.mobile.loading( "hide" );
-					//$(".erroconexao").popup( "open" );
+        pagGanId  = $("#selectPagueGanhe_"+selectBebidasId).find('option:selected').attr('data-id');
+        pagGanNome  = $("#selectPagueGanhe_"+selectBebidasId).find('option:selected').attr('data-nome');
 
-				}
+        $('#btnAddProd'+selectBebidasId).attr('data-pagueganheid',pagGanId);
+        $('#btnAddProd'+selectBebidasId).attr('data-pagueganhenome',pagGanNome);
+    });
 
-			});
-	}
-	//google maps
-	 // your google map container
+    $(document).on("change", ".comboTamanho", function(){
 
 
 
+        produtoTamId = $(this).attr('data-produto');
 
+        tamanho  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-tamanho');
+        if(typeof tamanho !== "undefined")
+        {
 
-	var localizacaoEntrega="";
-	function getAtendimentoPosition(atendimentoid){
 
+            precoTamSimples  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-preco');
 
-		//$.mobile.loading( "show" ,{theme: 'b'});
-		var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
+            //Se não tiver preço o produto é composto
+            if(precoTamSimples != 'NaN' && precoTamSimples  !='' ){
 
 
+                vt = precoTamSimples;
 
-				success: function(data){
+                vt= parseFloat(vt);
+                vt = vt.toFixed(2);
+                vt = String(vt);
+                vt = vt.replace('.',',');
+                $('#btnAddProd'+produtoTamId).attr('data-vlu',vt);
 
+                $('.precotam'+produtoTamId).html('R$ '+vt);
+                $('.precotam'+produtoTamId).css('display', 'block');
+                $('#btnAddProd'+produtoTamId).css('display', 'inline-block');
+                $('#btnAddProd'+produtoTamId).attr('data-tamanho',tamanho);
 
-				//$.mobile.loading( "hide" );
+            }else{
+                $('#compostoAdd1'+produtoTamId).css('display', 'block');
+                $('#compostoAdd2'+produtoTamId).css('display', 'block');
+                $('#compostoLabelAdd'+produtoTamId).css('display', 'block');
+                $("#compostoAdd1"+produtoTamId).val(0);
+                $("#compostoAdd2"+produtoTamId).val(0);
+                $('.precoComposto').css('display', 'none');
+                $('#btnAddProd'+produtoTamId).css('display', 'none');
+                $('#btnAddProd'+produtoTamId).attr('data-tamanho','');
+            }
 
-					//$.mobile.loading( "hide" );
-					localizacaoEntrega="";
+            possuiBebida  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-bolbebida');
 
+            if(possuiBebida=='true'){
+                $('.bebidas_'+produtoTamId).css('display','block');
+            }else{
+                $('.bebidas_'+produtoTamId).css('display','none');
+                $('#btnAddProd'+produtoTamId).attr('data-bebidanome','');
+                $('#btnAddProd'+produtoTamId).attr('data-bebidaid','');
+            }
+            possuiPagGanhe  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-bolganhe');
 
-						if(localizacaoEntrega != ""){
-							var start= localizacaoEntrega.Atendimento.lat +','+localizacaoEntrega.Atendimento.lng;
-							var end = localizacaoEntrega.Cliente.lat +','+localizacaoEntrega.Cliente.lng;
+            if(possuiPagGanhe=='true'){
+                $('.pagueGanhe_'+produtoTamId).css('display','block');
+            }else{
+                $('.pagueGanhe_'+produtoTamId).css('display','none');
+                $('#btnAddProd'+produtoTamId).attr('data-pagueganheid','');
+                $('#btnAddProd'+produtoTamId).attr('data-pagueganhenome','');
+            }
 
-							//console.log(start);
-							//console.log(end);
-							var request = {
-						    origin:start,
-						    destination:end,
-						    travelMode: google.maps.TravelMode.DRIVING
-						  };
-						  directionsService.route(request, function(result, status) {
-						    if (status == google.maps.DirectionsStatus.OK) {
-						      directionsDisplay.setDirections(result);
-						    }
-						  });
-						}
+        }else{
 
 
+            $('.precotam').css('display', 'none');
+            $('.dispNoneTam').css('display', 'none');
+            $('#compostoAdd1'+produtoTamId).css('display', 'none');
+            $('#compostoAdd2'+produtoTamId).css('display', 'none');
+            $('#compostoLabelAdd'+produtoTamId).css('display', 'none');
+            $("#compostoAdd1"+produtoTamId).val(0);
+            $("#compostoAdd2"+produtoTamId).val(0);
+            $('#btnAddProd'+produtoTamId).css('display', 'none');
+        }
+        /*alert();
+        tamPreco  = $("#selectTamanho"+produtoTamId).find('option:selected').attr('data-preco');
+        tamTamanho = $("#selectTamanho"+produtoTamId).find('option:selected').attr('data-tamanho');
+        if(tamPreco !='' && tamPreco!=null ){
+            vt= parseFloat(tamPreco);
+            vt = vt.toFixed(2);
+            vt = String(vt);
+            vt = vt.replace('.',',');
+            if(isNaN(tamPreco))
+            {
+                $('#compostoAdd1'+produtoTamId).css('display', 'block');
+                $('#compostoAdd2'+produtoTamId).css('display', 'block');
+            }else
+            {
+                $('.precotam'+produtoTamId).html('R$ '+vt);
+                $('.precotam'+produtoTamId).css('display', 'block');
+                $('#btnAddProd'+produtoTamId).attr('data-vlu',vt);
+                $('#btnAddProd'+produtoTamId).attr('data-tamanho',tamTamanho);
+                $('#btnAddProd'+produtoTamId).css('display', 'inline-block');
 
-					return localizacaoEntrega;
+            }
 
-				},error: function(data){
-					//$.mobile.loading( "hide" );
-					//$("#popupDialogLogin8").popup( "open" );
+        }else{
+            $('.precotam').css('display', 'none');
+            $('.dispNoneTam').css('display', 'none');
+            $('#compostoAdd1'+produtoTamId).css('display', 'none');
+            $('#compostoAdd2'+produtoTamId).css('display', 'none');
+        }*/
 
 
-				}
+        //tamanhoId =  $("#selectTamanho"+minhaId).find('option:selected').attr('id');
+    });
 
-			});
+    function gerarListaProdutos(ob, j){
+        var selectTamanho="";
+        var  dataTamanhos="";
+        var  dataTamanhosPrecos="";
+        selectBebidas="";
+        selectpagueGanhe="";
+        contTam=0;
+        if(bebidas != null){
 
 
-	}
+            bebidaNone='noneImportant';
+            if(ob.acompanha_bebida ==true){
+                bebidaNone='';
 
-	function getAtendimentoPositionAlterado(atendimentoid){
+            }
+            selectBebidas='<label class="labelBedidas '+bebidaNone+' bebidas bebidas_'+ob.id+'" >Bebida</label><select id="selectBebidas_'+ob.id+'" class="selectBeidas '+bebidaNone+' bebidas bebidas_'+ob.id+'"  data-id="'+ob.id+'">'+bebidas+'</select>';
+        }
 
+        if(pagueGanhe != null){
+            console.log(pagueGanhe);
 
-		//$.mobile.loading( "show" ,{theme: 'b'});
-		var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
+            pagueGanheNone='noneImportant';
+            if(ob.promo_compre_ganhe ==true){
+                pagueGanheNone='';
 
+            }
+            selectpagueGanhe='<label class="labelGanhe '+pagueGanheNone+' pagueGanhe pagueGanhe_'+ob.id+'">Ganhe</label><select  id="selectPagueGanhe_'+ob.id+'" data-id="'+ob.id+'" class="selectGanhe '+pagueGanheNone+' pagueGanhe pagueGanhe_'+ob.id+'">'+pagueGanhe+'</select>';
+        }
 
+        if(ob.ativo == 1){
 
-				success: function(data){
+            if(ob.disponivel == 1){
+                vlunit= parseFloat(ob.preco_venda);
+                vlunit = vlunit.toFixed(2);
 
+                tamanhoAddValues = "<option value='0'>Selecione</option>";
+                selectTamanho="";
+                classNone="";
+                if(ob.composto == 1){
 
+                    compostoAddValues = "<option value='0'>Selecione</option>";
 
 
 
 
+                        $.each(ob.tamanhos, function(p, tamanhoscompostos){
+                            $.each(ob.tamanhos, function(h, tam){
 
+                                    $.each(tam, function(y, ta){
+                                        if(contTam<=4){
 
-							var start= data.resultados.Atendimento.lat +','+data.resultados.Atendimento.lng;
-							var end = data.resultados.Cliente.lat +','+data.resultados.Cliente.lng;
-						console.log(start);
+                                            if(ta.Tamanho.ativo==1){
+                                                classNone="dispNoneTam";
+                                                myString= ta.Tamanho.nome;
+                                                if(typeof myString !== "undefined")
+                                                {
+                                                    myString = removeDiacritics(myString);
+                                                    myString.split(' ').join('');
 
-						var request = {
-						    origin:start,
-						    destination:end,
-						    travelMode: google.maps.TravelMode.DRIVING
-						  };
-						  directionsService.route(request, function(result, status) {
-						    if (status == google.maps.DirectionsStatus.OK) {
-						      directionsDisplay.setDirections(result);
-						    }
-						  });
+                                                    myString= myString.toLowerCase();
+                                                }
+                                                vlunitTamSimples= parseFloat(ta.Tamanho.preco);
+                                                vlunitTamSimples = vlunitTamSimples.toFixed(2);
+                                                if(ta.Tamanho.nome != '' ){
+                                                    tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"'' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
+                                                }
 
+                                            }
+                                            contTam++;
+                                        }
 
+                                    });
 
 
-					//return localizacaoEntrega;
+                            });
 
-				},error: function(data){
-					//$.mobile.loading( "hide" );
-					//$("#popupDialogLogin8").popup( "open" );
+                        });
 
+                    selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+                    var dataTam="";
+                    $.each(ob.produtoscomposicao, function(n, composicao){
 
-				}
 
-			});
+                        $.each(composicao, function(m, composto){
 
 
-	}
+                            $.each(composto, function(n, tamanho){
 
-	$(".minhalocalizacao").click(function(){
-		$.mobile.changePage("#page6", { transition: "none",  });
-	});
+                                if(typeof tamanho.tamanhos !== "undefined")
+                                {
+                                    $.each(tamanho.tamanhos, function(k, tam){
 
-	$( document ).on( "pageinit", "#page6", function() {
+                                        contTam=0;
+                                        $.each(tam, function(h, ta){
 
-		setTimeout(function() {
-	        function initialize() {
-			   	$("#gmapLEntrega").html('');
-			    var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
+                                            //if(contTam==0){
 
-			    var options = {
-			        zoom: 16,
-			        center: latlng,
-					scrollwheel:false,
-			        mapTypeId: google.maps.MapTypeId.ROADMAP
-			    };
 
-			    map = new google.maps.Map(document.getElementById("gmapLEntrega"), options);
-			}
-			initialize();
-		    var newLatLng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
 
+                                                if(ta.Tamanho.ativo==true){
+
+                                                    if(typeof ta.Tamanho.nome !== 'undefined' && ta.Tamanho.nome !='' ){
+                                                        vlunitTam= parseFloat(ta.Tamanho.preco);
+                                                        vlunitTam = vlunitTam.toFixed(2);
+                                                        tamNome = removeDiacritics(ta.Tamanho.nome);
+                                                        tamNome.split(' ').join('');
+                                                        tamNome= tamNome.toLowerCase();
+                                                        dataTam = dataTam + " data-"+tamNome+"='"+vlunitTam+"'";
+                                                    }
+
+
+
+                                                }
+                                                contTam++;
+                                            //}
+                                        });
+
+                                    });
+                                }
+
+                            });
+                            console.log(dataTam);
+                            //vlunitComposto= parseFloat(composto.Produto.preco_venda);
+                            //vlunitComposto = vlunitComposto.toFixed(2);
+
+                            compostoAddValues = compostoAddValues+ " <option id=produtoComb"+n+composto.Produto.id+"  "+dataTam+">"+composto.Produto.nome+"</option> ";
+                            dataTamanhos="";
+                            dataTamanhosPrecos="";
+                            dataTam="";
+                        });
+
+                    });
+
+                    return '<div class= "slider">\
+                    <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
+                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <small>'+ob.descricao+'</small>\
+                    </div></div>\
+                    '+selectTamanho+'\
+                    <label id="compostoLabelAdd'+ob.id+'" class=" compostoLabelAdd  noneImportant">Sabores</label>\
+                    <select type="text" class="compostoAdd '+classNone+'" id="compostoAdd1'+ob.id+'"  data-produto="'+ob.id+'" data-theme="b"  data-mini="true" >'+compostoAddValues+'</select>\
+                    <select type="text" class="compostoAdd '+classNone+'" id="compostoAdd2'+ob.id+'" data-produto="'+ob.id+'"   data-theme="b"  data-mini="true">'+compostoAddValues+'</select>\
+                    '+selectBebidas+'\
+                    '+selectpagueGanhe+'\
+                    <div class="divControles" data-role="controlgroup" data-mini="true">\
+                    <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
+                    <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
+                    <input type="image" src="images/carrinho.png" class="addProduto addProdutoComposto  '+classNone+' " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-produtoid1="" data-produtoid2="" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
+                    compostoAddValues="";
+                    selectTamanho="";
+                }else{
+
+
+                    selectTamanho="";
+                    flagTamanho=false;
+                    tamanhoAddValues="<option value='0'>Selecione</option>";
+                    contTam=0;
+                    $.each(ob.tamanhos, function(p, tamanhoscompostos){
+                        $.each(ob.tamanhos, function(h, tam){
+                            $.each(tam, function(y, ta){
+                                if(contTam<=4){
+                                    if(ta.Tamanho.ativo==1){
+                                        classNone="dispNoneTam";
+                                        myString= ta.Tamanho.nome;
+                                        if(typeof myString !== "undefined")
+                                        {
+                                            myString = removeDiacritics(myString);
+                                            myString.split(' ').join('');
 
-		    marker = new google.maps.Marker({
-		        position: newLatLng,
-		        map: map,
-		         icon:'images/usuario2.png',
-		    });
-	    }, 1000);
-	});
-	var longetudeMeLoc ="";
-	var latitudeMeLoc="";
-	function geoSuccess( pos ) {
+                                            myString= myString.toLowerCase();
+                                        }
+                                        vlunitTamSimples= parseFloat(ta.Tamanho.preco);
+                                        vlunitTamSimples = vlunitTamSimples.toFixed(2);
+                                        tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
+                                        flagTamanho=true;
 
-		// armazena as coordenadas de latitude e longitude
-			lat = pos.coords.latitude,
-			lng = pos.coords.longitude;
-			$('.lat').val(lat);
-			$('.lng').val(lng);
-			//getCoordenadasLatLng(lat, lng);
-			position = new google.maps.LatLng(lat,lng);
-			 marker = new google.maps.Marker({
-		       	 	position: position,
-		       		 map: map,
-		       		  icon:'images/usuario2.png',
-		       // draggable: true
-		    });
+                                    }
+                                    contTam++;
+                                }
+                            });
+                        });
+                    });
+                    if(flagTamanho != false){
+                        selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+                        flagTamanho=false;
+                    }
 
-  			marker.setPosition(position);
-		//atualiza o ponteiro
-		map.panTo( new google.maps.LatLng( lat,lng ) );
-		$.mobile.loading( "hide" );
-		google.maps.event.trigger(map, 'resize');
-		// crie qualquer coisa legal usando as coordenadas
-	};
+                    return '<div class= "slider">\
+                    <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
+                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <small>'+ob.descricao+'</small>\
+                    </div></div>'+selectTamanho+'\
+                    '+selectBebidas+'\
+                    '+selectpagueGanhe+'\
+                    <div class="divControles" data-role="controlgroup" data-mini="true">\
+                        <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
+                    <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
+                    <input type="image" src="images/carrinho.png" class="addProduto '+classNone+' " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
+                    selectTamanho="";
+                }
+            }else{
 
-	function geoError( err ) {
-		switch( err.code ) {
-			case 1:
-				// permissao negada pelo usuario
-				alert('permissao negada pelo usuario');
-				$.mobile.loading( "hide" );
-				break;
+                vlunit= parseFloat(ob.preco_venda);
+                vlunit = vlunit.toFixed(2);
+                return '<div class= "slider">\
+                <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
+                <h4>'+ob.nome+'</h4><span class="preco">Indispon&iacute;vel<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                <small>'+ob.descricao+'</small>\
+                </div></div>\
+                <div class="divControles" data-role="controlgroup" data-mini="true">\
+                    <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
+                <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
+                <input type="image" src="images/carrinho.png" class="addProduto" DISABLED alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" id="btnAddProd'+ob.id+'" ></div></div>';
+            }
 
-			case 2:
-				alert('nao foi possivel alcancar os satelites GPS');
-				$.mobile.loading( "hide" );
-				// nao foi possivel alcancar os satelites GPS
-				break;
+        }else{
+            nda="";
+            return nda;
+        }
 
-			case 3:
-				alert('a requisicao demorou demais para retornar');
-				$.mobile.loading( "hide" );
-				// a requisicao demorou demais para retornar
-				break;
 
-			case 0:
-				alert('ocorreu um erro desconhecido...');
-				$.mobile.loading( "hide" );
-				// ocorreu um erro desconhecido...
-				break;
-		}
-	};
+     }
 
-	var geoOptions = {
-		enableHighAccuracy: true,
-		timeout: 30000,
-		maximumAge: 3000
-	};
+     var optionsValues='<option value="1" selected="selected">1</option>';
+     function geraoption(){
+        for(k=2; k<=50; k++){
+            optionsValues= optionsValues + '<option value="'+k+'">'+k+'</option>';
+        }
+        return optionsValues;
+     }
 
+     geraoption();
 
-	$('body').on('click', '.meLocalize', function (event) {
-		$.mobile.loading( "show" );
+     var colapsableTrue='';
+     var contColapsable=0;
+     function gerarListaCategoria(obj, z){
 
-		navigator.geolocation.getCurrentPosition( geoSuccess, geoError, geoOptions );
+                    varprod="";
+                    objProd =obj.Produto;
+                    var ncat=0;
+                    $.each(objProd, function(i, ob){
 
+                        varprod = varprod + gerarListaProdutos(ob, i);
 
 
-	});
-	function meLocalize() {
+                    });
 
-	}
+        if(z == 0){
+            colapsableTrue= 'data-collapsed="false"';
+        }else{
+            colapsableTrue="";
+        }
+         var content = '<div data-role="collapsible" id="set'+z+'" data-theme="b" data-content-theme="b" class ="abaconteudo" >\
+         <h3>'+obj.Categoria.nome+'</h3><div id="owl-example'+z+'" data-role="listview" data-inset="true" class="listview" >'+varprod+'</div></div>';
 
-	$(".localizarpedido").click(function(){
-		$.mobile.changePage("#map-page", { transition: "none",  });
 
+            //$('.listview').owlCarousel({navigation : true,  navigationText : ["ant","prox"], pagination : false,});
 
-	});
 
-	var initialize2="";
-	var initialize22="";
-	var loopMap=0;
 
 
+        return content;
 
-	function cancelinitialize22() {
-	    if (initialize22) {
-	        clearTimeout(initialize22);
-	        initialize22 = 0;
-	    }
-	}
+     }
 
-	var map;
 
-	var markers=[];
-	var marker ;
+function atualizarProduto(){
 
-	var map;
-	var directionsDisplay; // Instanciaremos ele mais tarde, que será o nosso google.maps.DirectionsRenderer
-	var directionsService = new google.maps.DirectionsService();
+        $('#set').html('');
+        $.mobile.loading( "show" ,{theme: 'b'});
+        minhaUrl=URLAPP+"RestProdutos/prodsmobile.json?se="+empresa+"&sf=&fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: minhaUrl,
+                dataType: 'json',
+                crossDomain: true,
 
-	function initializeDistancia() {
-	   directionsDisplay = new google.maps.DirectionsRenderer(); // Instanciando...
-	   var latlng = new google.maps.LatLng(-22.775728, -43.4320752);
 
-	   var options = {
-	      zoom: 16,
-	      center: latlng,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
-	   };
 
-	   map = new google.maps.Map(document.getElementById("map-canvas"), options);
-	   directionsDisplay.setMap(map); // Relacionamos o directionsDisplay com o mapa desejado
-	}
+                success: function(data){
+                    $('#set').html('');
 
-	var checaPosition="";
 
-	$(document).on("pagebeforehide","#map-page",function(){ // When leaving #map-page
-		  clearTimeout(checaPosition);
-	});
-	$(".btn-locPedido").click(function(){
-		var atendimentoId2 = $("#idAtend").text();
+                    $.each(data, function(i, resultados){
+                        z=0;
+                        $.each(resultados, function(z, resultado){
 
-		$.mobile.changePage("#map-page", { transition: "none",  });
-		var map="";
+                         //$("div").append(field + " ");
 
 
+                            $( "#set" ).append( gerarListaCategoria(resultado,z) ).collapsibleset( "refresh" );
+                            z=z+1;
+                                //$("#owl-example"+z).owlCarousel({navigation : true,  navigationText : ["ant","prox"], pagination : false,});
+                            });
+                        d=0;
+                        $(".listview").each( function() {
 
+                            $('#owl-example'+d).owlCarousel({navigation : true,  navigationText : ["<img src='images/setaesquerda.png' class='setaSlider' width='56px' />","<img src='images/setadireita.png' class='setaSlider' width='56px' />"], pagination : false,});
 
-		setTimeout(function() {
-			initializeDistancia();
-			getAtendimentoPositionAlterado(atendimentoId2);
+                            d=d+1;
+                        });
+                     //$("div").append(field + " ");
+                });
 
-		 }, 3000);
+                    $.mobile.loading( "hide" );
 
-	 	checaPosition = setInterval(function(){
-			getAtendimentoPositionAlterado(atendimentoId2);
-		},30000);
 
-		/*setTimeout(function() {
-	        function initialize() {
-			   	$("#map-canvas").html('');
-				if(localizacaoEntrega !=''){
-					var latlng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
+                },error: function(data){
 
-				    var options = {
-				        zoom: 16,
-				        center: latlng,
-						scrollwheel: false,
-				        mapTypeId: google.maps.MapTypeId.ROADMAP
-				    };
 
-				    map = new google.maps.Map(document.getElementById("map-canvas"), options);
+                    $.mobile.loading( "hide" );
+                    $("#popupDialogLogin4").popup( "open" );
 
-				}
+                }
 
-			}
-			initialize();
-			if(localizacaoEntrega !=''){
-		    	var newLatLng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
-			}
+            });
 
-		    marker = new google.maps.Marker({
-		        position: newLatLng,
-		        map: map,
-		       // draggable: true
-		    });
-	    }, 3000);
 
-		loopMap=0;
-      	var initialize22 = setInterval(function(){
+        }
 
-			if(loopMap==0){
-				getAtendimentoPosition(atendimentoId2);
-				//$("#map-canvas").html('');
+    });
 
 
 
-			   position = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
-  			  	marker.setPosition(position);
-				//atualiza o ponteiro
-				map.panTo( new google.maps.LatLng( localizacaoEntrega.lat, localizacaoEntrega.lng ) );
+ $( window ).load(function() {
 
-			}else{
-				clearTimeout(initialize22);
-	       		initialize22 = 0;
-			}
+    $('body').on('click', '.infoProduto', function () {
 
+        var id=  $(this).attr('id');
+        var expReg01 = /\D+/gi;
+        numero= id.replace(expReg01,'');
 
-		},40000);*/
+        if ($('#popupCloseRight'+numero).is(":hidden")) {
 
-	});
+            $('#popupCloseRight'+numero).slideDown();
+            //$('#infoProduto'+numero).html('Menos');
+        }else{
+            $('#popupCloseRight'+numero).slideUp();
+            //$('#infoProduto'+numero).html('Mais');
+        }
 
 
-	$('body').on('click', '.ui-toolbar-back-btn', function (event) {
+    });
 
-		loopMap=1;
-		$('#sendToMoip').hide();
+});
 
-	});
+    $( document ).ready(function() {
 
 
-	salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-	$(document).on( "pageshow",'#page5', function() {
-		atualizarLojas();
-		$('.empresaEdit').val(empresa);
-		$("#saltEdit").val(salt);
-		if(cliente ==""){
-			$("#submitFormCliente").html('Cadastrar');
-		}else{
+    $('body').on('keyup', '.inputAdd', function () {
 
-			var dataNascimento = cliente.Cliente.nasc;
-			var dataNascimentoAux = $('.nasc').val();
-			ano = dataNascimento.substring(0, 4);
-			mes = dataNascimento.substring(5, 7);
-			dia = dataNascimento.substring(8, 10);
-			dataNascimento = dia + "/" + mes + "/" + ano;
+        var numero = $(this).attr('id');
+        //numero = numero.substring(10);
+        var dInput = this.value;
 
+        $("#"+numero).val(dInput);
 
 
-			$('#nomeEdit').val(cliente.Cliente.nome);
-			$('#usernameEdit').val(cliente.Cliente.username);
-			//$('#passwordEdit').val(cliente.Cliente.password);
-			$('#nascEdit').val(dataNascimento);
-			$('#cepEdit').val(cliente.Cliente.cep);
-			$('#logradouroEdit').val(cliente.Cliente.logradouro);
-			$('#complementoEdit').val(cliente.Cliente.complemento);
-			$('#numeroEdit').val(cliente.Cliente.numero);
-			$('#bairroEdit').val(cliente.Cliente.bairro);
-			$('#cidadeEdit').val(cliente.Cliente.cidade);
-			$('#ufEdit').val(cliente.Cliente.uf);
-			$('#emailEdit').val(cliente.Cliente.email);
-			$('#telefoneEdit').val(cliente.Cliente.telefone);
-			$('.filialEdit').val(cliente.Cliente.filial_id);
-			$('#empresaEdit').val(cliente.Cliente.empresa_id);
+    });
+    $('body').on('change', '.inputAdd', function () {
+        var idAdd=  $(this).attr('id');
 
-			$('#celularEdit').val(cliente.Cliente.celular);
-			$('#idEdit').val(cliente.Cliente.id);
-			$("#lngEdit").val(cliente.Cliente.lng);
-			$('#latEdit').val(cliente.Cliente.lat);
-			$('#latEditDest').val(cliente.Cliente.latdest);
-			$('#lngEditDest').val(cliente.Cliente.lngdest);
-		}
+        inputAddValue = $(this).val();
+        if(inputAddValue.length > 1){
+            $('#'+idAdd).css('text-indent','9px');
+        }else{
+            $('#'+idAdd).css('text-indent','13px');
 
+        }
+    });
+    var chekaProduto="falso";
 
-		if(cliente ==""){
 
-			setTimeout(function() {
-					var latlng = new google.maps.LatLng(-22.7734767, -43.4346817);
+     var cont=0;
+     var itens=0;
+    var codigo="";
+    var contador=0;
+    var vlUnitarioAut=0;
+    var produto="";
+    var qtde =0;
+    var vlTotal=0;
 
-				    var options = {
-				        zoom: 16,
-				        center: latlng,
-						scrollwheel: false,
-				        mapTypeId: google.maps.MapTypeId.ROADMAP
-				    };
+    function adicionarLinhaPedido(codigo, produto, cont, vlUnitarioAut, qtde, vlTotal ){
 
-				    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-		    }, 2000);
+        itens=itens+1;
 
-		}else{
-			setTimeout(function() {
-					var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
+        $("#pedido").append('<tr class="clone clone'+contador+'" id="linha'+contador+'"><td class="tbcodigo">'+codigo+'</td><td>'+produto+" "+ itenObs+ '</td><td  class="dinheiro" id="dinheiro'+cont+'" >'+vlUnitarioAut+'</td><td>'+qtde+'</td><td class="soma dinheiro" id="soma'+cont+'">'+vlTotal+'</td></tr>');
 
-				    var options = {
-				        zoom: 16,
-				        center: latlng,
-						scrollwheel: false,
-				        mapTypeId: google.maps.MapTypeId.ROADMAP
-				    };
 
-				    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
+            $('.dinheiro').priceFormat({
+                prefix: 'R$ ',
+                centsSeparator: ',',
+                thousandsSeparator: '.',
+                centsLimit: 2,
+            });
+            var sum = 0;
+            $('.soma').each(function() {
+                var value = $(this).text();
 
+                value = value.substring(3);
+                value = value.replace(".","");
+                value = value.replace(",",".");
 
-					marker = new google.maps.Marker({
-				        position: latlng,
-				        map: map,
-				         icon:'images/usuario2.png',
-				       // draggable: true
-				    });
-		    }, 2000);
 
-		}
-	});
+                value = parseFloat(value);
+                if(!isNaN(value) && value.length != 0) {
 
+                    sum = sum + value;
+                }
+              $("#linhaTotal").remove();
 
+            });
+            $("#linhaTotal").remove();
+            sum = sum.toFixed(2);
+            sum = sum.toString();
 
-	$('#btn-comentar').click(function(){
-		$( "#popupComentarPedido" ).popup( "open" );
-	});
-	//$('#avaliacaoPedido').raty({half     : true,});
-	//$('#avaliarPedido').raty();
+            sum = sum.replace('.', ',');
+            vlTotalSub=vlTotal.replace(",",".");
 
-	//funções para o chat
-	var numeroPedido;
-	$('#btn-chat').click(function(){
-		numeroPedido= $("#idPedidoAux").text();
-	});
+            $("#pedido").append('<tr id="linhaTotal"><td colspan="4">Total</td><td id="totalPedido">'+sum+'</td></tr>');
+            $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][produto_id]" id="Itensdepedido'+contador+'ProdutoId" value="'+codigo+'">');
+            $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][qtde]" id="Itensdepedido'+contador+'Qtde" value="'+qtde+'">');
+            $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_unit]" id="Itensdepedido'+contador+'valor_unit" value="'+vlUnitarioAut+'">');
+            $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_total]" id="Itensdepedido'+contador+'valor_total" value="'+vlTotalSub+'">');
+            if(typeof prodId1 !== 'undefined' && typeof prodId2 !== 'undefined'){
+                $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostoum_id]" id="Itensdepedido'+contador+'compostoum_id" value="'+prodId1+'">');
+                prodId1='';
 
-	$('#formChat').submit(function(event){
-		event.preventDefault();
+                $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostodois_id]" id="Itensdepedido'+contador+'compostodois_id" value="'+prodId2+'">');
+                prodId2='';
 
-		name = cliente.Cliente.username;
-		$('#idclientemsg').val(cliente.Cliente.id);
-		$('#idsenderemsg').val(cliente.Cliente.id);
+                /*$('.addProdutoComposto').css('display', 'none');
+                $('.precoComposto').css('display', 'none');
+                $('.compostoAdd').css('display', 'none');
+                $('.compostoLabelAdd').css('display','none');
+                $('.addProdutoComposto').css('display', 'none');*/
+            }
 
-		$('#idpedidoemsg').val(numeroPedido);
+            if(typeof itemBebidaId !== 'undefined'){
+                $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][bebida_id]" id="Itensdepedido'+contador+'bebida_id" value="'+itemBebidaId+'">');
+                itemBebidaId='';
+                itemBebidaNome="";
+            }
+            if(typeof itemPagueGanheId !== 'undefined'){
+                $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][ganhe_id]" id="Itensdepedido'+contador+'ganhe_id" value="'+itemPagueGanheId+'">');
+                itemPagueGanheId='';
+                itemPagueGanheNome='';
+            }
 
-		msg = $("#msg").val();
-		if(msg !=''){
-			enviaMensagem();
-			$("#msg").val('');
+            $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][obs_sis]" id="Itensdepedido'+contador+'obs_sis" value="'+itenObs+'">');
+            itenObs="";
 
-		}
 
-	});
 
-	var myVar;
-	$(document).on("pagebeforehide","#page10",function(){ // When leaving pagetwo
 
-		 clearInterval(myVar);
-	});
-	$( document ).on( "pageinit", "#page10", function() {
-		$('#idclientemsg').val(cliente.Cliente.id);
-		recebeMensagemInicio();
-		setTimeout(function(){
-			$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-			}, 4000);
-    	/*$('#chatZone').animate(
-				{
-					scrollTop: $('#chatZone').prop("scrollHeight"),
 
-				}, 500);*/
-		//$("#chatZone").getNiceScroll().resize();
+            $('#totalPedido').priceFormat({
+                prefix: 'R$ ',
+                centsSeparator: ',',
+                thousandsSeparator: '.'
+            });
+            cont= cont + 1;
+            contador = contador + 1;
 
-		//$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-		//myVar = setInterval(function(){verificaMensagem();}, 3000);
+            valorTotalPag = $("#totalPedido").text();
+            $('#totalPedidoPag').html(valorTotalPag);
 
-	});
+    }
+    $('body').on('click', '#btn-confirmarProd', function () {
+        adicionarLinhaPedido(codigo, produto, cont, vlUnitarioAut, qtde, vlTotal );
+        vlUnitarioAut=0;
+        produto="";
+        qtde =0;
+        vlTotal=0;
+        $('#popProdItem').html(' ');
+        $('#popQtdeItem').html(' ');
+        $('#popVlUnitItem').html(' ');
+        $('#popVlTotalItem').html(' ');
+        $("#popupConfirmaProd").popup( "close" );
+    });
+    $(document).on("pagehide","#page3",function(){
+        itenObs="";
+        prodId2="";
+        prodId1="";
+    });
 
-	$(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo
-		$('#empresa_input').val(empresa);
-		$('#filial_input').val(filialPadrao);
-	});
-	$(document).on("pageshow","#page10",function(){ // When entering pagetwo
-		myVar = setInterval(function(){
+    String.prototype.capitalize = function(){
+            return this.toLowerCase().replace( /\b\w/g, function (m) {
+                return m.toUpperCase();
+            });
+    };
 
-			verificaMensagem();
-		}, 2000);
-	});
-	var verificaPedido;
-	$(document).on("pageshow","#page2",function(){ // When entering pagetwo
-		clearInterval(myVar);
-		verificaPedido = setInterval(function(){getSituacaoPedido();}, 30000);
+    function validaAddBtn(idBtn){
+        textoAvisoBtn=null;
+        if($("#selectBebidas_"+idnumero).is(":visible")){
 
-	});
+            vlSelecionado = $("#selectBebidas_"+idBtn).find('option:selected').attr('data-id');
+            if(typeof vlSelecionado ==='undefined' ){
+                textoAvisoBtn ="Selecione um produto da sess&atilde;o  bebida.";
+            }
 
-	$(document).on("pageshow","#page1",function(){
-		clearInterval(verificaPedido);
-	});
-	$(document).on("pageshow","#page3",function(){
-		if(cliente != ''){
+        }
 
+        if($("#selectPagueGanhe_"+idnumero).is(":visible")){
 
-			clearInterval(verificaPedido);
-			$('.cloneOptPgt').remove();
-			console.log(cliente);
-			$.each(cliente.Pagamento, function(i, pagamento){
-				$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-			});
+            vlSelecionado = $("#selectPagueGanhe_"+idBtn).find('option:selected').attr('data-id');
+            if(typeof vlSelecionado ==='undefined' ){
+                textoAvisoBtn ="Selecione um produto da sess&atilde;o ganhe.";
+            }
 
-		}else{
-			//$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-		}
-	});
-	//$("html").niceScroll({cursorcolor:"#FF5C0A" });
+        }
+        if(textoAvisoBtn==null){
+            return true;
+        }else{
+            $('#avisoValidaBtnTexto').html(textoAvisoBtn);
+            $("#avisoValidaBtn").popup( "open" );
+            return false;
+        }
 
-	var ultimaMsg="";
-	function enviaMensagem(){
+    }
+    $('body').on('click', '.addProduto', function () {
 
+                var idn=  $(this).attr('id');
+                var expReg01 = /\D+/gi;
+                idnumero= idn.replace(expReg01,'');
 
-		var urlAction = URLAPP+"RestMensagens/addmobile.json?b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"";
-		var dadosForm = $("#formChat").serialize();
 
 
 
-		$.ajax({
-			type: "POST",
-			url: urlAction,
-			data:  dadosForm,
-			dataType: 'json',
-			crossDomain: true,
+        if(cliente != ''){
+                if(validaAddBtn(idnumero)){
+                    $('.erroqtde').hide();
+                    $('.erroqtde2').hide();
+                    itenObs="";
+                    prodId2="";
+                    prodId1="";
+                    numero = $(this).attr('id');
+                    numero = numero.substring(10);
+                    codigo = $(this).attr('data-codigo');
+                    produto = $(this).attr('data-produto');
+                    vlUnitarioAut = $(this).attr('data-vlu');
+                    vlUnitarioAut = vlUnitarioAut.replace(",",".");
+                    vlUnitario =  parseFloat(vlUnitarioAut);
+                    vlUnitario = vlUnitario.toFixed(2);
+                    valor = $('#pedido tr').length;
+                    qtdeAux = $('#inputAdd'+numero).val();
 
+                    var expReg02 = /\D+/gi;
+                    qtdeAux = qtdeAux.replace(expReg02,'');
 
+                    $('#inputAdd'+numero).val(1);
+                    qtde = parseFloat(qtdeAux);
 
-			success: function(data){
-				//verificaMensagem();
-				//ultimaMsg =data.ultimomensagen.Mensagen.id;
-				 /*$('#chatZone').append('<div class="chatmsg" data-msgid="'+data.ultimomensagen.Mensagen.id+'"><b>'+data.ultimomensagen.Cliente.username+'</b>: '+data.ultimomensagen.Mensagen.msg+'<br/></div>');
+                    vlTotal=vlUnitario * qtde;
 
+                    vlTotal = vlTotal.toFixed(2);
 
+                    vlUnitarioAux= vlUnitario.toString();
+                    vlUnitario = vlUnitarioAux.replace('.', ',');
 
 
-				//$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
+                    vu = $(this).attr('data-vlu');
 
-				$('#chatZone').animate(
-				{
-					scrollTop: $('#chatZone').prop("scrollHeight"),
 
-				}, 500);
+                    vlTotalAux = vlTotal.toString();
+                    vlTotal =vlTotalAux.replace('.',',');
+                    $('.popDiv').hide();
+                    $('.ui-icon-minus').trigger('click');
 
-				$("#chatZone").getNiceScroll().resize();
-				$("#chatZone").niceScroll({cursorcolor:"#CCC" }); */
+                    nomeProd1=$(this).attr('data-produtonome1');
+                    nomeProd2=$(this).attr('data-produtonome2');
+                    prodTamanho=$(this).attr('data-tamanho');
+                    nomeProduto = $(this).attr('data-tamanho');
+                    prodId2=$(this).attr('data-produtoid2');
+                    prodId1=$(this).attr('data-produtoid1');
 
-			},error: function(data){
-				//criar tratatmento de erros
+                    itemPagueGanheNome = $(this).attr('data-pagueganhenome');
+                    itemPagueGanheId = $(this).attr('data-pagueganheid');
+                    obsTamanho="";
 
+                    itemBebidaId = $(this).attr('data-bebidaid');
+                    itemBebidaNome  = $(this).attr('data-bebidanome');
 
-			}
-			});
+                    if(typeof nomeProd1 !== 'undefined' && typeof nomeProd2 !== 'undefined' ){
 
+                        if(typeof prodTamanho !== 'undefined'){
+                            if(prodTamanho !=''){
+                                obsTamanho="<strong><i>Tamanho:</i></strong> "+prodTamanho.capitalize();
+                            }
 
+                        }else{
+                            obsTamanho="";
+                        }
+                        if(nomeProd1 !='' && nomeProd2 !=''){
+                            itenObs="<br /><strong><i>Sabores:</i> </strong>"+nomeProd1+" e " + nomeProd2+" <br />"+obsTamanho;
+                        }else{
+                            itenObs=obsTamanho;
+                        }
 
+                    }else{
 
-	}
+                        if(typeof prodTamanho !== 'undefined'){
+                            if(prodTamanho != ''){
+                                console.log('passou');
+                                obsTamanho=" <strong><i>Tamanho:</i> </strong>"+prodTamanho.capitalize();
+                            }else{
+                                obsTamanho="";
+                            }
 
-	function recebeMensagemInicio(){
+                        }else{
+                            obsTamanho="";
+                        }
 
-		var url=URLAPP+"RestMensagens/indexmobile.json?d="+numeroPedido+"&clid="+cliente.Cliente.id+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"";
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
+                        itenObs=obsTamanho;
+                    }
+                    if(typeof itemBebidaId !== 'undefined'){
+                        itenObs+="<br/> <strong><i>Bebida:</i></strong>"+itemBebidaNome;
+                    }
+                    if(typeof itemPagueGanheId !== 'undefined'){
+                        itenObs+="<br/> <strong><i>Promo&ccedil;&atilde;o:</i></strong>"+itemPagueGanheNome;
+                    }
 
 
+                    setTimeout(function(){
 
-			success: function(data){
+                    if(qtdeAux ==""){
+                        $('.erroqtde').show();
+                    }else if(qtdeAux <=0){
+                        $('.erroqtde').show();
+                    }else{
+                        $('#popProdItem').html(produto+' '+itenObs);
+                        $('#popQtdeItem').html(qtde);
+                        $('#popVlUnitItem').html(vlUnitario);
+                        $('#popVlTotalItem').html(vlTotal);
+                        $("#popupConfirmaProd").popup( "open" );
 
+                    }
 
-				$.each(data, function(i, resultados){
 
-					$.each(resultados, function(z, resultado){
+                    $('html, body').animate({
+                     scrollTop: ($('#proximoPedido').first().offset().top)
+                    },500);
+                    /*$("#linhaTotal").css("background-color","yellow");*/
+                    $("#linhaTotal").css("height","1em");
+                    $('#linhaTotal').animate({height: '1em'}, 1000);
+                    /*setTimeout(function(){
+                    $("#linhaTotal").css("background-image"," url('../images/backgroun2.jpg')");
+                    }, 1500);*/
+                },500);
+                }
 
-						senderuser = resultado.User.id;
-						sendercliente = cliente.Cliente.id;
-						sender = resultado.Mensagen.sender;
-						nomeMsg ="";
-						classemsg="";
-						if(sender == 0){
-							nomeMsg = resultado.User.username;
-							classemsg ="spanAtendente";
-							classetriangulo = "triangle-isoscelesalt top";
 
-						}else{
-							nomeMsg = cliente.Cliente.username;
-							classemsg ="spanUsuario";
-							classetriangulo = "triangle-isosceles";
-						}
-						$('#chatZone').append('<p class="'+classetriangulo +'" data-msgid="'+resultado.Mensagen.id+'"><span class="'+classemsg+'">'+nomeMsg+' disse: </span>'+resultado.Mensagen.msg+'</p>');
+        }else{
+            $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+        }
 
-						//$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
+    });
+    var pagamento;
+    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+    $('#submitForm').click(function(event){
+        event.preventDefault();
+        $('.loginsalt').val(salt);
+        var urlAction = URLAPP+"RestClientes/loginmobile.json";
+        var dadosForm = $("#login").serialize();
 
 
-						setTimeout(function(){
-							$(".modal-body").animate({ scrollTop: $(document).height() }, "slow");
-						}, 1000);
+        $.mobile.loading( "show" ,{theme: 'b'});
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  dadosForm,
+            dataType: 'json',
+            crossDomain: true,
 
 
-						//$("#chatZone").getNiceScroll().resize();
-						//$("html, body").niceScroll({cursorcolor:"#FF5C0A" });
-						ultimaMsg =resultado.Mensagen.id;
 
-					});
-				});
+            success: function(data){
 
+                var res = data.ultimopedido;
+                $.mobile.loading( "hide" );
 
-			},error: function(data){
-				//criar tratatmento de erros
-				$("#popupDialogLogin11").popup( "open" );
 
-			}
-			});
-	}
-	function verificaMensagem(){
+                if(res == 'ErroLogin'){
 
 
-		var url=URLAPP+"RestMensagens/viewmobile.json?d="+numeroPedido+"&clid="+cliente.Cliente.id+"&ult="+ultimaMsg+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"";
+                    $("#popupDialog").popup( "open" );
 
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
+                }else{
 
+                    cliente_id = data.ultimopedido.Cliente.id;
+                    cliente = data.ultimopedido;
 
 
-			success: function(data){
+                    bebidas='<option value="">Selecione</option>';
+                    $.each(cliente.Bebidas, function(i, beb){
+                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+                    });
 
-				contadorScroll=0;
-				acumuladorTexto="";
-				$.each(data, function(i, resultados){
+                    pagueGanhe='<option value="">Selecione</option>';
+                    $.each(cliente.PagueGanhe, function(i, pagueGan){
+                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+                    });
 
-					$.each(resultados, function(z, resultado){
+                    if(fezPedidoSemLogar=='sim'){
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                        filialPadrao=data.ultimopedido.Cliente.filial_id;
+                        $.mobile.changePage("#page3",{ transition: "none",  });
 
-						senderuser = resultado.User.id;
-						sendercliente = cliente.Cliente.id;
-						sender = resultado.Mensagen.sender;
-						nomeMsg ="";
-						classemsg="";
-						if(sender == 0){
-							nomeMsg = resultado.User.username;
-							classemsg ="spanAtendente";
-							classetriangulo = "triangle-isoscelesalt top";
+                    }else{
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                        $.mobile.changePage("#index",{ transition: "none",  });
 
-						}else{
-							nomeMsg = cliente.Cliente.username;
-							classemsg ="spanUsuario";
-							classetriangulo = "triangle-isosceles";
-						}
+                    }
 
-						acumuladorTexto= acumuladorTexto+'<p class="'+classetriangulo +'" data-msgid="'+resultado.Mensagen.id+'"><span class="'+classemsg+'">'+nomeMsg+' disse : </span>'+resultado.Mensagen.msg+'</p>';
+                }
+                $('#loginSalt').val('');
+                setInterval(function(){
+                    getSituacaoCampainha();
+                },20000);
+            },error: function(data){
+                //criar tratatmento de erros
+                $.mobile.loading( "hide" );
 
+                $("#popupDialogLogin").popup( "open" );
+                $('#loginSalt').val('')
+            }
+            });
+        });
+var pedido_id ="";
+function atendimentoView(atendimentos){
+    //$.each(atendimentos, function(i, atendiment){
+        $("#atendimentostab").html('');
 
-						//$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
+        difHora=atendimentos.Atendimento.difhora;
+        $("#codigoAtend").html(atendimentos.Atendimento.codigo+'&nbsp;');
 
-						//$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-						//$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-						//$("#chatZone").getNiceScroll().resize();
-						//$("#chatZone").niceScroll({cursorcolor:"#FF5C0A" });
-						ultimaMsg = resultado.Mensagen.id;
+        $("#dataAtend").html(atendimentos.Pedido.data+' '+atendimentos.Pedido.hora+'&nbsp;');
+        //$("#clienteAtend").html(atendimentos.Cliente.nome+'&nbsp;');
+        $("#AtendAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
+        $("#pagamentoAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
+        $("#situacaoAtend").html(atendimentos.Pedido.status+'&nbsp;');
+        $("#posFilaAtend").html(atendimentos.Pedido.status+'&nbsp;');
+        $("#idPedidoAux").html(atendimentos.Pedido.id);
 
-					});
-				});
-				if(acumuladorTexto !=''){
-					$('#chatZone').append(acumuladorTexto);
-					setTimeout(function(){
-					//$("#chatZone").getNiceScroll().resize();
-					$("html, body").animate({ scrollTop: $(document).height() }, "slow");
-					}, 300);
+        $("#previsaoAtend").html(atendimentos.Atendimento.difhora+'&nbsp;');
+         $("#counter").html('');
+         $('#counter').countdown({
+              image: 'images/digits2.png',
+              startTime: difHora,
+              digitWidth: 34,
+                digitHeight: 45,
+                format: 'hh:mm:ss',
+         });
 
-				}
+    //});
+}
+var validarPd="";
+var pag ="dh";
+var tipoTroco ="Sim";
+var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+function getTokenMoip(){
 
 
+    var valorPedido =$('#totalPedidoPag').text();
+        valorPedido = valorPedido.substring(3);
+        valorPedido = valorPedido.replace(".","");
+        valorPedido = valorPedido.replace(",",".");
 
-			},error: function(data){
-				//criar tratatmento de erros
-				//$(".erroconexao").popup( "open" );
+        valorPedido = parseFloat(valorPedido);
 
-			}
-			});
-	}
-	var campainha=0;
-	 var atendimentoid="";
-	function getSituacaoPedido(){
+        var urlAction = URLAPP+"RestPedidos/pgtomoip.json";
+        var dadosForm = {'id':'7', 'cliente_id':cliente.Cliente.id, 'nome':cliente.Cliente.nome, 'token':cliente.Cliente.token, 'salt':salt,'email': cliente.Cliente.email, 'logradouro':cliente.Cliente.logradouro,'numero':cliente.Cliente.numero,'complemento':cliente.Cliente.complemento, 'cidade':cliente.Cliente.cidade, 'uf':cliente.Cliente.uf, 'cep':cliente.Cliente.cep,'telefone':cliente.Cliente.telefone,'celular':cliente.Cliente.celular,'valor':valorPedido};
 
-		atendimentoid = $('#idAtend').text();
-		//$.mobile.loading( "show" ,{theme: 'b'});
-		var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
 
+        $.mobile.loading( "show" ,{theme: 'b'});
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  dadosForm,
+            dataType: 'json',
+            crossDomain: true,
 
 
-				success: function(data){
 
+            success: function(data){
 
-				//$.mobile.loading( "hide" );
+                var res = data.resultados;
+                $('#token').val(data.resultados.token);
+                $('#MoipWidget').attr('data-token',data.resultados.token);
+                $('#pgmoip_id').val(data.resultados.pgmoip_id);
 
-					//$.mobile.loading( "hide" );
-					$.each(data, function(i, atendimento){
+                $.mobile.loading( "hide" );
 
-						console.log(atendimento);
-						$.each(atendimento.Pedido, function(i, pedido){
 
-							statusSit = $("#situacaoAtend").text();
-							subsSit = statusSit.substring(0, 5);
-							subsSitPedido= pedido.status.substring(0, 5);
+            },error: function(data){
+                //criar tratatmento de erros
+                $.mobile.loading( "hide" );
+                $("#popupDialogLogin4").popup( "open" );
 
-							if(subsSit != subsSitPedido){
-								$('#situacaoAtend').html(pedido.status);
-								$(".situacaoAtend").addClass("verde-background");
-								$(".situacaoAtend").animate({"margin-left": "+=25px"},"fast");
-								$(".situacaoAtend").animate({"margin-left": "-=50px"},"fast");
-								$(".situacaoAtend").animate({"margin-left": "+=50px"},"fast");
-								$(".situacaoAtend").animate({"margin-left": "-=50px"},"fast");
-								$(".situacaoAtend").animate({"margin-left": "+=50px"},"fast");
-								$(".situacaoAtend").animate({"margin-left": "-=25px"},"fast");
-								$('#audioPlayer').trigger('play');
-							}
+            }
+            });
+}
 
-							 posFila = $('#posFilaAtend').text();
-							 posFila = parseInt(posFila);
-							 posFilaAtual = pedido.posicao_fila;
-							 posFilaAtual =  parseInt(posFilaAtual);
-							if(posFila != posFilaAtual){
+function enviaDadosCartao(){
 
-								$('#posFilaAtend').html(pedido.posicao_fila);
-								$(".animaPos").addClass("verde-background");
-								$(".animaPos").animate({"margin-left": "+=25px"},"fast");
-								$(".animaPos").animate({"margin-left": "-=50px"},"fast");
-								$(".animaPos").animate({"margin-left": "+=50px"},"fast");
-								$(".animaPos").animate({"margin-left": "-=50px"},"fast");
-								$(".animaPos").animate({"margin-left": "+=50px"},"fast");
-								$(".animaPos").animate({"margin-left": "-=25px"},"fast");
-								$('#audioPlayer').trigger('play');
-							}
-							sitAtendimento = $('#pagamentoAtend').text();
 
-							 sitAtendimento = pedido.status_pagamento;
-							 if(sitAtendimento != sitAtendimento){
-							 	$('#pagamentoAtend').html(pedido.status_pagamento);
-								$(".animaSitPag").addClass("verde-background");
-								$(".animaSitPag").animate({"margin-left": "+=25px"},"fast");
-								$(".animaSitPag").animate({"margin-left": "-=50px"},"fast");
-								$(".animaSitPag").animate({"margin-left": "+=50px"},"fast");
-								$(".animaSitPag").animate({"margin-left": "-=50px"},"fast");
-								$(".animaSitPag").animate({"margin-left": "+=50px"},"fast");
-								$(".animaSitPag").animate({"margin-left": "-=25px"},"fast");
-								$('#audioPlayer').trigger('play');
-							 }
-							 /*sitcampainha = atendimento.Atendimento.campainha;
-							 atendimentoid= atendimento.Atendimento.id;
-							 if(sitcampainha == null){
+    var numeroCart =$('.ncartao').val();
+    var expiracao =$('#Expiracao').val();
+    var codigoSeguranca =$('#CodigoSeguranca').val();
+    var instituicao = $('#instituicao').val();
+    var portador = $('#Portador').val();
+    var CPF = $('#CPF').val();
+    var dataNascimento = $('#DataNascimento').val();
 
-							 }else{
+    dia = dataNascimento.substring(0, 2);
+    mes = dataNascimento.substring(3, 5);
+    ano = dataNascimento.substring(6, 10);
+    dataNascimento = ano + "-" + mes + "-" + dia;
+    var telefone = $('#Telefone').val();
 
-							 	if(sitcampainha >= 1){
 
-								  	if(sitcampainha==10){
+    var urlAction = URLAPP+"RestClientes/addmobile.json";
+    var dadosForm = {'id':cliente.Cliente.id, 'numerocart':numeroCart,'salt':salt,'codigoseguranca': codigoSeguranca, 'portador':portador,'cpf':CPF,'nasc':dataNascimento, 'telefone':telefone, 'expiracao':expiracao, 'instituicao':instituicao};
 
-								  	}else{
-								  		if(sitcampainha==11){
 
-									  	}else{
-									  		if(campainha==0){
-										  		$('.audioPlayer').trigger('play');
-										  		 $("#popupAvisoCampainha").popup( "open" );
-										  	}
-									  	}
-								  	}
+        $.mobile.loading( "show" ,{theme: 'b'});
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  dadosForm,
+            dataType: 'json',
+            crossDomain: true,
 
 
 
-								  }
+            success: function(data){
 
-							 }*/
+                //var res = data.resultados;
+                $.mobile.loading( "hide" ,{theme: 'b'});
 
 
-						});
+            },error: function(data){
+                //criar tratatmento de erros
+                $("#popupDialogLogin4").popup( "open" );
 
-					});
+            }
+        });
+}
+$("#sendToMoip").click(function(){
 
+    if($("#cksimCart").hasClass("ui-checkbox-on")){
+        enviaDadosCartao();
+    }
+});
+$('.ncartao').mask('9999999999999999');
+$('#Expiracao').mask('99/99');
+$.mask.definitions['~'] = '([0-9] )?';
+$("#Telefone").mask("(99)9999-9999~");
+$("#CPF").mask("999.999.999-99");
+$("#DataNascimento").mask("99/99/9999");
+function verificaCartao(nome){
+    if(nome == 'Visa'){
+        idcartao = 5;
+    }else if(nome == 'Mastercard'){
+        idcartao = 3;
+    }else if(nome == 'AmericanExpress'){
+        idcartao = 7;
+    }else{
+        idcartao = "Escolha";
+    }
 
-				},error: function(data){
-					//$.mobile.loading( "hide" );
-					//tratar essa rotina
+    if(idcartao  != 'Escolha'){
+        $('#pagamentoPedido').val(idcartao);
+    }
+}
 
 
-				}
 
-			});
 
 
 
-	}
-	$('#page2').click(function(){
+$('#instituicao').change(function(){
+    var selecionadoCart2 = $(this).val();
+    verificaCartao(selecionadoCart2);
 
-		$(".verde-background").removeClass("verde-background");
+});
 
-	});
 
-	$('body').on('click', '.fecharcampainha', function(){
 
-		campainha=0;
+function validarPedido(){
 
-		atendeCampainha(atendimentoid);
-	});
 
-	function atendeCampainha(atendimentoid){
+    if(pag == 'dh' ){
 
+        if(tipoTroco=='Sim'){
+            texto = $('#respTroco').html();
 
-		$.mobile.loading( "show" ,{theme: 'b'});
-		var url=URLAPP+"RestAtendimentos/campainhamobile.json?entr=2&a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-			$.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
+            if(texto=='Inválido'){
+                validarPd = 'falso'
+                return validarPd;
+            }else if(texto=='R$ 0,00'){
+                validarPd = 'falso'
+                return validarPd;
+            }else{
+                validarPd = 'verdadeiro'
+                return validarPd;
+            }
 
+        }else{
 
+            validarPd = 'verdadeiro'
+            return validarPd;
+        }
+    }else{
+        validarPd = 'verdadeiro'
+        return validarPd;
+    }
+}
+$("#pedir").click(function(event){
 
-				success: function(data){
+    validarPedido();
 
+    formPagamento = $('formaDEpagamento').val();
+    if(formPagamento==''){
+        validarPd="falso";
+        $("#avisoTroco2").popup( "open" );
+    }
 
-					$.mobile.loading( "hide" );
+    /*minhaLoja2= $('#filialPedido').val();
 
+    if(minhaLoja2==''){
+        validarPd="falso";
+        $("#avisoPedido").popup( "open" );
+    }*/
+    $('#empresaPedido').val(empresa);
+    $('#filialPedido').val(filialPadrao);
+    clientePedido
+    if(validarPd== 'verdadeiro'){
+        nAtendimento= $('#PedidoA').val();
 
-				},error: function(data){
-					console.log(data);
-					$.mobile.loading( "hide" );
 
-					//tratar essa rotina
+        $.mobile.loading( "show" ,{theme: 'b'});
+        event.preventDefault();
+        var sum = 0;
+        var atendimento="";
+        $('.soma').each(function() {
+            var value = $(this).text();
+            value = value.substring(3);
 
+            value = value.replace(".","");
+            value = value.replace(",",".");
+            value = parseFloat(value);
+            if(!isNaN(value) && value.length != 0) {
 
-				}
+                sum = sum + value;
+            }
 
-			});
 
+        });
 
-	}
-	function getSituacaoCampainha(){
 
+        if(sum !=0){
 
-		//$.mobile.loading( "show" ,{theme: 'b'});
-		var url=URLAPP+"RestAtendimentos/getsituacaocampainha.json?entr=2&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-		 $.ajax({
-				type: "GET",
-				url: url,
-				dataType: 'json',
-				crossDomain: true,
 
+            var urlAction2 = URLAPP+"RestPedidos/addmobile.json";
 
 
-				success: function(data){
+            //$(".loaderAjax").show();
+            $("#pedir").hide();
+            $('#pedidoSalt').val(salt);
+            $('#pedidoToken').val(cliente.Cliente.token);
+            $('#PedidoA').val('entrega');
 
-					if(data.resultados=='vazio'){
+            var dadosForm2 = $("#PedidoAddForm").serializeArray();
 
-					}else{
-						atendimento_id= data.resultados.Atendimento.id;
-						$('.audioPlayer').trigger('play');
-				  		 $(".popupAvisoCampainha").popup( "open" );
+            $.ajax({
+                type: "POST",
+                url: urlAction2,
+                data:  dadosForm2,
+                dataType: 'json',
+                crossDomain: true,
+                success: function(data){
+                    console.log(data);
+                    $("#pedir").show();
+                    $.mobile.loading( "hide" );
 
-					}
 
+                    atendimento=data.resultados;
 
+                    console.log(data);
 
-				},error: function(data){
+                    if(atendimento.Pedido.id){
 
+                        $('.clone').remove();
+                        $("#totalPedido").html('00,00');
+                        cont=0;
+                        limparPedido();
+                        $.mobile.changePage("#page2",{ transition: "pop",  });
+                        getAtendimento(atendimento.Pedido.atendimento_id);
+                        getItens(atendimento.Pedido.atendimento_id);
+                        $("#idAtend").html(atendimento.Pedido.atendimento_id);
 
+                    }else{
 
-				}
+                    }
+                    //$('#pedidoToken').val('');
+                },error: function(data){
+                    console.log(data);
+                    $.mobile.loading( "hide" );
+                    $("#pedir").show();
 
-			});
+                    $("#popupDialogLogin4").popup( "open" );
+                    //$('#pedidoToken').val('');
+                }
+            });
 
 
+        }else{
+            $('.erroqtde').show();
+        }
+    }else{
+        //alert(validarPd);
+        $("#avisoTroco").popup( "open" );
 
-	}
 
+    }
 
-	$('.formaDEpagamento').change(function(){
-		valorFormaPg = $(".formaDEpagamento option:selected").text();
 
-		if(valorFormaPg=='Dinheiro'){
+ });
+    $("#popupSucEnvPedido").click(function(){
 
+    });
 
-			$('.auxDinheiro').show();
-			tpPgto ="DH";
-	 		pag='dh';
+    $("#bt-vermaisPedidos").click(function(){
 
-		}else{
+        limitPedido= limitPedido +4;
+        $("#atendimentostab").html('');
+        if(cliente != ""){
+            atualizarAtendimentos(cliente.Cliente.id);
+        }
 
-			$('.auxDinheiro').hide();
-			tpPgto="CT";
-	 		pag='cartao';
 
-		}
-	});
-	/*$('.applogo').click(function(){
-		$("#popupDialogFormFoto1").popup( "open" );
-	});*/
 
 
-	$(document).on("pageshow","#page0",function(){
-		/*if(cliente.Cliente.foto != null){
-			$('.fotoHeader').attr('src',cliente.Cliente.foto);
-			if(cliente.Cliente.fotoexif==1){
-				$('.fotoHeader').addClass('fotoRotate');
-			}
-		}*/
 
 
-	});
+    });
 
+    var limitPedido=4;
+    function atualizarAtendimentos(clienteid){
 
 
-	var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-	$('.clienteSalt').val(salt);
-	$('.enviaFoto').submit(function(event){
-		event.preventDefault();
-		$.mobile.loading( "show" );
-		$('.clienteIdFoto').val(cliente.Cliente.id);
-		fotoInput = $ ('.fotoInput').val();
-		if(fotoInput != ''){
-			var urlAction = URLAPP+"RestClientes/addFotosmobile.json";
-			var formData = new FormData(this);
-			$.ajax({
-				type:'POST',
-				url: urlAction,
-				data:formData,
-				cache:false,
-				contentType: false,
-				processData: false,
-				success:function(data){
-				    console.log(data);
-				    $('.fotoHeader').attr('src',data.ultimocliente.Cliente.foto);
-				    arrayNome = data.ultimocliente.Cliente.foto;
-				    arrayNome2 = arrayNome.split('fotoscli');
-				  splitFoto = arrayNome2
-				    console.log(arrayNome2);
-				    $("#popupDialogFormFoto1").popup( "close" );
-				    $.mobile.loading( "hide" );
-				},
-				error: function(data){
-				    alert('Erro ao enviar a foto');
-				    $.mobile.loading( "hide" );
+        $.mobile.loading( "show" ,{theme: 'b'});
+         $.ajax({
 
-				}
-			});
-		}else{
 
-		}
+                type: "GET",
+                url: URLAPP+"RestAtendimentos/indexmobile.json?lj="+empresa+"&clt="+clienteid+"&limit="+limitPedido+"&token="+cliente.Cliente.token+"&fp="+filialPadrao+"",
+                dataType: 'json',
+                crossDomain: true,
 
-	});
+
+
+                success: function(data){
+
+
+                    $("#atendimentos").html('');
+                    $.mobile.loading( "hide" );
+
+                    $.each(data.resultados, function(i, atendimento){
+
+                        $.each(atendimento.Pedido, function(i, pedidoAtend){
+
+                            //2014-09-15
+                            pedidoData=pedidoAtend.data;
+                            var anoDt = pedidoData.substring(0, 4);
+                            var mesDt = pedidoData.substring(5, 7);
+                            var diaDt = pedidoData.substring(8, 10);
+                            pedidoData = diaDt+"/"+mesDt+"/"+anoDt;
+                            pedidoStatus=pedidoAtend.status;
+                        });
+                        $("#atendimentostab").append('<tr><td>'+atendimento.Atendimento.codigo+'</td>\
+                        <td>'+pedidoData+'</td><td>'+pedidoStatus+'</td>\
+                        <td><a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-eye ui-btn-icon-notext ui-btn-b ui-btn-inline acaoAtend" id="acaoAtend'+i+'"data-atendimento="'+atendimento.Atendimento.id+'">Visualisar</a></td></tr>');
+
+                        if(limitPedido > 4){
+
+                            //$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+                        }
+
+                    });
+
+                },error: function(data){
+
+                    $.mobile.loading( "hide" );
+                    $("#popupDialogLogin13").popup( "open" );
+                    //tratar o erro
+
+                }
+
+            });
+
+
+        }
+    function atualizarLojas(){
+
+         $.ajax({
+                type: "GET",
+                url: URLAPP+"RestFilials/indexmobile?e="+empresa,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                    i=0;
+                     $('.cloneOptLoja').remove();
+                    $.each(data, function(i, resultado){
+
+
+
+                         //$("div").append(field + " ");
+
+                         $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
+
+
+                         i++;
+                        });
+                    $.mobile.loading( "hide" );
+                    if(cliente != ''){
+                        $('filialSelect').val(cliente.Cliente.filial_id);
+                    }
+
+
+                },error: function(data){
+
+
+                    setTimeout(function() {
+                        atualizarLojas();
+                    },2000);
+
+                }
+
+            });
+
+
+        }
+
+
+    //atualizarAtendimentos();
+
+
+    $(document).on( "pagecreate",'#page1', function(){
+        $("#atendimentostab").html('');
+        //atualizarAtendimentos(cliente_id);
+
+    });
+    $(document).on("pageshow","#page1",function(){ // When entering pagetwo
+        $("#atendimentostab").html('');
+        limitPedido = 4;
+        if(cliente !=""){
+            atualizarAtendimentos(cliente.Cliente.id);
+        }
+
+    });
+    $("#MenuListaPedido").click(function(){
+        //$("#atendimentostab").html('');
+        //atualizarAtendimentos(cliente_id);
+
+    });
+    $(".listarpedido").click(function(){
+        $.mobile.changePage("#page1",{ transition: "none",  });
+
+
+    });
+
+
+    $(".localizarpedido").click(function(){
+        $.mobile.changePage("#page7",{ transition: "none",  });
+    });
+
+    $(".meucadastro").click(function(){
+
+        $.mobile.changePage("#page5",{ transition: "none",  });
+
+
+    });
+
+    $('.fazerlogin').click(function(){
+        $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+    });
+
+    $(".Menusair").click(function(){
+        $.mobile.changePage("#page11", { transition: "none",  });
+
+
+    });
+    $("#cancel-button").click(function(){
+        $.mobile.changePage("#page0", { transition: "none",  });
+
+
+    });
+
+    $(".linkTelefone").click(function(){
+        window.open(telefonePadrao, '_system');
+
+
+    });
+    $("#mensagemChat").click(function(){
+        $.mobile.changePage("#page10", { transition: "none",  });
+        setTimeout(function() {
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        }, 4000);
+    });
+
+    $("#exit-button").click(function(){
+
+
+        navigator.app.exitApp();
+    });
+
+    $( document ).on( "pageinit", "#page5", function() {
+
+
+        if(cliente !=""){
+            setTimeout(function() {
+                function initialize252() {
+                    $("#gmapLEntrega2").html('');
+                    var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
+
+                    var options = {
+                        zoom: 16,
+                        center: latlng,
+                        scrollwheel:false,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+
+                    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
+                }
+                initialize252();
+                var newLatLng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
+
+
+                marker = new google.maps.Marker({
+                    position: newLatLng,
+                    map: map,
+                     icon:'images/usuario2.png',
+                   // draggable: true
+                });
+                google.maps.event.trigger(map, 'resize');
+            }, 5000);
+        }
+
+    });
+
+
+    var atendimentos="";
+    var atendimento="";
+    function getAtendimento(atendimentoid){
+
+
+        $.mobile.loading( "show" ,{theme: 'b'});
+        var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"&lj="+empresa+"";
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                $.mobile.loading( "hide" );
+
+                    $.mobile.loading( "hide" );
+                    var atendimento = data.resultados;
+                    difHora=atendimento.Atendimento.difhora;
+                    $("#codigoAtend").html(atendimento.Atendimento.codigo+'&nbsp;');
+                    $('#clienteAtend').html(atendimento.Cliente.nome);
+
+                    $.each(atendimento.Pedido, function(i, pedido){
+                            var dataPedido = pedido.data
+                            var pedAnoDt = dataPedido.substring(0, 4);
+                            var pedMesDt = dataPedido.substring(5, 7);
+                            var pedDiaDt = dataPedido.substring(8, 10);
+                            dataPedido = pedDiaDt+"/"+pedMesDt+"/"+pedAnoDt;
+                        var entregaLocal= 'No endere&ccedil;o do cad&aacute;stro';
+                        if(pedido.entrega_outro_local ==1){
+                            entregaLocal=pedido.outro_endereco_entrega;
+                        }
+                        $("#dataAtend").html(dataPedido+' &agraves '+pedido.hora_atendimento+'&nbsp;');
+
+                        if(pedido.user_id == undefined){
+                            pedido.user_id ="Atendimento Virtual";
+                        }
+                        $('#obsPedidoEntrega').html(entregaLocal);
+                        $("#AtendAtend").html(pedido.user_id+'&nbsp;');
+                        $("#pagamentoAtend").html(pedido.status_pagamento+'&nbsp;');
+
+                        $("#situacaoAtend").html(pedido.status+'&nbsp;');
+                        $("#posFilaAtend").html(pedido.posicao_fila+'&nbsp;');
+                        $("#previsaoAtend").html(pedido.tempo_estimado+'&nbsp;');
+                        $("#obsPedido").html(pedido.obs+'&nbsp;');
+                        $("#idPedidoAux").html(pedido.id);
+                        $('#avaliacaoPedido').raty({ half: false,score    : pedido.avaliacao });
+                        $('#avaliacaoPedido').raty({
+                            half     : false,
+                            score    : pedido.avaliacao,
+                            click: function(score, evt) {
+                                //alert('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
+                                pedido_id = $('#idPedidoAux').html();
+
+                                $.mobile.loading( "show" ,{theme: 'b'});
+                             $.ajax({
+
+
+                                    type: "GET",
+                                    url: URLAPP+"RestPedidos/avalpedidomobile.json?id="+pedido_id+"&nota="+score+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"",
+                                    dataType: 'json',
+                                    crossDomain: true,
+
+
+
+                                    success: function(data){
+                                        //alert(pedido_id);
+                                        //console.log(data);
+                                        $.mobile.loading( "hide" );
+                                    },error: function(data){
+
+                                        $.mobile.loading( "hide" );
+                                        $("#popupDialogLogin16").popup( "open" );
+                                        //tratar o erro
+
+                                    }
+
+                                });
+                            }
+                        });
+                    });
+
+
+                     $("#counter").html('');
+                     $('#counter').countdown({
+                          image: 'images/digits2.png',
+                          startTime: difHora,
+                          digitWidth: 34,
+                            digitHeight: 45,
+                            format: 'hh:mm:ss',
+                        });
+
+
+
+
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    $(".erroconexao").popup( "open" );
+                    //tratar essa rotina
+
+
+                }
+
+            });
+
+
+}
+
+
+
+
+    var itens="";
+    function getItens(atendimentoid){
+
+        var url= URLAPP+"RestAtendimentos/itensmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                    $.mobile.loading( "hide" );
+
+
+                    $('.clonePedido').remove();
+
+                    //atendimentos = JSON.parse(atend);
+                    $.each(data.resultados, function(i, iten){
+                        vlunit =parseFloat(iten.Itensdepedido.valor_unit) ;
+                        vlunit = vlunit.toFixed(2);
+                        vtot=parseFloat(iten.Itensdepedido.valor_total);
+                        vtot = vtot.toFixed(2);
+                        obsItem = iten.Itensdepedido.obs_sis;
+                        if(typeof obsItem === 'undefined')
+                        {
+                            obsItem='';
+                        }
+                        $('#itensdoPedido').append('<tr class="clonePedido"><td>'+iten.Itensdepedido.produto_id+'</td><td>'+iten.Produto.nome+' '+obsItem+'</td><td class="dinheiro">'+vlunit+'</td><td>'+iten.Itensdepedido.qtde+'</td><td class="dinheiro somaIten">'+vtot+'</td></tr>');
+                    });
+                    $('#linhaTotalPedido').remove();
+
+                    $('.dinheiro').priceFormat({
+                        prefix: 'R$ ',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.'
+                    });
+
+
+                    var sum = 0;
+                    $('.somaIten').each(function() {
+                        var value = $(this).text();
+                        value = value.substring(3);
+                        value = value.replace(",",".");
+                        value = value.replace(".","");
+                        value = parseFloat(value);
+                        if(!isNaN(value) && value.length != 0) {
+
+                            sum = sum + value;
+                        }
+
+
+                    });
+                    $('#itensdoPedido').append('<tr id="linhaTotalPedido"><td colspan="4">Total</td><td id="valorTotalPedido" class="dinheiro">'+sum+'</td></tr>');
+
+                    $('#valorTotalPedido').priceFormat({
+                        prefix: 'R$ ',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.'
+                    });
+
+
+                },error: function(data){
+
+
+                    $.mobile.loading( "hide" );
+                    $("popupDialogLogin16").popup( "open" );
+                    //tratar esta rotina
+
+
+
+
+                }
+
+            });
+
+
+}
+
+var atendimentoid="";
+$('#popupCancelaitem').click(function(){
+        contador=contador-1;
+        $('#linhaTotal').remove();
+         $('#pedido tr:last').remove();
+        $('#linha'+contador+'').remove();
+        $("#Itensdepedido"+contador+"ProdutoId").remove();
+        $('#Itensdepedido'+contador+'Qtde').remove();
+
+        var sum = 0;
+        $('.soma').each(function() {
+            //sum = sum.toFixed(2);
+            var value = $(this).text();
+            value = value.substring(3);
+            value = value.replace(".","");
+            value = value.replace(",",".");
+
+            value = parseFloat(value);
+
+            if(!isNaN(value) && value.length != 0) {
+
+                sum = sum + value;
+            }
+
+
+
+        });
+
+        $('#pedido').append('<tr id="linhaTotal"><td colspan="4">Total</td><td id="totalPedido"></td></tr>');
+        sum = sum.toFixed(2);
+        $("#totalPedido").html(sum);
+
+        $('#totalPedido').priceFormat({
+                        prefix: 'R$ ',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.'
+                    });
+
+        totalPedidoPag= $("#totalPedido").text();
+        $('#totalPedidoPag').html(totalPedidoPag);
+
+
+
+});
+
+$('#removerItem').click(function(){
+
+    if(itens == 0){
+        $('.erroqtde2').show();
+    }else{
+        $("#popupCancelaitempop").popup( "open" );
+    }
+});
+$('#popupCancelaitemFechar').click(function(){
+    $("#popupCancelaitempop").popup( "close" );
+});
+$('body').on('click', '.acaoAtend', function () {
+    difHora="";
+    atendimentoid=$(this).attr('data-atendimento');
+
+    $('.clonePedido').remove();
+    $('#valorTotalPedido').html('R$ 00,00');
+    $.mobile.changePage("#page2", { transition: "none",  });
+    getAtendimento(atendimentoid);
+
+    getItens(atendimentoid);
+    $("#idAtend").html(atendimentoid);
+
+
+
+});
+
+    var codigoAtend="";
+    $(document).on( "pagecreate",'#page0', function(){
+
+        var codigoAtend="";
+
+
+    });
+
+
+function checaAtendimento(atendimentocod){
+
+        var url=URLAPP+"RestAtendimentos/checaatendimento.json?a="+atendimentocod+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                    $.mobile.loading( "hide" );
+
+
+                    if(data.resultados.resposta=='Existe'){
+                        $( "#popupDialogAtendimento2" ).popup( "open" );
+                        $.mobile.changePage("#page3", { transition: "none",  });
+                        $("#PedidoA").val(data.resultados.resposta);
+                        codigoAtend=data.resultados.resposta;
+                    }else{
+                        $( "#popupDialogAtendimento1" ).popup( "open" );
+                    }
+
+
+
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    $("#popupDialogLogin16").popup( "open" );
+                    //tratar
+
+                }
+
+            });
+
+
+}
+    $('body').on('click', '#btnEntrega', function () {
+        codigo="entrega";
+        $.mobile.changePage("#page3", { transition: "none",  });
+        $("#PedidoA").val(codigo);
+    });
+
+    $('body').on('click', '.novopedido', function () {
+        codigo="entrega";
+        $.mobile.changePage("#page1", { transition: "none",  });
+        $.mobile.changePage("#page3", { transition: "none",  });
+        limparPedido();
+        $("#PedidoA").val(codigo);
+    });
+
+    $('body').on('click', '#submitAtendimento', function (event) {
+
+        event.preventDefault();
+        atendimento=$('#nAtendimento').val();
+        checaAtendimento(atendimento);
+    });
+
+    $(document).on("pageshow","#page3",function(){ // When entering pagetwo
+         $('#filialPedido').val(filialPadrao);
+         $("#empresaPedido").val(empresa);
+         $("#PedidoA").val(codigoAtend);
+
+
+
+    });
+    function getMoney( str ){
+            return parseInt( str.replace(/[\D]+/g,'') );
+    }
+
+    function formatReal(mixed) {
+        var inteiro = parseInt(mixed.toFixed(2).toString().replace(/[^\d]+/g, ''));
+        var tmp = inteiro + '';
+        tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+        if (tmp.length > 6)
+        tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+
+        return tmp;
+    }
+
+    var fezPedidoSemLogar ="";
+    $("#proximoPedido").click(function(){
+        if(cliente ==''){
+            $.mobile.changePage("#Pagelogin", { transition: "none",  });
+            fezPedidoSemLogar='sim';
+
+        }else{
+            if(contador==0){
+                $(".erroqtde").show();
+            }else{
+                $(".erroqtde").hide();
+                $('#divProdutos').hide();
+                $('#divPagamento').show();
+                $('#proximoPedido').hide();
+                $('#pedir').show();
+                $('#voltarPedido').show();
+            }
+
+        }
+
+    });
+
+
+
+    $("#voltarPedido").click(function(){
+
+            $(".erroqtde").hide();
+            $('#divProdutos').show();
+            $('#divPagamento').hide();
+            $('#proximoPedido').show();
+            $('#pedir').hide();
+            $("#auxvalortroco").val('');
+            $("#respTrocoAux").val('');
+            $("#respTroco").html('R$ 0,00');
+            $('#voltarPedido').hide();
+
+
+    });
+
+
+
+    $("#auxvalortroco").keyup(function() {
+        var valor = $("#auxvalortroco").val().replace(/[^0,1,2,3,4,5,6,7,8,9]+/g,'');
+        $("#auxvalortroco").val(valor);
+    });
+
+     function limparPedido() {
+        cont=0;
+        itens=0;
+        //codigo="";
+        contador=0;
+        pag='dh';
+        tipoTroco='Sim';
+        itens=0;
+        $('.clone').remove();
+        $('#totalPedido').html('');
+        $('#respTroco').html('');
+        $('#respTrocoAux').val('');
+        $("#PedidoA").val('entrega');
+        $("#pagamentoPedido").val('0');
+        $("#trocoRespostaPedido").val('0');
+        $(".erroqtde").hide();
+        $('#divProdutos').show();
+        $('#divPagamento').hide();
+        $('#proximoPedido').show();
+        $('#pedir').hide();
+        $("#auxvalortroco").val('');
+        $("#respTrocoAux").val('');
+        $("#respTroco").html('0,00');
+        $('#totalPedidoPag').html('0,00');
+        $('#voltarPedido').hide();
+        $('#lradio-choice-t-6a').removeClass('ui-radio-on');
+
+        $('#lradio-choice-t-6b').removeClass('ui-radio-on');
+        $('#lradio-choice-t-6c').removeClass('ui-radio-on');
+        $('#lradio-choice-t-6a').removeClass('ui-radio-off');
+        $('#lradio-choice-t-6b').removeClass('ui-radio-off');
+        $('#lradio-choice-t-6c').removeClass('ui-radio-off');
+
+        $('#lradio-choice-t-6a').addClass('ui-radio-on');
+        $('#lradio-choice-t-6b').addClass('ui-radio-off');
+        $('#lradio-choice-t-6c').addClass('ui-radio-off');
+
+        $('#radio-choice-t-6a').attr('data-cacheval', true);
+        $('#radio-choice-t-6b').attr('data-cacheval', false);
+        $('#radio-choice-t-6c').attr('data-cacheval', false);
+
+        $('#lbchoicea').removeClass('ui-radio-on');
+        $('#lbchoicea').removeClass('ui-radio-off');
+        $('#lbchoiceb').removeClass('ui-radio-on');
+        $('#lbchoiceb').addClass('ui-radio-off');
+
+
+        $('#radio-choice-t-7a').attr('data-cacheval', true);
+        $('#radio-choice-t-7b').attr('data-cacheval', false);
+
+        $('#trocoRespostaPedido').val('Sim');
+        $('#pagamentoPedido').val(1);
+
+        $('#divAuxTroco').hide();
+        $('#auxCartao').hide();
+        $('#respTroco').html('R$ 0,00');
+
+    }
+
+    /*$('#auxvalortroco').priceFormat({
+                        prefix: '',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.'
+                    });*/
+
+
+
+    var erroVAlidacaoPedido =0;
+    $('#auxvalortroco').focusout(function(){
+        valorTroco=0;
+        valorCompra= $('#totalPedidoPag').text();
+        valorCompra = valorCompra.substring(3);
+        valorCompra = valorCompra.replace(".","");
+        valorCompra = valorCompra.replace(",",".");
+
+
+        valorNotaPg = $('#auxvalortroco').val();
+
+        //valorNotaPg= valorNotaPg.substring(3);
+
+        valorNotaPg= valorNotaPg.replace(".","");
+        valorNotaPg= valorNotaPg.replace(",",".");
+
+
+
+        valorCompra=  parseFloat(valorCompra);
+        valorNotaPg = parseFloat(valorNotaPg);
+
+        valorTroco = valorNotaPg - valorCompra;
+
+        if(valorTroco < 0){
+            $('#respTroco').html('Inválido');
+            $('#respTrocoAux').val(' ');
+            erroVAlidacaoPedido =1;
+        }else{
+            valorTroco = valorTroco.toFixed(2);
+            $('#respTrocoAux').val(valorTroco);
+            $('#respTrocoAux').priceFormat({
+                        prefix: 'R$ ',
+                        centsSeparator: ',',
+                        thousandsSeparator: '.'
+                    });
+            $('#respTroco').html($('#respTrocoAux').val());
+
+            $('#trocoValorPedido').val(valorNotaPg);
+            $('#trocoRespostaPedido').val('Sim');
+            erroVAlidacaoPedido = 0;
+
+        }
+
+
+    });
+
+
+
+
+
+
+
+
+    var tpPgto;
+    $("input[type='radio']").bind( "change", function(event, ui) {
+     var checkBoxId =$(this).attr('id');
+
+
+     if(checkBoxId == 'radio-choice-t-6a'){
+        tpPgto ="DH";
+        pag='dh';
+        $("#radio-choice-t-6a").checkboxradio("refresh");
+
+
+
+        $('#pagamentoPedido').val(1);
+        $('#pgmoip_id').val('');
+
+        $('#divAuxTroco').show();
+        $('#pedir').show();
+        $('#auxCartao').hide();
+        $('#sendToMoip').hide();
+
+
+        //$('#trocoValorPedido').val('');
+        //$('#trocoRespostaPedido').val('Sim');
+        //$('#pagamentoPedido').val(1);
+        //$('.radio-choice-t-7b input').prop('checked', false);
+        //$('.radio-choice-t-7a input').prop('checked', true);
+
+
+        //$('#lbchoiceb').removeClass('ui-btn-active');
+        //$('#lbchoicea').addClass('ui-btn-active');
+     }
+
+     if(checkBoxId == 'radio-choice-t-6b'){
+            tpPgto="CT";
+            pag='cartao';
+
+            $('#pedir').hide();
+            $("radio-choice-t-6b").checkboxradio("refresh");
+
+
+            var selecionadoCart = $('#instituicao').find(":selected").text();
+            $('#sendToMoip').show();
+
+            verificaCartao(selecionadoCart);
+            getTokenMoip();
+            nCart = cliente.Cliente.numerocart;
+            dtExpiracao = cliente.Cliente.expiracao;
+            cdSeg = cliente.Cliente.codigoseguranca;
+            portad= cliente.Cliente.portador;
+            cpf = cliente.Cliente.cpf;
+            nasc =  cliente.Cliente.nasc;
+            ano = nasc.substring(0, 4);
+            mes = nasc.substring(5, 7);
+            dia = nasc.substring(8, 10);
+            nasc = dia + "/" + mes + "/" + ano;
+            tel = cliente.Cliente.telefone;
+            instituicao= cliente.Cliente.instituicao;
+
+
+
+            if(nCart !=""){
+                $('.ncartao').val(nCart);
+
+                $('#cksimCart').removeClass('ui-checkbox-off');
+                $('#cksimCart').addClass('ui-checkbox-on');
+            }
+            if(instituicao !=""){
+
+
+                var myselect = $("#instituicao");
+                //myselect[0].selectedIndex = 3;
+
+
+                $('#instituicao option[value='+instituicao+']').prop('selected', true);
+                myselect.selectmenu("refresh");
+                //$('#instituicao').val(instituicao);
+                //$('#mymenu option[value="5"]').prop('selected', true)
+            }
+
+            if(dtExpiracao !=""){
+                $('#Expiracao').val(dtExpiracao);
+            }
+
+            if(cdSeg !=""){
+                $('#CodigoSeguranca').val(cdSeg);
+            }
+            if(portad !=""){
+                $('#Portador').val(portad);
+            }
+            if(cpf !=""){
+                $('#CPF').val(cpf);
+            }
+            if(nasc !=""){
+                $('#DataNascimento').val(nasc);
+            }
+            if(tel !=""){
+                $('#Telefone').val(tel);
+            }
+
+            $('#divAuxTroco').hide();
+            $('#auxCartao').show();
+            $('#trocoValorPedido').val('');
+            $('#trocoRespostaPedido').val('Não');
+     }
+
+     if(checkBoxId == 'radio-choice-t-7a'){
+        tipoTroco='Sim';
+        $('#auxvalortroco').val('');
+        $('#respTroco').html('');
+        $('#divAuxTroco').show();
+        $('#trocoRespostaPedido').val('Sim');
+        $('#holdValorTroco').show();
+        $('#txtValorTroco').show();
+
+        $('#trocoresposta').val('Sim');
+
+
+     }
+
+     if(checkBoxId == 'radio-choice-t-7b'){
+        tipoTroco='Nao';
+        $('#auxvalortroco').val('');
+        //$('#divAuxTroco').hide();
+        $('#trocoValorPedido').val('');
+        $('#respTroco').html('');
+        $('#holdValorTroco').hide();
+        $('#txtValorTroco').hide();
+        $('#trocoRespostaPedido').val('Não');
+        $('#trocoresposta').val('Não');
+
+     }
+      if(checkBoxId == 'radio-choice-t-9a'){
+
+        $('#entregaOutroLocal').val(0);
+        $('#holdValorEntrega').hide();
+
+     }
+      if(checkBoxId == 'radio-choice-t-9b'){
+        $('#entregaOutroLocal').val(1);
+        $('#holdValorEntrega').show();
+
+     }
+    });
+
+    var respValida ='';
+    $('.meucadastroForm').submit(function(event){
+
+        event.preventDefault();
+
+        validaFormCad();
+
+        if(respValida == 'ok'){
+            $( ".ui-icon-minus" ).trigger('click');
+            getCoordenadas();
+            latDest= $('latEditDest').val();
+            lngDest= $('lngEditDest').val();
+            lat = $('latEdit').val();
+            lng = $('lngEdit').val();
+
+            setSubmit();
+        }
+    });
+
+    function validaFormCad(){
+        nome = $('.nome').val();
+        username = $('.username').val();
+        password = $('.password').val();
+        //cep = $('.cep').val();
+        logradouro = $('.logradouro').val();
+        numero = $('.numero').val();
+        bairro = $('.bairro').val();
+        cidade = $('.cidade').val();
+        uf = $('.uf').val();
+        telefone = $('.telefone').val();
+        celular = $('.celular').val();
+        minhaFilial=$("#filial_id").val();
+
+
+        if(cliente ==''){
+            if(nome ==''){
+                $('#msgErroValidacao').html('nome');
+                $("#erroValidaPop").popup( "open" );
+
+            }else if(username ==''){
+                $('#msgErroValidacao').html('usu&aacute;rio');
+                $("#erroValidaPop").popup( "open" );
+            }else if(password ==''){
+                $('#msgErroValidacao').html('senha');
+                $("#erroValidaPop").popup( "open" );
+            }else if(logradouro ==''){
+                $('#msgErroValidacao').html('logradouro');
+                $("#erroValidaPop").popup( "open" );
+            }else if(numero ==''){
+                $('#msgErroValidacao').html('numero');
+                $("#erroValidaPop").popup( "open" );
+            }else if(bairro ==''){
+                $('#msgErroValidacao').html('bairro');
+                $("#erroValidaPop").popup( "open" );
+            }else if(cidade ==''){
+                $('#msgErroValidacao').html('cidade');
+                $("#erroValidaPop").popup( "open" );
+            }else if(uf ==''){
+                $('#msgErroValidacao').html('uf');
+                $("#erroValidaPop").popup( "open" );
+            }else if((telefone == '') && (celular == '')){
+                $('#msgErroValidacao').html('telefone ou celular');
+                $("#erroValidaPop").popup( "open" );
+            }else if(minhaFilial ==''){
+
+                $('#msgErroValidacao').html('loja');
+                $("#erroValidaPop").popup( "open" );
+            }else{
+                respValida = "ok";
+                return respValida;
+            }
+
+        }else{
+            if(nome ==''){
+                $('#msgErroValidacao').html('nome');
+                $("#erroValidaPop").popup( "open" );
+
+            }else if(username ==''){
+                $('#msgErroValidacao').html('usu&aacute;rio');
+                $("#erroValidaPop").popup( "open" );
+            }else if(logradouro ==''){
+                $('#msgErroValidacao').html('logradouro');
+                $("#erroValidaPop").popup( "open" );
+            }else if(numero ==''){
+                $('#msgErroValidacao').html('numero');
+                $("#erroValidaPop").popup( "open" );
+            }else if(bairro ==''){
+                $('#msgErroValidacao').html('bairro');
+                $("#erroValidaPop").popup( "open" );
+            }else if(cidade ==''){
+                $('#msgErroValidacao').html('cidade');
+                $("#erroValidaPop").popup( "open" );
+            }else if(uf ==''){
+                $('#msgErroValidacao').html('uf');
+                $("#erroValidaPop").popup( "open" );
+            }else if((telefone == '') && (celular == '')){
+                $('#msgErroValidacao').html('telefone ou celular');
+                $("#erroValidaPop").popup( "open" );
+            }else if(minhaFilial ==''){
+
+                $('#msgErroValidacao').html('loja');
+                $("#erroValidaPop").popup( "open" );
+            }else{
+                respValida = "ok";
+                return respValida;
+            }
+
+        }
+    }
+
+    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+    function setSubmit(){
+        var dataNascimento = $('.nasc').val();
+        var dataNascimentoAux = $('.nasc').val();
+        dia = dataNascimento.substring(0, 2);
+        mes = dataNascimento.substring(3, 5);
+        ano = dataNascimento.substring(6, 10);
+        dataNascimento = ano + "-" + mes + "-" + dia;
+        $('.nasc').val(dataNascimento);
+        $("#saltEdit").val(salt);
+        var urlAction = URLAPP+"RestClientes/addmobile.json";
+            var dadosForm = $(".meucadastroForm").serialize();
+            $.mobile.loading( "show" ,{theme: 'b'});
+                $.ajax({
+                    type: "POST",
+                    url: urlAction,
+                    data:  dadosForm,
+                    dataType: 'json',
+                    crossDomain: true,
+
+
+
+                    success: function(data){
+
+
+                        var res = data.ultimocliente;
+                        cliente =  data.ultimocliente;
+                        $.mobile.loading( "hide" );
+                        $("#saltEdit").val('');
+
+                        if(res == 'Erro'){
+
+                            $("#popupSenhaIncorreta").popup( "open" );
+                            //$( "#popupDialog" ).popup( "open" );
+                        }else{
+                            if(res=='ErroUsuarioDuplo'){
+
+                                $("#popupUsuarioDuplo").popup( "open" );
+                            }else{
+
+                                $("#popupCaadastroSuccess").popup( "open" );
+                            }
+
+                            //cliente_id = data.ultimopedido.Cliente.id;
+                            //cliente = data.ultimopedido;
+                            //$.mobile.changePage("#page0");
+                        }
+                    },error: function(data){
+                        console.log(data);
+                        //criar tratatmento de erros
+                        $.mobile.loading( "hide" );
+                        $("#popupDialogLogin5").popup( "open" );
+                        $("#saltEdit").val('');
+                    }
+            });
+        $('.nasc').val(dataNascimentoAux);
+    }
+    function getEndereco(cep) {
+        $.mobile.loading( "show" );
+        if($.trim(cep) != ""){
+            $(".loadingCep").html('Pesquisando...');
+            $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+cep, function(){
+                if (resultadoCEP["resultado"] != 0) {
+                    $(".logradouro").val(unescape(resultadoCEP["tipo_logradouro"]) + " " + unescape(resultadoCEP["logradouro"]));
+                    $(".bairro").val(unescape(resultadoCEP["bairro"]));
+                    $(".cidade").val(unescape(resultadoCEP["cidade"]));
+                    $(".uf").val(unescape(resultadoCEP["uf"]));
+                    $(".complemento").focus();
+                    $.mobile.loading( "hide" );
+                }else{
+                    //$("#loadingCep").html(unescape(resultadoCEP["resultado_txt"]));
+                    $.mobile.loading( "hide" );
+
+                }
+            });
+        }
+        else{
+            $(".loadingCep").html('Informe o CEP');
+        }
+    }
+    $('.cep').focusout(function(){
+        getEndereco($('.cep').val());
+        setTimeout(function(){
+            lograd= $('.logradouro').val();
+            if(lograd != ''){
+                getCoordenadas();
+            }
+        }, 3000);
+        google.maps.event.trigger(map, 'resize');
+
+    });
+
+    $('.numero').focusout(function(){
+        lograd= $('.logradouro').val();
+        if(lograd != ''){
+            getCoordenadas();
+        }
+        google.maps.event.trigger(map, 'resize');
+
+    });
+
+    $('.logradouro').focusout(function(){
+        lograd= $('.logradouro').val();
+        if(lograd != ''){
+            getCoordenadas();
+        }
+        google.maps.event.trigger(map, 'resize');
+
+    });
+    $('.uf').focusout(function(){
+        lograd= $('.logradouro').val();
+        if(lograd != ''){
+            getCoordenadas();
+        }
+        google.maps.event.trigger(map, 'resize');
+
+    });
+    $('.cidade').focusout(function(){
+        lograd= $('.logradouro').val();
+        if(lograd != ''){
+            getCoordenadas();
+        }
+        google.maps.event.trigger(map, 'resize');
+
+    });
+    $('.bairro').focusout(function(){
+        lograd= $('.logradouro').val();
+        if(lograd != ''){
+            getCoordenadas();
+        }
+        google.maps.event.trigger(map, 'resize');
+
+    });
+
+    $('.cep').mask('99999999');
+    $('.telefone').mask('(99) 9999-9999');
+    $.mask.definitions['~'] = '([0-9] )?';
+    $(".celular").mask("(99) 9999-9999~");
+    $(".uf").mask("aa");
+    $(".nasc").mask("99/99/9999");
+
+
+
+    function getCoordenadas() {
+
+        numero = removeDiacritics($('.numero').val());
+        numero = numero.split(' ').join('+');
+        logradouro = removeDiacritics($('.logradouro').val());
+        logradouro = logradouro.split(' ').join('+');
+        bairro = removeDiacritics($('.bairro').val());
+        bairro = bairro.split(' ').join('+');
+        complemento= removeDiacritics($('.complemento').val());
+        complemento = complemento.split(' ').join('+');
+        cidade = removeDiacritics($('.cidade').val());
+        cidade = cidade.split(' ').join('+');
+        uf = removeDiacritics($('.uf').val());
+        uf = uf.split(' ').join('+');
+
+        pesquisa=numero+','+logradouro+','+bairro+','+cidade+','+uf;
+
+
+        var url="http://maps.googleapis.com/maps/api/geocode/json?address="+pesquisa+"&sensor=true";
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+
+                success: function(data){
+
+
+                i=0;
+                var lat=0;
+                var lng =0;
+                $.each(data.results, function(i, resultados){
+
+                    $('#lngEdit').val(resultados.geometry.location.lng);
+                    lat =resultados.geometry.location.lat;
+                    lng = resultados.geometry.location.lng
+                    $('#lng').val(resultados.geometry.location.lng);
+                    $('#latEdit').val(resultados.geometry.location.lat);
+                    $('#lat').val(resultados.geometry.location.lat);
+                });
+
+                latorigin = $('#latEdit').val();
+                lngorigin =$('#lngEditDest').val();
+                latDest= $('#latEditDest').val();
+                lngDest=$('#lngEditDest').val();
+                CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
+                $('#gmapLEntrega2').val('');
+
+                var latlng = new google.maps.LatLng(lat,lng);
+
+                var options = {
+                    zoom: 16,
+                    center: latlng,
+                    scrollwheel:false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
+                position = new google.maps.LatLng(lat,lng);
+
+
+                 marker = new google.maps.Marker({
+                    position: position,
+                    icon:'images/usuario2.png',
+                    map: map,
+                   // draggable: true
+                });
+
+                marker.setPosition(position);
+                //atualiza o ponteiro
+                map.panTo( new google.maps.LatLng( lat,lng ) );
+                $.mobile.loading( "hide" );
+
+                return true;
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    //$(".erroconexao").popup( "open" );
+                    //tratar
+
+                }
+
+            });
+    }
+
+
+
+     function CalculaDistancia(lat,lng, latDest,lngDest) {
+
+
+
+
+
+        var startOrigin= new google.maps.LatLng(lat,lng);
+        var endDest =new google.maps.LatLng(latDest,lngDest);
+
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [startOrigin],
+            destinations: [endDest],
+            travelMode: google.maps.TravelMode.DRIVING,
+            avoidHighways: false,
+            avoidTolls: false
+          }, callback);
+
+
+
+
+
+    }
+
+    function callback(response, status) {
+      if (status == google.maps.DistanceMatrixStatus.OK) {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
+
+        for (var i = 0; i < origins.length; i++) {
+          var results = response.rows[i].elements;
+          for (var j = 0; j < results.length; j++) {
+            var element = results[j];
+            if(element.status !=  'ZERO_RESULTS'){
+                var distance = element.distance.text;
+                var duration = element.duration.text;
+                var from = origins[i];
+                var to = destinations[j];
+        $('#distanciaCli').val(distance);
+        $('#duracaoCli').val(duration);
+            }
+
+
+          }
+        }
+      }
+    }
+    function getCoordenadasLatLng(lat, lng) {
+
+        var url="http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+','+lng+"&sensor=true";
+
+        $.mobile.loading( "show" );
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+
+
+
+
+                success: function(data){
+
+
+                i=0;
+                $.each(data.results, function(i, resultados){
+                    if(i ==0){
+                        var endereco = resultados.formatted_address;
+
+                        var  res = endereco.split(",");
+                        cep =res[1];
+                        cep =  cep.split("-");
+                        cepAux = cep[0] + cep[1];
+                        $('#logradouroEdit').val(res[0]);
+                        $('#cepEdit').val(cepAux);
+                        //console.log(res);
+                        return true;
+                    }
+                    $.mobile.loading( "hide" );
+
+                });
+
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    //$(".erroconexao").popup( "open" );
+
+                }
+
+            });
+    }
+    //google maps
+     // your google map container
+
+
+
+
+
+    var localizacaoEntrega="";
+    function getAtendimentoPosition(atendimentoid){
+
+
+        //$.mobile.loading( "show" ,{theme: 'b'});
+        var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                //$.mobile.loading( "hide" );
+
+                    //$.mobile.loading( "hide" );
+                    localizacaoEntrega="";
+
+
+                        if(localizacaoEntrega != ""){
+                            var start= localizacaoEntrega.Atendimento.lat +','+localizacaoEntrega.Atendimento.lng;
+                            var end = localizacaoEntrega.Cliente.lat +','+localizacaoEntrega.Cliente.lng;
+
+                            //console.log(start);
+                            //console.log(end);
+                            var request = {
+                            origin:start,
+                            destination:end,
+                            travelMode: google.maps.TravelMode.DRIVING
+                          };
+                          directionsService.route(request, function(result, status) {
+                            if (status == google.maps.DirectionsStatus.OK) {
+                              directionsDisplay.setDirections(result);
+                            }
+                          });
+                        }
+
+
+
+                    return localizacaoEntrega;
+
+                },error: function(data){
+                    //$.mobile.loading( "hide" );
+                    //$("#popupDialogLogin8").popup( "open" );
+
+
+                }
+
+            });
+
+
+    }
+
+    function getAtendimentoPositionAlterado(atendimentoid){
+
+
+        //$.mobile.loading( "show" ,{theme: 'b'});
+        var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+
+
+
+
+
+
+                            var start= data.resultados.Atendimento.lat +','+data.resultados.Atendimento.lng;
+                            var end = data.resultados.Cliente.lat +','+data.resultados.Cliente.lng;
+                        console.log(start);
+
+                        var request = {
+                            origin:start,
+                            destination:end,
+                            travelMode: google.maps.TravelMode.DRIVING
+                          };
+                          directionsService.route(request, function(result, status) {
+                            if (status == google.maps.DirectionsStatus.OK) {
+                              directionsDisplay.setDirections(result);
+                            }
+                          });
+
+
+
+
+                    //return localizacaoEntrega;
+
+                },error: function(data){
+                    //$.mobile.loading( "hide" );
+                    //$("#popupDialogLogin8").popup( "open" );
+
+
+                }
+
+            });
+
+
+    }
+
+    $(".minhalocalizacao").click(function(){
+        $.mobile.changePage("#page6", { transition: "none",  });
+    });
+
+    $( document ).on( "pageinit", "#page6", function() {
+
+        setTimeout(function() {
+            function initialize() {
+                $("#gmapLEntrega").html('');
+                var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
+
+                var options = {
+                    zoom: 16,
+                    center: latlng,
+                    scrollwheel:false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map(document.getElementById("gmapLEntrega"), options);
+            }
+            initialize();
+            var newLatLng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
+
+
+            marker = new google.maps.Marker({
+                position: newLatLng,
+                map: map,
+                 icon:'images/usuario2.png',
+            });
+        }, 1000);
+    });
+    var longetudeMeLoc ="";
+    var latitudeMeLoc="";
+    function geoSuccess( pos ) {
+
+        // armazena as coordenadas de latitude e longitude
+            lat = pos.coords.latitude,
+            lng = pos.coords.longitude;
+            $('.lat').val(lat);
+            $('.lng').val(lng);
+            //getCoordenadasLatLng(lat, lng);
+            position = new google.maps.LatLng(lat,lng);
+             marker = new google.maps.Marker({
+                    position: position,
+                     map: map,
+                      icon:'images/usuario2.png',
+               // draggable: true
+            });
+
+            marker.setPosition(position);
+        //atualiza o ponteiro
+        map.panTo( new google.maps.LatLng( lat,lng ) );
+        $.mobile.loading( "hide" );
+        google.maps.event.trigger(map, 'resize');
+        // crie qualquer coisa legal usando as coordenadas
+    };
+
+    function geoError( err ) {
+        switch( err.code ) {
+            case 1:
+                // permissao negada pelo usuario
+                alert('permissao negada pelo usuario');
+                $.mobile.loading( "hide" );
+                break;
+
+            case 2:
+                alert('nao foi possivel alcancar os satelites GPS');
+                $.mobile.loading( "hide" );
+                // nao foi possivel alcancar os satelites GPS
+                break;
+
+            case 3:
+                alert('a requisicao demorou demais para retornar');
+                $.mobile.loading( "hide" );
+                // a requisicao demorou demais para retornar
+                break;
+
+            case 0:
+                alert('ocorreu um erro desconhecido...');
+                $.mobile.loading( "hide" );
+                // ocorreu um erro desconhecido...
+                break;
+        }
+    };
+
+    var geoOptions = {
+        enableHighAccuracy: true,
+        timeout: 30000,
+        maximumAge: 3000
+    };
+
+
+    $('body').on('click', '.meLocalize', function (event) {
+        $.mobile.loading( "show" );
+
+        navigator.geolocation.getCurrentPosition( geoSuccess, geoError, geoOptions );
+
+
+
+    });
+    function meLocalize() {
+
+    }
+
+    $(".localizarpedido").click(function(){
+        $.mobile.changePage("#map-page", { transition: "none",  });
+
+
+    });
+
+    var initialize2="";
+    var initialize22="";
+    var loopMap=0;
+
+
+
+    function cancelinitialize22() {
+        if (initialize22) {
+            clearTimeout(initialize22);
+            initialize22 = 0;
+        }
+    }
+
+    var map;
+
+    var markers=[];
+    var marker ;
+
+    var map;
+    var directionsDisplay; // Instanciaremos ele mais tarde, que será o nosso google.maps.DirectionsRenderer
+    var directionsService = new google.maps.DirectionsService();
+
+    function initializeDistancia() {
+       directionsDisplay = new google.maps.DirectionsRenderer(); // Instanciando...
+       var latlng = new google.maps.LatLng(-22.775728, -43.4320752);
+
+       var options = {
+          zoom: 16,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+       };
+
+       map = new google.maps.Map(document.getElementById("map-canvas"), options);
+       directionsDisplay.setMap(map); // Relacionamos o directionsDisplay com o mapa desejado
+    }
+
+    var checaPosition="";
+
+    $(document).on("pagebeforehide","#map-page",function(){ // When leaving #map-page
+          clearTimeout(checaPosition);
+    });
+    $(".btn-locPedido").click(function(){
+        var atendimentoId2 = $("#idAtend").text();
+
+        $.mobile.changePage("#map-page", { transition: "none",  });
+        var map="";
+
+
+
+
+        setTimeout(function() {
+            initializeDistancia();
+            getAtendimentoPositionAlterado(atendimentoId2);
+
+         }, 3000);
+
+        checaPosition = setInterval(function(){
+            getAtendimentoPositionAlterado(atendimentoId2);
+        },30000);
+
+        /*setTimeout(function() {
+            function initialize() {
+                $("#map-canvas").html('');
+                if(localizacaoEntrega !=''){
+                    var latlng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
+
+                    var options = {
+                        zoom: 16,
+                        center: latlng,
+                        scrollwheel: false,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+
+                    map = new google.maps.Map(document.getElementById("map-canvas"), options);
+
+                }
+
+            }
+            initialize();
+            if(localizacaoEntrega !=''){
+                var newLatLng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
+            }
+
+            marker = new google.maps.Marker({
+                position: newLatLng,
+                map: map,
+               // draggable: true
+            });
+        }, 3000);
+
+        loopMap=0;
+        var initialize22 = setInterval(function(){
+
+            if(loopMap==0){
+                getAtendimentoPosition(atendimentoId2);
+                //$("#map-canvas").html('');
+
+
+
+               position = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
+                marker.setPosition(position);
+                //atualiza o ponteiro
+                map.panTo( new google.maps.LatLng( localizacaoEntrega.lat, localizacaoEntrega.lng ) );
+
+            }else{
+                clearTimeout(initialize22);
+                initialize22 = 0;
+            }
+
+
+        },40000);*/
+
+    });
+
+
+    $('body').on('click', '.ui-toolbar-back-btn', function (event) {
+
+        loopMap=1;
+        $('#sendToMoip').hide();
+
+    });
+
+
+    salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+    $(document).on( "pageshow",'#page5', function() {
+        atualizarLojas();
+        $('.empresaEdit').val(empresa);
+        $("#saltEdit").val(salt);
+        if(cliente ==""){
+            $("#submitFormCliente").html('Cadastrar');
+        }else{
+
+            var dataNascimento = cliente.Cliente.nasc;
+            var dataNascimentoAux = $('.nasc').val();
+            ano = dataNascimento.substring(0, 4);
+            mes = dataNascimento.substring(5, 7);
+            dia = dataNascimento.substring(8, 10);
+            dataNascimento = dia + "/" + mes + "/" + ano;
+
+
+
+            $('#nomeEdit').val(cliente.Cliente.nome);
+            $('#usernameEdit').val(cliente.Cliente.username);
+            //$('#passwordEdit').val(cliente.Cliente.password);
+            $('#nascEdit').val(dataNascimento);
+            $('#cepEdit').val(cliente.Cliente.cep);
+            $('#logradouroEdit').val(cliente.Cliente.logradouro);
+            $('#complementoEdit').val(cliente.Cliente.complemento);
+            $('#numeroEdit').val(cliente.Cliente.numero);
+            $('#bairroEdit').val(cliente.Cliente.bairro);
+            $('#cidadeEdit').val(cliente.Cliente.cidade);
+            $('#ufEdit').val(cliente.Cliente.uf);
+            $('#emailEdit').val(cliente.Cliente.email);
+            $('#telefoneEdit').val(cliente.Cliente.telefone);
+            $('.filialEdit').val(cliente.Cliente.filial_id);
+            $('#empresaEdit').val(cliente.Cliente.empresa_id);
+
+            $('#celularEdit').val(cliente.Cliente.celular);
+            $('#idEdit').val(cliente.Cliente.id);
+            $("#lngEdit").val(cliente.Cliente.lng);
+            $('#latEdit').val(cliente.Cliente.lat);
+            $('#latEditDest').val(cliente.Cliente.latdest);
+            $('#lngEditDest').val(cliente.Cliente.lngdest);
+        }
+
+
+        if(cliente ==""){
+
+            setTimeout(function() {
+                    var latlng = new google.maps.LatLng(-22.7734767, -43.4346817);
+
+                    var options = {
+                        zoom: 16,
+                        center: latlng,
+                        scrollwheel: false,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+
+                    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
+            }, 2000);
+
+        }else{
+            setTimeout(function() {
+                    var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
+
+                    var options = {
+                        zoom: 16,
+                        center: latlng,
+                        scrollwheel: false,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+
+                    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
+
+
+                    marker = new google.maps.Marker({
+                        position: latlng,
+                        map: map,
+                         icon:'images/usuario2.png',
+                       // draggable: true
+                    });
+            }, 2000);
+
+        }
+    });
+
+
+
+    $('#btn-comentar').click(function(){
+        $( "#popupComentarPedido" ).popup( "open" );
+    });
+    //$('#avaliacaoPedido').raty({half     : true,});
+    //$('#avaliarPedido').raty();
+
+    //funções para o chat
+    var numeroPedido;
+    $('#btn-chat').click(function(){
+        numeroPedido= $("#idPedidoAux").text();
+    });
+
+    $('#formChat').submit(function(event){
+        event.preventDefault();
+
+        name = cliente.Cliente.username;
+        $('#idclientemsg').val(cliente.Cliente.id);
+        $('#idsenderemsg').val(cliente.Cliente.id);
+
+        $('#idpedidoemsg').val(numeroPedido);
+
+        msg = $("#msg").val();
+        if(msg !=''){
+            enviaMensagem();
+            $("#msg").val('');
+
+        }
+
+    });
+
+    var myVar;
+    $(document).on("pagebeforehide","#page10",function(){ // When leaving pagetwo
+
+         clearInterval(myVar);
+    });
+    $( document ).on( "pageinit", "#page10", function() {
+        $('#idclientemsg').val(cliente.Cliente.id);
+        recebeMensagemInicio();
+        setTimeout(function(){
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+            }, 4000);
+        /*$('#chatZone').animate(
+                {
+                    scrollTop: $('#chatZone').prop("scrollHeight"),
+
+                }, 500);*/
+        //$("#chatZone").getNiceScroll().resize();
+
+        //$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        //myVar = setInterval(function(){verificaMensagem();}, 3000);
+
+    });
+
+    $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo
+        $('#empresa_input').val(empresa);
+        $('#filial_input').val(filialPadrao);
+    });
+    $(document).on("pageshow","#page10",function(){ // When entering pagetwo
+        myVar = setInterval(function(){
+
+            verificaMensagem();
+        }, 2000);
+    });
+    var verificaPedido;
+    $(document).on("pageshow","#page2",function(){ // When entering pagetwo
+        clearInterval(myVar);
+        verificaPedido = setInterval(function(){getSituacaoPedido();}, 30000);
+
+    });
+
+    $(document).on("pageshow","#page1",function(){
+        clearInterval(verificaPedido);
+    });
+    $(document).on("pageshow","#page3",function(){
+        if(cliente != ''){
+
+
+            clearInterval(verificaPedido);
+            $('.cloneOptPgt').remove();
+            console.log(cliente);
+            $.each(cliente.Pagamento, function(i, pagamento){
+                $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+            });
+
+        }else{
+            //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+        }
+    });
+    //$("html").niceScroll({cursorcolor:"#FF5C0A" });
+
+    var ultimaMsg="";
+    function enviaMensagem(){
+
+
+        var urlAction = URLAPP+"RestMensagens/addmobile.json?b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"";
+        var dadosForm = $("#formChat").serialize();
+
+
+
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  dadosForm,
+            dataType: 'json',
+            crossDomain: true,
+
+
+
+            success: function(data){
+                //verificaMensagem();
+                //ultimaMsg =data.ultimomensagen.Mensagen.id;
+                 /*$('#chatZone').append('<div class="chatmsg" data-msgid="'+data.ultimomensagen.Mensagen.id+'"><b>'+data.ultimomensagen.Cliente.username+'</b>: '+data.ultimomensagen.Mensagen.msg+'<br/></div>');
+
+
+
+
+                //$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
+
+                $('#chatZone').animate(
+                {
+                    scrollTop: $('#chatZone').prop("scrollHeight"),
+
+                }, 500);
+
+                $("#chatZone").getNiceScroll().resize();
+                $("#chatZone").niceScroll({cursorcolor:"#CCC" }); */
+
+            },error: function(data){
+                //criar tratatmento de erros
+
+
+            }
+            });
+
+
+
+
+    }
+
+    function recebeMensagemInicio(){
+
+        var url=URLAPP+"RestMensagens/indexmobile.json?d="+numeroPedido+"&clid="+cliente.Cliente.id+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"";
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+            success: function(data){
+
+
+                $.each(data, function(i, resultados){
+
+                    $.each(resultados, function(z, resultado){
+
+                        senderuser = resultado.User.id;
+                        sendercliente = cliente.Cliente.id;
+                        sender = resultado.Mensagen.sender;
+                        nomeMsg ="";
+                        classemsg="";
+                        if(sender == 0){
+                            nomeMsg = resultado.User.username;
+                            classemsg ="spanAtendente";
+                            classetriangulo = "triangle-isoscelesalt top";
+
+                        }else{
+                            nomeMsg = cliente.Cliente.username;
+                            classemsg ="spanUsuario";
+                            classetriangulo = "triangle-isosceles";
+                        }
+                        $('#chatZone').append('<p class="'+classetriangulo +'" data-msgid="'+resultado.Mensagen.id+'"><span class="'+classemsg+'">'+nomeMsg+' disse: </span>'+resultado.Mensagen.msg+'</p>');
+
+                        //$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
+
+
+                        setTimeout(function(){
+                            $(".modal-body").animate({ scrollTop: $(document).height() }, "slow");
+                        }, 1000);
+
+
+                        //$("#chatZone").getNiceScroll().resize();
+                        //$("html, body").niceScroll({cursorcolor:"#FF5C0A" });
+                        ultimaMsg =resultado.Mensagen.id;
+
+                    });
+                });
+
+
+            },error: function(data){
+                //criar tratatmento de erros
+                $("#popupDialogLogin11").popup( "open" );
+
+            }
+            });
+    }
+    function verificaMensagem(){
+
+
+        var url=URLAPP+"RestMensagens/viewmobile.json?d="+numeroPedido+"&clid="+cliente.Cliente.id+"&ult="+ultimaMsg+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"";
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+            success: function(data){
+
+                contadorScroll=0;
+                acumuladorTexto="";
+                $.each(data, function(i, resultados){
+
+                    $.each(resultados, function(z, resultado){
+
+                        senderuser = resultado.User.id;
+                        sendercliente = cliente.Cliente.id;
+                        sender = resultado.Mensagen.sender;
+                        nomeMsg ="";
+                        classemsg="";
+                        if(sender == 0){
+                            nomeMsg = resultado.User.username;
+                            classemsg ="spanAtendente";
+                            classetriangulo = "triangle-isoscelesalt top";
+
+                        }else{
+                            nomeMsg = cliente.Cliente.username;
+                            classemsg ="spanUsuario";
+                            classetriangulo = "triangle-isosceles";
+                        }
+
+                        acumuladorTexto= acumuladorTexto+'<p class="'+classetriangulo +'" data-msgid="'+resultado.Mensagen.id+'"><span class="'+classemsg+'">'+nomeMsg+' disse : </span>'+resultado.Mensagen.msg+'</p>';
+
+
+                        //$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
+
+                        //$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+                        //$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+                        //$("#chatZone").getNiceScroll().resize();
+                        //$("#chatZone").niceScroll({cursorcolor:"#FF5C0A" });
+                        ultimaMsg = resultado.Mensagen.id;
+
+                    });
+                });
+                if(acumuladorTexto !=''){
+                    $('#chatZone').append(acumuladorTexto);
+                    setTimeout(function(){
+                    //$("#chatZone").getNiceScroll().resize();
+                    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+                    }, 300);
+
+                }
+
+
+
+            },error: function(data){
+                //criar tratatmento de erros
+                //$(".erroconexao").popup( "open" );
+
+            }
+            });
+    }
+    var campainha=0;
+     var atendimentoid="";
+    function getSituacaoPedido(){
+
+        atendimentoid = $('#idAtend').text();
+        //$.mobile.loading( "show" ,{theme: 'b'});
+        var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                //$.mobile.loading( "hide" );
+
+                    //$.mobile.loading( "hide" );
+                    $.each(data, function(i, atendimento){
+
+                        console.log(atendimento);
+                        $.each(atendimento.Pedido, function(i, pedido){
+
+                            statusSit = $("#situacaoAtend").text();
+                            subsSit = statusSit.substring(0, 5);
+                            subsSitPedido= pedido.status.substring(0, 5);
+
+                            if(subsSit != subsSitPedido){
+                                $('#situacaoAtend').html(pedido.status);
+                                $(".situacaoAtend").addClass("verde-background");
+                                $(".situacaoAtend").animate({"margin-left": "+=25px"},"fast");
+                                $(".situacaoAtend").animate({"margin-left": "-=50px"},"fast");
+                                $(".situacaoAtend").animate({"margin-left": "+=50px"},"fast");
+                                $(".situacaoAtend").animate({"margin-left": "-=50px"},"fast");
+                                $(".situacaoAtend").animate({"margin-left": "+=50px"},"fast");
+                                $(".situacaoAtend").animate({"margin-left": "-=25px"},"fast");
+                                $('#audioPlayer').trigger('play');
+                            }
+
+                             posFila = $('#posFilaAtend').text();
+                             posFila = parseInt(posFila);
+                             posFilaAtual = pedido.posicao_fila;
+                             posFilaAtual =  parseInt(posFilaAtual);
+                            if(posFila != posFilaAtual){
+
+                                $('#posFilaAtend').html(pedido.posicao_fila);
+                                $(".animaPos").addClass("verde-background");
+                                $(".animaPos").animate({"margin-left": "+=25px"},"fast");
+                                $(".animaPos").animate({"margin-left": "-=50px"},"fast");
+                                $(".animaPos").animate({"margin-left": "+=50px"},"fast");
+                                $(".animaPos").animate({"margin-left": "-=50px"},"fast");
+                                $(".animaPos").animate({"margin-left": "+=50px"},"fast");
+                                $(".animaPos").animate({"margin-left": "-=25px"},"fast");
+                                $('#audioPlayer').trigger('play');
+                            }
+                            sitAtendimento = $('#pagamentoAtend').text();
+
+                             sitAtendimento = pedido.status_pagamento;
+                             if(sitAtendimento != sitAtendimento){
+                                $('#pagamentoAtend').html(pedido.status_pagamento);
+                                $(".animaSitPag").addClass("verde-background");
+                                $(".animaSitPag").animate({"margin-left": "+=25px"},"fast");
+                                $(".animaSitPag").animate({"margin-left": "-=50px"},"fast");
+                                $(".animaSitPag").animate({"margin-left": "+=50px"},"fast");
+                                $(".animaSitPag").animate({"margin-left": "-=50px"},"fast");
+                                $(".animaSitPag").animate({"margin-left": "+=50px"},"fast");
+                                $(".animaSitPag").animate({"margin-left": "-=25px"},"fast");
+                                $('#audioPlayer').trigger('play');
+                             }
+                             /*sitcampainha = atendimento.Atendimento.campainha;
+                             atendimentoid= atendimento.Atendimento.id;
+                             if(sitcampainha == null){
+
+                             }else{
+
+                                if(sitcampainha >= 1){
+
+                                    if(sitcampainha==10){
+
+                                    }else{
+                                        if(sitcampainha==11){
+
+                                        }else{
+                                            if(campainha==0){
+                                                $('.audioPlayer').trigger('play');
+                                                 $("#popupAvisoCampainha").popup( "open" );
+                                            }
+                                        }
+                                    }
+
+
+
+                                  }
+
+                             }*/
+
+
+                        });
+
+                    });
+
+
+                },error: function(data){
+                    //$.mobile.loading( "hide" );
+                    //tratar essa rotina
+
+
+                }
+
+            });
+
+
+
+    }
+    $('#page2').click(function(){
+
+        $(".verde-background").removeClass("verde-background");
+
+    });
+
+    $('body').on('click', '.fecharcampainha', function(){
+
+        campainha=0;
+
+        atendeCampainha(atendimentoid);
+    });
+
+    function atendeCampainha(atendimentoid){
+
+
+        $.mobile.loading( "show" ,{theme: 'b'});
+        var url=URLAPP+"RestAtendimentos/campainhamobile.json?entr=2&a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+            $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                    $.mobile.loading( "hide" );
+
+
+                },error: function(data){
+                    console.log(data);
+                    $.mobile.loading( "hide" );
+
+                    //tratar essa rotina
+
+
+                }
+
+            });
+
+
+    }
+    function getSituacaoCampainha(){
+
+
+        //$.mobile.loading( "show" ,{theme: 'b'});
+        var url=URLAPP+"RestAtendimentos/getsituacaocampainha.json?entr=2&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+                    if(data.resultados=='vazio'){
+
+                    }else{
+                        atendimento_id= data.resultados.Atendimento.id;
+                        $('.audioPlayer').trigger('play');
+                         $(".popupAvisoCampainha").popup( "open" );
+
+                    }
+
+
+
+                },error: function(data){
+
+
+
+                }
+
+            });
+
+
+
+    }
+
+
+    $('.formaDEpagamento').change(function(){
+        valorFormaPg = $(".formaDEpagamento option:selected").text();
+
+        if(valorFormaPg=='Dinheiro'){
+
+
+            $('.auxDinheiro').show();
+            tpPgto ="DH";
+            pag='dh';
+
+        }else{
+
+            $('.auxDinheiro').hide();
+            tpPgto="CT";
+            pag='cartao';
+
+        }
+    });
+    /*$('.applogo').click(function(){
+        $("#popupDialogFormFoto1").popup( "open" );
+    });*/
+
+
+    $(document).on("pageshow","#page0",function(){
+        /*if(cliente.Cliente.foto != null){
+            $('.fotoHeader').attr('src',cliente.Cliente.foto);
+            if(cliente.Cliente.fotoexif==1){
+                $('.fotoHeader').addClass('fotoRotate');
+            }
+        }*/
+
+
+    });
+
+
+
+    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+    $('.clienteSalt').val(salt);
+    $('.enviaFoto').submit(function(event){
+        event.preventDefault();
+        $.mobile.loading( "show" );
+        $('.clienteIdFoto').val(cliente.Cliente.id);
+        fotoInput = $ ('.fotoInput').val();
+        if(fotoInput != ''){
+            var urlAction = URLAPP+"RestClientes/addFotosmobile.json";
+            var formData = new FormData(this);
+            $.ajax({
+                type:'POST',
+                url: urlAction,
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success:function(data){
+                    console.log(data);
+                    $('.fotoHeader').attr('src',data.ultimocliente.Cliente.foto);
+                    arrayNome = data.ultimocliente.Cliente.foto;
+                    arrayNome2 = arrayNome.split('fotoscli');
+                  splitFoto = arrayNome2
+                    console.log(arrayNome2);
+                    $("#popupDialogFormFoto1").popup( "close" );
+                    $.mobile.loading( "hide" );
+                },
+                error: function(data){
+                    alert('Erro ao enviar a foto');
+                    $.mobile.loading( "hide" );
+
+                }
+            });
+        }else{
+
+        }
+
+    });
 
 $(".ui-icon-share").click(function(){
-	setTimeout(function(){
-		$('.ui-icon-share').prop('disabled', true);
-	},500);
-	setTimeout(function(){
-		$('.ui-icon-share').prop('disabled', false);
-	},4000);
+    setTimeout(function(){
+        $('.ui-icon-share').prop('disabled', true);
+    },500);
+    setTimeout(function(){
+        $('.ui-icon-share').prop('disabled', false);
+    },4000);
 });
 
 });
-
-

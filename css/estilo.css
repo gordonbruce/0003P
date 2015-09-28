@@ -342,26 +342,10 @@
 		background-color: rgba(0,0,0,.3) !important;
 	}
 	.divControles input{ }
-	.divControles{   width:  255px;   margin-left: 22%;   margin-top: 4%;}
-	.imgProduto{background-color:#B37700;  padding: 3px; }
 
-	.owl-theme .owl-controls .owl-buttons div {background: none; }
-	 .addProduto{
-	 	width: 17%;
-		border: 0;
-		 outline: none;
-	 }
-	 .infoProduto{
-	 	width: 17%;
-	 	border: 0;
-  		outline: none;
-	 }
-	.imgProduto img{
-		max-width: 220px;
-		max-height: 150px;
-		display: block;
-		margin: 10px auto;
-	}
+
+
+
 	.preco{
 		display: block;
 		text-align: center;
@@ -382,9 +366,7 @@
             .verde-background dd{
                 background-color: rgb(173, 255, 47) !important;
             }
-            .compostoAdd{
-                max-width:193px;
-            }
+
 
 
 /** Scaffold View **/
@@ -448,7 +430,7 @@
 	.imgEntrada{width: 95%; display: block; margin: 1em auto; margin-bottom:3em; display: block;}
 	.ui-header .ui-btn-left{margin-top: 1em;}
 
-	.inputAdd{height: 35px; width: 45px; float: left; margin-top: 1.6%; margin-right: 5px;   background: black;   color: white;}
+
 
 
 	.ui-popup-container .ui-header{position:relative !important;}
@@ -661,11 +643,58 @@ input, textarea {
       transform: rotate(-90deg);
 }
 
+
+/*Update aqui*/
+
+.inputAdd{
+  height: 44px;
+  width: 44px;
+  float: left;
+  margin-top: 1.6%;
+  margin-right: 5px;
+  background: black;
+  border: 0;
+  color: white;
+  border-radius: 38px;
+  text-indent: 13px;
+}
+.divControles{
+    width: 149px;
+    margin: 1px auto;
+    margin-top: 3px;
+}
+    .imgProduto{background-color:#B37700;  padding: 3px; }
+
+    .owl-theme .owl-controls .owl-buttons div {background: none; }
+     .addProduto{
+        width: 44px;
+        border: 0;
+         outline: none;
+         margin-top: 3px;
+     }
+     .infoProduto{
+        width: 44px;
+        border: 0;
+        outline: none;
+        margin-top: 3px;
+     }
+    .imgProduto img{
+        max-width: 220px;
+        max-height: 150px;
+        display: block;
+        margin: 10px auto;
+    }
+.compostoLabelAdd{
+    display: block;
+    width: 55px !important;
+    margin: 3px auto!important;
+}
 .compostoAdd{
-    margin-left: 10%;
-      margin-top: 3%;
-      color: white;
-      background-color: black;
+
+    width: 100px !important;
+    margin: 6px auto !important;
+    color: white;
+    background-color: black;
 }
 .addProdutoComposto{
     display: none;
@@ -673,3 +702,43 @@ input, textarea {
 .precoComposto{
     display: none;
 }
+
+.labelTamanho{
+    display: block;
+    width: 75px !important;
+    margin: 3px auto!important;
+}
+.selectTamanho{
+    display: block;
+    width: 100px !important;
+    margin: 6px auto !important;
+    background-color: black;
+    color: white;
+}
+
+.labelBedidas{
+    display: block;
+    width: 55px !important;
+    margin: 3px auto!important;
+}
+.selectBeidas{
+    display: block;
+    width: 100px !important;
+    margin: 6px auto !important;
+    background-color: black;
+    color: white;
+}
+.labelGanhe{
+   display: block;
+    width: 55px !important;
+    margin: 3px auto!important;
+}
+.selectGanhe{
+     display: block;
+    width: 100px !important;
+    margin: 6px auto !important;
+    background-color: black;
+    color: white;
+}
+.none{display: none;}
+.slider .noneImportant{display: none;}

@@ -9,6 +9,12 @@ var prodId1='';
 var prodId2='';
 var prodTamanho="";
 var itenObs="";
+var bebidas=null;
+var pagueGanhe=null;
+var itemPagueGanheId=null;
+var itemPagueGanheNome=null;
+var itemBebidaId =null;
+var itemBebidaNome  = null;
 //Bloco de Configurações do aplicativo Fim
 function removeDiacritics (str) {
 
@@ -164,10 +170,11 @@ $(document).on("pageshow","#index",function(){
 		 	prodId2 =  prodOpt2.substring(12);
 		 	nomeProd2  = $("#compostoAdd2"+comboId).find('option:selected').text();
 		 	prodTamanho=tamanhoChange;
+
 		 	if(prodTamanho==''){
 		 		prodTamanho="NT";
 		 	}
-		 	itenObs=" "+nomeProd1+" e " + nomeProd2+" tamanho: "+prodTamanho;
+
 		 	vt = vlUm;
 		 	if(vlUm > vlDois){
 		 		vt = vlUm;
@@ -178,6 +185,15 @@ $(document).on("pageshow","#index",function(){
 		 	vt = vt.toFixed(2);
 		 	vt = String(vt);
 		 	vt = vt.replace('.',',');
+
+		 	$('#btnAddProd'+comboId).attr('data-produtoid1',prodId1);
+		 	$('#btnAddProd'+comboId).attr('data-produtoid2',prodId2);
+
+		 	$('#btnAddProd'+comboId).attr('data-produtoNome1',nomeProd1);
+		 	$('#btnAddProd'+comboId).attr('data-produtoNome2',nomeProd2);
+
+		 	$('#btnAddProd'+comboId).attr('data-tamanho',prodTamanho);
+
 		 	$('#btnAddProd'+comboId).attr('data-vlu',vt);
 
 		 	$('#precoComposto'+comboId).html('R$ '+vt);
@@ -188,7 +204,11 @@ $(document).on("pageshow","#index",function(){
 		}else{
 			$('.precoComposto').css('display', 'none');
 			$('.addProdutoComposto').css('display', 'none');
-
+			$('#btnAddProd'+comboId).attr('data-produtoid1','');
+		 	$('#btnAddProd'+comboId).attr('data-produtoid2','');
+		 	$('#btnAddProd'+comboId).attr('data-tamanho','');
+		 	$('#btnAddProd'+comboId).attr('data-produtoNome1','');
+		 	$('#btnAddProd'+comboId).attr('data-produtoNome2','');
 
 		}
 
@@ -234,6 +254,28 @@ $(document).on("pageshow","#index",function(){
 
 	});
 
+	$(document).on("change", ".bebidas", function(){
+
+		 selectBebidasId= $(this).attr('data-id');
+
+		bebId  = $("#selectBebidas_"+selectBebidasId).find('option:selected').attr('data-id');
+		bebNome  = $("#selectBebidas_"+selectBebidasId).find('option:selected').attr('data-nome');
+
+		$('#btnAddProd'+selectBebidasId).attr('data-bebidaid',bebId);
+		$('#btnAddProd'+selectBebidasId).attr('data-bebidanome',bebNome);
+	});
+
+	$(document).on("change", ".pagueGanhe", function(){
+
+		 selectPagueGanheId= $(this).attr('data-id');
+
+		pagGanId  = $("#selectPagueGanhe_"+selectBebidasId).find('option:selected').attr('data-id');
+		pagGanNome  = $("#selectPagueGanhe_"+selectBebidasId).find('option:selected').attr('data-nome');
+
+		$('#btnAddProd'+selectBebidasId).attr('data-pagueganheid',pagGanId);
+		$('#btnAddProd'+selectBebidasId).attr('data-pagueganhenome',pagGanNome);
+	});
+
 	$(document).on("change", ".comboTamanho", function(){
 
 
@@ -243,17 +285,65 @@ $(document).on("pageshow","#index",function(){
 		tamanho  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-tamanho');
 		if(typeof tamanho !== "undefined")
 		{
-			$('#compostoAdd1'+produtoTamId).css('display', 'block');
-		 	$('#compostoAdd2'+produtoTamId).css('display', 'block');
-		 	$("#compostoAdd1"+produtoTamId).val(0);
-			$("#compostoAdd2"+produtoTamId).val(0);
-			$('.precoComposto').css('display', 'none');
-			$('#btnAddProd'+produtoTamId).css('display', 'none');
+
+
+			precoTamSimples  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-preco');
+
+			//Se não tiver preço o produto é composto
+			if(precoTamSimples != 'NaN' && precoTamSimples  !='' ){
+
+
+			 	vt = precoTamSimples;
+
+			 	vt= parseFloat(vt);
+			 	vt = vt.toFixed(2);
+			 	vt = String(vt);
+			 	vt = vt.replace('.',',');
+			 	$('#btnAddProd'+produtoTamId).attr('data-vlu',vt);
+
+			 	$('.precotam'+produtoTamId).html('R$ '+vt);
+			 	$('.precotam'+produtoTamId).css('display', 'block');
+			 	$('#btnAddProd'+produtoTamId).css('display', 'inline-block');
+			 	$('#btnAddProd'+produtoTamId).attr('data-tamanho',tamanho);
+
+			}else{
+				$('#compostoAdd1'+produtoTamId).css('display', 'block');
+			 	$('#compostoAdd2'+produtoTamId).css('display', 'block');
+			 	$('#compostoLabelAdd'+produtoTamId).css('display', 'block');
+			 	$("#compostoAdd1"+produtoTamId).val(0);
+				$("#compostoAdd2"+produtoTamId).val(0);
+				$('.precoComposto').css('display', 'none');
+				$('#btnAddProd'+produtoTamId).css('display', 'none');
+				$('#btnAddProd'+produtoTamId).attr('data-tamanho','');
+			}
+
+			possuiBebida  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-bolbebida');
+
+			if(possuiBebida=='true'){
+				$('.bebidas_'+produtoTamId).css('display','block');
+			}else{
+				$('.bebidas_'+produtoTamId).css('display','none');
+				$('#btnAddProd'+produtoTamId).attr('data-bebidanome','');
+				$('#btnAddProd'+produtoTamId).attr('data-bebidaid','');
+			}
+			possuiPagGanhe  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-bolganhe');
+
+			if(possuiPagGanhe=='true'){
+				$('.pagueGanhe_'+produtoTamId).css('display','block');
+			}else{
+				$('.pagueGanhe_'+produtoTamId).css('display','none');
+				$('#btnAddProd'+produtoTamId).attr('data-pagueganheid','');
+				$('#btnAddProd'+produtoTamId).attr('data-pagueganhenome','');
+			}
+
 		}else{
+
+
 			$('.precotam').css('display', 'none');
 	 		$('.dispNoneTam').css('display', 'none');
 	 		$('#compostoAdd1'+produtoTamId).css('display', 'none');
 		 	$('#compostoAdd2'+produtoTamId).css('display', 'none');
+		 	$('#compostoLabelAdd'+produtoTamId).css('display', 'none');
 		 	$("#compostoAdd1"+produtoTamId).val(0);
 			$("#compostoAdd2"+produtoTamId).val(0);
 			$('#btnAddProd'+produtoTamId).css('display', 'none');
@@ -295,45 +385,87 @@ $(document).on("pageshow","#index",function(){
  		var selectTamanho="";
  		var  dataTamanhos="";
  		var  dataTamanhosPrecos="";
+ 		selectBebidas="";
+ 		selectpagueGanhe="";
+ 		contTam=0;
+ 		if(bebidas != null){
+
+
+ 			bebidaNone='noneImportant';
+ 			if(ob.acompanha_bebida ==true){
+ 				bebidaNone='';
+
+ 			}
+ 			selectBebidas='<label class="labelBedidas '+bebidaNone+' bebidas bebidas_'+ob.id+'" >Bebida</label><select id="selectBebidas_'+ob.id+'" class="selectBeidas '+bebidaNone+' bebidas bebidas_'+ob.id+'"  data-id="'+ob.id+'">'+bebidas+'</select>';
+ 		}
+
+ 		if(pagueGanhe != null){
+ 			console.log(pagueGanhe);
+
+ 			pagueGanheNone='noneImportant';
+ 			if(ob.promo_compre_ganhe ==true){
+ 				pagueGanheNone='';
+
+ 			}
+ 			selectpagueGanhe='<label class="labelGanhe '+pagueGanheNone+' pagueGanhe pagueGanhe_'+ob.id+'">Ganhe</label><select  id="selectPagueGanhe_'+ob.id+'" data-id="'+ob.id+'" class="selectGanhe '+pagueGanheNone+' pagueGanhe pagueGanhe_'+ob.id+'">'+pagueGanhe+'</select>';
+ 		}
+
  		if(ob.ativo == 1){
 
  			if(ob.disponivel == 1){
  				vlunit= parseFloat(ob.preco_venda);
  				vlunit = vlunit.toFixed(2);
+
  				tamanhoAddValues = "<option value='0'>Selecione</option>";
  				selectTamanho="";
  				classNone="";
-
  				if(ob.composto == 1){
+
  					compostoAddValues = "<option value='0'>Selecione</option>";
 
- 					$.each(ob.tamanhos, function(p, tamanhoscompostos){
- 						$.each(ob.tamanhos, function(h, tam){
- 							$.each(tam, function(y, ta){
-	 							if(ta.Tamanho.ativo==1){
-	 								classNone="dispNoneTam";
-									myString= ta.Tamanho.nome;
-									if(typeof myString !== "undefined")
-									{
-										myString = removeDiacritics(myString);
-				 						myString.split(' ').join('');
 
-										myString= myString.toLowerCase();
-									}
 
-									tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"''>"+ta.Tamanho.nome+"</option> ";
-	 							}
 
-							});
- 						});
- 					});
- 					selectTamanho='<label>Tamanho</label><select class="comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+	 					$.each(ob.tamanhos, function(p, tamanhoscompostos){
+	 						$.each(ob.tamanhos, function(h, tam){
 
+	 								$.each(tam, function(y, ta){
+			 							if(contTam<=4){
+
+				 							if(ta.Tamanho.ativo==1){
+				 								classNone="dispNoneTam";
+												myString= ta.Tamanho.nome;
+												if(typeof myString !== "undefined")
+												{
+													myString = removeDiacritics(myString);
+							 						myString.split(' ').join('');
+
+													myString= myString.toLowerCase();
+												}
+												vlunitTamSimples= parseFloat(ta.Tamanho.preco);
+					 							vlunitTamSimples = vlunitTamSimples.toFixed(2);
+					 							if(ta.Tamanho.nome != '' ){
+					 								tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"'' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
+					 							}
+
+				 							}
+				 							contTam++;
+	 									}
+
+									});
+
+
+	 						});
+
+	 					});
+
+ 					selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+ 					var dataTam="";
  					$.each(ob.produtoscomposicao, function(n, composicao){
 
 
  						$.each(composicao, function(m, composto){
- 							var dataTam="";
+
 
  							$.each(composto, function(n, tamanho){
 
@@ -341,36 +473,43 @@ $(document).on("pageshow","#index",function(){
 								{
 									$.each(tamanho.tamanhos, function(k, tam){
 
+										contTam=0;
 										$.each(tam, function(h, ta){
 
+											//if(contTam==0){
 
 
-				 							if(ta.Tamanho.ativo==true){
+
+					 							if(ta.Tamanho.ativo==true){
+
+					 								if(typeof ta.Tamanho.nome !== 'undefined' && ta.Tamanho.nome !='' ){
+					 									vlunitTam= parseFloat(ta.Tamanho.preco);
+						 								vlunitTam = vlunitTam.toFixed(2);
+						 								tamNome = removeDiacritics(ta.Tamanho.nome);
+						 								tamNome.split(' ').join('');
+						 								tamNome= tamNome.toLowerCase();
+						 								dataTam = dataTam + " data-"+tamNome+"='"+vlunitTam+"'";
+					 								}
 
 
-				 								vlunitTam= parseFloat(ta.Tamanho.preco);
-				 								vlunitTam = vlunitTam.toFixed(2);
-				 								tamNome = removeDiacritics(ta.Tamanho.nome);
-				 								tamNome.split(' ').join('');
-				 								tamNome= tamNome.toLowerCase();
-				 								dataTam = dataTam + " data-"+tamNome+"='"+vlunitTam+"'";
 
-				 							}
-
+					 							}
+					 							contTam++;
+				 							//}
 			 							});
 
 				 					});
 								}
 
 							});
-
+ 							console.log(dataTam);
  							//vlunitComposto= parseFloat(composto.Produto.preco_venda);
 	 						//vlunitComposto = vlunitComposto.toFixed(2);
 
  							compostoAddValues = compostoAddValues+ " <option id=produtoComb"+n+composto.Produto.id+"  "+dataTam+">"+composto.Produto.nome+"</option> ";
- 							//dataTamanhos="";
- 							//dataTamanhosPrecos="";
- 							//dataTam="";
+ 							dataTamanhos="";
+ 							dataTamanhosPrecos="";
+ 							dataTam="";
  						});
 
  					});
@@ -380,24 +519,70 @@ $(document).on("pageshow","#index",function(){
 					<h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
 					<small>'+ob.descricao+'</small>\
 					</div></div>\
+					'+selectTamanho+'\
+					<label id="compostoLabelAdd'+ob.id+'" class=" compostoLabelAdd  noneImportant">Sabores</label>\
 					<select type="text" class="compostoAdd '+classNone+'" id="compostoAdd1'+ob.id+'"  data-produto="'+ob.id+'" data-theme="b"  data-mini="true" >'+compostoAddValues+'</select>\
-					<select type="text" class="compostoAdd '+classNone+'" id="compostoAdd2'+ob.id+'" data-produto="'+ob.id+'"   data-theme="b"  data-mini="true">'+compostoAddValues+'</select>'+selectTamanho+'\
+					<select type="text" class="compostoAdd '+classNone+'" id="compostoAdd2'+ob.id+'" data-produto="'+ob.id+'"   data-theme="b"  data-mini="true">'+compostoAddValues+'</select>\
+					'+selectBebidas+'\
+					'+selectpagueGanhe+'\
 					<div class="divControles" data-role="controlgroup" data-mini="true">\
 					<select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
 				  	<input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
 				  	<input type="image" src="images/carrinho.png" class="addProduto addProdutoComposto  '+classNone+' " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-produtoid1="" data-produtoid2="" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
+					compostoAddValues="";
+					selectTamanho="";
 				}else{
+
+
+					selectTamanho="";
+ 					flagTamanho=false;
+ 					tamanhoAddValues="<option value='0'>Selecione</option>";
+ 					contTam=0;
+ 					$.each(ob.tamanhos, function(p, tamanhoscompostos){
+ 						$.each(ob.tamanhos, function(h, tam){
+ 							$.each(tam, function(y, ta){
+	 							if(contTam<=4){
+		 							if(ta.Tamanho.ativo==1){
+		 								classNone="dispNoneTam";
+										myString= ta.Tamanho.nome;
+										if(typeof myString !== "undefined")
+										{
+											myString = removeDiacritics(myString);
+					 						myString.split(' ').join('');
+
+											myString= myString.toLowerCase();
+										}
+										vlunitTamSimples= parseFloat(ta.Tamanho.preco);
+					 					vlunitTamSimples = vlunitTamSimples.toFixed(2);
+										tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
+		 								flagTamanho=true;
+
+		 							}
+		 							contTam++;
+	 							}
+							});
+ 						});
+ 					});
+ 					if(flagTamanho != false){
+ 						selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+ 						flagTamanho=false;
+ 					}
+
 		 			return '<div class= "slider">\
 					<div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
 					<h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
 					<small>'+ob.descricao+'</small>\
 					</div></div>'+selectTamanho+'\
+					'+selectBebidas+'\
+					'+selectpagueGanhe+'\
 					<div class="divControles" data-role="controlgroup" data-mini="true">\
 						<select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
 				  	<input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
 				  	<input type="image" src="images/carrinho.png" class="addProduto '+classNone+' " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
-				  	}
+					selectTamanho="";
+				}
  			}else{
+
  				vlunit= parseFloat(ob.preco_venda);
  				vlunit = vlunit.toFixed(2);
 	 			return '<div class= "slider">\
@@ -555,7 +740,17 @@ function atualizarProduto(){
 
 
 	});
+	$('body').on('change', '.inputAdd', function () {
+		var idAdd=  $(this).attr('id');
 
+		inputAddValue = $(this).val();
+		if(inputAddValue.length > 1){
+			$('#'+idAdd).css('text-indent','9px');
+		}else{
+			$('#'+idAdd).css('text-indent','13px');
+
+		}
+	});
 	var chekaProduto="falso";
 
 
@@ -603,24 +798,42 @@ function atualizarProduto(){
 			sum = sum.toString();
 
 		  	sum = sum.replace('.', ',');
-
+		  	vlTotalSub=vlTotal.replace(",",".");
 
 		  	$("#pedido").append('<tr id="linhaTotal"><td colspan="4">Total</td><td id="totalPedido">'+sum+'</td></tr>');
 			$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][produto_id]" id="Itensdepedido'+contador+'ProdutoId" value="'+codigo+'">');
 			$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][qtde]" id="Itensdepedido'+contador+'Qtde" value="'+qtde+'">');
-			if(prodId1 != '' && prodId2 != ''){
+			$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_unit]" id="Itensdepedido'+contador+'valor_unit" value="'+vlUnitarioAut+'">');
+			$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_total]" id="Itensdepedido'+contador+'valor_total" value="'+vlTotalSub+'">');
+			if(typeof prodId1 !== 'undefined' && typeof prodId2 !== 'undefined'){
 				$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostoum_id]" id="Itensdepedido'+contador+'compostoum_id" value="'+prodId1+'">');
 				prodId1='';
 
 				$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostodois_id]" id="Itensdepedido'+contador+'compostodois_id" value="'+prodId2+'">');
 				prodId2='';
-				$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][obs_sis]" id="Itensdepedido'+contador+'obs_sis" value="'+itenObs+'">');
-				itenObs="";
-				$('.addProdutoComposto').css('display', 'none');
+
+				/*$('.addProdutoComposto').css('display', 'none');
 				$('.precoComposto').css('display', 'none');
 				$('.compostoAdd').css('display', 'none');
-				$('.addProdutoComposto').css('display', 'none');
+				$('.compostoLabelAdd').css('display','none');
+				$('.addProdutoComposto').css('display', 'none');*/
 			}
+
+			if(typeof itemBebidaId !== 'undefined'){
+				$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][bebida_id]" id="Itensdepedido'+contador+'bebida_id" value="'+itemBebidaId+'">');
+				itemBebidaId='';
+				itemBebidaNome="";
+			}
+			if(typeof itemPagueGanheId !== 'undefined'){
+				$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][ganhe_id]" id="Itensdepedido'+contador+'ganhe_id" value="'+itemPagueGanheId+'">');
+				itemPagueGanheId='';
+				itemPagueGanheNome='';
+			}
+
+			$("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][obs_sis]" id="Itensdepedido'+contador+'obs_sis" value="'+itenObs+'">');
+			itenObs="";
+
+
 
 
 
@@ -648,82 +861,177 @@ function atualizarProduto(){
 		$('#popVlTotalItem').html(' ');
 		$("#popupConfirmaProd").popup( "close" );
 	});
+	$(document).on("pagehide","#page3",function(){
+		itenObs="";
+		prodId2="";
+		prodId1="";
+	});
 
+	String.prototype.capitalize = function(){
+	        return this.toLowerCase().replace( /\b\w/g, function (m) {
+	            return m.toUpperCase();
+	        });
+	};
+
+	function validaAddBtn(idBtn){
+		textoAvisoBtn=null;
+		if($("#selectBebidas_"+idnumero).is(":visible")){
+
+			vlSelecionado = $("#selectBebidas_"+idBtn).find('option:selected').attr('data-id');
+			if(typeof vlSelecionado ==='undefined' ){
+				textoAvisoBtn ="Selecione um produto da sess&atilde;o  bebida.";
+			}
+
+		}
+
+		if($("#selectPagueGanhe_"+idnumero).is(":visible")){
+
+			vlSelecionado = $("#selectPagueGanhe_"+idBtn).find('option:selected').attr('data-id');
+			if(typeof vlSelecionado ==='undefined' ){
+				textoAvisoBtn ="Selecione um produto da sess&atilde;o ganhe.";
+			}
+
+		}
+		if(textoAvisoBtn==null){
+			return true;
+		}else{
+			$('#avisoValidaBtnTexto').html(textoAvisoBtn);
+			$("#avisoValidaBtn").popup( "open" );
+			return false;
+		}
+
+	}
 	$('body').on('click', '.addProduto', function () {
 
 				var idn=  $(this).attr('id');
-
-		if(cliente != ''){
-				var idn=  $(this).attr('id');
 				var expReg01 = /\D+/gi;
 				idnumero= idn.replace(expReg01,'');
-				$('.erroqtde').hide();
-				$('.erroqtde2').hide();
-
-				numero = $(this).attr('id');
-				numero = numero.substring(10);
-				codigo = $(this).attr('data-codigo');
-				produto = $(this).attr('data-produto');
-				vlUnitarioAut = $(this).attr('data-vlu');
-				vlUnitarioAut = vlUnitarioAut.replace(",",".");
-				vlUnitario =  parseFloat(vlUnitarioAut);
-				vlUnitario = vlUnitario.toFixed(2);
-				valor = $('#pedido tr').length;
-				qtdeAux = $('#inputAdd'+numero).val();
-
-				var expReg02 = /\D+/gi;
-				qtdeAux = qtdeAux.replace(expReg02,'');
-
-				$('#inputAdd'+numero).val(1);
-				qtde = parseFloat(qtdeAux);
-
-				vlTotal=vlUnitario * qtde;
-
-				vlTotal = vlTotal.toFixed(2);
-
-				vlUnitarioAux= vlUnitario.toString();
-				vlUnitario = vlUnitarioAux.replace('.', ',');
-
-
-				vu = $(this).attr('data-vlu');
-
-
-				vlTotalAux = vlTotal.toString();
-				vlTotal =vlTotalAux.replace('.',',');
-				$('.popDiv').hide();
-				$('.ui-icon-minus').trigger('click');
-
-			setTimeout(function(){
 
 
 
 
+		if(cliente != ''){
+				if(validaAddBtn(idnumero)){
+					$('.erroqtde').hide();
+					$('.erroqtde2').hide();
+					itenObs="";
+					prodId2="";
+					prodId1="";
+					numero = $(this).attr('id');
+					numero = numero.substring(10);
+					codigo = $(this).attr('data-codigo');
+					produto = $(this).attr('data-produto');
+					vlUnitarioAut = $(this).attr('data-vlu');
+					vlUnitarioAut = vlUnitarioAut.replace(",",".");
+					vlUnitario =  parseFloat(vlUnitarioAut);
+					vlUnitario = vlUnitario.toFixed(2);
+					valor = $('#pedido tr').length;
+					qtdeAux = $('#inputAdd'+numero).val();
+
+					var expReg02 = /\D+/gi;
+					qtdeAux = qtdeAux.replace(expReg02,'');
+
+					$('#inputAdd'+numero).val(1);
+					qtde = parseFloat(qtdeAux);
+
+					vlTotal=vlUnitario * qtde;
+
+					vlTotal = vlTotal.toFixed(2);
+
+					vlUnitarioAux= vlUnitario.toString();
+					vlUnitario = vlUnitarioAux.replace('.', ',');
 
 
-				if(qtdeAux ==""){
-					$('.erroqtde').show();
-				}else if(qtdeAux <=0){
-					$('.erroqtde').show();
-				}else{
-					$('#popProdItem').html(produto);
-					$('#popQtdeItem').html(qtde);
-					$('#popVlUnitItem').html(vlUnitario);
-					$('#popVlTotalItem').html(vlTotal);
-					$("#popupConfirmaProd").popup( "open" );
+					vu = $(this).attr('data-vlu');
 
+
+					vlTotalAux = vlTotal.toString();
+					vlTotal =vlTotalAux.replace('.',',');
+					$('.popDiv').hide();
+					$('.ui-icon-minus').trigger('click');
+
+					nomeProd1=$(this).attr('data-produtonome1');
+					nomeProd2=$(this).attr('data-produtonome2');
+					prodTamanho=$(this).attr('data-tamanho');
+					nomeProduto = $(this).attr('data-tamanho');
+					prodId2=$(this).attr('data-produtoid2');
+					prodId1=$(this).attr('data-produtoid1');
+
+					itemPagueGanheNome = $(this).attr('data-pagueganhenome');
+					itemPagueGanheId = $(this).attr('data-pagueganheid');
+					obsTamanho="";
+
+					itemBebidaId = $(this).attr('data-bebidaid');
+					itemBebidaNome  = $(this).attr('data-bebidanome');
+
+					if(typeof nomeProd1 !== 'undefined' && typeof nomeProd2 !== 'undefined' ){
+
+					 	if(typeof prodTamanho !== 'undefined'){
+					 		if(prodTamanho !=''){
+					 			obsTamanho="<strong><i>Tamanho:</i></strong> "+prodTamanho.capitalize();
+					 		}
+
+					 	}else{
+					 		obsTamanho="";
+					 	}
+					 	if(nomeProd1 !='' && nomeProd2 !=''){
+					 		itenObs="<br /><strong><i>Sabores:</i> </strong>"+nomeProd1+" e " + nomeProd2+" <br />"+obsTamanho;
+					 	}else{
+					 		itenObs=obsTamanho;
+					 	}
+
+					}else{
+
+						if(typeof prodTamanho !== 'undefined'){
+					 		if(prodTamanho != ''){
+					 			console.log('passou');
+					 			obsTamanho=" <strong><i>Tamanho:</i> </strong>"+prodTamanho.capitalize();
+					 		}else{
+					 			obsTamanho="";
+					 		}
+
+					 	}else{
+					 		obsTamanho="";
+					 	}
+
+						itenObs=obsTamanho;
+					}
+					if(typeof itemBebidaId !== 'undefined'){
+						itenObs+="<br/> <strong><i>Bebida:</i></strong>"+itemBebidaNome;
+					}
+					if(typeof itemPagueGanheId !== 'undefined'){
+						itenObs+="<br/> <strong><i>Promo&ccedil;&atilde;o:</i></strong>"+itemPagueGanheNome;
+					}
+
+
+					setTimeout(function(){
+
+					if(qtdeAux ==""){
+						$('.erroqtde').show();
+					}else if(qtdeAux <=0){
+						$('.erroqtde').show();
+					}else{
+						$('#popProdItem').html(produto+' '+itenObs);
+						$('#popQtdeItem').html(qtde);
+						$('#popVlUnitItem').html(vlUnitario);
+						$('#popVlTotalItem').html(vlTotal);
+						$("#popupConfirmaProd").popup( "open" );
+
+					}
+
+
+					$('html, body').animate({
+				   	 scrollTop: ($('#proximoPedido').first().offset().top)
+					},500);
+					/*$("#linhaTotal").css("background-color","yellow");*/
+					$("#linhaTotal").css("height","1em");
+					$('#linhaTotal').animate({height: '1em'}, 1000);
+					/*setTimeout(function(){
+					$("#linhaTotal").css("background-image"," url('../images/backgroun2.jpg')");
+					}, 1500);*/
+				},500);
 				}
 
-
-				$('html, body').animate({
-			   	 scrollTop: ($('#proximoPedido').first().offset().top)
-				},500);
-				/*$("#linhaTotal").css("background-color","yellow");*/
-				$("#linhaTotal").css("height","1em");
-				$('#linhaTotal').animate({height: '1em'}, 1000);
-				/*setTimeout(function(){
-				$("#linhaTotal").css("background-image"," url('../images/backgroun2.jpg')");
-				}, 1500);*/
-			},500);
 
 		}else{
 			$.mobile.changePage("#Pagelogin",{ transition: "none",  });
@@ -765,7 +1073,17 @@ function atualizarProduto(){
 					cliente_id = data.ultimopedido.Cliente.id;
 					cliente = data.ultimopedido;
 
-					console.log(cliente);
+
+ 					bebidas='<option value="">Selecione</option>';
+ 					$.each(cliente.Bebidas, function(i, beb){
+ 						bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+ 					});
+
+ 					pagueGanhe='<option value="">Selecione</option>';
+ 					$.each(cliente.PagueGanhe, function(i, pagueGan){
+ 						pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+ 					});
+
 					if(fezPedidoSemLogar=='sim'){
 						fezPedidoSemLogar="nao";
 						$('.showLogado').removeClass('logadoNone');
@@ -1355,12 +1673,16 @@ $("#pedir").click(function(event){
 							var pedMesDt = dataPedido.substring(5, 7);
 							var pedDiaDt = dataPedido.substring(8, 10);
 							dataPedido = pedDiaDt+"/"+pedMesDt+"/"+pedAnoDt;
-
+						var entregaLocal= 'No endere&ccedil;o do cad&aacute;stro';
+						if(pedido.entrega_outro_local ==1){
+							entregaLocal=pedido.outro_endereco_entrega;
+						}
 						$("#dataAtend").html(dataPedido+' &agraves '+pedido.hora_atendimento+'&nbsp;');
 
 						if(pedido.user_id == undefined){
 							pedido.user_id ="Atendimento Virtual";
 						}
+						$('#obsPedidoEntrega').html(entregaLocal);
 						$("#AtendAtend").html(pedido.user_id+'&nbsp;');
 						$("#pagamentoAtend").html(pedido.status_pagamento+'&nbsp;');
 
@@ -1461,7 +1783,12 @@ $("#pedir").click(function(event){
 						vlunit = vlunit.toFixed(2);
 						vtot=parseFloat(iten.Itensdepedido.valor_total);
 						vtot = vtot.toFixed(2);
-						$('#itensdoPedido').append('<tr class="clonePedido"><td>'+iten.Itensdepedido.produto_id+'</td><td>'+iten.Produto.nome+'</td><td class="dinheiro">'+vlunit+'</td><td>'+iten.Itensdepedido.qtde+'</td><td class="dinheiro somaIten">'+vtot+'</td></tr>');
+						obsItem = iten.Itensdepedido.obs_sis;
+						if(typeof obsItem === 'undefined')
+						{
+							obsItem='';
+						}
+						$('#itensdoPedido').append('<tr class="clonePedido"><td>'+iten.Itensdepedido.produto_id+'</td><td>'+iten.Produto.nome+' '+obsItem+'</td><td class="dinheiro">'+vlunit+'</td><td>'+iten.Itensdepedido.qtde+'</td><td class="dinheiro somaIten">'+vtot+'</td></tr>');
 					});
 					$('#linhaTotalPedido').remove();
 
@@ -1973,7 +2300,17 @@ function checaAtendimento(atendimentocod){
 		$('#trocoresposta').val('Não');
 
 	 }
+	  if(checkBoxId == 'radio-choice-t-9a'){
 
+		$('#entregaOutroLocal').val(0);
+	  	$('#holdValorEntrega').hide();
+
+	 }
+	  if(checkBoxId == 'radio-choice-t-9b'){
+	  	$('#entregaOutroLocal').val(1);
+	  	$('#holdValorEntrega').show();
+
+	 }
 	});
 
 	var respValida ='';

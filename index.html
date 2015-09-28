@@ -376,9 +376,15 @@
 					 </tbody>
 			   </table>
 				<dl>
-				<dt>Observaçoes</dt>
+				<dt>Observações</dt>
 					<dd id="obs">
 						<div id="obsPedido"></div>
+						&nbsp;
+					</dd>
+				</dl>
+				<dt>Endereço de Entrega</dt>
+					<dd id="obsentrega">
+						<div id="obsPedidoEntrega"></div>
 						&nbsp;
 					</dd>
 				</dl>
@@ -544,16 +550,25 @@
 						</div>
 						<div data-role="popup" id="avisoTroco" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
 							<div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-								<h2>Erro</h2>
+								<h2>Aviso</h2>
 							</div>
 							<div role="main" class="ui-content">
 								<h3 class="ui-title">Digite o valor para troco na aba dados do pagamento.</h3>
 								<a href="#" data-role="button" data-rel="back" data-overlay-theme="a" data-theme="b">Fechar</a>
 							</div>
 						</div>
+						<div data-role="popup" id="avisoValidaBtn" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+							<div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+								<h2>Aviso</h2>
+							</div>
+							<div role="main" class="ui-content">
+								<h3 class="ui-title" id="avisoValidaBtnTexto"></h3>
+								<a href="#" data-role="button" data-rel="back" data-overlay-theme="a" data-theme="b">Fechar</a>
+							</div>
+						</div>
 						<div data-role="popup" id="avisoTroco2" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
 							<div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-								<h2>Erro</h2>
+								<h2>Aviso</h2>
 							</div>
 							<div role="main" class="ui-content">
 								<h3 class="ui-title">Selecione pelo menos uma forma de pagamento.</h3>
@@ -562,7 +577,7 @@
 						</div>
 						<div data-role="popup" id="avisoPedido" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
 							<div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-								<h2>Erro</h2>
+								<h2>Aviso</h2>
 							</div>
 							<div role="main" class="ui-content">
 								<h3 class="ui-title">Selecione pelo menos uma loja.</h3>
@@ -668,6 +683,27 @@
 
 										<p id="txtValorTroco">Valor troco <span id="respTroco">R$ 0,00</span></p>
 										<input type="hidden" name="respTrocoAux" id="respTrocoAux"  >
+									</div>
+								</div>
+								<div id="divAuxEntrega" class="divAuxEntrega">
+									<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+										<h4>Dados da entrega</h4>
+										<fieldset data-role="controlgroup" data-type="horizontal"  data-theme="b" >
+											<legend>Entregar no endereço cadastrado?</legend>
+											 <input type="radio" name="radio-choice-t-9" id="radio-choice-t-9a" value="on" checked="checked" class="ckTroco" data-valor="1">
+											<label for="radio-choice-t-9a" id="lbchoicea">Sim</label>
+											<input type="radio" name="radio-choice-t-9" id="radio-choice-t-9b" value="off" class="ckTroco" data-valor="0">
+											<label for="radio-choice-t-9b" id="lbchoiceb">Não</label>
+
+										</fieldset>
+										<div id="holdValorEntrega"  class="none">
+											<legend>indique o endereço e um telefone para entrega</legend>
+
+											<textarea rows="4" cols="50" name="data[Pedido][outro_endereco_entrega]" id="entregaObs" ></textarea>
+											<input type="hidden" name="data[Pedido][entrega_outro_local]" id="entregaOutroLocal"   value="0" >
+										</div>
+
+
 									</div>
 								</div>
 								<label>Observações do Pedido</label>

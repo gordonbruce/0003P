@@ -1085,7 +1085,6 @@ function atualizarProduto(){
                         bebidas=null;
                     }
 
-
                     pagueGanhe='<option value="">Selecione</option>';
                     if(typeof cliente.PagueGanhe !==  'undefined'){
                         $.each(cliente.PagueGanhe, function(i, pagueGan){

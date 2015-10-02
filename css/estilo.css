@@ -213,68 +213,37 @@
 
             }
             .submitFormCliente{
-
-                background-color: #648272;
+             /* background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
             }
 
 
             .imgAvancarLogin{
-
-                 background-color: #648272;
+                 /*background-image: url("../images/backgroun2.jpg");*/
+                 background-color: #fcee21;
             }
             .infoProduto{
-
-               background-color: #FFFF00;
+               /* background-image: url("../images/backgroun2.jpg");*/
+               background-color: #fcee21;
             }
             .addProduto{
-
-                background-color: #FFFF00;
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
             }
-            #pedido{font-size: 0.8em; color: black !important; text-shadow: 1px 1px #648272 !important;}
             .ui-content{
-
-                background-color: #648272;
+                /* background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
             }
             .ui-collapsible-content{
-
-                background-color: #FFFF00;
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
             }
             .ui-page{
-
-                background-color: #648272;
-                 text-shadow: 0 1px 0 #648272 !important;
-                 color: black;
-            }
-          .ui-grid-a{
-            text-shadow: 0 1px 0 #648272 !important;
-            color: black !important;
-          }
-          .ui-body-a{
-             text-shadow: 0 1px 0 #648272 !important;
-            color: black !important;
-          }
-
-            .pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #648272; /*background-image: url("../images/backgroun2.jpg");*/
-                }
-          .ui-panel{
-              background-color: #648272;
-          }
-          .logoPainel{
-              width: 232px;
-              margin: 0 auto;
-              padding: 7%;
-               margin-bottom: 15px;
-               display: block;
-               margin-left: -15px;
-          }
-            .ui-panel ul li a{
-              background-color: #648272 !important;
-              color: black !important;
-              /*text-shadow: 1px 1px #ccc !important;*/
-                text-shadow: 0 1px 0 #648272 !important;
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
             }
              #envChat{
-                 background: #E0414E;
+                 background: #ED1C24;
             }
 
             .imgAvancarLogin{
@@ -290,37 +259,45 @@
                    background-color: #fcee21;
             }
             .imgLogin{
-                    width: 170px;
+                    width: 72%;
                     margin: 0 auto;
                     display: block;
+                    margin-top: 8%;
+                      margin-bottom: 6%;
+            }
 
-            }
-            .ui-popup{
-               background-color: #648272;
-            }
 
              /***Fim das Alterações para background do aplicativo****/
-
+        .painelMenu{
+                width: 190px;
+                margin: 0 auto;
+                padding: 7%;
+                margin-bottom: 19px;
+                display: block;
+                margin-left: -7px;
+                height: 85px;
+        }
 	#produtos{display:none;}
 	#atendimentos{display:none;}
 
 	.vermelho{color:red;}
 	.menuSair .ui-body-a  {display:none;}
-	.menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-black.png");}
-	.novopedido:after{background-image: url("images/icons-png/shop-black.png");}
-            .fazerlogin:after{background-image: url("images/icons-png/action-black.png");}
-	.listarpedido:after{background-image: url("images/icons-png/bullets-black.png");}
-	.meucadastro:after{background-image: url("images/icons-png/user-black.png");}
+	.menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-white.png");}
+	.novopedido:after{background-image: url("images/icons-png/shop-white.png");}
+            .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
+	.listarpedido:after{background-image: url("images/icons-png/bullets-white.png");}
+	.meucadastro:after{background-image: url("images/icons-png/user-white.png");}
 	.mensagemChat:after{background-image: url("images/icons-png/comment-white.png");}
-	.linkTelefone:after{background-image: url("images/icons-png/phone-black.png");}
-	.menuSair:after{background-image: url("images/icons-png/power-black.png");}
+	.linkTelefone:after{background-image: url("images/icons-png/phone-white.png");}
+	.menuSair:after{background-image: url("images/icons-png/power-white.png");}
 	/*.ui-btn{border:1px solid white !important;}
 	.ui-header ,.ui-footer,.ui-footer .ui-btn{border:none !important;}*/
 	.ui-footer .ui-btn{border:none !important;}
 
 
 
-
+	.pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #fcee21; /*background-image: url("../images/backgroun2.jpg");*/
+                }
 	.hideFooter{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%;}
 	.ui-collapsible-set{ margin-top: 2.4em !important; }
 	.content h2{text-align: center;}
@@ -366,10 +343,6 @@
 	}
 	.divControles input{ }
 
-
-
-
-
 	.preco{
 		display: block;
 		text-align: center;
@@ -378,7 +351,7 @@
 		font-weight: bold;
 	}
 	.erroqtde{display:none;}
-
+	#pedido{font-size: 0.8em;}
 
             .verde-background{
                   background-color: rgb(173, 255, 47);
@@ -390,9 +363,7 @@
             .verde-background dd{
                 background-color: rgb(173, 255, 47) !important;
             }
-            .compostoAdd{
-                max-width:193px;
-            }
+
 
 
 /** Scaffold View **/
@@ -451,10 +422,11 @@
 	.ui-footer {min-height: 87px; border-bottom-color: #FF0A0A }
 	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 3%;}
 	.ui-header{min-height: 4em; width: 100%;}
-	.applogo{width: 5em;   margin-top: -1px !important; }
+	.applogo{width: 4em;   margin-top: 2px !important; }
 	.tituloHeader{margin-top: 1em !important;}
 	.imgEntrada{width: 95%; display: block; margin: 3em auto; margin-bottom:3em; display: block;}
 	.ui-header .ui-btn-left{margin-top: 1em;}
+
 
 
 
@@ -587,7 +559,16 @@ input, textarea {
 
 }
 
+.ui-panel{
+	background-color: #ED1C24;
+}
 
+.ui-panel ul li a{
+	background-color: #ED1C24 !important;
+	color: white !important;
+	/*text-shadow: 1px 1px #ccc !important;*/
+	  text-shadow: 0 1px 0 #111 !important;
+}
 .owl-carousel .owl-wrapper-outer {
 	 margin-top: 15px;
 }
@@ -658,6 +639,7 @@ input, textarea {
 .fotoRotate{
       transform: rotate(-90deg);
 }
+
 
 
 

@@ -1075,7 +1075,6 @@ function atualizarProduto(){
                     cliente_id = data.ultimopedido.Cliente.id;
                     cliente = data.ultimopedido;
 
-
                     bebidas='<option value="">Selecione</option>';
                     if(typeof cliente.Bebidas !==  'undefined'){
                         $.each(cliente.Bebidas, function(i, beb){

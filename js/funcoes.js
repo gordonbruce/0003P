@@ -1075,16 +1075,24 @@ function atualizarProduto(){
                     cliente_id = data.ultimopedido.Cliente.id;
                     cliente = data.ultimopedido;
 
-
                     bebidas='<option value="">Selecione</option>';
-                    $.each(cliente.Bebidas, function(i, beb){
-                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
-                    });
+                    if(typeof cliente.Bebidas !==  'undefined'){
+                        $.each(cliente.Bebidas, function(i, beb){
+                            bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+                        });
+                    }else{
+                        bebidas=null;
+                    }
+
 
                     pagueGanhe='<option value="">Selecione</option>';
-                    $.each(cliente.PagueGanhe, function(i, pagueGan){
-                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
-                    });
+                    if(typeof cliente.PagueGanhe !==  'undefined'){
+                        $.each(cliente.PagueGanhe, function(i, pagueGan){
+                            pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+                        });
+                    }else{
+                        pagueGanhe=null;
+                    }
 
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";

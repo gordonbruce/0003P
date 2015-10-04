@@ -357,6 +357,7 @@
 
 
 	.hideFooter{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%;}
+      .hideFooter2{bottom:0px; position:absolute !important;  top: auto !important; width:100%; bottom: 0%;}
 	.ui-collapsible-set{ margin-top: 2.4em !important; }
 	.content h2{text-align: center;}
 	small {

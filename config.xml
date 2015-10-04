@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
-        xmlns:gap   = "http://phonegap.com/ns/1.0"
-        id          = "com.entregapp.principedaspizzas"
-        versionCode = "10"
-        version     = "1.0.0" >
-    <name>Príncipe das Pizzas</name>
-
-    <description>
-       Faça seu pedido pelo celular, com rapidez e praticidadePríncipe das Pizzas.
-    </description>
-
-    <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
-        Eduardo Alves
-    </author>
-    <feature name="http://api.phonegap.com/1.0/battery"/>
-    <feature name="http://api.phonegap.com/1.0/camera"/>
-    <feature name="http://api.phonegap.com/1.0/contacts"/>
-    <feature name="http://api.phonegap.com/1.0/file"/>
-    <feature name="http://api.phonegap.com/1.0/geolocation"/>
-    <feature name="http://api.phonegap.com/1.0/media"/>
-    <feature name="http://api.phonegap.com/1.0/network"/>
-    <feature name="http://api.phonegap.com/1.0/notification"/>
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.entregapp.principedaspizzas"
+    version     = "1.0.0" >
+	<name>Príncipe das Pizzas</name>
+        <description>
+           Faça seu pedido pelo celular, com rapidez e praticidade com o aplicativo Príncipe das Pizzas By Sistema Entregapp.
+        </description>
+        <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
+            Eduardo Alves
+        </author>
+        <preference name="phonegap-version" value="cli-5.1.1" />
+        <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+        <preference name="Fullscreen" value="false" />
+        <preference name="WebViewBounce" value="true" />
+        <feature name="http://api.phonegap.com/1.0/geolocation"/>
+        <icon src="icon.png" />
+        <gap:splash src="splash.png" />
 </widget>

@@ -611,7 +611,7 @@
 							<form>
 								<div id="auxCartao" class="auxCartao dispNone">
 
-									<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+									<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
 										<h4>Dados do Pagamento</h4>
 										<input type="hidden" id="token" class="span6" placeholder="Coloque aqui seu token">
 										<div id="MoipWidget" data-token="IRDUU8TY5OWVC5RHJFJEVIYBSDPKJZOUWFS0SCYL" callback-method-success="sucesso" callback-method-error="erroValidacao"></div>
@@ -661,7 +661,7 @@
 
 
 								<div id="divAuxTroco" class="auxDinheiro">
-									<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+									<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
 										<h4>Dados do Pagamento</h4>
 										<fieldset data-role="controlgroup" data-type="horizontal"  data-theme="b" >
 											<legend>Levar troco?</legend>
@@ -680,7 +680,7 @@
 									</div>
 								</div>
 								<div id="divAuxEntrega" class="divAuxEntrega">
-								    <div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+								    <div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
 								        <h4>Dados da entrega</h4>
 								        <fieldset data-role="controlgroup" data-type="horizontal"  data-theme="b" >
 								            <legend>Entregar no endereço cadastrado?</legend>
@@ -782,11 +782,11 @@
 					</div>
 				</div>
 			</div><!-- /content -->
-			<div style="clear:both"></div>
+			<!--<div style="clear:both"></div>
 			<div data-role="footer" class="hideFooter" >
 
 				<small>EntregApp, pedidos do seu jeito. Todos os direitos reservados a EntregApp 2015,  versão 1.0, acesse www.entregapp.com.br</small>
-			</div><!--Footer-->
+			</div>--><!--Footer-->
 
 
 		</div><!-- /page -->
@@ -810,7 +810,7 @@
 			<div data-role="content" class="content contentPage">
 
 				<form method="post" action="cadastro.php"  data-ajax="false" id="meucadastro" class="meucadastroForm">
-					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right" data-collapsed="false">
 						<h4>Dados Pessoais</h4>
 						<label for="text-basic">Nome</label>
 						<input type="text"  id="nome" value="" name="data[Cliente][nome]"  placeholder="nome" >
@@ -821,7 +821,7 @@
 						<label for="text-basic">Data de Nascimento</label>
 						<input type="date"  id="nasc" value="" name="data[Cliente][nasc]"  placeholder="nascimento" />
 					</div>
-					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right" data-collapsed="false">
 						<h4>Endereço</h4>
 						<label for="cep">CEP:</label>
 						<input type="text" name="data[Cliente][cep]" id="cep" value="" autocomplete="off"  min="1" max="99999999"  placeholder="cep" >
@@ -838,7 +838,7 @@
 						<label for="uf">UF:</label>
 						<input type="text" name="data[Cliente][uf]" id="uf" value="" autocomplete="off"  placeholder="uf" >
 					</div>
-					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right" data-collapsed="false">
 						<h4>Mapa</h4>
 						<!--<div>
 							<a id="meLocalize" class="ui-shadow ui-btn ui-corner-all  ui-btn-b meLocalize"  data-content-theme="b" data-theme="b">Me Localize</a>
@@ -846,7 +846,7 @@
 						<div data-center="" data-zoom="16" class="gmap2 map-canvas ui-content gmapLEntrega" id="gmapLEntrega3">
 						</div>
 					</div>
-					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right" data-collapsed="false">
 						<h4>Contatos</h4>
 						<label for="text-basic">Email</label>
 						<input type="email"  id="email" value="" name="data[Cliente][email]"  placeholder="email" >
@@ -936,7 +936,7 @@
 
 			<div data-role="content" class="content pageContent">
 				<form method="post" action="cadastro.php"  data-ajax="false" id="meucadastroEdit" class="meucadastroForm">
-					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
 						<h4>Dados Pessoais</h4>
 						<label for="text-basic">Nome:<span class="vermelho"> *</span></label>
 						<input type="text"  id="nomeEdit" class="nome limpar" value="" name="data[Cliente][nome]"  placeholder="nome" >
@@ -947,7 +947,7 @@
 						<label for="text-basic">Data de Nascimento:</label>
 						<input type="text"  id="nascEdit" class="nasc limpar" value="" name="data[Cliente][nasc]"  placeholder="nascimento" >
 					</div>
-					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
 						<h4>Endereço</h4>
 
 						<label for="cep">CEP:</label>
@@ -968,7 +968,7 @@
 
 					</div>
 
-					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
 						<h4>Contatos</h4>
 
 						<label for="text-basic">Email:</label>
@@ -979,14 +979,14 @@
 						<input type="text" name="data[Cliente][celular]" id="celularEdit"  class="celular limpar" value="" autocomplete="off"  placeholder="celular" >
 					</div>
 
-					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right">
+					<div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
 						<h4>Preferências</h4>
 						<label for="text-basic">Loja padrão:<span class="vermelho"> *</span></label>
 						<select id="filial_id" class="filialSelect filialEdit" name="data[Cliente][filial_id]">
 							<option value=""></option>
 						</select>
 					</div>
-					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right" data-collapsed="false" class="openMe">
+					<div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right" data-collapsed="false" class="openMe" data-collapsed="false">
 						<!--data-collapsed="false" caso queira deixar esta aba aberta-->
 						<h4>Mapa</h4>
 						<!--<div>
@@ -1237,7 +1237,7 @@
 				<a href="#popupNested1" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b" data-transition="pop">Menu</a>
 				<div data-role="popup" id="popupNested1" data-theme="none">
 					<div data-role="collapsibleset" data-theme="b" data-content-theme="a" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" style="margin:0; width:250px;">
-						<div data-role="collapsible" data-inset="false">
+						<div data-role="collapsible" data-inset="false" data-collapsed="false">
 							<h2>Meus Pedidos</h2>
 							<ul data-role="listview">
 								<li><a href="#" data-rel="dialog" class="novopedido noIcon">Novo</a></li>
@@ -1245,20 +1245,20 @@
 
 							</ul>
 						</div><!-- /collapsible -->
-						<div data-role="collapsible" data-inset="false">
+						<div data-role="collapsible" data-inset="false" data-collapsed="false">
 						<h2>Meus dados</h2>
 							<ul data-role="listview">
 								<li><a href="#" data-rel="dialog" class="meucadastro noIcon">Cadastro</a></li>
 							</ul>
 						</div><!-- /collapsible -->
-						<div data-role="collapsible" data-inset="false">
+						<div data-role="collapsible" data-inset="false" data-collapsed="false">
 							<h2>Contato</h2>
 							<ul data-role="listview">
 								<li><a href="#" data-rel="dialog" class="noIcon">Mensagem</a></li>
 								<li><a href="#" data-rel="dialog" class="noIcon">Telefone</a></li>
 							</ul>
 						</div><!-- /collapsible -->
-						<div data-role="collapsible" data-inset="false">
+						<div data-role="collapsible" data-inset="false" data-collapsed="false">
 							<h2>Sair</h2>
 
 						</div><!-- /collapsible -->

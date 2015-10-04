@@ -10,8 +10,7 @@
         <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
             Eduardo Alves
         </author>
-        <preference name="phonegap-version" value="cli-5.1.1" />
-        <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+         <preference name="phonegap-version" value="cli-5.1.1" />
         <preference name="Fullscreen" value="false" />
         <preference name="WebViewBounce" value="true" />
         <feature name="http://api.phonegap.com/1.0/geolocation"/>

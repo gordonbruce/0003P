@@ -1064,7 +1064,7 @@ function atualizarProduto(){
                 var res = data.ultimopedido;
                 $.mobile.loading( "hide" );
 
-        alert(data);
+
 
                 if(res == 'ErroLogin'){
 

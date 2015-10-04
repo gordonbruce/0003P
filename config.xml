@@ -5,10 +5,9 @@
     version     = "1.0.0" >
 	<name>Príncipe das Pizzas</name>
         <description>
-           Faça seu pedido pelo celular, com rapidez e praticidade com o aplicativo Príncipe das Pizzas By Sistema Entregapp.
+          Faça seu pedido pelo celular, com rapidez e praticidade com o aplicativo Príncipe das Pizzas By Sistema Entregapp.
         </description>
-
-        <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
+        <author email="eduardonaleves@gmail.com" href="http://phonegap.com">
             Eduardo Alves
         </author>
         <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />

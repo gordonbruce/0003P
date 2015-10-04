@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.principedaspizzas"
+    id          = "com.entregapp.principedaspizzas"
     version     = "1.0.0" >
-    <name>Appedido</name>
+	<name>Príncipe das Pizzas</name>
         <description>
-           Faça seu pedido via app de celular
+           Faça seu pedido pelo celular, com rapidez e praticidade com o aplicativo Príncipe das Pizzas By Sistema Entregapp.
         </description>
-        <author email="eduardonaleves@gmail.com" href="http://phonegap.com">
+        <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
             Eduardo Alves
         </author>
         <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />

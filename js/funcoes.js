@@ -1248,12 +1248,7 @@ $("#sendToMoip").click(function(){
         enviaDadosCartao();
     }
 });
-$('.ncartao').mask('9999999999999999');
-$('#Expiracao').mask('99/99');
-$.mask.definitions['~'] = '([0-9] )?';
-$("#Telefone").mask("(99)9999-9999~");
-$("#CPF").mask("999.999.999-99");
-$("#DataNascimento").mask("99/99/9999");
+
 function verificaCartao(nome){
     if(nome == 'Visa'){
         idcartao = 5;
@@ -2568,12 +2563,7 @@ function checaAtendimento(atendimentocod){
 
     });
 
-    $('.cep').mask('99999999');
-    $('.telefone').mask('(99) 9999-9999');
-    $.mask.definitions['~'] = '([0-9] )?';
-    $(".celular").mask("(99) 9999-9999~");
-    $(".uf").mask("aa");
-    $(".nasc").mask("99/99/9999");
+
 
 
 

@@ -1008,7 +1008,7 @@ function atualizarProduto(){
                     }
                     console.log(itemBebidaId);
                     if(typeof itemBebidaId !== 'undefined' && itemBebidaId !== null && itemBebidaId !== 'null' && itemBebidaId !== ''  && itemBebidaId !== ' ' && typeof itemBebidaId !== undefined ){
-                        alert();
+
                         itenObs+="<br/> <strong><i>Bebida:</i></strong>"+itemBebidaNome;
                     }
                     if(typeof itemPagueGanheId !== 'undefined' && itemPagueGanheId !== null && itemPagueGanheId !== 'null' && itemPagueGanheId !== ''  && itemPagueGanheId !== ' ' && typeof itemPagueGanheId !== undefined ){

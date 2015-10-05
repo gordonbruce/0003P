@@ -157,9 +157,14 @@ $(document).on("pageshow","#index",function(){
         comboId = $(this).attr('data-produto');
 
         tamanhoChange  = $("#comboTamanho"+comboId).find('option:selected').attr('data-tamanho');
-
+        tamanhoChange = removeDiacritics(tamanhoChange);
+        tamanhoChange = tamanhoChange.replace(' ', '');
         vlUm  = $("#compostoAdd1"+comboId).find('option:selected').attr('data-'+tamanhoChange);
         vlDois  = $("#compostoAdd2"+comboId).find('option:selected').attr('data-'+tamanhoChange);
+        console.log(tamanhoChange);
+        console.log(vlUm);
+        console.log(vlDois);
+
 
         if(typeof vlUm !== "undefined" &&  typeof vlDois !== "undefined")
         {
@@ -433,23 +438,24 @@ $(document).on("pageshow","#index",function(){
 
                                     $.each(tam, function(y, ta){
                                         if(contTam<=4){
+                                               if(typeof  ta.Tamanho !== 'undefined'){
+                                                    if(ta.Tamanho.ativo==1){
+                                                        classNone="dispNoneTam";
+                                                        myString= ta.Tamanho.nome;
+                                                        if(typeof myString !== "undefined")
+                                                        {
+                                                            myString = removeDiacritics(myString);
+                                                            myString = myString.replace(' ','');
 
-                                            if(ta.Tamanho.ativo==1){
-                                                classNone="dispNoneTam";
-                                                myString= ta.Tamanho.nome;
-                                                if(typeof myString !== "undefined")
-                                                {
-                                                    myString = removeDiacritics(myString);
-                                                    myString.split(' ').join('');
+                                                            myString= myString.toLowerCase();
+                                                        }
+                                                        vlunitTamSimples= parseFloat(ta.Tamanho.preco);
+                                                        vlunitTamSimples = vlunitTamSimples.toFixed(2);
+                                                        if(ta.Tamanho.nome != '' ){
+                                                            tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"'' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
+                                                        }
 
-                                                    myString= myString.toLowerCase();
-                                                }
-                                                vlunitTamSimples= parseFloat(ta.Tamanho.preco);
-                                                vlunitTamSimples = vlunitTamSimples.toFixed(2);
-                                                if(ta.Tamanho.nome != '' ){
-                                                    tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"'' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
-                                                }
-
+                                                    }
                                             }
                                             contTam++;
                                         }
@@ -481,14 +487,14 @@ $(document).on("pageshow","#index",function(){
                                             //if(contTam==0){
 
 
-
+                                            if(typeof  ta.Tamanho !== 'undefined'){
                                                 if(ta.Tamanho.ativo==true){
 
                                                     if(typeof ta.Tamanho.nome !== 'undefined' && ta.Tamanho.nome !='' ){
                                                         vlunitTam= parseFloat(ta.Tamanho.preco);
                                                         vlunitTam = vlunitTam.toFixed(2);
                                                         tamNome = removeDiacritics(ta.Tamanho.nome);
-                                                        tamNome.split(' ').join('');
+                                                        tamNome = tamNome.replace(' ','');
                                                         tamNome= tamNome.toLowerCase();
                                                         dataTam = dataTam + " data-"+tamNome+"='"+vlunitTam+"'";
                                                     }
@@ -496,6 +502,7 @@ $(document).on("pageshow","#index",function(){
 
 
                                                 }
+                                            }
                                                 contTam++;
                                             //}
                                         });
@@ -820,13 +827,13 @@ function atualizarProduto(){
                 $('.compostoLabelAdd').css('display','none');
                 $('.addProdutoComposto').css('display', 'none');*/
             }
+            if(typeof itemBebidaId !== 'undefined' && itemBebidaId !== null && itemBebidaId !== 'null' && itemBebidaId !== ''  && itemBebidaId !== ' ' && typeof itemBebidaId !== undefined ){
 
-            if(typeof itemBebidaId !== 'undefined'){
                 $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][bebida_id]" id="Itensdepedido'+contador+'bebida_id" value="'+itemBebidaId+'">');
                 itemBebidaId='';
                 itemBebidaNome="";
             }
-            if(typeof itemPagueGanheId !== 'undefined'){
+            if(typeof itemPagueGanheId !== 'undefined' && itemPagueGanheId !== null && itemPagueGanheId !== 'null' && itemBebidaId !== ''  && itemPagueGanheId !== ' ' && typeof itemPagueGanheId !== undefined ){
                 $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][ganhe_id]" id="Itensdepedido'+contador+'ganhe_id" value="'+itemPagueGanheId+'">');
                 itemPagueGanheId='';
                 itemPagueGanheNome='';
@@ -998,10 +1005,12 @@ function atualizarProduto(){
 
                         itenObs=obsTamanho;
                     }
-                    if(typeof itemBebidaId !== 'undefined'){
+                    console.log(itemBebidaId);
+                    if(typeof itemBebidaId !== 'undefined' && itemBebidaId !== null && itemBebidaId !== 'null' && itemBebidaId !== ''  && itemBebidaId !== ' ' && typeof itemBebidaId !== undefined ){
+                        alert();
                         itenObs+="<br/> <strong><i>Bebida:</i></strong>"+itemBebidaNome;
                     }
-                    if(typeof itemPagueGanheId !== 'undefined'){
+                    if(typeof itemPagueGanheId !== 'undefined' && itemPagueGanheId !== null && itemPagueGanheId !== 'null' && itemPagueGanheId !== ''  && itemPagueGanheId !== ' ' && typeof itemPagueGanheId !== undefined ){
                         itenObs+="<br/> <strong><i>Promo&ccedil;&atilde;o:</i></strong>"+itemPagueGanheNome;
                     }
 
@@ -1064,7 +1073,7 @@ function atualizarProduto(){
                 var res = data.ultimopedido;
                 $.mobile.loading( "hide" );
 
-
+                console.log(data);
                 if(res == 'ErroLogin'){
 
 
@@ -1074,6 +1083,7 @@ function atualizarProduto(){
 
                     cliente_id = data.ultimopedido.Cliente.id;
                     cliente = data.ultimopedido;
+
 
                     bebidas='<option value="">Selecione</option>';
                     if(typeof cliente.Bebidas !==  'undefined'){
@@ -1093,7 +1103,6 @@ function atualizarProduto(){
                     }else{
                         pagueGanhe=null;
                     }
-
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');

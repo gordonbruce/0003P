@@ -17,7 +17,7 @@ var itemPagueGanheId=null;
 var itemPagueGanheNome=null;
 var itemBebidaId =null;
 var itemBebidaNome  = null;
-//Bloco de Configurações do aplicativo Fim
+//Bloco de Configurações do apli//Bloco de Configurações do aplicativo Fim
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -355,7 +355,7 @@ $(document).on("pageshow","#index",function(){
             $("#compostoAdd2"+produtoTamId).val(0);
             $('#btnAddProd'+produtoTamId).css('display', 'none');
         }
-        /*alert();
+        /*
         tamPreco  = $("#selectTamanho"+produtoTamId).find('option:selected').attr('data-preco');
         tamTamanho = $("#selectTamanho"+produtoTamId).find('option:selected').attr('data-tamanho');
         if(tamPreco !='' && tamPreco!=null ){
@@ -1007,7 +1007,7 @@ function atualizarProduto(){
                     }
                     console.log(itemBebidaId);
                     if(typeof itemBebidaId !== 'undefined' && itemBebidaId !== null && itemBebidaId !== 'null' && itemBebidaId !== ''  && itemBebidaId !== ' ' && typeof itemBebidaId !== undefined ){
-                        alert();
+
                         itenObs+="<br/> <strong><i>Bebida:</i></strong>"+itemBebidaNome;
                     }
                     if(typeof itemPagueGanheId !== 'undefined' && itemPagueGanheId !== null && itemPagueGanheId !== 'null' && itemPagueGanheId !== ''  && itemPagueGanheId !== ' ' && typeof itemPagueGanheId !== undefined ){
@@ -1651,7 +1651,7 @@ $("#pedir").click(function(event){
                     position: newLatLng,
                     map: map,
                      icon:'images/usuario2.png',
-                   // draggable: true
+                    draggable: false
                 });
                 google.maps.event.trigger(map, 'resize');
             }, 5000);

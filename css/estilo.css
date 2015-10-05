@@ -422,8 +422,8 @@
 	/*.map-page, .map-canvas { width: 100%; height: 100%; padding: 0; }*/
 	#map-canvas{height: 25em !important; width:100%;}
 
-	.ui-header, .ui-footer{background-color: #ED1C24; color: white;}
-	.ui-footer {min-height: 87px; border-bottom-color: #FF0A0A }
+	.ui-header, .ui-footer{background-color: #521611; color: white;}
+	.ui-footer {min-height: 87px; border-bottom-color: #521611 }
 	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 3%;}
 	.ui-header{min-height: 4em; width: 100%;}
 	.applogo{width: 5em;   margin-top: 2px !important; }

@@ -336,7 +336,7 @@
 	.slider .icone-mais{margin-left: 85%;}
 	.textoProduto{display:none;}
 
-	.popDiv{display:none;}
+	.popDiv{display:none; text-align: center;}
 	.ui-icon-info:after {
 		background-image: url("images/icons-png/info-white.png") !important;
 		background-color: #666 !important;

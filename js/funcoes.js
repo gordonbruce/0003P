@@ -17,7 +17,7 @@ var itemPagueGanheId=null;
 var itemPagueGanheNome=null;
 var itemBebidaId =null;
 var itemBebidaNome  = null;
-//Bloco de Configurações do apli//Bloco de Configurações do aplicativo Fim
+//Bloco de Configurações do aplicativo Fim
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -355,7 +355,7 @@ $(document).on("pageshow","#index",function(){
             $("#compostoAdd2"+produtoTamId).val(0);
             $('#btnAddProd'+produtoTamId).css('display', 'none');
         }
-        /*
+        /*alert();
         tamPreco  = $("#selectTamanho"+produtoTamId).find('option:selected').attr('data-preco');
         tamTamanho = $("#selectTamanho"+produtoTamId).find('option:selected').attr('data-tamanho');
         if(tamPreco !='' && tamPreco!=null ){
@@ -525,7 +525,7 @@ $(document).on("pageshow","#index",function(){
 
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <small>'+ob.descricao+'</small>\
                     </div></div>\
                     '+selectTamanho+'\
@@ -579,7 +579,7 @@ $(document).on("pageshow","#index",function(){
 
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <small>'+ob.descricao+'</small>\
                     </div></div>'+selectTamanho+'\
                     '+selectBebidas+'\
@@ -596,7 +596,7 @@ $(document).on("pageshow","#index",function(){
                 vlunit = vlunit.toFixed(2);
                 return '<div class= "slider">\
                 <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                <h4>'+ob.nome+'</h4><span class="preco">Indispon&iacute;vel<span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                <h4>'+ob.nome+'</h4><span class="preco">Indispon&iacute;vel</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                 <small>'+ob.descricao+'</small>\
                 </div></div>\
                 <div class="divControles" data-role="controlgroup" data-mini="true">\

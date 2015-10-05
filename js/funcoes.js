@@ -1651,7 +1651,7 @@ $("#pedir").click(function(event){
                     position: newLatLng,
                     map: map,
                      icon:'images/usuario2.png',
-                   // draggable: true
+                    draggable: false
                 });
                 google.maps.event.trigger(map, 'resize');
             }, 5000);

@@ -116,8 +116,57 @@ function removeDiacritics (str) {
 }
 
 $(document).ready(function() {
+statusLoja();
+setInterval(function(){
+    statusLoja();
+},90000);
+function statusLoja(){
 
 
+        minhaUrl=URLAPP+"RestPedidos/statusloja.json?fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: minhaUrl,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+
+                    $.each(data, function(i, resultados){
+                            console.log(resultados.Filial.status_abertura);
+                            if(resultados.Filial.status_abertura==true){
+                                $('.textStatus').html('Loja Dispon&iacute;vel');
+                                $('.divDisp').removeClass('classGray');
+                                $('.divDisp').addClass('classGren');
+                                 if(resultados.Filial.tempo_atendimento !='00:00:00'){
+                                    $('.mediaAtendimento').html('Tempo: '+resultados.Filial.tempo_atendimento);
+                                }
+                            }else{
+                                 $('.textStatus').html('Loja Indispon&iacute;vel');
+                                $('.divDisp').removeClass('classGren');
+                                $('.divDisp').addClass('classGray');
+                                $('.mediaAtendimento').html('Indispon&iacute;vel');
+                            }
+
+
+                    });
+
+                },error: function(data){
+                        $('.textStatus').html('Loja Indispon&iacute;vel');
+                        $('.divDisp').removeClass('classGren');
+                        $('.divDisp').addClass('classGray');
+                        $('.mediaAtendimento').html('Indispon&iacute;vel');
+                }
+
+            });
+
+
+
+};
 
 $(document).on("pageshow","#index",function(){
     //cliente ="";

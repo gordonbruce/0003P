@@ -803,12 +803,33 @@ function atualizarProduto(){
               $("#linhaTotal").remove();
 
             });
+            frete=false;
+
+            freteMaisProduto= 0;
+            if(cliente.Cliente.frete_cadastro != false){
+                    frete=cliente.Cliente.frete_cadastro;
+                    $('#entrega_valor').val(frete);
+                    frete = frete.replace(".","");
+                    frete = frete.replace(",",".");
+                    frete=parseFloat(frete);
+                    freteMaisProduto = frete+sum;
+            }
             $("#linhaTotal").remove();
             sum = sum.toFixed(2);
             sum = sum.toString();
-
             sum = sum.replace('.', ',');
+
             vlTotalSub=vlTotal.replace(",",".");
+
+            frete = frete.toFixed(2);
+            frete = frete.toString();
+            frete = frete.replace('.', ',');
+            freteMaisProduto=parseFloat(freteMaisProduto);
+            freteMaisProduto = freteMaisProduto.toFixed(2);
+            freteMaisProduto = freteMaisProduto.toString();
+            freteMaisProduto = freteMaisProduto.replace('.', ',');
+
+
 
             $("#pedido").append('<tr id="linhaTotal"><td colspan="4">Total</td><td id="totalPedido">'+sum+'</td></tr>');
             $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][produto_id]" id="Itensdepedido'+contador+'ProdutoId" value="'+codigo+'">');
@@ -857,6 +878,12 @@ function atualizarProduto(){
 
             valorTotalPag = $("#totalPedido").text();
             $('#totalPedidoPag').html(valorTotalPag);
+
+              $('#totalPedidoEntrega').html('R$ '+freteMaisProduto);
+              $('#totalEntrega').html('R$ '+frete);
+
+              $('.h3entrega').show();
+
 
     }
     $('body').on('click', '#btn-confirmarProd', function () {
@@ -1143,6 +1170,8 @@ function atendimentoView(atendimentos){
         //$("#clienteAtend").html(atendimentos.Cliente.nome+'&nbsp;');
         $("#AtendAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
         $("#pagamentoAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
+         $("#entregaPedido").html(atendimentos.Pedido.entrega_valor+'&nbsp;');
+
         $("#situacaoAtend").html(atendimentos.Pedido.status+'&nbsp;');
         $("#posFilaAtend").html(atendimentos.Pedido.status+'&nbsp;');
         $("#idPedidoAux").html(atendimentos.Pedido.id);
@@ -1663,6 +1692,7 @@ $("#pedir").click(function(event){
 
     var atendimentos="";
     var atendimento="";
+    var ventrega=0;
     function getAtendimento(atendimentoid){
 
 
@@ -1705,7 +1735,12 @@ $("#pedir").click(function(event){
                         $('#obsPedidoEntrega').html(entregaLocal);
                         $("#AtendAtend").html(pedido.user_id+'&nbsp;');
                         $("#pagamentoAtend").html(pedido.status_pagamento+'&nbsp;');
-
+                        ventrega =pedido.entrega_valor;
+                        ventrega =parseFloat(ventrega) ;
+                        ventrega = ventrega.toFixed(2);
+                        ventrega = ventrega.toString();
+                        ventrega = ventrega.replace(".",",");
+                        $("#entregaPedido").html('R$ '+ventrega+'&nbsp;');
                         $("#situacaoAtend").html(pedido.status+'&nbsp;');
                         $("#posFilaAtend").html(pedido.posicao_fila+'&nbsp;');
                         $("#previsaoAtend").html(pedido.tempo_estimado+'&nbsp;');
@@ -1824,7 +1859,6 @@ $("#pedir").click(function(event){
                         var value = $(this).text();
                         value = value.substring(3);
                         value = value.replace(",",".");
-                        value = value.replace(".","");
                         value = parseFloat(value);
                         if(!isNaN(value) && value.length != 0) {
 
@@ -1833,14 +1867,21 @@ $("#pedir").click(function(event){
 
 
                     });
-                    $('#itensdoPedido').append('<tr id="linhaTotalPedido"><td colspan="4">Total</td><td id="valorTotalPedido" class="dinheiro">'+sum+'</td></tr>');
-
+                    ventrega = ventrega.toString();
+                    ventrega = ventrega.replace(',','.');
+                    ventrega = parseFloat(ventrega);
+                    somaEntregaPedido = sum + ventrega;
+                    sum = sum.toFixed(2);
+                    somaEntregaPedido = somaEntregaPedido.toFixed(2);
+                    somaEntregaPedido = somaEntregaPedido.toString();
+                    somaEntregaPedido = somaEntregaPedido.replace('.',',');
+                    $('#itensdoPedido').append('<tr id="linhaTotalPedido"><td colspan="4">Total dos Itens</td><td id="valorTotalPedido" class="dinheiro">'+sum+'</td></tr>');
+                    $('#itensdoPedido').append('<tr id="linhaTotalPedidoFrete"><td colspan="4">Total do Pedido com a Entrega</td><td id="valorTotalPedidoFrete" class="dinheiro">R$ '+somaEntregaPedido+'</td></tr>');
                     $('#valorTotalPedido').priceFormat({
                         prefix: 'R$ ',
                         centsSeparator: ',',
                         thousandsSeparator: '.'
                     });
-
 
                 },error: function(data){
 
@@ -1925,6 +1966,7 @@ $('body').on('click', '.acaoAtend', function () {
     getAtendimento(atendimentoid);
 
     getItens(atendimentoid);
+
     $("#idAtend").html(atendimentoid);
 
 

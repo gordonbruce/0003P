@@ -320,6 +320,11 @@
 
 								&nbsp;
 							</dd>
+							<dt class="entregaPedido">Valor da Entrega</dt>
+							<dd id="entregaPedido" class="entregaPedido">
+
+								&nbsp;
+							</dd>
 							<dt class="situacaoAtend bkAnimacao">Situação</dt>
 							<dd id="situacaoAtend" class="situacaoAtend bkAnimacao animacaoAtend">
 
@@ -580,7 +585,9 @@
 						</div>
 					</div>
 					<div id="divPagamento">
-						<h3>Total do Pedido <span id="totalPedidoPag">0,00</span></h3>
+						<h3>Total dos Produtos <span id="totalPedidoPag">0,00</span></h3>
+						<h3 class="h3entrega none">Valor da Entrega <span id="totalEntrega">0,00</span></h3>
+						<h3 class="h3entrega none">Valor Total do Pedido <span id="totalPedidoEntrega">0,00</span></h3>
 						<form action="http://appedido.lojacriandoart.com.br/RestPedidos/addmobile.json" id="PedidoAddForm" method="post" accept-charset="utf-8">
 							<input type="hidden" name="_method" value="POST">
 							<div data-role="controlgroup" data-theme="b"  >
@@ -597,6 +604,7 @@
 							<input type="hidden" name="data[Pedido][empresa_id]" value="0" id="empresaPedido">
 							<input type="hidden" name="data[Pedido][trocovalor]" value="0" id="trocoValorPedido">
 							<input type="hidden" name="data[Pedido][trocoresposta]" value="Sim" id="trocoresposta">
+							<input type="hidden" name="data[Pedido][entrega_valor]" value="Sim" id="entrega_valor">
 							<input type="hidden" name="data[Pedido][pgmoip_id]" value="" id="pgmoip_id">
 							<input type="hidden" name="data[Pedido][codigomoip]" value="" id="codigomoip">
 							<input type="hidden" name="data[Pedido][taxamoip]" value="" id="taxamoip">

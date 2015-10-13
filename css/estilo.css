@@ -743,3 +743,34 @@ input, textarea {
 .none{display: none;}
 .slider .noneImportant{display: none;}
 .dispNoneTam{display: none;}
+.dispLoja{
+   display: block;
+  width: 147px;
+ margin: 11px auto; auto;
+}
+.divDisp{
+
+    width: 20px;
+    height: 20px;
+    border-radius: 18px;
+    float: right;
+    margin-left: 6px;
+    margin-top: -2px;
+}
+.classGray{
+  background-color: #ccc;
+}
+.classGren{
+  background-color: green;
+}
+.dispHora{
+  position: absolute !important;
+  margin-top: 23px !important;
+  width: 180px;
+  text-align: center;
+  right: 35px;
+    font-size: 11px !important;
+}
+.mediaAtendimentoAtivo{
+    margin-left: -25px;
+}

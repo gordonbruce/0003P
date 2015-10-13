@@ -41,10 +41,18 @@
 			<div data-role="panel" id="mypanel0" data-display="overlay" data-theme="b" data-content-theme="b">
 				<img src="images/logoentrega_painel.png"  class="logoPainel" />
 			   <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+
+			   		<li>
+			   		<span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp classGray"></div>
+			   		</span>
+					<span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+			   		</span>
+			   		</li>
 			   		<li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
 					<li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
 					<li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
 					<li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+
 					<li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
 					<li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
 			   	</ul>
@@ -177,6 +185,12 @@
 			<div data-role="panel" id="mypanel1" data-display="overlay" data-theme="b" data-content-theme="b">
 				<img src="images/logoentrega_painel.png" class="logoPainel"/>
 			   <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+			   		<li>
+			   		<span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp classGray"></div>
+			   		</span>
+					<span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+			   		</span>
+			   		</li>
 			   		<li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
 					<li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
 					<li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
@@ -252,6 +266,12 @@
 			<div data-role="panel" id="mypanel2" data-display="overlay" data-theme="b" data-content-theme="b">
 				<img src="images/logoentrega_painel.png"class="logoPainel"/>
 			   <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+			   		<li>
+			   		<span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp classGray"></div>
+			   		</span>
+					<span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+			   		</span>
+			   		</li>
 			   		<li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
 					<li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
 					<li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
@@ -381,6 +401,18 @@
 					 </tbody>
 			   </table>
 				<dl>
+				<dt>Total à Pagar</dt>
+					<dd id="obsTotalEntrega">
+						<div id="obsPedidoTotal"></div>
+						&nbsp;
+					</dd>
+				</dl>
+				<dl>
+				<dt>Local de Entrega</dt>
+					<dd id="obsEntregaPedido">
+						<div id="obsPedidoEntrega"></div>
+					</dd>
+				</dl>
 				<dt>Observaçoes</dt>
 					<dd id="obs">
 						<div id="obsPedido"></div>
@@ -453,6 +485,12 @@
 			<div data-role="panel" id="mypanel3" data-display="overlay" data-theme="b" data-content-theme="b">
 				<img src="images/logoentrega_painel.png" class="logoPainel"/>
 			   <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+			   		<li>
+			   		<span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp classGray"></div>
+			   		</span>
+					<span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+			   		</span>
+			   		</li>
 			   		<li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
 					<li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
 					<li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
@@ -698,9 +736,18 @@
 								            <label for="radio-choice-t-9b" id="lbchoiceb">Não</label>
 								        </fieldset>
 								        <div id="holdValorEntrega"  class="none">
-								            <legend>indique o endereço e um telefone para entrega</legend>
-								            <textarea rows="4" cols="50" name="data[Pedido][outro_endereco_entrega]" id="entregaObs" ></textarea>
+								            <legend>Cidade</legend>
+								            <input type="Text" name="data[Pedido][entrega_outro_cidade]" id="entregaOutroCidade"  class="endEntrega" value="" >
+								            <legend>Bairro</legend>
+								            <input type="Text" name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega" value="" >
+								            <legend>Endereço</legend>
+								            <input name="data[Pedido][outro_endereco_entrega_rua]" id="entregaRua" class="endEntrega"/ >
+								            <legend>Telefone</legend>
+								            <input name="data[Pedido][outro_endereco_telefone]" id="entregaTelefone" class="endEntrega"/ >
+								            <input  type="hidden" name="data[Pedido][outro_endereco_entrega]" id="endEntrega" class="endEntrega"/ >
 								            <input type="hidden" name="data[Pedido][entrega_outro_local]" id="entregaOutroLocal"   value="0" >
+								            <input type="hidden" name="data[Pedido][entrega_outro_estado]" id="entregaOutroCidade"   value="RJ" >
+								            <button id="recalcularFrete" data-theme="b" data-content-theme="b">Recalcular Entrega</button>
 								        </div>
 
 								</div>
@@ -724,6 +771,24 @@
 					</div>
 
 				</div><!-- /grid-a -->
+				<div data-role="popup" id="popupRecalculoEntrega" class="" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+					<div data-role="header" data-theme="b" data-position="fixed">
+					<h2>Aviso</h2>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">Preencha Todos os Campos para Recalcular a Entrega!</h3>
+						<a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+					</div>
+				</div>
+				<div data-role="popup" id="popupNaoEntrega" class="" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+					<div data-role="header" data-theme="b" data-position="fixed">
+					<h2>Aviso</h2>
+					</div>
+					<div role="main" class="ui-content">
+						<h3 class="ui-title">Este endereço não se encontra em nossa área de cobertura. Por favor entre em contato conosco por telefone ou email para obter maiores informações.</h3>
+						<a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+					</div>
+				</div>
 				<div data-role="popup" id="popupDialogCart" data-overlay-theme="b" data-theme="a" data-dismissible="false" style="max-width:400px;">
 						<div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
 						<h2>Erro</h2>

@@ -742,6 +742,7 @@ input, textarea {
 }
 .none{display: none;}
 .slider .noneImportant{display: none;}
+.dispNoneTam{display: none;}
 .dispLoja{
    display: block;
   width: 147px;
@@ -769,4 +770,11 @@ input, textarea {
   text-align: center;
   right: 35px;
     font-size: 11px !important;
+}
+.mediaAtendimentoAtivo{
+    margin-left: -25px;
+}
+.logoPainel{
+    width: 206px;
+    margin-bottom: 38px;
 }

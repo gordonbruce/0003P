@@ -117,7 +117,124 @@ function removeDiacritics (str) {
 
 $(document).ready(function() {
 
+    $('.endEntrega').focusout(function(){
 
+        outroEndereco = $('#entregaRua').val()+' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val();
+        $('#endEntrega').val(outroEndereco);
+    });
+    $('#recalcularFrete').click(function(event){
+        event.preventDefault();
+
+           if($('#entregaRua').val() == '' || $('#entregaOutroBairro').val() ==''  || $('#entregaOutroCidade').val() =='' || $('#entregaTelefone').val() =='')
+           {
+                $("#popupRecalculoEntrega").popup( "open" );
+                return false;
+           }
+
+        $('.loginsalt').val(salt);
+        var urlAction = URLAPP+"RestPedidos/calculafrete.json?fp="+filialPadrao+"";
+        var dadosForm = $("#PedidoAddForm").serialize();
+
+
+        $.mobile.loading( "show" ,{theme: 'b'});
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  dadosForm,
+            dataType: 'json',
+            crossDomain: true,
+
+
+
+            success: function(data){
+
+                $.mobile.loading( "hide" ,{theme: 'b'});
+                if(data.resultados != false){
+                    $('#totalEntrega').html('R$ '+ data.resultados);
+                    $('#entrega_valor').val(data.resultados);
+                    vlFrete=data.resultados;
+                    vlFrete= vlFrete.toString();
+                    totalProd =$('#totalPedidoPag').text();
+                    totalProd=totalProd.substring(3);
+                    totalProd = totalProd.replace('.','');
+                    totalProd = totalProd.replace(',','.');
+                    totalProd = parseFloat(totalProd);
+                    vlFrete= vlFrete.replace(',','.')
+                    vlFrete=parseFloat(vlFrete);
+
+                    vlTotalComFrete = totalProd + vlFrete;
+                    vlTotalComFrete= vlTotalComFrete.toFixed(2);
+                    vlTotalComFrete = vlTotalComFrete.toString();
+                    vlTotalComFrete= vlTotalComFrete.replace('.',',');
+                    $('#totalPedidoEntrega').html('R$ '+ vlTotalComFrete);
+                   $('#pedir').show();
+                }else{
+                     $('#pedir').hide();
+                      $("#popupNaoEntrega").popup( "open" );
+
+                }
+
+
+
+            },error: function(data){
+
+               $("#popupDialogLogin4").popup( "open" );
+                $.mobile.loading( "hide" );
+
+            }
+        });
+});
+statusLoja();
+setInterval(function(){
+    statusLoja();
+},120000);
+function statusLoja(){
+
+
+        minhaUrl=URLAPP+"RestPedidos/statusloja.json?fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: minhaUrl,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+
+                    $.each(data, function(i, resultados){
+
+                            if(resultados.Filial.status_abertura==true){
+                                $('.textStatus').html('Loja Dispon&iacute;vel');
+                                $('.divDisp').removeClass('classGray');
+                                $('.divDisp').addClass('classGren');
+                                 if(resultados.Filial.tempo_atendimento !='00:00:00'){
+                                    $('.mediaAtendimento').html('Tempo de Espera: '+resultados.Filial.tempo_atendimento).addClass('mediaAtendimentoAtivo').removeClass('none');
+                                }
+                            }else{
+                                 $('.textStatus').html('Loja Indispon&iacute;vel');
+                                $('.divDisp').removeClass('classGren');
+                                $('.divDisp').addClass('classGray');
+                                $('.mediaAtendimento').html('Indispon&iacute;vel').addClass('none');
+                            }
+
+
+                    });
+
+                },error: function(data){
+                        $('.textStatus').html('Loja Indispon&iacute;vel');
+                        $('.divDisp').removeClass('classGren');
+                        $('.divDisp').addClass('classGray');
+                        $('.mediaAtendimento').html('Indispon&iacute;vel');
+                }
+
+            });
+
+
+
+};
 
 $(document).on("pageshow","#index",function(){
     //cliente ="";
@@ -161,9 +278,7 @@ $(document).on("pageshow","#index",function(){
         tamanhoChange = tamanhoChange.replace(' ', '');
         vlUm  = $("#compostoAdd1"+comboId).find('option:selected').attr('data-'+tamanhoChange);
         vlDois  = $("#compostoAdd2"+comboId).find('option:selected').attr('data-'+tamanhoChange);
-        console.log(tamanhoChange);
-        console.log(vlUm);
-        console.log(vlDois);
+
 
 
         if(typeof vlUm !== "undefined" &&  typeof vlDois !== "undefined")
@@ -407,7 +522,7 @@ $(document).on("pageshow","#index",function(){
         }
 
         if(pagueGanhe != null){
-            console.log(pagueGanhe);
+
 
             pagueGanheNone='noneImportant';
             if(ob.promo_compre_ganhe ==true){
@@ -511,7 +626,7 @@ $(document).on("pageshow","#index",function(){
                                 }
 
                             });
-                            console.log(dataTam);
+
                             //vlunitComposto= parseFloat(composto.Produto.preco_venda);
                             //vlunitComposto = vlunitComposto.toFixed(2);
 
@@ -802,12 +917,33 @@ function atualizarProduto(){
               $("#linhaTotal").remove();
 
             });
+            frete=false;
+
+            freteMaisProduto= 0;
+            if(cliente.Cliente.frete_cadastro != false){
+                    frete=cliente.Cliente.frete_cadastro;
+                    $('#entrega_valor').val(frete);
+                    frete = frete.replace(".","");
+                    frete = frete.replace(",",".");
+                    frete=parseFloat(frete);
+                    freteMaisProduto = frete+sum;
+            }
             $("#linhaTotal").remove();
             sum = sum.toFixed(2);
             sum = sum.toString();
-
             sum = sum.replace('.', ',');
+
             vlTotalSub=vlTotal.replace(",",".");
+
+            frete = frete.toFixed(2);
+            frete = frete.toString();
+            frete = frete.replace('.', ',');
+            freteMaisProduto=parseFloat(freteMaisProduto);
+            freteMaisProduto = freteMaisProduto.toFixed(2);
+            freteMaisProduto = freteMaisProduto.toString();
+            freteMaisProduto = freteMaisProduto.replace('.', ',');
+
+
 
             $("#pedido").append('<tr id="linhaTotal"><td colspan="4">Total</td><td id="totalPedido">'+sum+'</td></tr>');
             $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][produto_id]" id="Itensdepedido'+contador+'ProdutoId" value="'+codigo+'">');
@@ -856,6 +992,12 @@ function atualizarProduto(){
 
             valorTotalPag = $("#totalPedido").text();
             $('#totalPedidoPag').html(valorTotalPag);
+
+              $('#totalPedidoEntrega').html('R$ '+freteMaisProduto);
+              $('#totalEntrega').html('R$ '+frete);
+
+              $('.h3entrega').show();
+
 
     }
     $('body').on('click', '#btn-confirmarProd', function () {
@@ -993,7 +1135,7 @@ function atualizarProduto(){
 
                         if(typeof prodTamanho !== 'undefined'){
                             if(prodTamanho != ''){
-                                console.log('passou');
+
                                 obsTamanho=" <strong><i>Tamanho:</i> </strong>"+prodTamanho.capitalize();
                             }else{
                                 obsTamanho="";
@@ -1005,7 +1147,7 @@ function atualizarProduto(){
 
                         itenObs=obsTamanho;
                     }
-                    console.log(itemBebidaId);
+
                     if(typeof itemBebidaId !== 'undefined' && itemBebidaId !== null && itemBebidaId !== 'null' && itemBebidaId !== ''  && itemBebidaId !== ' ' && typeof itemBebidaId !== undefined ){
 
                         itenObs+="<br/> <strong><i>Bebida:</i></strong>"+itemBebidaNome;
@@ -1073,7 +1215,7 @@ function atualizarProduto(){
                 var res = data.ultimopedido;
                 $.mobile.loading( "hide" );
 
-                console.log(data);
+
                 if(res == 'ErroLogin'){
 
 
@@ -1142,6 +1284,8 @@ function atendimentoView(atendimentos){
         //$("#clienteAtend").html(atendimentos.Cliente.nome+'&nbsp;');
         $("#AtendAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
         $("#pagamentoAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
+         $("#entregaPedido").html(atendimentos.Pedido.entrega_valor+'&nbsp;');
+
         $("#situacaoAtend").html(atendimentos.Pedido.status+'&nbsp;');
         $("#posFilaAtend").html(atendimentos.Pedido.status+'&nbsp;');
         $("#idPedidoAux").html(atendimentos.Pedido.id);
@@ -1323,7 +1467,10 @@ function validarPedido(){
 $("#pedir").click(function(event){
 
     validarPedido();
-
+    if(cliente.Cliente.frete_cadastro==false){
+        $("#popupNaoEntrega").popup( "open" );
+        return false;
+    }
     formPagamento = $('formaDEpagamento').val();
     if(formPagamento==''){
         validarPd="falso";
@@ -1384,14 +1531,14 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                 success: function(data){
-                    console.log(data);
+
                     $("#pedir").show();
                     $.mobile.loading( "hide" );
 
 
                     atendimento=data.resultados;
 
-                    console.log(data);
+
 
                     if(atendimento.Pedido.id){
 
@@ -1409,7 +1556,7 @@ $("#pedir").click(function(event){
                     }
                     //$('#pedidoToken').val('');
                 },error: function(data){
-                    console.log(data);
+
                     $.mobile.loading( "hide" );
                     $("#pedir").show();
 
@@ -1662,6 +1809,7 @@ $("#pedir").click(function(event){
 
     var atendimentos="";
     var atendimento="";
+    var ventrega=0;
     function getAtendimento(atendimentoid){
 
 
@@ -1685,14 +1833,14 @@ $("#pedir").click(function(event){
                     difHora=atendimento.Atendimento.difhora;
                     $("#codigoAtend").html(atendimento.Atendimento.codigo+'&nbsp;');
                     $('#clienteAtend').html(atendimento.Cliente.nome);
-
+                    $('#obsPedidoEntrega').html('');
                     $.each(atendimento.Pedido, function(i, pedido){
                             var dataPedido = pedido.data
                             var pedAnoDt = dataPedido.substring(0, 4);
                             var pedMesDt = dataPedido.substring(5, 7);
                             var pedDiaDt = dataPedido.substring(8, 10);
                             dataPedido = pedDiaDt+"/"+pedMesDt+"/"+pedAnoDt;
-                        var entregaLocal= 'No endere&ccedil;o do cad&aacute;stro';
+                        var entregaLocal= 'No endere&ccedil;o de cad&aacute;stro';
                         if(pedido.entrega_outro_local ==1){
                             entregaLocal=pedido.outro_endereco_entrega;
                         }
@@ -1704,7 +1852,12 @@ $("#pedir").click(function(event){
                         $('#obsPedidoEntrega').html(entregaLocal);
                         $("#AtendAtend").html(pedido.user_id+'&nbsp;');
                         $("#pagamentoAtend").html(pedido.status_pagamento+'&nbsp;');
-
+                        ventrega =pedido.entrega_valor;
+                        ventrega =parseFloat(ventrega) ;
+                        ventrega = ventrega.toFixed(2);
+                        ventrega = ventrega.toString();
+                        ventrega = ventrega.replace(".",",");
+                        $("#entregaPedido").html('R$ '+ventrega+'&nbsp;');
                         $("#situacaoAtend").html(pedido.status+'&nbsp;');
                         $("#posFilaAtend").html(pedido.posicao_fila+'&nbsp;');
                         $("#previsaoAtend").html(pedido.tempo_estimado+'&nbsp;');
@@ -1731,7 +1884,7 @@ $("#pedir").click(function(event){
 
                                     success: function(data){
                                         //alert(pedido_id);
-                                        //console.log(data);
+
                                         $.mobile.loading( "hide" );
                                     },error: function(data){
 
@@ -1795,7 +1948,7 @@ $("#pedir").click(function(event){
 
 
                     $('.clonePedido').remove();
-
+                    $('#obsPedidoTotal').html('');
                     //atendimentos = JSON.parse(atend);
                     $.each(data.resultados, function(i, iten){
                         vlunit =parseFloat(iten.Itensdepedido.valor_unit) ;
@@ -1823,7 +1976,6 @@ $("#pedir").click(function(event){
                         var value = $(this).text();
                         value = value.substring(3);
                         value = value.replace(",",".");
-                        value = value.replace(".","");
                         value = parseFloat(value);
                         if(!isNaN(value) && value.length != 0) {
 
@@ -1832,14 +1984,23 @@ $("#pedir").click(function(event){
 
 
                     });
-                    $('#itensdoPedido').append('<tr id="linhaTotalPedido"><td colspan="4">Total</td><td id="valorTotalPedido" class="dinheiro">'+sum+'</td></tr>');
+                    ventrega = ventrega.toString();
+                    ventrega = ventrega.replace(',','.');
+                    ventrega = parseFloat(ventrega);
+                    somaEntregaPedido = sum + ventrega;
+                    sum = sum.toFixed(2);
+                    somaEntregaPedido = somaEntregaPedido.toFixed(2);
+                    somaEntregaPedido = somaEntregaPedido.toString();
+                    somaEntregaPedido = somaEntregaPedido.replace('.',',');
+                    $('#itensdoPedido').append('<tr id="linhaTotalPedido" class="clonePedido"><td colspan="4">Total dos Itens</td><td id="valorTotalPedido" class="dinheiro">'+sum+'</td></tr>');
+
+                    $('#obsPedidoTotal').html('R$ '+somaEntregaPedido+'');
 
                     $('#valorTotalPedido').priceFormat({
                         prefix: 'R$ ',
                         centsSeparator: ',',
                         thousandsSeparator: '.'
                     });
-
 
                 },error: function(data){
 
@@ -1924,6 +2085,7 @@ $('body').on('click', '.acaoAtend', function () {
     getAtendimento(atendimentoid);
 
     getItens(atendimentoid);
+
     $("#idAtend").html(atendimentoid);
 
 
@@ -2093,6 +2255,13 @@ function checaAtendimento(atendimentocod){
         $("#respTroco").html('0,00');
         $('#totalPedidoPag').html('0,00');
         $('#voltarPedido').hide();
+         $('#entrega_valor').hide();
+         $('#totalPedidoPag').html('');
+        $('#totalEntrega').html('');
+        $('#totalPedidoEntrega').html('');
+        $('#entrega_valor').val('');
+
+
         $('#lradio-choice-t-6a').removeClass('ui-radio-on');
 
         $('#lradio-choice-t-6b').removeClass('ui-radio-on');
@@ -2320,7 +2489,24 @@ function checaAtendimento(atendimentocod){
 
      }
       if(checkBoxId == 'radio-choice-t-9a'){
+        $('#totalEntrega').html('R$ '+ cliente.Cliente.frete_cadastro);
+        $('#entrega_valor').val(cliente.Cliente.frete_cadastro);
+        vlFrete=cliente.Cliente.frete_cadastro;
+        vlFrete= vlFrete.toString();
+        totalProd =$('#totalPedidoPag').text();
+        totalProd=totalProd.substring(3);
+        totalProd = totalProd.replace('.','');
+        totalProd = totalProd.replace(',','.');
+        totalProd = parseFloat(totalProd);
+        vlFrete= vlFrete.replace(',','.')
+        vlFrete=parseFloat(vlFrete);
 
+        vlTotalComFrete = totalProd + vlFrete;
+        vlTotalComFrete= vlTotalComFrete.toFixed(2);
+        vlTotalComFrete = vlTotalComFrete.toString();
+        vlTotalComFrete= vlTotalComFrete.replace('.',',');
+        $('#totalPedidoEntrega').html('R$ '+ vlTotalComFrete);
+       $('#pedir').show();
         $('#entregaOutroLocal').val(0);
         $('#holdValorEntrega').hide();
 
@@ -2328,7 +2514,7 @@ function checaAtendimento(atendimentocod){
       if(checkBoxId == 'radio-choice-t-9b'){
         $('#entregaOutroLocal').val(1);
         $('#holdValorEntrega').show();
-
+        $('#pedir').hide();
      }
     });
 
@@ -2490,8 +2676,8 @@ function checaAtendimento(atendimentocod){
                             //$.mobile.changePage("#page0");
                         }
                     },error: function(data){
-                        console.log(data);
-                        //criar tratatmento de erros
+
+
                         $.mobile.loading( "hide" );
                         $("#popupDialogLogin5").popup( "open" );
                         $("#saltEdit").val('');
@@ -2748,7 +2934,7 @@ function checaAtendimento(atendimentocod){
                         cepAux = cep[0] + cep[1];
                         $('#logradouroEdit').val(res[0]);
                         $('#cepEdit').val(cepAux);
-                        //console.log(res);
+
                         return true;
                     }
                     $.mobile.loading( "hide" );
@@ -2797,8 +2983,7 @@ function checaAtendimento(atendimentocod){
                             var start= localizacaoEntrega.Atendimento.lat +','+localizacaoEntrega.Atendimento.lng;
                             var end = localizacaoEntrega.Cliente.lat +','+localizacaoEntrega.Cliente.lng;
 
-                            //console.log(start);
-                            //console.log(end);
+
                             var request = {
                             origin:start,
                             destination:end,
@@ -2851,7 +3036,7 @@ function checaAtendimento(atendimentocod){
 
                             var start= data.resultados.Atendimento.lat +','+data.resultados.Atendimento.lng;
                             var end = data.resultados.Cliente.lat +','+data.resultados.Cliente.lng;
-                        console.log(start);
+
 
                         var request = {
                             origin:start,
@@ -3273,12 +3458,13 @@ function checaAtendimento(atendimentocod){
         clearInterval(verificaPedido);
     });
     $(document).on("pageshow","#page3",function(){
+       limparPedido();
         if(cliente != ''){
 
 
             clearInterval(verificaPedido);
             $('.cloneOptPgt').remove();
-            console.log(cliente);
+
             $.each(cliente.Pagamento, function(i, pagamento){
                 $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
             });
@@ -3487,7 +3673,7 @@ function checaAtendimento(atendimentocod){
                     //$.mobile.loading( "hide" );
                     $.each(data, function(i, atendimento){
 
-                        console.log(atendimento);
+
                         $.each(atendimento.Pedido, function(i, pedido){
 
                             statusSit = $("#situacaoAtend").text();
@@ -3614,7 +3800,7 @@ function checaAtendimento(atendimentocod){
 
 
                 },error: function(data){
-                    console.log(data);
+
                     $.mobile.loading( "hide" );
 
                     //tratar essa rotina
@@ -3719,12 +3905,12 @@ function checaAtendimento(atendimentocod){
                 contentType: false,
                 processData: false,
                 success:function(data){
-                    console.log(data);
+
                     $('.fotoHeader').attr('src',data.ultimocliente.Cliente.foto);
                     arrayNome = data.ultimocliente.Cliente.foto;
                     arrayNome2 = arrayNome.split('fotoscli');
                   splitFoto = arrayNome2
-                    console.log(arrayNome2);
+
                     $("#popupDialogFormFoto1").popup( "close" );
                     $.mobile.loading( "hide" );
                 },

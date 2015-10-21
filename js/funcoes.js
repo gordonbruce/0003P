@@ -273,7 +273,7 @@ $(document).on("pageshow","#index",function(){
         itenObs="";
         comboId = $(this).attr('data-produto');
 
-        tamanhoChange  = $("#comboTamanho"+comboId).find('option:selected').attr('data-tamanho');
+        tamanhoChange  = $("#compostoTamanho"+comboId).find('option:selected').attr('data-tamanho');
         tamanhoChange = removeDiacritics(tamanhoChange);
         tamanhoChange = tamanhoChange.replace(' ', '');
         vlUm  = $("#compostoAdd1"+comboId).find('option:selected').attr('data-'+tamanhoChange);
@@ -502,7 +502,47 @@ $(document).on("pageshow","#index",function(){
 
         //tamanhoId =  $("#selectTamanho"+minhaId).find('option:selected').attr('id');
     });
+    $(document).on("change", ".compostoTamanho", function(){
+        produtoTamId = $(this).attr('data-produto');
+        valorSelect= $(this).val();
+        if(valorSelect != 0){
+          $('#compostoAdd1'+produtoTamId).css('display', 'block');
+          $('#compostoAdd2'+produtoTamId).css('display', 'block');
+          $('#compostoLabelAdd'+produtoTamId).css('display', 'block');
+          $("#compostoAdd1"+produtoTamId).val(0);
+          $("#compostoAdd2"+produtoTamId).val(0);
+          $('.precoComposto').css('display', 'none');
+          $('#btnAddProd'+produtoTamId).css('display', 'none');
+          $('#btnAddProd'+produtoTamId).attr('data-tamanho','');
+        }else{
+          $('.precotam').css('display', 'none');
+          $('.dispNoneTam').css('display', 'none');
+          $('#compostoAdd1'+produtoTamId).css('display', 'none');
+          $('#compostoAdd2'+produtoTamId).css('display', 'none');
+          $('#compostoLabelAdd'+produtoTamId).css('display', 'none');
+          $("#compostoAdd1"+produtoTamId).val(0);
+          $("#compostoAdd2"+produtoTamId).val(0);
+          $('#btnAddProd'+produtoTamId).css('display', 'none');
+        }
+        possuiBebida  = $("#compostoTamanho"+produtoTamId).find('option:selected').attr('data-bolbebida');
+        
+        if(possuiBebida=='true'){
+            $('.bebidas_'+produtoTamId).css('display','block');
+        }else{
+            $('.bebidas_'+produtoTamId).css('display','none');
+            $('#btnAddProd'+produtoTamId).attr('data-bebidanome','');
+            $('#btnAddProd'+produtoTamId).attr('data-bebidaid','');
+        }
+        possuiPagGanhe  = $("#compostoTamanho"+produtoTamId).find('option:selected').attr('data-bolganhe');
 
+        if(possuiPagGanhe=='true'){
+            $('.pagueGanhe_'+produtoTamId).css('display','block');
+        }else{
+            $('.pagueGanhe_'+produtoTamId).css('display','none');
+            $('#btnAddProd'+produtoTamId).attr('data-pagueganheid','');
+            $('#btnAddProd'+produtoTamId).attr('data-pagueganhenome','');
+        }
+    });
     function gerarListaProdutos(ob, j){
         var selectTamanho="";
         var  dataTamanhos="";
@@ -582,7 +622,7 @@ $(document).on("pageshow","#index",function(){
 
                         });
 
-                    selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+                    selectTamanho='<label class="labelTamanho">Tamanho</label><select class="compostoTamanho" id="compostoTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
                     var dataTam="";
                     $.each(ob.produtoscomposicao, function(n, composicao){
 
@@ -951,6 +991,7 @@ function atualizarProduto(){
             $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_unit]" id="Itensdepedido'+contador+'valor_unit" value="'+vlUnitarioAut+'">');
             $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_total]" id="Itensdepedido'+contador+'valor_total" value="'+vlTotalSub+'">');
             if(typeof prodId1 !== 'undefined' && typeof prodId2 !== 'undefined'){
+
                 $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostoum_id]" id="Itensdepedido'+contador+'compostoum_id" value="'+prodId1+'">');
                 prodId1='';
 

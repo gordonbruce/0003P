@@ -696,6 +696,13 @@ input, textarea {
     color: white;
     background-color: black;
 }
+.compostoTamanho{
+    display: block;
+    width: 100px !important;
+    margin: 6px auto !important;
+    color: white;
+    background-color: black;
+}
 .addProdutoComposto{
     display: none;
 }

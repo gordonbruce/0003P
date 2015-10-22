@@ -785,3 +785,22 @@ input, textarea {
     width: 206px;
     margin-bottom: 38px;
 }
+.spanproximo {
+  height: 39px;
+  margin-top: 98px;
+  position: absolute;
+  left: 5px;
+}
+.spananterior{
+  display: none;
+    height: 39px;
+    margin-top: 98px;
+    position: absolute;
+      left: -13px;
+}
+#obsPedido{
+  margin-top: 10px;
+}
+.menuSair{
+  margin-top: 0.5px !important;
+}

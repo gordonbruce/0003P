@@ -742,11 +742,13 @@
                                             <input type="Text" name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega" value="" >
                                             <legend>Endereço</legend>
                                             <input name="data[Pedido][outro_endereco_entrega_rua]" id="entregaRua" class="endEntrega"/ >
+                                            <legend>Número</legend>
+                                            <input name="data[Pedido][outro_endereco_entrega_numero]" id="entregaNumero" class="endEntrega"/ >
                                             <legend>Telefone</legend>
                                             <input name="data[Pedido][outro_endereco_telefone]" id="entregaTelefone" class="endEntrega"/ >
                                             <input  type="hidden" name="data[Pedido][outro_endereco_entrega]" id="endEntrega" class="endEntrega"/ >
                                             <input type="hidden" name="data[Pedido][entrega_outro_local]" id="entregaOutroLocal"   value="0" >
-                                            <input type="hidden" name="data[Pedido][entrega_outro_estado]" id="entregaOutroCidade"   value="RJ" >
+                                            <input type="hidden" name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"   value="RJ" >
                                             <button id="recalcularFrete" data-theme="b" data-content-theme="b">Recalcular Entrega</button>
                                         </div>
 
@@ -766,8 +768,8 @@
                         <img src="images/setaesquerda.png"  height="59px" width="59px" class="voltarPedido dispNone" id="voltarPedido" style=" ">
                         <img src="images/setadireita.png"  height="59px" width="59px" class="imgAvancar dispNone" id="proximoPedido" style=" ">
                         <img src="images/carrinho.png"  height="59px" width="59px" class="pedir" id="pedir" style=" ">
-
-
+                        <span class="imgAvancar spanproximo">Avançar</span>
+                        <span class="imgAvancar spananterior">Voltar</span>
                     </div>
 
                 </div><!-- /grid-a -->
@@ -785,7 +787,16 @@
                     <h2>Aviso</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Este endereço não se encontra em nossa área de cobertura. Por favor entre em contato conosco por telefone ou email para obter maiores informações.</h3>
+                        <h3 class="ui-title">Desculpe :( Não encontramos seu endereço em nossa base de dados, verifique se o endereço foi digitado corretamente ou entre em contato conosco por telefone ou email para obter maiores informações.</h3>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+                <div data-role="popup" id="popupSimEntrega" class="" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed">
+                    <h2>Aviso</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <h3 class="ui-title">O valor da entrega para o endereço digitado é de R$ <span id="spanRecalcEntrega"></span></h3>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>

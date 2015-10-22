@@ -1,4 +1,4 @@
-//Bloco de Configurações do aplicativo inicio
+//Bloco de ConfiguraÃ§Ãµes do aplicativo inicio
 var cliente ="";
 var empresa='3';
 var URLAPP = 'http://sistema.entregapp.com.br/';
@@ -17,7 +17,7 @@ var itemPagueGanheId=null;
 var itemPagueGanheNome=null;
 var itemBebidaId =null;
 var itemBebidaNome  = null;
-//Bloco de Configurações do aplicativo Fim
+//Bloco de ConfiguraÃ§Ãµes do aplicativo Fim
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -134,13 +134,23 @@ $(document).ready(function() {
         $('.loginsalt').val(salt);
         var urlAction = URLAPP+"RestPedidos/calculafrete.json?fp="+filialPadrao+"";
         var dadosForm = $("#PedidoAddForm").serialize();
+        cidadeCheck = $('#entregaOutroCidade').val();
+        cidadeCheck =cidadeCheck.replace(/ /g,'');
 
 
+        bairroCheck = $('#entregaOutroBairro').val();
+        bairroCheck =bairroCheck.replace(/ /g,'');
+
+        estadoCheck = $('#entregaOutroEstado').val();
+        estadoCheck =estadoCheck.replace(/ /g,'');
+        filialCheck =  $('#filialPedido').val();
+        var dadosForm2={'Pedido':{'entrega_outro_cidade':cidadeCheck, 'entrega_outro_bairro':bairroCheck, 'entrega_outro_estado':estadoCheck,'filial_id':filialCheck}};
+        console.log(dadosForm2);
         $.mobile.loading( "show" ,{theme: 'b'});
         $.ajax({
             type: "POST",
             url: urlAction,
-            data:  dadosForm,
+            data:  dadosForm2,
             dataType: 'json',
             crossDomain: true,
 
@@ -159,6 +169,7 @@ $(document).ready(function() {
                     totalProd = totalProd.replace('.','');
                     totalProd = totalProd.replace(',','.');
                     totalProd = parseFloat(totalProd);
+                     $('#spanRecalcEntrega').html(vlFrete);
                     vlFrete= vlFrete.replace(',','.')
                     vlFrete=parseFloat(vlFrete);
 
@@ -167,6 +178,8 @@ $(document).ready(function() {
                     vlTotalComFrete = vlTotalComFrete.toString();
                     vlTotalComFrete= vlTotalComFrete.replace('.',',');
                     $('#totalPedidoEntrega').html('R$ '+ vlTotalComFrete);
+                     $("#popupSimEntrega").popup( "open" );
+
                    $('#pedir').show();
                 }else{
                      $('#pedir').hide();
@@ -411,7 +424,7 @@ $(document).on("pageshow","#index",function(){
 
             precoTamSimples  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-preco');
 
-            //Se não tiver preço o produto é composto
+            //Se nÃ£o tiver preÃ§o o produto Ã© composto
             if(precoTamSimples != 'NaN' && precoTamSimples  !='' ){
 
 
@@ -525,7 +538,7 @@ $(document).on("pageshow","#index",function(){
           $('#btnAddProd'+produtoTamId).css('display', 'none');
         }
         possuiBebida  = $("#compostoTamanho"+produtoTamId).find('option:selected').attr('data-bolbebida');
-        
+
         if(possuiBebida=='true'){
             $('.bebidas_'+produtoTamId).css('display','block');
         }else{
@@ -1484,7 +1497,7 @@ function validarPedido(){
         if(tipoTroco=='Sim'){
             texto = $('#respTroco').html();
 
-            if(texto=='Inválido'){
+            if(texto=='InvÃ¡lido'){
                 validarPd = 'falso'
                 return validarPd;
             }else if(texto=='R$ 0,00'){
@@ -2369,7 +2382,7 @@ function checaAtendimento(atendimentocod){
         valorTroco = valorNotaPg - valorCompra;
 
         if(valorTroco < 0){
-            $('#respTroco').html('Inválido');
+            $('#respTroco').html('InvÃ¡lido');
             $('#respTrocoAux').val(' ');
             erroVAlidacaoPedido =1;
         }else{
@@ -2500,7 +2513,7 @@ function checaAtendimento(atendimentocod){
             $('#divAuxTroco').hide();
             $('#auxCartao').show();
             $('#trocoValorPedido').val('');
-            $('#trocoRespostaPedido').val('Não');
+            $('#trocoRespostaPedido').val('NÃ£o');
      }
 
      if(checkBoxId == 'radio-choice-t-7a'){
@@ -2525,8 +2538,8 @@ function checaAtendimento(atendimentocod){
         $('#respTroco').html('');
         $('#holdValorTroco').hide();
         $('#txtValorTroco').hide();
-        $('#trocoRespostaPedido').val('Não');
-        $('#trocoresposta').val('Não');
+        $('#trocoRespostaPedido').val('NÃ£o');
+        $('#trocoresposta').val('NÃ£o');
 
      }
       if(checkBoxId == 'radio-choice-t-9a'){
@@ -3236,7 +3249,7 @@ function checaAtendimento(atendimentocod){
     var marker ;
 
     var map;
-    var directionsDisplay; // Instanciaremos ele mais tarde, que será o nosso google.maps.DirectionsRenderer
+    var directionsDisplay; // Instanciaremos ele mais tarde, que serÃ¡ o nosso google.maps.DirectionsRenderer
     var directionsService = new google.maps.DirectionsService();
 
     function initializeDistancia() {
@@ -3431,7 +3444,7 @@ function checaAtendimento(atendimentocod){
     //$('#avaliacaoPedido').raty({half     : true,});
     //$('#avaliarPedido').raty();
 
-    //funções para o chat
+    //funÃ§Ãµes para o chat
     var numeroPedido;
     $('#btn-chat').click(function(){
         numeroPedido= $("#idPedidoAux").text();

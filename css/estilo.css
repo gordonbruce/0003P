@@ -528,8 +528,12 @@ input, textarea {
 #audioPlayer{display:none;}
 .audioPlayer{display:none;}
 
-.btnPopLeft{float:left !important; margin-right: 4%; margin-left: 16.5%; }
-.btnPop{width: 19%;}
+.btnPopLeft{ margin-top: 1px;float:left !important; margin-right: 4%;}
+.control-confirmar{
+    width: 178px !important;
+  margin: 0 auto !important;
+}
+.btnPop{width: 50px !important;}
 .circulodivGrande{
 	height: 100px;
 	width: 100px;
@@ -703,9 +707,7 @@ input, textarea {
     color: white;
     background-color: black;
 }
-.addProdutoComposto{
-    display: none;
-}
+
 .precoComposto{
     display: none;
 }
@@ -828,4 +830,8 @@ input, textarea {
 }
 .submitFormCliente{
     margin-bottom: 6px;
+}
+#page3{
+  color: #000000 !important;
+  text-shadow: 0 1px 0 #eeeeee !important;
 }

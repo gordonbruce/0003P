@@ -57,7 +57,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
                 <h1 class="tituloHeader">Início</h1>
 
                 <img src="images/logoentrega.png" class="applogo ui-btn-right" />
@@ -199,7 +199,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
                 <h1 class="tituloHeader">Meus Pedidos</h1>
 
 
@@ -280,7 +280,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
                 <h1 class="tituloHeader">Atendimento</h1>
 
                     <img src="images/logoentrega.png" class="applogo ui-btn-right"  />
@@ -499,7 +499,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
                 <h1 class="tituloHeader">Novo Pedido</h1>
 
 
@@ -631,7 +631,7 @@
                             <div data-role="controlgroup" data-theme="b"  >
                                 <legend>Escolha a forma de pagamento:</legend>
                                 <select class="formaDEpagamento" name="data[Pedido][pagamento_id]" value="">
-                                    <option value=""></option>
+                                    <option value="">Selecione</option>
                                 </select>
                             </div>
 
@@ -871,9 +871,11 @@
                                 </tr>
                              </tbody>
                        </table>
+                        <div class="control-confirmar">
+                            <a href="#"  class="btnPop btnPopLeft ui-btn ui-shadow ui-corner-all"  data-overlay-theme="b" data-theme="b" id="btn-confirmarProd">Sim</a>
+                            <a href="#"  class="btnPop ui-btn ui-shadow ui-corner-all"  data-rel="back" data-overlay-theme="b" data-theme="b">Não</a>
+                        </div>
 
-                        <a href="#"  class="btnPop btnPopLeft ui-btn ui-shadow ui-corner-all"  data-overlay-theme="b" data-theme="b" id="btn-confirmarProd">Sim</a>
-                        <a href="#"  class="btnPop ui-btn ui-shadow ui-corner-all"  data-rel="back" data-overlay-theme="b" data-theme="b">Não</a>
 
 
                     </div>
@@ -1080,7 +1082,7 @@
                         <h4>Preferências</h4>
                         <label for="text-basic">Loja padrão:<span class="vermelho"> *</span></label>
                         <select id="filial_id" class="filialSelect filialEdit" name="data[Cliente][filial_id]">
-                            <option value=""></option>
+                            <option value="">Selecione</option>
                         </select>
                     </div>
                     <div data-role="collapsible" data-theme="b" data-content-theme="b" data-iconpos="right" class="openMe" data-collapsed="false">
@@ -1324,7 +1326,7 @@
 
         </div><!-- /page -->
     <div id="page9" data-role="page" data-theme="b" data-content-theme="b" data-overlay-theme="b" >
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
                 <h1 class="tituloHeader">Escolha o tipo de pedido</h1>
 
 

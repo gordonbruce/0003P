@@ -528,7 +528,7 @@ input, textarea {
 #audioPlayer{display:none;}
 .audioPlayer{display:none;}
 
-.btnPopLeft{float:left !important; margin-right: 4%; margin-left: 12.5%; }
+.btnPopLeft{float:left !important; margin-right: 4%; margin-left: 16.5%; }
 .btnPop{width: 19%;}
 .circulodivGrande{
 	height: 100px;
@@ -802,5 +802,30 @@ input, textarea {
   margin-top: 10px;
 }
 .menuSair{
-  margin-top: 0.5px !important;
+  margin-top: 0.5px !importantf;
+}
+#select-27-button{
+  height: 10,37px;
+}
+.spanComprar{
+  position: absolute;
+  margin-top: 100px;
+  left: 39px;
+  display: none;
+}
+.control-btn{
+  width: 290px;
+  margin: 0 auto;
+}
+.imgAvancar{
+    font-size: 15px;
+}
+.cadastrarUsuario{
+  width: 100px;
+  margin: 0 auto;
+  display: block;
+    font-size: 15px;
+}
+.submitFormCliente{
+    margin-bottom: 6px;
 }

@@ -1825,7 +1825,12 @@ $("#pedir").click(function(event){
 
         navigator.app.exitApp();
     });
-
+    $('#compartilhar').click(function(){
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+        },4000);
+    });
     $( document ).on( "pageinit", "#page5", function() {
 
 
@@ -1894,7 +1899,7 @@ $("#pedir").click(function(event){
                             var pedMesDt = dataPedido.substring(5, 7);
                             var pedDiaDt = dataPedido.substring(8, 10);
                             dataPedido = pedDiaDt+"/"+pedMesDt+"/"+pedAnoDt;
-                        var entregaLocal= 'No endere&ccedil;o de cad&aacute;stro';
+                        var entregaLocal= 'No endere&ccedil;o de cadastro';
                         if(pedido.entrega_outro_local ==1){
                             entregaLocal=pedido.outro_endereco_entrega;
                         }
@@ -2254,6 +2259,10 @@ function checaAtendimento(atendimentocod){
                 $('#proximoPedido').hide();
                 $('#pedir').show();
                 $('#voltarPedido').show();
+                $('.spananterior').show();
+                 $('.spanComprar').show();
+                $('.spanproximo').hide();
+
             }
 
         }
@@ -2273,6 +2282,9 @@ function checaAtendimento(atendimentocod){
             $("#respTrocoAux").val('');
             $("#respTroco").html('R$ 0,00');
             $('#voltarPedido').hide();
+            $('.spananterior').hide();
+             $('.spanComprar').hide();
+            $('.spanproximo').show();
 
 
     });
@@ -2303,6 +2315,10 @@ function checaAtendimento(atendimentocod){
         $('#divProdutos').show();
         $('#divPagamento').hide();
         $('#proximoPedido').show();
+        $('.spananterior').hide();
+        $('.spanComprar').hide();
+
+        $('.spanproximo').show();
         $('#pedir').hide();
         $("#auxvalortroco").val('');
         $("#respTrocoAux").val('');
@@ -3351,7 +3367,6 @@ function checaAtendimento(atendimentocod){
         $('#sendToMoip').hide();
 
     });
-
 
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {

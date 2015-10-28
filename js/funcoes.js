@@ -206,7 +206,7 @@ function statusLoja(){
 
                             if(resultados.Filial.status_abertura==true){
                                 $('.textStatus').html('Loja Dispon&iacute;vel');
-                                $('.divDisp').removeClass('classGray');
+                                $('.divDisp').removeClass('none');
                                 $('.divDisp').addClass('classGren');
                                  if(resultados.Filial.tempo_atendimento !='00:00:00'){
                                     $('.mediaAtendimento').html('Tempo de Espera: '+resultados.Filial.tempo_atendimento).addClass('mediaAtendimentoAtivo').removeClass('none');
@@ -214,7 +214,7 @@ function statusLoja(){
                             }else{
                                  $('.textStatus').html('Loja Indispon&iacute;vel');
                                 $('.divDisp').removeClass('classGren');
-                                $('.divDisp').addClass('classGray');
+                                $('.divDisp').addClass('none');
                                 $('.mediaAtendimento').html('Indispon&iacute;vel').addClass('none');
                             }
 
@@ -224,7 +224,7 @@ function statusLoja(){
                 },error: function(data){
                         $('.textStatus').html('Loja Indispon&iacute;vel');
                         $('.divDisp').removeClass('classGren');
-                        $('.divDisp').addClass('classGray');
+                        $('.divDisp').addClass('none');
                        $('.mediaAtendimento').html('Indispon&iacute;vel').addClass('none');
                 }
 

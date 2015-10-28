@@ -708,7 +708,3 @@ display: block;
 .slidedown{position: fixed !important;}
 .ui-header .btn-menu {height: 16px !important;
   margin-top: 15px !important;}
-.textStatus{
-    display: block !important;
-    float: left !important;
-}

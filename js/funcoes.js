@@ -97,7 +97,9 @@ function removeDiacritics (str) {
 }
 
 $(document).ready(function() {
-
+    $('body').click(function(){
+        $('.ui-header').removeClass('slidedown');
+    });
     $('.endEntrega').focusout(function(){
 
         outroEndereco = $('#entregaRua').val()+' '+$('#entregaNumero').val() + ' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val();

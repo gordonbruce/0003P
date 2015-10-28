@@ -102,7 +102,7 @@ $(document).ready(function() {
     });
     $('.endEntrega').focusout(function(){
 
-        outroEndereco = $('#entregaRua').val()+' '+$('#entregaNumero').val() + ' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val()+' | Ponto de Refer&ecircncia: '+$('#entregaReferencia').val() ;
+        outroEndereco = $('#entregaRua').val()+' '+$('#entregaNumero').val() + ' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val()+' | Ponto de Refer&ecirc;ncia: '+$('#entregaReferencia').val() ;
         $('#endEntrega').val(outroEndereco);
     });
     $('#recalcularFrete').click(function(event){

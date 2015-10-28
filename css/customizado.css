@@ -1,0 +1,169 @@
+.logadoNone{
+                display: none !important;
+            }
+            /***Alterações para background do aplicativo****/
+            input{
+                background: #FFFFFF;
+            }
+            ul.ui-grid-b a:visited{
+                 background: #820f13 !important;
+
+            }
+            /*background mudar
+            .contentPage{
+                background: #DCD5BB  !important;
+            }*/
+
+             ul.ui-grid-b a:hover{
+                 background: #820f13 !important;
+
+            }
+  body{
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                background: #ed1c24 !important;
+
+
+            }
+            .submitFormCliente{
+             /* background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+
+
+            .imgAvancarLogin{
+                 /*background-image: url("../images/backgroun2.jpg");*/
+                 background-color: #fcee21;
+            }
+            .infoProduto{
+               /* background-image: url("../images/backgroun2.jpg");*/
+               background-color: #fcee21;
+            }
+            .addProduto{
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+            .ui-content{
+                /* background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+            .ui-collapsible-content{
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+            .ui-page{
+                /*background-image: url("../images/backgroun2.jpg");*/
+                background-color: #fcee21;
+            }
+             #envChat{
+                 background: #ED1C24;
+            }
+ .imgAvancarLogin{
+    background-color: #fcee21;
+ }
+
+ .vermelho{color:red;}
+  .menuSair .ui-body-a  {display:none;}
+  .menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-white.png");}
+  .novopedido:after{background-image: url("images/icons-png/shop-white.png");}
+            .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
+  .listarpedido:after{background-image: url("images/icons-png/bullets-white.png");}
+  .meucadastro:after{background-image: url("images/icons-png/user-white.png");}
+  .mensagemChat:after{background-image: url("images/icons-png/comment-white.png");}
+  .linkTelefone:after{background-image: url("images/icons-png/phone-white.png");}
+  .menuSair:after{background-image: url("images/icons-png/power-white.png");}
+.ui-icon-info:after {
+    background-image: url("images/icons-png/info-white.png") !important;
+    background-color: #666 !important;
+    background-color: rgba(0,0,0,.3) !important;
+  }
+  .ui-icon-share:after {
+    background-image: url("../images/icons-png/share-white1.png") !important;
+  }
+  .pageContent{background-color: #fcee21;
+                }
+.table-stripe thead th,
+  .table-stripe tbody tr:last-child {
+      border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+      border-bottom: 1px solid rgba(0,0,0,.1);
+  }
+  .table-stripe tbody th,
+  .table-stripe tbody td {
+      border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+      border-bottom: 1px solid rgba(0,0,0,.05);
+  }
+  .table-stripe tbody tr:last-child th,
+  .table-stripe tbody tr:last-child td {
+      border-bottom: 0;
+  }
+  .table-stripe tbody tr:nth-child(odd) td,
+  .table-stripe tbody tr:nth-child(odd) th {
+      background-color: #eeeeee; /* non-RGBA fallback  */
+      background-color: rgba(0,0,0,.04);
+  }
+  .slider  h4{   color: #ff0a0a; }
+
+  .verde-background{
+        background-color: rgb(173, 255, 47);
+
+  }
+   .verde-background dt{
+      background-color: rgb(173, 255, 47) !important;
+  }
+  .verde-background dd{
+      background-color: rgb(173, 255, 47) !important;
+  }
+
+  .ui-header, .ui-footer{background-color: #ED1C24; color: white;}
+  .ui-footer {border-bottom-color: #FF0A0A }
+
+
+
+/*tabelas*/
+  .tabelaPadrao thead th,
+  .tabelaPadrao tbody tr:last-child {
+      border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+      border-bottom: 1px solid rgba(0,0,0,.1);
+  }
+  .tabelaPadrao tbody th,
+  .tabelaPadrao tbody td {
+      border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+      border-bottom: 1px solid rgba(0,0,0,.05);
+  }
+  .tabelaPadrao tbody tr:last-child th,
+  .tabelaPadrao tbody tr:last-child td {
+      border-bottom: 0;
+  }
+  .tabelaPadrao tbody tr:nth-child(odd) td,
+  .tabelaPadrao tbody tr:nth-child(odd) th {
+      background-color: #eeeeee; /* non-RGBA fallback  */
+      background-color: rgba(0,0,0,.04);
+  }
+
+.chatmsg b{
+ color: #B34007;
+}
+
+.chatmsgb b{
+ color: orange;
+}
+
+.countBubl { background:#ed1d24;color:#fff;}
+
+.ui-panel{
+  background-color: #ED1C24;
+}
+
+.ui-panel ul li a{
+  background-color: #ED1C24 !important;
+  color: white !important;
+  /*text-shadow: 1px 1px #ccc !important;*/
+    text-shadow: 0 1px 0 #111 !important;
+}
+
+.imgProduto{background-color:#B37700;  }
+
+
+#page3{
+  color: #000000 !important;
+  text-shadow: 0 1px 0 #eeeeee !important;
+}

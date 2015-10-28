@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
 
 		<link rel="stylesheet" href="css/estilo.css">
+                      <link rel="stylesheet" href="css/customizado.css">
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/jquery.mobile-1.4.5.min.js"></script>
 		<script src="js/owl.carousel.min.js"></script>
@@ -26,6 +27,7 @@
 		<script src="js/countdown.js"></script>
 		<script src="js/jquery.raty.js"></script>
 		<script src="js/load-image.all.min.js"></script>
+                        <script src="js/configuracoes.js"></script>
 		<script src="js/funcoes.js"></script>
 		<script src="js/jquery.mobilegmap.min.js"></script>
 		<script src="phonegap.js"></script>
@@ -57,7 +59,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
                 <h1 class="tituloHeader">Início</h1>
 
                 <img src="images/logoentrega.png" class="applogo ui-btn-right" />
@@ -74,7 +76,7 @@
                     <h2>Foto</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Enviar Foto</h3>
+                        <p>Enviar Foto</p>
                         <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                             <input type="hidden" name="_method" value="POST">
                             <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
@@ -106,7 +108,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
             </div>
@@ -145,7 +147,7 @@
                         <h2>Ops, ocorreu um erro</h2>
                         </div>
                         <div role="main" class="ui-content">
-                            <h3 class="ui-title">Usuário ou senha incorreto(s)</h3>
+                            <p>Usuário ou senha incorreto(s)</p>
                             <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                         </div>
                 </div>
@@ -155,7 +157,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -199,7 +201,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
                 <h1 class="tituloHeader">Meus Pedidos</h1>
 
 
@@ -215,7 +217,7 @@
                     <h2>Foto</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Enviar Foto</h3>
+                        <p>Enviar Foto</p>
                         <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="enviaFotoForm1">
                             <input type="hidden" name="_method" value="POST">
                             <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
@@ -251,7 +253,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -280,7 +282,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
                 <h1 class="tituloHeader">Atendimento</h1>
 
                     <img src="images/logoentrega.png" class="applogo ui-btn-right"  />
@@ -296,7 +298,7 @@
                     <h2>Foto</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Enviar Foto</h3>
+                        <p>Enviar Foto</p>
                         <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                             <input type="hidden" name="_method" value="POST">
                             <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
@@ -428,7 +430,7 @@
                         <h2>Sucesso</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Pedido Enviado Com Sucesso</h3>
+                        <p>Pedido Enviado Com Sucesso</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -438,7 +440,7 @@
                         <h2>Comentário</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Dê sua opinião sobre este pedido</h3>
+                        <p>Dê sua opinião sobre este pedido</p>
                         <div id="avaliarPedido"></div>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
@@ -448,7 +450,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -499,7 +501,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
                 <h1 class="tituloHeader">Novo Pedido</h1>
 
 
@@ -516,7 +518,7 @@
                     <h2>Foto</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Enviar Foto</h3>
+                        <p>Enviar Foto</p>
                         <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                             <input type="hidden" name="_method" value="POST">
                             <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
@@ -570,7 +572,7 @@
                                 <h2>Erro</h2>
                             </div>
                             <div role="main" class="ui-content">
-                                <h3 class="ui-title">Erro ao enviar pedido</h3>
+                                <p>Erro ao enviar pedido</p>
                                 <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                             </div>
                         </div>
@@ -580,9 +582,9 @@
                                 <h2>Aviso</h2>
                             </div>
                             <div role="main" class="ui-content">
-                                <h3 class="ui-title">Deseja cancelar o último item?</h3>
-                                <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="popupCancelaitem">Cancelar</a>
-                                <a href="#" data-role="button"  data-overlay-theme="b" data-theme="b" id="popupCancelaitemFechar">Fechar</a>
+                                <p>Deseja cancelar o último item?</p>
+                                <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="popupCancelaitem">Sim</a>
+                                <a href="#" data-role="button"  data-overlay-theme="b" data-theme="b" id="popupCancelaitemFechar">Não</a>
                             </div>
                         </div>
                         <div data-role="popup" id="avisoTroco" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
@@ -590,7 +592,7 @@
                                 <h2>Erro</h2>
                             </div>
                             <div role="main" class="ui-content">
-                                <h3 class="ui-title">Digite o valor para troco na aba dados do pagamento.</h3>
+                                <p>Digite o valor para troco na aba dados do pagamento.</p>
                                 <a href="#" data-role="button" data-rel="back" data-overlay-theme="a" data-theme="b">Fechar</a>
                             </div>
                         </div>
@@ -599,7 +601,7 @@
                                 <h2>Erro</h2>
                             </div>
                             <div role="main" class="ui-content">
-                                <h3 class="ui-title">Selecione pelo menos uma forma de pagamento.</h3>
+                                <p>Selecione pelo menos uma forma de pagamento.</p>
                                 <a href="#" data-role="button" data-rel="back" data-overlay-theme="a" data-theme="b">Fechar</a>
                             </div>
                         </div>
@@ -608,7 +610,7 @@
                                 <h2>Erro</h2>
                             </div>
                             <div role="main" class="ui-content">
-                                <h3 class="ui-title">Selecione pelo menos uma loja.</h3>
+                                <p>Selecione pelo menos uma loja.</p>
                                 <a href="#" data-role="button" data-rel="back" data-overlay-theme="a" data-theme="b">Fechar</a>
                             </div>
                         </div>
@@ -617,7 +619,7 @@
                                 <h2>Aviso</h2>
                             </div>
                             <div role="main" class="ui-content">
-                                <h3 class="ui-title" id="avisoValidaBtnTexto"></h3>
+                                <p id="avisoValidaBtnTexto"></p>
                                 <a href="#" data-role="button" data-rel="back" data-overlay-theme="a" data-theme="b">Fechar</a>
                             </div>
                         </div>
@@ -766,18 +768,19 @@
 
                         <!--<button id="sendToMoip" class="btn dispNone" data-theme="b" > Enviar para o Moip</button>-->
                        <div class="control-btn">
-                           <div class="btn-voltar">
+                           <div class="btn-voltar imgAvancar">
                                     <img src="images/setaesquerda.png"  height="59px" width="59px" class="voltarPedido dispNone" id="voltarPedido" style=" ">
-                                    <span class="imgAvancar spananterior">Voltar</span>
+                                    <span class="spananterior">Voltar</span>
+                            </div>
+                            <div class="btn-comprar imgAvancar">
+                                    <img src="images/carrinho.png"  height="59px" width="59px" class="pedir" id="pedir" style=" ">
+                                    <span class="spanComprar" id="spanComprar">Comprar</span>
                             </div>
                             <div class="btn-avancar">
                                 <img src="images/setadireita.png"  height="59px" width="59px" class="imgAvancar dispNone" id="proximoPedido" style=" ">
                                 <span class="imgAvancar spanproximo">Avançar</span>
                             </div>
-                            <div class="btn-comprar">
-                                    <img src="images/carrinho.png"  height="59px" width="59px" class="pedir" id="pedir" style=" ">
-                                    <span class="imgAvancar spanComprar">Comprar</span>
-                            </div>
+
                        </div>
 
 
@@ -791,7 +794,7 @@
                     <h2>Aviso</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Preencha Todos os Campos para Recalcular a Entrega!</h3>
+                        <p>Preencha Todos os Campos para Recalcular a Entrega!</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -800,7 +803,7 @@
                     <h2>Aviso</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Desculpe :( Não encontramos seu endereço em nossa base de dados, verifique se o endereço foi digitado corretamente ou entre em contato conosco por telefone ou email para obter maiores informações.</h3>
+                        <p>Desculpe :( Não encontramos seu endereço em nossa base de dados, verifique se o endereço foi digitado corretamente ou entre em contato conosco por telefone ou email para obter maiores informações.</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -809,7 +812,7 @@
                     <h2>Aviso</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">O valor da entrega para o endereço digitado é de R$ <span id="spanRecalcEntrega"></span></h3>
+                        <p>O valor da entrega para o endereço digitado é de R$ <span id="spanRecalcEntrega"></span></p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -818,7 +821,7 @@
                         <h2>Erro</h2>
                         </div>
                         <div role="main" class="ui-content">
-                            <h3 class="ui-title">Código: <span id="retCodMoip"></span></h3>
+                            <p>Código: <span id="retCodMoip"></span></p>
 
                             <p id="retMsgMoip"></p>
                             <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
@@ -829,7 +832,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -965,7 +968,7 @@
                         <h2>Erro</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Usuário ou senha incorreto(s)</h3>
+                        <p>Usuário ou senha incorreto(s)</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -974,7 +977,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -983,7 +986,7 @@
                     <h2>Sucesso</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Dados enviados com sucesso!</h3>
+                        <p>Dados enviados com sucesso!</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -992,7 +995,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Os dados não foram salvos </h3>
+                        <p>Os dados não foram salvos </p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1115,7 +1118,7 @@
                             <h2>Sucesso</h2>
                         </div>
                         <div role="main" class="ui-content">
-                            <h3 class="ui-title">Os seus dados foram salvos</h3>
+                            <p>Os seus dados foram salvos</p>
                             <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="fecharCad">Fechar</a>
                         </div>
                 </div>
@@ -1124,7 +1127,7 @@
                             <h2>Ops, ocorreu um erro</h2>
                         </div>
                         <div role="main" class="ui-content">
-                            <h3 class="ui-title">Usuário ou senha incorreto</h3>
+                            <p>Usuário ou senha incorreto</p>
                             <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                         </div>
                 </div>
@@ -1133,7 +1136,7 @@
                             <h2>Ops, ocorreu um erro</h2>
                         </div>
                         <div role="main" class="ui-content">
-                            <h3 class="ui-title">Usuário já exite, tente outro com outro nome.</h3>
+                            <p>Usuário já exite, tente outro com outro nome.</p>
                             <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                         </div>
                 </div>
@@ -1142,7 +1145,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1151,7 +1154,7 @@
                     <h2>Ops, erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title" > O campo <span id="msgErroValidacao"></span> deve ser preenchido </h3>
+                        <p > O campo <span id="msgErroValidacao"></span> deve ser preenchido </p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1192,7 +1195,7 @@
                     <h2>Foto</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Enviar Foto</h3>
+                        <p>Enviar Foto</p>
                         <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                             <input type="hidden" name="_method" value="POST">
                             <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
@@ -1225,7 +1228,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1245,7 +1248,7 @@
                     <h2>Foto</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Enviar Foto</h3>
+                        <p>Enviar Foto</p>
                         <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                             <input type="hidden" name="_method" value="POST">
                             <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
@@ -1315,7 +1318,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1326,7 +1329,7 @@
 
         </div><!-- /page -->
     <div id="page9" data-role="page" data-theme="b" data-content-theme="b" data-overlay-theme="b" >
-            <div data-role="header" data-position="fixed"   data-tap-toggle="true">
+            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
                 <h1 class="tituloHeader">Escolha o tipo de pedido</h1>
 
 
@@ -1383,7 +1386,7 @@
                     <h2>Foto</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Enviar Foto</h3>
+                        <p>Enviar Foto</p>
                         <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
                             <input type="hidden" name="_method" value="POST">
                             <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
@@ -1407,7 +1410,7 @@
                         <h2>Erro</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Número de atendimento inválido</h3>
+                        <p>Número de atendimento inválido</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1416,7 +1419,7 @@
                         <h2>Erro</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Não foi possível verificar seu número de atendimento,tente novamente</h3>
+                        <p>Não foi possível verificar seu número de atendimento,tente novamente</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1427,7 +1430,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1469,7 +1472,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                        <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
@@ -1528,7 +1531,7 @@
                     <h2>Ops, ocorreu um erro.</h2>
                 </div>
                 <div role="main" class="ui-content">
-                    <h3 class="ui-title">Verifique sua internet ou tente mais tarde</h3>
+                    <p>Verifique sua internet ou tente mais tarde</p>
                     <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                 </div>
             </div>

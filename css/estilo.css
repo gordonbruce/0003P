@@ -228,14 +228,13 @@
 
 	.pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #fcee21; /*background-image: url("../images/backgroun2.jpg");*/
                 }
-	.hideFooter{bottom:0px; position:absolute !important;  top: auto !important; width:100%; bottom: 0%;}
+	.hideFooter{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%;}
       .hideFooter2{bottom:0px; position:absolute; !important;  top: auto !important; width:100%; bottom: 0%;}
 	.ui-collapsible-set{ margin-top: 2.4em !important; }
 	.content h2{text-align: center;}
 	small {
-	display: block;
-	width: 97%;
-	margin-left: 2%;
+		display: block;
+		margin: 0 auto;
 	}
             .listview li{
                   outline: none;
@@ -249,7 +248,6 @@
 	.textoProduto{display:none;}
 
 	.popDiv{display:none; text-align: center;}
-
 
 	.preco{
 		display: block;
@@ -318,10 +316,9 @@
 	#map-canvas{height: 25em !important; width:100%;}
 
       .ui-footer {min-height: 50px; }
-	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 1%;}
+	.ui-footer small{font-size: 0.7em; text-align: center !important; margin-top: 20px;}
 	.ui-header{min-height: 4.2em; width: 100%;}
       #index .ui-footer small, #page3 .ui-footer small , #page1 .ui-footer small, #page13 .ui-footer small {
-        padding-top: 4%;
         /*  font-size: 0.7em;
           text-align: center !important;
 
@@ -495,12 +492,10 @@ input, textarea {
  	outline: none;
 }
 .submitFormCliente{
-      width: 59px;
-      height: 59px ;
-      display: block;
-      margin: 29px auto;
-        float: left;
-       margin-left: 38%;
+        width: 59px;
+    height: 59px;
+    display: block;
+    margin: 30px auto;
 }
 .fotoRotate{
       transform: rotate(-90deg);
@@ -700,10 +695,12 @@ display: block;
     font-size: 15px;
 }
 .cadastrarUsuario{
-  width: 100px;
-  margin: 0 auto;
-  display: block;
-    font-size: 15px;
+     position: relative;
+    width: 100px;
+    display: block;
+    max-height: 20px;
+    margin: 0 auto;
+    clear: both;
 }
 .submitFormCliente{
     margin-bottom: 6px;

@@ -972,14 +972,22 @@ function atualizarProduto(){
             sum = sum.replace('.', ',');
 
             vlTotalSub=vlTotal.replace(",",".");
-
-            frete = frete.toFixed(2);
-            frete = frete.toString();
-            frete = frete.replace('.', ',');
-            freteMaisProduto=parseFloat(freteMaisProduto);
-            freteMaisProduto = freteMaisProduto.toFixed(2);
-            freteMaisProduto = freteMaisProduto.toString();
-            freteMaisProduto = freteMaisProduto.replace('.', ',');
+			
+			
+			if (frete != null && frete !=' ' ){					
+					frete = frete.toFixed(2);
+					frete = frete.toString();
+					frete = frete.replace('.', ',');					
+					freteMaisProduto=parseFloat(freteMaisProduto);
+					freteMaisProduto = freteMaisProduto.toFixed(2);
+					freteMaisProduto = freteMaisProduto.toString();
+					freteMaisProduto = freteMaisProduto.replace('.', ',');
+				}else{
+					frete = null;
+					freteMaisProduto=0;
+				}
+            
+         
 
 
 

@@ -320,7 +320,7 @@
       .ui-footer {min-height: 87px; }
 	.ui-footer small{font-size: 0.7em; text-align: center !important; padding-top: 1%;}
 	.ui-header{min-height: 4.2em; width: 100%;}
-      #index .ui-footer small, #page3 .ui-footer small , #page1 .ui-footer small {
+      #index .ui-footer small, #page3 .ui-footer small , #page1 .ui-footer small, #page13 .ui-footer small {
         padding-top: 7%;
         /*  font-size: 0.7em;
           text-align: center !important;

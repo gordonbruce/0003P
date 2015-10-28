@@ -2233,7 +2233,7 @@ function checaAtendimento(atendimentocod){
 
     $('body').on('click', '.novopedido', function () {
         codigo="entrega";
-        $.mobile.changePage("#page1", { transition: "fade",  });
+        $.mobile.changePage("#page13", { transition: "fade",  });
         $.mobile.changePage("#page3", { transition: "fade",  });
         limparPedido();
         $("#PedidoA").val(codigo);

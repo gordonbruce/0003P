@@ -40,7 +40,7 @@
 	</head>
  <body>
         <div id="index" data-role="page" data-theme="b" data-content-theme="b" data-overlay-theme="b" >
-            <div data-role="panel" id="mypanel0" data-display="overlay" data-theme="b" data-content-theme="b">
+            <div data-role="panel" id="mypanelindex" data-display="overlay" data-theme="b" data-content-theme="b">
                 <img src="images/logoentrega_painel.png"  class="logoPainel" />
                <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
 
@@ -66,7 +66,7 @@
 
 
 
-                <a href="#mypanel0" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
+                <a href="#mypanelindex" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
 
             </div><!-- /header -->
             <div data-role="content" class="contentPage">
@@ -737,6 +737,8 @@
                                             <input name="data[Pedido][outro_endereco_entrega_rua]" id="entregaRua" class="endEntrega"/ >
                                             <legend>Número</legend>
                                             <input name="data[Pedido][outro_endereco_entrega_numero]" id="entregaNumero" class="endEntrega"/ >
+                                             <legend>Ponto de Referência</legend>
+                                            <input name="data[Pedido][outro_endereco_entrega_referencia]" id="entregaReferencia" class="endEntrega"/ >
                                             <legend>Telefone</legend>
                                             <input name="data[Pedido][outro_endereco_telefone]" id="entregaTelefone" class="endEntrega"/ >
                                             <input  type="hidden" name="data[Pedido][outro_endereco_entrega]" id="endEntrega" class="endEntrega"/ >
@@ -1056,7 +1058,8 @@
                         <input type="text" name="data[Cliente][cidade]" id="cidadeEdit" class="cidade limpar" value="" autocomplete="off"  placeholder="cidade" >
                         <label for="uf">UF:<span class="vermelho"> *</span></label>
                         <input type="text" name="data[Cliente][uf]" id="ufEdit" class="uf limpar" value="" autocomplete="off"  placeholder="uf" >
-
+                        <label for="referencia">Ponto de Referência:</label>
+                        <input type="text" name="data[Cliente][p_referencia]" id="pReferenciaEdit" class="pReferencia limpar" value="" autocomplete="off"  placeholder="Ponto de Referência" >
 
                     </div>
 
@@ -1524,7 +1527,7 @@
           </div>
         </div>  <!--fim page-->
          <div id="page13" data-role="page" data-theme="b" data-content-theme="b" data-overlay-theme="b" >
-            <div data-role="panel" id="mypanel0" data-display="overlay" data-theme="b" data-content-theme="b">
+            <div data-role="panel" id="mypanel13" data-display="overlay" data-theme="b" data-content-theme="b">
                 <img src="images/logoentrega_painel.png"  class="logoPainel" />
                <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
 
@@ -1550,7 +1553,7 @@
 
 
 
-                <a href="#mypanel0" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
+                <a href="#mypanel13" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
 
             </div><!-- /header -->
             <div data-role="content" class="contentPage">

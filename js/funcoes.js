@@ -102,13 +102,13 @@ $(document).ready(function() {
     });
     $('.endEntrega').focusout(function(){
 
-        outroEndereco = $('#entregaRua').val()+' '+$('#entregaNumero').val() + ' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val();
+        outroEndereco = $('#entregaRua').val()+' '+$('#entregaNumero').val() + ' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val()+' | Ponto de Refer&ecircncia: '+$('#entregaReferencia').val() ;
         $('#endEntrega').val(outroEndereco);
     });
     $('#recalcularFrete').click(function(event){
         event.preventDefault();
 
-           if($('#entregaRua').val() == '' || $('#entregaOutroBairro').val() ==''  || $('#entregaOutroCidade').val() =='' || $('#entregaTelefone').val() =='')
+           if($('#entregaRua').val() == '' || $('#entregaOutroBairro').val() ==''  || $('#entregaOutroCidade').val() =='' || $('#entregaTelefone').val() =='' || $('#entregaReferencia').val() =='')
            {
                 $("#popupRecalculoEntrega").popup( "open" );
                 return false;
@@ -972,12 +972,12 @@ function atualizarProduto(){
             sum = sum.replace('.', ',');
 
             vlTotalSub=vlTotal.replace(",",".");
-			
-			
-			if (frete != null && frete !=' ' ){					
+
+
+			if (frete != null && frete !=' ' ){
 					frete = frete.toFixed(2);
 					frete = frete.toString();
-					frete = frete.replace('.', ',');					
+					frete = frete.replace('.', ',');
 					freteMaisProduto=parseFloat(freteMaisProduto);
 					freteMaisProduto = freteMaisProduto.toFixed(2);
 					freteMaisProduto = freteMaisProduto.toString();
@@ -986,8 +986,8 @@ function atualizarProduto(){
 					frete = null;
 					freteMaisProduto=0;
 				}
-            
-         
+
+
 
 
 

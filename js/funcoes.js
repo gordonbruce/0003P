@@ -1,24 +1,4 @@
-//Bloco de Configurações do aplicativo inicio
-var cliente ="";
-var empresa='5';
-var URLAPP = 'http://sistema.entregapp.com.br/';
-var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-var filialPadrao="9";
-var prodId1='';
-var prodId2='';
-var telefonePadrao='tel:2697-2563';
 
-var prodId1='';
-var prodId2='';
-var prodTamanho="";
-var itenObs="";
-var bebidas=null;
-var pagueGanhe=null;
-var itemPagueGanheId=null;
-var itemPagueGanheNome=null;
-var itemBebidaId =null;
-var itemBebidaNome  = null;
-//Bloco de Configurações do aplicativo Fim
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -117,16 +97,18 @@ function removeDiacritics (str) {
 }
 
 $(document).ready(function() {
-
+    $('body').click(function(){
+        $('.ui-header').removeClass('slidedown');
+    });
     $('.endEntrega').focusout(function(){
 
-        outroEndereco = $('#entregaRua').val()+' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val();
+        outroEndereco = $('#entregaRua').val()+' '+$('#entregaNumero').val() + ' | Bairro: '+$('#entregaOutroBairro').val()+' | Cidade: '+$('#entregaOutroCidade').val() +' | Telefone: '+$('#entregaTelefone').val()+' | Ponto de Refer&ecirc;ncia: '+$('#entregaReferencia').val() ;
         $('#endEntrega').val(outroEndereco);
     });
     $('#recalcularFrete').click(function(event){
         event.preventDefault();
 
-           if($('#entregaRua').val() == '' || $('#entregaOutroBairro').val() ==''  || $('#entregaOutroCidade').val() =='' || $('#entregaTelefone').val() =='')
+           if($('#entregaRua').val() == '' || $('#entregaOutroBairro').val() ==''  || $('#entregaOutroCidade').val() =='' || $('#entregaTelefone').val() =='' || $('#entregaReferencia').val() =='')
            {
                 $("#popupRecalculoEntrega").popup( "open" );
                 return false;
@@ -135,13 +117,23 @@ $(document).ready(function() {
         $('.loginsalt').val(salt);
         var urlAction = URLAPP+"RestPedidos/calculafrete.json?fp="+filialPadrao+"";
         var dadosForm = $("#PedidoAddForm").serialize();
+        cidadeCheck = $('#entregaOutroCidade').val();
+        cidadeCheck =cidadeCheck.replace(/ /g,'');
 
 
+        bairroCheck = $('#entregaOutroBairro').val();
+        bairroCheck =bairroCheck.replace(/ /g,'');
+
+        estadoCheck = $('#entregaOutroEstado').val();
+        estadoCheck =estadoCheck.replace(/ /g,'');
+        filialCheck =  $('#filialPedido').val();
+        var dadosForm2={'Pedido':{'entrega_outro_cidade':cidadeCheck, 'entrega_outro_bairro':bairroCheck, 'entrega_outro_estado':estadoCheck,'filial_id':filialCheck}};
+        console.log(dadosForm2);
         $.mobile.loading( "show" ,{theme: 'b'});
         $.ajax({
             type: "POST",
             url: urlAction,
-            data:  dadosForm,
+            data:  dadosForm2,
             dataType: 'json',
             crossDomain: true,
 
@@ -160,6 +152,7 @@ $(document).ready(function() {
                     totalProd = totalProd.replace('.','');
                     totalProd = totalProd.replace(',','.');
                     totalProd = parseFloat(totalProd);
+                     $('#spanRecalcEntrega').html(vlFrete);
                     vlFrete= vlFrete.replace(',','.')
                     vlFrete=parseFloat(vlFrete);
 
@@ -168,9 +161,13 @@ $(document).ready(function() {
                     vlTotalComFrete = vlTotalComFrete.toString();
                     vlTotalComFrete= vlTotalComFrete.replace('.',',');
                     $('#totalPedidoEntrega').html('R$ '+ vlTotalComFrete);
+                     $("#popupSimEntrega").popup( "open" );
+
                    $('#pedir').show();
+                   $('#spanComprar').show();
                 }else{
                      $('#pedir').hide();
+                     $('#spanComprar').hide();
                       $("#popupNaoEntrega").popup( "open" );
 
                 }
@@ -209,7 +206,7 @@ function statusLoja(){
 
                             if(resultados.Filial.status_abertura==true){
                                 $('.textStatus').html('Loja Dispon&iacute;vel');
-                                $('.divDisp').removeClass('classGray');
+                                $('.divDisp').removeClass('none');
                                 $('.divDisp').addClass('classGren');
                                  if(resultados.Filial.tempo_atendimento !='00:00:00'){
                                     $('.mediaAtendimento').html('Tempo de Espera: '+resultados.Filial.tempo_atendimento).addClass('mediaAtendimentoAtivo').removeClass('none');
@@ -217,7 +214,7 @@ function statusLoja(){
                             }else{
                                  $('.textStatus').html('Loja Indispon&iacute;vel');
                                 $('.divDisp').removeClass('classGren');
-                                $('.divDisp').addClass('classGray');
+                                $('.divDisp').addClass('none');
                                 $('.mediaAtendimento').html('Indispon&iacute;vel').addClass('none');
                             }
 
@@ -227,8 +224,8 @@ function statusLoja(){
                 },error: function(data){
                         $('.textStatus').html('Loja Indispon&iacute;vel');
                         $('.divDisp').removeClass('classGren');
-                        $('.divDisp').addClass('classGray');
-                        $('.mediaAtendimento').html('Indispon&iacute;vel');
+                        $('.divDisp').addClass('none');
+                       $('.mediaAtendimento').html('Indispon&iacute;vel').addClass('none');
                 }
 
             });
@@ -274,7 +271,7 @@ $(document).on("pageshow","#index",function(){
         itenObs="";
         comboId = $(this).attr('data-produto');
 
-        tamanhoChange  = $("#comboTamanho"+comboId).find('option:selected').attr('data-tamanho');
+        tamanhoChange  = $("#compostoTamanho"+comboId).find('option:selected').attr('data-tamanho');
         tamanhoChange = removeDiacritics(tamanhoChange);
         tamanhoChange = tamanhoChange.replace(' ', '');
         vlUm  = $("#compostoAdd1"+comboId).find('option:selected').attr('data-'+tamanhoChange);
@@ -321,12 +318,12 @@ $(document).on("pageshow","#index",function(){
 
             $('#precoComposto'+comboId).html('R$ '+vt);
             $('#precoComposto'+comboId).css('display', 'block');
-            $('#btnAddProd'+comboId).css('display', 'inline-block');
+
 
 
         }else{
             $('.precoComposto').css('display', 'none');
-            $('.addProdutoComposto').css('display', 'none');
+
             $('#btnAddProd'+comboId).attr('data-produtoid1','');
             $('#btnAddProd'+comboId).attr('data-produtoid2','');
             $('#btnAddProd'+comboId).attr('data-tamanho','');
@@ -412,7 +409,7 @@ $(document).on("pageshow","#index",function(){
 
             precoTamSimples  = $("#comboTamanho"+produtoTamId).find('option:selected').attr('data-preco');
 
-            //Se não tiver preço o produto é composto
+            //Se nÃ£o tiver preÃ§o o produto Ã© composto
             if(precoTamSimples != 'NaN' && precoTamSimples  !='' ){
 
 
@@ -426,7 +423,7 @@ $(document).on("pageshow","#index",function(){
 
                 $('.precotam'+produtoTamId).html('R$ '+vt);
                 $('.precotam'+produtoTamId).css('display', 'block');
-                $('#btnAddProd'+produtoTamId).css('display', 'inline-block');
+
                 $('#btnAddProd'+produtoTamId).attr('data-tamanho',tamanho);
 
             }else{
@@ -436,7 +433,7 @@ $(document).on("pageshow","#index",function(){
                 $("#compostoAdd1"+produtoTamId).val(0);
                 $("#compostoAdd2"+produtoTamId).val(0);
                 $('.precoComposto').css('display', 'none');
-                $('#btnAddProd'+produtoTamId).css('display', 'none');
+
                 $('#btnAddProd'+produtoTamId).attr('data-tamanho','');
             }
 
@@ -469,7 +466,7 @@ $(document).on("pageshow","#index",function(){
             $('#compostoLabelAdd'+produtoTamId).css('display', 'none');
             $("#compostoAdd1"+produtoTamId).val(0);
             $("#compostoAdd2"+produtoTamId).val(0);
-            $('#btnAddProd'+produtoTamId).css('display', 'none');
+
         }
         /*alert();
         tamPreco  = $("#selectTamanho"+produtoTamId).find('option:selected').attr('data-preco');
@@ -503,7 +500,47 @@ $(document).on("pageshow","#index",function(){
 
         //tamanhoId =  $("#selectTamanho"+minhaId).find('option:selected').attr('id');
     });
+    $(document).on("change", ".compostoTamanho", function(){
+        produtoTamId = $(this).attr('data-produto');
+        valorSelect= $(this).val();
+        if(valorSelect != 0){
+          $('#compostoAdd1'+produtoTamId).css('display', 'block');
+          $('#compostoAdd2'+produtoTamId).css('display', 'block');
+          $('#compostoLabelAdd'+produtoTamId).css('display', 'block');
+          $("#compostoAdd1"+produtoTamId).val(0);
+          $("#compostoAdd2"+produtoTamId).val(0);
+          $('.precoComposto').css('display', 'none');
 
+          $('#btnAddProd'+produtoTamId).attr('data-tamanho','');
+        }else{
+          $('.precotam').css('display', 'none');
+          $('.dispNoneTam').css('display', 'none');
+          $('#compostoAdd1'+produtoTamId).css('display', 'none');
+          $('#compostoAdd2'+produtoTamId).css('display', 'none');
+          $('#compostoLabelAdd'+produtoTamId).css('display', 'none');
+          $("#compostoAdd1"+produtoTamId).val(0);
+          $("#compostoAdd2"+produtoTamId).val(0);
+
+        }
+        possuiBebida  = $("#compostoTamanho"+produtoTamId).find('option:selected').attr('data-bolbebida');
+
+        if(possuiBebida=='true'){
+            $('.bebidas_'+produtoTamId).css('display','block');
+        }else{
+            $('.bebidas_'+produtoTamId).css('display','none');
+            $('#btnAddProd'+produtoTamId).attr('data-bebidanome','');
+            $('#btnAddProd'+produtoTamId).attr('data-bebidaid','');
+        }
+        possuiPagGanhe  = $("#compostoTamanho"+produtoTamId).find('option:selected').attr('data-bolganhe');
+
+        if(possuiPagGanhe=='true'){
+            $('.pagueGanhe_'+produtoTamId).css('display','block');
+        }else{
+            $('.pagueGanhe_'+produtoTamId).css('display','none');
+            $('#btnAddProd'+produtoTamId).attr('data-pagueganheid','');
+            $('#btnAddProd'+produtoTamId).attr('data-pagueganhenome','');
+        }
+    });
     function gerarListaProdutos(ob, j){
         var selectTamanho="";
         var  dataTamanhos="";
@@ -583,7 +620,7 @@ $(document).on("pageshow","#index",function(){
 
                         });
 
-                    selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+                    selectTamanho='<label class="labelTamanho">Tamanho</label><select class="compostoTamanho" id="compostoTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
                     var dataTam="";
                     $.each(ob.produtoscomposicao, function(n, composicao){
 
@@ -653,7 +690,7 @@ $(document).on("pageshow","#index",function(){
                     <div class="divControles" data-role="controlgroup" data-mini="true">\
                     <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
                     <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-                    <input type="image" src="images/carrinho.png" class="addProduto addProdutoComposto  '+classNone+' " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-produtoid1="" data-produtoid2="" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
+                    <input type="image" src="images/carrinho.png" class="addProduto addProdutoComposto" alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-produtoid1="" data-produtoid2="" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
                     compostoAddValues="";
                     selectTamanho="";
                 }else{
@@ -703,7 +740,7 @@ $(document).on("pageshow","#index",function(){
                     <div class="divControles" data-role="controlgroup" data-mini="true">\
                         <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
                     <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-                    <input type="image" src="images/carrinho.png" class="addProduto '+classNone+' " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
+                    <input type="image" src="images/carrinho.png" class="addProduto " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
                     selectTamanho="";
                 }
             }else{
@@ -936,13 +973,21 @@ function atualizarProduto(){
 
             vlTotalSub=vlTotal.replace(",",".");
 
-            frete = frete.toFixed(2);
-            frete = frete.toString();
-            frete = frete.replace('.', ',');
-            freteMaisProduto=parseFloat(freteMaisProduto);
-            freteMaisProduto = freteMaisProduto.toFixed(2);
-            freteMaisProduto = freteMaisProduto.toString();
-            freteMaisProduto = freteMaisProduto.replace('.', ',');
+
+			if (frete != null && frete !=' ' ){
+					frete = frete.toFixed(2);
+					frete = frete.toString();
+					frete = frete.replace('.', ',');
+					freteMaisProduto=parseFloat(freteMaisProduto);
+					freteMaisProduto = freteMaisProduto.toFixed(2);
+					freteMaisProduto = freteMaisProduto.toString();
+					freteMaisProduto = freteMaisProduto.replace('.', ',');
+				}else{
+					frete = null;
+					freteMaisProduto=0;
+				}
+
+
 
 
 
@@ -952,6 +997,7 @@ function atualizarProduto(){
             $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_unit]" id="Itensdepedido'+contador+'valor_unit" value="'+vlUnitarioAut+'">');
             $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][valor_total]" id="Itensdepedido'+contador+'valor_total" value="'+vlTotalSub+'">');
             if(typeof prodId1 !== 'undefined' && typeof prodId2 !== 'undefined'){
+
                 $("#PedidoAddForm").append('<input class="clone clone'+contador+'" type="hidden" name="data[Itensdepedido]['+contador+'][compostoum_id]" id="Itensdepedido'+contador+'compostoum_id" value="'+prodId1+'">');
                 prodId1='';
 
@@ -1027,6 +1073,42 @@ function atualizarProduto(){
 
     function validaAddBtn(idBtn){
         textoAvisoBtn=null;
+
+
+        if($("#comboTamanho"+idBtn).is(":visible"))
+        {
+            vlSelecionado = $("#comboTamanho"+idBtn).find('option:selected').val();
+
+            if(vlSelecionado ==0 ){
+                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
+            }
+        }
+        if($("#compostoTamanho"+idBtn).is(":visible"))
+        {
+            vlSelecionado = $("#compostoTamanho"+idBtn).find('option:selected').val();
+
+            if(vlSelecionado ==0 ){
+                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
+            }
+        }
+        if($("#compostoAdd1"+idBtn).is(":visible"))
+        {
+            vlSelecionado = $("#compostoAdd1"+idBtn).find('option:selected').val();
+
+            if(vlSelecionado ==0 ){
+                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
+            }
+        }
+
+        if($("#compostoAdd2"+idBtn).is(":visible"))
+        {
+            vlSelecionado = $("#compostoAdd2"+idBtn).find('option:selected').val();
+
+            if(vlSelecionado ==0 ){
+                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
+            }
+        }
+
         if($("#selectBebidas_"+idnumero).is(":visible")){
 
             vlSelecionado = $("#selectBebidas_"+idBtn).find('option:selected').attr('data-id');
@@ -1188,7 +1270,8 @@ function atualizarProduto(){
 
 
         }else{
-            $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+            fezPedidoSemLogar='sim';
+            $.mobile.changePage("#Pagelogin",{ transition: "fade",  });
         }
 
     });
@@ -1250,12 +1333,12 @@ function atualizarProduto(){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                         filialPadrao=data.ultimopedido.Cliente.filial_id;
-                        $.mobile.changePage("#page3",{ transition: "none",  });
+                        $.mobile.changePage("#page3",{ transition: "fade",  });
 
                     }else{
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
-                        $.mobile.changePage("#index",{ transition: "none",  });
+                        $.mobile.changePage("#index",{ transition: "fade",  });
 
                     }
 
@@ -1444,7 +1527,7 @@ function validarPedido(){
         if(tipoTroco=='Sim'){
             texto = $('#respTroco').html();
 
-            if(texto=='Inválido'){
+            if(texto=='InvÃ¡lido'){
                 validarPd = 'falso'
                 return validarPd;
             }else if(texto=='R$ 0,00'){
@@ -1519,6 +1602,7 @@ $("#pedir").click(function(event){
 
             //$(".loaderAjax").show();
             $("#pedir").hide();
+            $("#spanComprar").hide();
             $('#pedidoSalt').val(salt);
             $('#pedidoToken').val(cliente.Cliente.token);
             $('#PedidoA').val('entrega');
@@ -1534,6 +1618,8 @@ $("#pedir").click(function(event){
                 success: function(data){
 
                     $("#pedir").show();
+
+                     $("#spanComprar").show();
                     $.mobile.loading( "hide" );
 
 
@@ -1560,7 +1646,7 @@ $("#pedir").click(function(event){
 
                     $.mobile.loading( "hide" );
                     $("#pedir").show();
-
+                     $("#spanComprar").show();
                     $("#popupDialogLogin4").popup( "open" );
                     //$('#pedidoToken').val('');
                 }
@@ -1723,34 +1809,34 @@ $("#pedir").click(function(event){
 
     });
     $(".listarpedido").click(function(){
-        $.mobile.changePage("#page1",{ transition: "none",  });
+        $.mobile.changePage("#page1",{ transition: "fade",  });
 
 
     });
 
 
     $(".localizarpedido").click(function(){
-        $.mobile.changePage("#page7",{ transition: "none",  });
+        $.mobile.changePage("#page7",{ transition: "fade",  });
     });
 
     $(".meucadastro").click(function(){
 
-        $.mobile.changePage("#page5",{ transition: "none",  });
+        $.mobile.changePage("#page5",{ transition: "fade",  });
 
 
     });
 
     $('.fazerlogin').click(function(){
-        $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+        $.mobile.changePage("#Pagelogin",{ transition: "fade",  });
     });
 
     $(".Menusair").click(function(){
-        $.mobile.changePage("#page11", { transition: "none",  });
+        $.mobile.changePage("#page11", { transition: "fade",  });
 
 
     });
     $("#cancel-button").click(function(){
-        $.mobile.changePage("#page0", { transition: "none",  });
+        $.mobile.changePage("#page0", { transition: "fade",  });
 
 
     });
@@ -1761,7 +1847,7 @@ $("#pedir").click(function(event){
 
     });
     $("#mensagemChat").click(function(){
-        $.mobile.changePage("#page10", { transition: "none",  });
+        $.mobile.changePage("#page10", { transition: "fade",  });
         setTimeout(function() {
             $("html, body").animate({ scrollTop: $(document).height() }, "slow");
         }, 4000);
@@ -1772,7 +1858,12 @@ $("#pedir").click(function(event){
 
         navigator.app.exitApp();
     });
-
+    $('#compartilhar').click(function(){
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+        },4000);
+    });
     $( document ).on( "pageinit", "#page5", function() {
 
 
@@ -1841,7 +1932,7 @@ $("#pedir").click(function(event){
                             var pedMesDt = dataPedido.substring(5, 7);
                             var pedDiaDt = dataPedido.substring(8, 10);
                             dataPedido = pedDiaDt+"/"+pedMesDt+"/"+pedAnoDt;
-                        var entregaLocal= 'No endere&ccedil;o de cad&aacute;stro';
+                        var entregaLocal= 'No endere&ccedil;o de cadastro';
                         if(pedido.entrega_outro_local ==1){
                             entregaLocal=pedido.outro_endereco_entrega;
                         }
@@ -2082,7 +2173,7 @@ $('body').on('click', '.acaoAtend', function () {
 
     $('.clonePedido').remove();
     $('#valorTotalPedido').html('R$ 00,00');
-    $.mobile.changePage("#page2", { transition: "none",  });
+    $.mobile.changePage("#page2", { transition: "fade",  });
     getAtendimento(atendimentoid);
 
     getItens(atendimentoid);
@@ -2122,7 +2213,7 @@ function checaAtendimento(atendimentocod){
 
                     if(data.resultados.resposta=='Existe'){
                         $( "#popupDialogAtendimento2" ).popup( "open" );
-                        $.mobile.changePage("#page3", { transition: "none",  });
+                        $.mobile.changePage("#page3", { transition: "fade",  });
                         $("#PedidoA").val(data.resultados.resposta);
                         codigoAtend=data.resultados.resposta;
                     }else{
@@ -2144,14 +2235,14 @@ function checaAtendimento(atendimentocod){
 }
     $('body').on('click', '#btnEntrega', function () {
         codigo="entrega";
-        $.mobile.changePage("#page3", { transition: "none",  });
+        $.mobile.changePage("#page3", { transition: "fade",  });
         $("#PedidoA").val(codigo);
     });
 
     $('body').on('click', '.novopedido', function () {
         codigo="entrega";
-        $.mobile.changePage("#page1", { transition: "none",  });
-        $.mobile.changePage("#page3", { transition: "none",  });
+        $.mobile.changePage("#page13", { transition: "fade",  });
+        $.mobile.changePage("#page3", { transition: "fade",  });
         limparPedido();
         $("#PedidoA").val(codigo);
     });
@@ -2188,7 +2279,7 @@ function checaAtendimento(atendimentocod){
     var fezPedidoSemLogar ="";
     $("#proximoPedido").click(function(){
         if(cliente ==''){
-            $.mobile.changePage("#Pagelogin", { transition: "none",  });
+            $.mobile.changePage("#Pagelogin", { transition: "fade",  });
             fezPedidoSemLogar='sim';
 
         }else{
@@ -2200,7 +2291,12 @@ function checaAtendimento(atendimentocod){
                 $('#divPagamento').show();
                 $('#proximoPedido').hide();
                 $('#pedir').show();
+                $('#spanComprar').show();
                 $('#voltarPedido').show();
+                $('.spananterior').show();
+                 $('.spanComprar').show();
+                $('.spanproximo').hide();
+
             }
 
         }
@@ -2216,10 +2312,14 @@ function checaAtendimento(atendimentocod){
             $('#divPagamento').hide();
             $('#proximoPedido').show();
             $('#pedir').hide();
+            $('#spanComprar').hide();
             $("#auxvalortroco").val('');
             $("#respTrocoAux").val('');
             $("#respTroco").html('R$ 0,00');
             $('#voltarPedido').hide();
+            $('.spananterior').hide();
+             $('.spanComprar').hide();
+            $('.spanproximo').show();
 
 
     });
@@ -2250,7 +2350,12 @@ function checaAtendimento(atendimentocod){
         $('#divProdutos').show();
         $('#divPagamento').hide();
         $('#proximoPedido').show();
+        $('.spananterior').hide();
+        $('.spanComprar').hide();
+
+        $('.spanproximo').show();
         $('#pedir').hide();
+        $('#spanComprar').hide();
         $("#auxvalortroco").val('');
         $("#respTrocoAux").val('');
         $("#respTroco").html('0,00');
@@ -2329,7 +2434,7 @@ function checaAtendimento(atendimentocod){
         valorTroco = valorNotaPg - valorCompra;
 
         if(valorTroco < 0){
-            $('#respTroco').html('Inválido');
+            $('#respTroco').html('InvÃ¡lido');
             $('#respTrocoAux').val(' ');
             erroVAlidacaoPedido =1;
         }else{
@@ -2375,6 +2480,7 @@ function checaAtendimento(atendimentocod){
 
         $('#divAuxTroco').show();
         $('#pedir').show();
+        $('#spanComprar').show();
         $('#auxCartao').hide();
         $('#sendToMoip').hide();
 
@@ -2395,6 +2501,7 @@ function checaAtendimento(atendimentocod){
             pag='cartao';
 
             $('#pedir').hide();
+            $('#spanComprar').hide();
             $("radio-choice-t-6b").checkboxradio("refresh");
 
 
@@ -2460,7 +2567,7 @@ function checaAtendimento(atendimentocod){
             $('#divAuxTroco').hide();
             $('#auxCartao').show();
             $('#trocoValorPedido').val('');
-            $('#trocoRespostaPedido').val('Não');
+            $('#trocoRespostaPedido').val('NÃ£o');
      }
 
      if(checkBoxId == 'radio-choice-t-7a'){
@@ -2485,8 +2592,8 @@ function checaAtendimento(atendimentocod){
         $('#respTroco').html('');
         $('#holdValorTroco').hide();
         $('#txtValorTroco').hide();
-        $('#trocoRespostaPedido').val('Não');
-        $('#trocoresposta').val('Não');
+        $('#trocoRespostaPedido').val('NÃ£o');
+        $('#trocoresposta').val('NÃ£o');
 
      }
       if(checkBoxId == 'radio-choice-t-9a'){
@@ -2508,6 +2615,7 @@ function checaAtendimento(atendimentocod){
         vlTotalComFrete= vlTotalComFrete.replace('.',',');
         $('#totalPedidoEntrega').html('R$ '+ vlTotalComFrete);
        $('#pedir').show();
+       $('#spanComprar').show();
         $('#entregaOutroLocal').val(0);
         $('#holdValorEntrega').hide();
 
@@ -2516,6 +2624,7 @@ function checaAtendimento(atendimentocod){
         $('#entregaOutroLocal').val(1);
         $('#holdValorEntrega').show();
         $('#pedir').hide();
+        $('#spanComprar').hide();
      }
     });
 
@@ -3068,7 +3177,7 @@ function checaAtendimento(atendimentocod){
     }
 
     $(".minhalocalizacao").click(function(){
-        $.mobile.changePage("#page6", { transition: "none",  });
+        $.mobile.changePage("#page6", { transition: "fade",  });
     });
 
     $( document ).on( "pageinit", "#page6", function() {
@@ -3172,7 +3281,7 @@ function checaAtendimento(atendimentocod){
     }
 
     $(".localizarpedido").click(function(){
-        $.mobile.changePage("#map-page", { transition: "none",  });
+        $.mobile.changePage("#map-page", { transition: "fade",  });
 
 
     });
@@ -3196,7 +3305,7 @@ function checaAtendimento(atendimentocod){
     var marker ;
 
     var map;
-    var directionsDisplay; // Instanciaremos ele mais tarde, que será o nosso google.maps.DirectionsRenderer
+    var directionsDisplay; // Instanciaremos ele mais tarde, que serÃ¡ o nosso google.maps.DirectionsRenderer
     var directionsService = new google.maps.DirectionsService();
 
     function initializeDistancia() {
@@ -3221,7 +3330,7 @@ function checaAtendimento(atendimentocod){
     $(".btn-locPedido").click(function(){
         var atendimentoId2 = $("#idAtend").text();
 
-        $.mobile.changePage("#map-page", { transition: "none",  });
+        $.mobile.changePage("#map-page", { transition: "fade",  });
         var map="";
 
 
@@ -3298,7 +3407,6 @@ function checaAtendimento(atendimentocod){
         $('#sendToMoip').hide();
 
     });
-
 
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
@@ -3391,7 +3499,7 @@ function checaAtendimento(atendimentocod){
     //$('#avaliacaoPedido').raty({half     : true,});
     //$('#avaliarPedido').raty();
 
-    //funções para o chat
+    //funÃ§Ãµes para o chat
     var numeroPedido;
     $('#btn-chat').click(function(){
         numeroPedido= $("#idPedidoAux").text();

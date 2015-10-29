@@ -315,7 +315,7 @@
 	/*.map-page, .map-canvas { width: 100%; height: 100%; padding: 0; }*/
 	#map-canvas{height: 25em !important; width:100%;}
 
-      .ui-footer {min-height: 68.18px; }
+      .ui-footer {min-height: 68.15px; }
 	.ui-footer small{font-size: 0.7em; text-align: center !important; margin-top: 20px;}
 	.ui-header{min-height: 4.2em; width: 100%;}
       #index .ui-footer small, #page3 .ui-footer small , #page1 .ui-footer small, #page13 .ui-footer small {
@@ -324,8 +324,12 @@
 
             padding-bottom: 2%;*/
         }
-      #page2 .ui-footer small, #page10 .ui-footer small{
-          padding-bottom: 2%;
+      #page2 .ui-footer small{
+         padding-bottom: 6px;
+        margin-top: 3px;
+      }
+      #page10 .ui-footer small{
+         padding-bottom: 4%;
       }
 	.applogo{width: 4em;   margin-top: 2px !important; }
 	.tituloHeader{margin-top: 1em !important;}

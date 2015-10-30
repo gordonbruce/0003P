@@ -1,4 +1,3 @@
-
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -336,21 +335,13 @@ $(document).on("pageshow","#index",function(){
 
 
      /* ;
-
       vlUm = $("#compostoAdd1"+minhaId).find('option:selected').val();
-
       vlDois = $("#compostoAdd2"+minhaId).find('option:selected').val();
-
      if(vlUm != 0 &&  vlDois !=0){
-
-
         prodOpt1  = $("#compostoAdd1"+minhaId).find('option:selected').attr('id');
         prodId1 =  prodOpt1.substring(12);
-
         prodOpt2  = $("#compostoAdd2"+minhaId).find('option:selected').attr('id');
         prodId2 =  prodOpt2.substring(12);
-
-
         vt = vlUm;
         if(vlUm > vlDois){
             vt = vlUm;
@@ -362,7 +353,6 @@ $(document).on("pageshow","#index",function(){
         vt = String(vt);
         vt = vt.replace('.',',');
         $('#btnAddProd'+minhaId).attr('data -vlu',vt);
-
         $('#precoComposto'+minhaId).html('R$ '+vt);
         $('#precoComposto'+minhaId).css('display', 'block');
         $('#btnAddProd'+minhaId).css('display', 'inline-block');
@@ -487,9 +477,7 @@ $(document).on("pageshow","#index",function(){
                 $('#btnAddProd'+produtoTamId).attr('data-vlu',vt);
                 $('#btnAddProd'+produtoTamId).attr('data-tamanho',tamTamanho);
                 $('#btnAddProd'+produtoTamId).css('display', 'inline-block');
-
             }
-
         }else{
             $('.precotam').css('display', 'none');
             $('.dispNoneTam').css('display', 'none');
@@ -974,18 +962,18 @@ function atualizarProduto(){
             vlTotalSub=vlTotal.replace(",",".");
 
 
-			if (frete != null && frete !=' ' ){
-					frete = frete.toFixed(2);
-					frete = frete.toString();
-					frete = frete.replace('.', ',');
-					freteMaisProduto=parseFloat(freteMaisProduto);
-					freteMaisProduto = freteMaisProduto.toFixed(2);
-					freteMaisProduto = freteMaisProduto.toString();
-					freteMaisProduto = freteMaisProduto.replace('.', ',');
-				}else{
-					frete = null;
-					freteMaisProduto=0;
-				}
+            if (frete != null && frete !=' ' ){
+                    frete = frete.toFixed(2);
+                    frete = frete.toString();
+                    frete = frete.replace('.', ',');
+                    freteMaisProduto=parseFloat(freteMaisProduto);
+                    freteMaisProduto = freteMaisProduto.toFixed(2);
+                    freteMaisProduto = freteMaisProduto.toString();
+                    freteMaisProduto = freteMaisProduto.replace('.', ',');
+                }else{
+                    frete = null;
+                    freteMaisProduto=0;
+                }
 
 
 
@@ -1080,7 +1068,7 @@ function atualizarProduto(){
             vlSelecionado = $("#comboTamanho"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
+                textoAvisoBtn ="Selecione uma opção da sessão tamanho.";
             }
         }
         if($("#compostoTamanho"+idBtn).is(":visible"))
@@ -1088,7 +1076,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoTamanho"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
+                textoAvisoBtn ="Selecione uma opção da sessão tamanho.";
             }
         }
         if($("#compostoAdd1"+idBtn).is(":visible"))
@@ -1096,7 +1084,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoAdd1"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
+                textoAvisoBtn ="Selecione as duas opções das sessões sabores.";
             }
         }
 
@@ -1105,7 +1093,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoAdd2"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
+                textoAvisoBtn ="Selecione as duas opções das sessões sabores.";
             }
         }
 
@@ -1113,7 +1101,7 @@ function atualizarProduto(){
 
             vlSelecionado = $("#selectBebidas_"+idBtn).find('option:selected').attr('data-id');
             if(typeof vlSelecionado ==='undefined' ){
-                textoAvisoBtn ="Selecione um produto da sess&atilde;o  bebida.";
+                textoAvisoBtn ="Selecione um produto da sessão bebida.";
             }
 
         }
@@ -1122,7 +1110,7 @@ function atualizarProduto(){
 
             vlSelecionado = $("#selectPagueGanhe_"+idBtn).find('option:selected').attr('data-id');
             if(typeof vlSelecionado ==='undefined' ){
-                textoAvisoBtn ="Selecione um produto da sess&atilde;o ganhe.";
+                textoAvisoBtn ="Selecione um produto da sessão ganhe.";
             }
 
         }
@@ -1562,7 +1550,6 @@ $("#pedir").click(function(event){
     }
 
     /*minhaLoja2= $('#filialPedido').val();
-
     if(minhaLoja2==''){
         validarPd="falso";
         $("#avisoPedido").popup( "open" );
@@ -3351,51 +3338,38 @@ function checaAtendimento(atendimentocod){
                 $("#map-canvas").html('');
                 if(localizacaoEntrega !=''){
                     var latlng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
-
                     var options = {
                         zoom: 16,
                         center: latlng,
                         scrollwheel: false,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     };
-
                     map = new google.maps.Map(document.getElementById("map-canvas"), options);
-
                 }
-
             }
             initialize();
             if(localizacaoEntrega !=''){
                 var newLatLng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
             }
-
             marker = new google.maps.Marker({
                 position: newLatLng,
                 map: map,
                // draggable: true
             });
         }, 3000);
-
         loopMap=0;
         var initialize22 = setInterval(function(){
-
             if(loopMap==0){
                 getAtendimentoPosition(atendimentoId2);
                 //$("#map-canvas").html('');
-
-
-
                position = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
                 marker.setPosition(position);
                 //atualiza o ponteiro
                 map.panTo( new google.maps.LatLng( localizacaoEntrega.lat, localizacaoEntrega.lng ) );
-
             }else{
                 clearTimeout(initialize22);
                 initialize22 = 0;
             }
-
-
         },40000);*/
 
     });
@@ -3537,7 +3511,6 @@ function checaAtendimento(atendimentocod){
         /*$('#chatZone').animate(
                 {
                     scrollTop: $('#chatZone').prop("scrollHeight"),
-
                 }, 500);*/
         //$("#chatZone").getNiceScroll().resize();
 
@@ -3555,6 +3528,8 @@ function checaAtendimento(atendimentocod){
 
             verificaMensagem();
         }, 2000);
+        $('#idpedidoempresa').val(empresa);
+        $('#idpedidofilial').val(filialPadrao);
     });
     var verificaPedido;
     $(document).on("pageshow","#page2",function(){ // When entering pagetwo
@@ -3606,18 +3581,11 @@ function checaAtendimento(atendimentocod){
                 //verificaMensagem();
                 //ultimaMsg =data.ultimomensagen.Mensagen.id;
                  /*$('#chatZone').append('<div class="chatmsg" data-msgid="'+data.ultimomensagen.Mensagen.id+'"><b>'+data.ultimomensagen.Cliente.username+'</b>: '+data.ultimomensagen.Mensagen.msg+'<br/></div>');
-
-
-
-
                 //$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
-
                 $('#chatZone').animate(
                 {
                     scrollTop: $('#chatZone').prop("scrollHeight"),
-
                 }, 500);
-
                 $("#chatZone").getNiceScroll().resize();
                 $("#chatZone").niceScroll({cursorcolor:"#CCC" }); */
 
@@ -3834,16 +3802,11 @@ function checaAtendimento(atendimentocod){
                              /*sitcampainha = atendimento.Atendimento.campainha;
                              atendimentoid= atendimento.Atendimento.id;
                              if(sitcampainha == null){
-
                              }else{
-
                                 if(sitcampainha >= 1){
-
                                     if(sitcampainha==10){
-
                                     }else{
                                         if(sitcampainha==11){
-
                                         }else{
                                             if(campainha==0){
                                                 $('.audioPlayer').trigger('play');
@@ -3851,11 +3814,7 @@ function checaAtendimento(atendimentocod){
                                             }
                                         }
                                     }
-
-
-
                                   }
-
                              }*/
 
 

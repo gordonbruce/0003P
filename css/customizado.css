@@ -27,6 +27,11 @@
 body{
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         background: #e0414e !important;
+
+    }
+    .ui-body-b, .ui-page{
+          color: #000000 !important;
+        text-shadow: 0 1px #ffff00 !important;
     }
     .submitFormCliente{
      /* background-image: url("../images/backgroun2.jpg");*/
@@ -83,24 +88,24 @@ body{
         background-color: #fcee21;
     }
     .table-stripe thead th,
-  	.table-stripe tbody tr:last-child {
-  	    border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
-  	    border-bottom: 1px solid rgba(0,0,0,.1);
-  	}
-  	.table-stripe tbody th,
-  	.table-stripe tbody td {
-  	    border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
-  	    border-bottom: 1px solid rgba(0,0,0,.05);
-  	}
-  	.table-stripe tbody tr:last-child th,
-  	.table-stripe tbody tr:last-child td {
-  	    border-bottom: 0;
-  	}
-  	.table-stripe tbody tr:nth-child(odd) td,
-  	.table-stripe tbody tr:nth-child(odd) th {
-  	    background-color: #eeeeee; /* non-RGBA fallback  */
-  	    background-color: rgba(0,0,0,.04);
-  	}
+    .table-stripe tbody tr:last-child {
+        border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+    .table-stripe tbody th,
+    .table-stripe tbody td {
+        border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+        border-bottom: 1px solid rgba(0,0,0,.05);
+    }
+    .table-stripe tbody tr:last-child th,
+    .table-stripe tbody tr:last-child td {
+        border-bottom: 0;
+    }
+    .table-stripe tbody tr:nth-child(odd) td,
+    .table-stripe tbody tr:nth-child(odd) th {
+        background-color: #eeeeee; /* non-RGBA fallback  */
+        background-color: rgba(0,0,0,.04);
+    }
     .slider  h4{ color: #ff0a0a;}
     .verde-background{
           background-color: rgb(173, 255, 47);
@@ -113,11 +118,11 @@ body{
         background-color: rgb(173, 255, 47) !important;
     }
     .ui-header, .ui-footer{background-color: #e0414e; color: white;}
-  	.ui-footer {border-bottom-color: #FF0A0A }
+    .ui-footer {border-bottom-color: #FF0A0A }
 
     .ui-icon-share:after {
-  	background-image: url("../images/icons-png/share-white1.png") !important;
-  	}
+    background-image: url("../images/icons-png/share-white1.png") !important;
+    }
 
     /*tabelas*/
     .tabelaPadrao thead th,
@@ -147,13 +152,13 @@ body{
     }
     .countBubl {background:#ed1d24;color:#fff;}
     .ui-panel{
-    	background-color: #e0414e;
+      background-color: #e0414e;
     }
     .ui-panel ul li a{
-    	background-color: #e0414e !important;
-    	color: white !important;
-    	/*text-shadow: 1px 1px #ccc !important;*/
-    	  text-shadow: 0 1px 0 #111 !important;
+      background-color: #e0414e !important;
+      color: white !important;
+      /*text-shadow: 1px 1px #ccc !important;*/
+        text-shadow: 0 1px 0 #111 !important;
     }
     .imgProduto{background-color:#B37700;  }
 

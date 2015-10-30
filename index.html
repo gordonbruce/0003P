@@ -134,11 +134,8 @@
                     <button class="ui-btn ui-btn-inline ui-btn-b " id="submitForm">Entrar</button>
                     <a href="#page5" class="ui-btn ui-btn-inline ui-btn-b ">Cadastrar-se</a>
                     <input type="hidden" name="salt" id="loginSalt" class="loginsalt" value="" autocomplete="off" >
-                    <input type="hidden" name="empresa"  class="empresa_input" value="3" autocomplete="off" >
-                    <input type="hidden" name="filial"  class="filial_input" value="7" autocomplete="off" >
-
-
-
+                    <input type="hidden" name="empresa" id="empresa_input" class="empresa_input" autocomplete="off" >
+                    <input type="hidden" name="filial" id="filial_input" class="filial_input" autocomplete="off" >
                 </form>
                 <div id="usuario"></div>
                 <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="">
@@ -1473,7 +1470,8 @@
             <form  data-ajax="false" id="formChat" >
 				                 
                     <input type="hidden" id="idclientemsg" name="data[Mensagen][cliente_id]" />
-
+                    <input type="hidden" id="idempresa" name="data[Mensagen][empresa_id]" />
+                    <input type="hidden" id="idfilial" name="data[Mensagen][filial_id]" />
                     <input type="hidden" id="idpedidoemsg" name="data[Mensagen][pedido_id]" />
                     <input type="hidden" id="statusread" name="data[Mensagen][read]" value="0" />
                     <input type="hidden" id="idUltimaMsg" name="data[Mensagen][ultmsg]" />
@@ -1484,7 +1482,6 @@
                         <ul>
                         <li class="linkInputChat"><textarea  id="msg" name="data[Mensagen][msg]" placeholder="Digite sua mensagem"  data-mini="false" /></textarea></li>
                         <li class="linkEnviaChat">
-
                             <input type="image" src="images/setadireita.png" alt="Submit"  id="envChat"  class="envChat" >
                         </li>
                         <!--<li class="linkEnviaChat"><button type="submit" class="ui-shadow ui-btn ui-corner-all ui-btn-a" id="envChat" data-mini="false"   />Enviar</button></li>-->

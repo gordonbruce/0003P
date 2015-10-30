@@ -3503,6 +3503,8 @@ function checaAtendimento(atendimentocod){
     var numeroPedido;
     $('#btn-chat').click(function(){
         numeroPedido= $("#idPedidoAux").text();
+        idempresa= empresa;
+        idfilial = filialPadrao;
     });
 
     $('#formChat').submit(function(event){
@@ -3513,6 +3515,9 @@ function checaAtendimento(atendimentocod){
         $('#idsenderemsg').val(cliente.Cliente.id);
 
         $('#idpedidoemsg').val(numeroPedido);
+        
+        $('#idempresa').val(idempresa);
+        $('#idfilial').val(idfilial);
 
         msg = $("#msg").val();
         if(msg !=''){
@@ -3552,7 +3557,6 @@ function checaAtendimento(atendimentocod){
     });
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
         myVar = setInterval(function(){
-
             verificaMensagem();
         }, 2000);
     });

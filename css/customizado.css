@@ -27,6 +27,11 @@
 body{
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         background: #e0414e !important;
+
+    }
+    .ui-body-b, .ui-page{
+          color: #000000 !important;
+        text-shadow: 0 1px #ffff00 !important;
     }
     .submitFormCliente{
      /* background-image: url("../images/backgroun2.jpg");*/

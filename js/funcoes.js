@@ -1080,7 +1080,7 @@ function atualizarProduto(){
             vlSelecionado = $("#comboTamanho"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
+                textoAvisoBtn ="Selecione uma opção da sessão tamanho.";
             }
         }
         if($("#compostoTamanho"+idBtn).is(":visible"))
@@ -1088,7 +1088,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoTamanho"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
+                textoAvisoBtn ="Selecione uma opção da sessão tamanho.";
             }
         }
         if($("#compostoAdd1"+idBtn).is(":visible"))
@@ -1096,7 +1096,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoAdd1"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
+                textoAvisoBtn ="Selecione as duas opções das sessões sabores.";
             }
         }
 
@@ -1105,7 +1105,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoAdd2"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
+                textoAvisoBtn ="Selecione as duas opções das sessões sabores.";
             }
         }
 
@@ -1113,7 +1113,7 @@ function atualizarProduto(){
 
             vlSelecionado = $("#selectBebidas_"+idBtn).find('option:selected').attr('data-id');
             if(typeof vlSelecionado ==='undefined' ){
-                textoAvisoBtn ="Selecione um produto da sess&atilde;o  bebida.";
+                textoAvisoBtn ="Selecione um produto da sessão bebida.";
             }
 
         }
@@ -1122,7 +1122,7 @@ function atualizarProduto(){
 
             vlSelecionado = $("#selectPagueGanhe_"+idBtn).find('option:selected').attr('data-id');
             if(typeof vlSelecionado ==='undefined' ){
-                textoAvisoBtn ="Selecione um produto da sess&atilde;o ganhe.";
+                textoAvisoBtn ="Selecione um produto da sessão ganhe.";
             }
 
         }

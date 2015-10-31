@@ -3629,6 +3629,7 @@ function checaAtendimento(atendimentocod){
     var numeroPedido;
     $('#btn-chat').click(function(){
         numeroPedido= $("#idPedidoAux").text();
+        $('#chatZone').html();
         idempresa= empresa;
         idfilial = filialPadrao;
     });
@@ -3662,6 +3663,7 @@ function checaAtendimento(atendimentocod){
     });
     $( document ).on( "pageinit", "#page10", function() {
         $('#idclientemsg').val(cliente.Cliente.id);
+        $('#chatZone').html();
       //  recebeMensagemInicio();
       verificaMensagem();
         setTimeout(function(){

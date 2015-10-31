@@ -3612,7 +3612,7 @@ function checaAtendimento(atendimentocod){
 
             success: function(data){
                setTimeout(function(){
-                verificaMensagem
+                verificaMensagem();
             },500);
                 //verificaMensagem();
                 //ultimaMsg =data.ultimomensagen.Mensagen.id;

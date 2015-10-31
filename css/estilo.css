@@ -712,3 +712,7 @@ display: block;
 .slidedown{position: fixed !important;}
 .ui-header .btn-menu {height: 16px !important;
   margin-top: 15px !important;}
+
+#page10 .ui-navbar{
+   margin-top: -7px
+}

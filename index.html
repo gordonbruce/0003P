@@ -36,7 +36,7 @@
         <script type="text/javascript" src="js/transparente.js"></script>
 
     </head>
- <body>
+  <body>
         <div id="index" data-role="page" data-theme="b" data-content-theme="b" data-overlay-theme="b" >
             <div data-role="panel" id="mypanelindex" data-display="overlay" data-theme="b" data-content-theme="b">
                 <img src="images/logoentrega_painel.png"  class="logoPainel" />
@@ -458,7 +458,7 @@
             <div data-role="footer" class="hideFooter2"   data-tap-toggle="false">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Especiale Pizzaria By Entregapp', null, 'http://entregapp.com.br/img_share/principe_pizzas/speciale.png', null)" data-icon="share">Compartilhar</a></li>
+                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Princepe das Pizzas By Entregapp', null, 'http://entregapp.com.br/img_share/principe_pizzas/principe-das-pizzas.png', null)" data-icon="share">Compartilhar</a></li>
 
                         <li><a href="#page10" data-icon="comment" id="btn-chat">Atendimento</a></li>
                         <li><a href="#" data-icon="location" class="btn-locPedido">Localizar Pedido</a></li>
@@ -540,7 +540,7 @@
                                  <th data-priority="0">V.Total</th>
                                </tr>
                              </thead>
-                             <tbody>
+                             <tbody id="tblbodyPedido">
                                <tr id="linhaTotal">
                                     <td colspan="4">Total</td>
                                     <td id="totalPedido">00,00</td>
@@ -1480,7 +1480,7 @@
                         <ul>
                         <li class="linkInputChat"><textarea  id="msg" name="data[Mensagen][msg]" placeholder="Digite sua mensagem"  data-mini="false" /></textarea></li>
                         <li class="linkEnviaChat">
-                            <input type="image" src="images/setadireita.png" alt="Submit"  id="envChat"  class="envChat" >
+                            <input type="image" src="images/enviabranco2.png" alt="Submit"  id="envChat"  class="envChat" >
                         </li>
                         <!--<li class="linkEnviaChat"><button type="submit" class="ui-shadow ui-btn ui-corner-all ui-btn-a" id="envChat" data-mini="false"   />Enviar</button></li>-->
                         </ul>
@@ -1488,7 +1488,7 @@
 
 
             </form>
-
+            <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
 
             </div><!--Footer-->
 

@@ -1743,8 +1743,8 @@ $("#pedir").click(function(event){
                             pedidoData = diaDt+"/"+mesDt+"/"+anoDt;
                             pedidoStatus=pedidoAtend.status;
                         });
-                        $("#atendimentostab").append('<tr><td>'+atendimento.Atendimento.codigo+'</td>\
-                        <td>'+pedidoData+'</td><td>'+pedidoStatus+'</td>\
+                        $("#atendimentostab").append('<tr><td class="paddTopTab">'+atendimento.Atendimento.codigo+'</td>\
+                        <td class="paddTopTab">'+pedidoData+'</td><td class="paddTopTab">'+pedidoStatus+'</td>\
                         <td><a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-eye ui-btn-icon-notext ui-btn-b ui-btn-inline acaoAtend" id="acaoAtend'+i+'"data-atendimento="'+atendimento.Atendimento.id+'">Visualisar</a></td></tr>');
 
                         if(limitPedido > 4){
@@ -3629,6 +3629,7 @@ function checaAtendimento(atendimentocod){
     var numeroPedido;
     $('#btn-chat').click(function(){
         numeroPedido= $("#idPedidoAux").text();
+        $('#chatZone').html();
         idempresa= empresa;
         idfilial = filialPadrao;
     });
@@ -3662,6 +3663,7 @@ function checaAtendimento(atendimentocod){
     });
     $( document ).on( "pageinit", "#page10", function() {
         $('#idclientemsg').val(cliente.Cliente.id);
+        $('#chatZone').html();
       //  recebeMensagemInicio();
       verificaMensagem();
         setTimeout(function(){

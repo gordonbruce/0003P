@@ -170,3 +170,5 @@
 #itensdoPedido tr:nth-child(odd) { background-color:#D6CA1C; }
 #atendimentostab tr:nth-child(odd) { background-color:#D6CA1C; }
 #tblbodyPedido tr:nth-child(odd) { background-color:#D6CA1C; }
+.applogo{width: 4em;   margin-top: 2px !important; }
+.imgEntrada{width: 95%; display: block; margin: 3em auto; margin-bottom:3em; display: block;}

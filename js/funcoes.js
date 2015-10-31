@@ -3515,7 +3515,7 @@ function checaAtendimento(atendimentocod){
         $('#idsenderemsg').val(cliente.Cliente.id);
 
         $('#idpedidoemsg').val(numeroPedido);
-        
+
         $('#idempresa').val(idempresa);
         $('#idfilial').val(idfilial);
 
@@ -3535,7 +3535,8 @@ function checaAtendimento(atendimentocod){
     });
     $( document ).on( "pageinit", "#page10", function() {
         $('#idclientemsg').val(cliente.Cliente.id);
-        recebeMensagemInicio();
+      //  recebeMensagemInicio();
+      verificaMensagem();
         setTimeout(function(){
             $("html, body").animate({ scrollTop: $(document).height() }, "slow");
             }, 4000);
@@ -3558,7 +3559,9 @@ function checaAtendimento(atendimentocod){
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
         myVar = setInterval(function(){
             verificaMensagem();
-        }, 2000);
+        }, 10000);
+        $('#idpedidoempresa').val(empresa);
+        $('#idpedidofilial').val(filialPadrao);
     });
     var verificaPedido;
     $(document).on("pageshow","#page2",function(){ // When entering pagetwo
@@ -3650,7 +3653,7 @@ function checaAtendimento(atendimentocod){
 
             success: function(data){
 
-
+                console.log(url);
                 $.each(data, function(i, resultados){
 
                     $.each(resultados, function(z, resultado){
@@ -3709,7 +3712,8 @@ function checaAtendimento(atendimentocod){
 
 
             success: function(data){
-
+console.log(url);
+                console.log(data);
                 contadorScroll=0;
                 acumuladorTexto="";
                 $.each(data, function(i, resultados){

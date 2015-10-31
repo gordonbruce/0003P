@@ -1,3 +1,4 @@
+
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -335,13 +336,21 @@ $(document).on("pageshow","#index",function(){
 
 
      /* ;
+
       vlUm = $("#compostoAdd1"+minhaId).find('option:selected').val();
+
       vlDois = $("#compostoAdd2"+minhaId).find('option:selected').val();
+
      if(vlUm != 0 &&  vlDois !=0){
+
+
         prodOpt1  = $("#compostoAdd1"+minhaId).find('option:selected').attr('id');
         prodId1 =  prodOpt1.substring(12);
+
         prodOpt2  = $("#compostoAdd2"+minhaId).find('option:selected').attr('id');
         prodId2 =  prodOpt2.substring(12);
+
+
         vt = vlUm;
         if(vlUm > vlDois){
             vt = vlUm;
@@ -353,6 +362,7 @@ $(document).on("pageshow","#index",function(){
         vt = String(vt);
         vt = vt.replace('.',',');
         $('#btnAddProd'+minhaId).attr('data -vlu',vt);
+
         $('#precoComposto'+minhaId).html('R$ '+vt);
         $('#precoComposto'+minhaId).css('display', 'block');
         $('#btnAddProd'+minhaId).css('display', 'inline-block');
@@ -477,7 +487,9 @@ $(document).on("pageshow","#index",function(){
                 $('#btnAddProd'+produtoTamId).attr('data-vlu',vt);
                 $('#btnAddProd'+produtoTamId).attr('data-tamanho',tamTamanho);
                 $('#btnAddProd'+produtoTamId).css('display', 'inline-block');
+
             }
+
         }else{
             $('.precotam').css('display', 'none');
             $('.dispNoneTam').css('display', 'none');
@@ -1068,7 +1080,7 @@ function atualizarProduto(){
             vlSelecionado = $("#comboTamanho"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione uma opção da sessão tamanho.";
+                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
             }
         }
         if($("#compostoTamanho"+idBtn).is(":visible"))
@@ -1076,7 +1088,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoTamanho"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione uma opção da sessão tamanho.";
+                textoAvisoBtn ="Selecione uma opç&atilde;o da sess&atilde;o  tamanho.";
             }
         }
         if($("#compostoAdd1"+idBtn).is(":visible"))
@@ -1084,7 +1096,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoAdd1"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione as duas opções das sessões sabores.";
+                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
             }
         }
 
@@ -1093,7 +1105,7 @@ function atualizarProduto(){
             vlSelecionado = $("#compostoAdd2"+idBtn).find('option:selected').val();
 
             if(vlSelecionado ==0 ){
-                textoAvisoBtn ="Selecione as duas opções das sessões sabores.";
+                textoAvisoBtn ="Selecione  as duas  opç&otilde;es da sess&atilde;o  Sabores.";
             }
         }
 
@@ -1101,7 +1113,7 @@ function atualizarProduto(){
 
             vlSelecionado = $("#selectBebidas_"+idBtn).find('option:selected').attr('data-id');
             if(typeof vlSelecionado ==='undefined' ){
-                textoAvisoBtn ="Selecione um produto da sessão bebida.";
+                textoAvisoBtn ="Selecione um produto da sess&atilde;o  bebida.";
             }
 
         }
@@ -1110,7 +1122,7 @@ function atualizarProduto(){
 
             vlSelecionado = $("#selectPagueGanhe_"+idBtn).find('option:selected').attr('data-id');
             if(typeof vlSelecionado ==='undefined' ){
-                textoAvisoBtn ="Selecione um produto da sessão ganhe.";
+                textoAvisoBtn ="Selecione um produto da sess&atilde;o ganhe.";
             }
 
         }
@@ -1259,7 +1271,13 @@ function atualizarProduto(){
 
         }else{
             fezPedidoSemLogar='sim';
-            $.mobile.changePage("#Pagelogin",{ transition: "fade",  });
+            $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+             $('.pageContent').hide();
+                $.mobile.loading( "show" );
+                setTimeout(function(){
+                    $.mobile.loading( "hide" );
+                    $('.pageContent').fadeIn('slow');
+                },2000);
         }
 
     });
@@ -1285,7 +1303,7 @@ function atualizarProduto(){
             success: function(data){
 
                 var res = data.ultimopedido;
-                $.mobile.loading( "hide" );
+
 
 
                 if(res == 'ErroLogin'){
@@ -1321,12 +1339,24 @@ function atualizarProduto(){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                         filialPadrao=data.ultimopedido.Cliente.filial_id;
-                        $.mobile.changePage("#page3",{ transition: "fade",  });
+                        $.mobile.changePage("#page3",{ transition: "none",  });
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
 
                     }else{
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
-                        $.mobile.changePage("#index",{ transition: "fade",  });
+                        $.mobile.changePage("#index",{ transition: "none",  });
+                         $('.imgEntrada').hide();
+                        $.mobile.loading( "show" );
+                        setTimeout(function(){
+                            $.mobile.loading( "hide" );
+                            $('.imgEntrada').fadeIn('slow');
+                        },2000);
 
                     }
 
@@ -1342,7 +1372,9 @@ function atualizarProduto(){
                 $("#popupDialogLogin").popup( "open" );
                 $('#loginSalt').val('')
             }
+
             });
+            $.mobile.loading( "hide" );
         });
 var pedido_id ="";
 function atendimentoView(atendimentos){
@@ -1550,6 +1582,7 @@ $("#pedir").click(function(event){
     }
 
     /*minhaLoja2= $('#filialPedido').val();
+
     if(minhaLoja2==''){
         validarPd="falso";
         $("#avisoPedido").popup( "open" );
@@ -1621,6 +1654,12 @@ $("#pedir").click(function(event){
                         cont=0;
                         limparPedido();
                         $.mobile.changePage("#page2",{ transition: "pop",  });
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
                         getAtendimento(atendimento.Pedido.atendimento_id);
                         getItens(atendimento.Pedido.atendimento_id);
                         $("#idAtend").html(atendimento.Pedido.atendimento_id);
@@ -1796,45 +1835,97 @@ $("#pedir").click(function(event){
 
     });
     $(".listarpedido").click(function(){
-        $.mobile.changePage("#page1",{ transition: "fade",  });
-
+        $.mobile.changePage("#page1",{ transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
     });
 
 
     $(".localizarpedido").click(function(){
-        $.mobile.changePage("#page7",{ transition: "fade",  });
+        $.mobile.changePage("#page7",{ transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
     });
 
     $(".meucadastro").click(function(){
 
-        $.mobile.changePage("#page5",{ transition: "fade",  });
+        $.mobile.changePage("#page5",{ transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
 
     $('.fazerlogin').click(function(){
-        $.mobile.changePage("#Pagelogin",{ transition: "fade",  });
+
+        $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+
+        $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
+
+
     });
 
     $(".Menusair").click(function(){
-        $.mobile.changePage("#page11", { transition: "fade",  });
+
+        $.mobile.changePage("#page11", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
     $("#cancel-button").click(function(){
-        $.mobile.changePage("#page0", { transition: "fade",  });
+        $.mobile.changePage("#page0", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
 
     $(".linkTelefone").click(function(){
         window.open(telefonePadrao, '_system');
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
     $("#mensagemChat").click(function(){
-        $.mobile.changePage("#page10", { transition: "fade",  });
+        $.mobile.changePage("#page10", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         setTimeout(function() {
             $("html, body").animate({ scrollTop: $(document).height() }, "slow");
         }, 4000);
@@ -2160,7 +2251,13 @@ $('body').on('click', '.acaoAtend', function () {
 
     $('.clonePedido').remove();
     $('#valorTotalPedido').html('R$ 00,00');
-    $.mobile.changePage("#page2", { transition: "fade",  });
+    $.mobile.changePage("#page2", { transition: "none",  });
+     $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
     getAtendimento(atendimentoid);
 
     getItens(atendimentoid);
@@ -2200,7 +2297,13 @@ function checaAtendimento(atendimentocod){
 
                     if(data.resultados.resposta=='Existe'){
                         $( "#popupDialogAtendimento2" ).popup( "open" );
-                        $.mobile.changePage("#page3", { transition: "fade",  });
+                        $.mobile.changePage("#page3", { transition: "none",  });
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
                         $("#PedidoA").val(data.resultados.resposta);
                         codigoAtend=data.resultados.resposta;
                     }else{
@@ -2222,14 +2325,26 @@ function checaAtendimento(atendimentocod){
 }
     $('body').on('click', '#btnEntrega', function () {
         codigo="entrega";
-        $.mobile.changePage("#page3", { transition: "fade",  });
+        $.mobile.changePage("#page3", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         $("#PedidoA").val(codigo);
     });
 
     $('body').on('click', '.novopedido', function () {
         codigo="entrega";
-        $.mobile.changePage("#page13", { transition: "fade",  });
-        $.mobile.changePage("#page3", { transition: "fade",  });
+        $.mobile.changePage("#page13", { transition: "none",  });
+        $.mobile.changePage("#page3", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         limparPedido();
         $("#PedidoA").val(codigo);
     });
@@ -2266,7 +2381,13 @@ function checaAtendimento(atendimentocod){
     var fezPedidoSemLogar ="";
     $("#proximoPedido").click(function(){
         if(cliente ==''){
-            $.mobile.changePage("#Pagelogin", { transition: "fade",  });
+            $.mobile.changePage("#Pagelogin", { transition: "none",  });
+             $('.pageContent').hide();
+                $.mobile.loading( "show" );
+                setTimeout(function(){
+                    $.mobile.loading( "hide" );
+                    $('.pageContent').fadeIn('slow');
+                },2000);
             fezPedidoSemLogar='sim';
 
         }else{
@@ -3164,7 +3285,13 @@ function checaAtendimento(atendimentocod){
     }
 
     $(".minhalocalizacao").click(function(){
-        $.mobile.changePage("#page6", { transition: "fade",  });
+        $.mobile.changePage("#page6", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
     });
 
     $( document ).on( "pageinit", "#page6", function() {
@@ -3268,7 +3395,13 @@ function checaAtendimento(atendimentocod){
     }
 
     $(".localizarpedido").click(function(){
-        $.mobile.changePage("#map-page", { transition: "fade",  });
+        $.mobile.changePage("#map-page", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
@@ -3317,7 +3450,13 @@ function checaAtendimento(atendimentocod){
     $(".btn-locPedido").click(function(){
         var atendimentoId2 = $("#idAtend").text();
 
-        $.mobile.changePage("#map-page", { transition: "fade",  });
+        $.mobile.changePage("#map-page", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         var map="";
 
 
@@ -3338,38 +3477,51 @@ function checaAtendimento(atendimentocod){
                 $("#map-canvas").html('');
                 if(localizacaoEntrega !=''){
                     var latlng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
+
                     var options = {
                         zoom: 16,
                         center: latlng,
                         scrollwheel: false,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     };
+
                     map = new google.maps.Map(document.getElementById("map-canvas"), options);
+
                 }
+
             }
             initialize();
             if(localizacaoEntrega !=''){
                 var newLatLng = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
             }
+
             marker = new google.maps.Marker({
                 position: newLatLng,
                 map: map,
                // draggable: true
             });
         }, 3000);
+
         loopMap=0;
         var initialize22 = setInterval(function(){
+
             if(loopMap==0){
                 getAtendimentoPosition(atendimentoId2);
                 //$("#map-canvas").html('');
+
+
+
                position = new google.maps.LatLng(localizacaoEntrega.lat, localizacaoEntrega.lng);
                 marker.setPosition(position);
                 //atualiza o ponteiro
                 map.panTo( new google.maps.LatLng( localizacaoEntrega.lat, localizacaoEntrega.lng ) );
+
             }else{
                 clearTimeout(initialize22);
                 initialize22 = 0;
             }
+
+
         },40000);*/
 
     });
@@ -3477,6 +3629,8 @@ function checaAtendimento(atendimentocod){
     var numeroPedido;
     $('#btn-chat').click(function(){
         numeroPedido= $("#idPedidoAux").text();
+        idempresa= empresa;
+        idfilial = filialPadrao;
     });
 
     $('#formChat').submit(function(event){
@@ -3488,9 +3642,13 @@ function checaAtendimento(atendimentocod){
 
         $('#idpedidoemsg').val(numeroPedido);
 
+        $('#idempresa').val(idempresa);
+        $('#idfilial').val(idfilial);
+
         msg = $("#msg").val();
         if(msg !=''){
             enviaMensagem();
+
             $("#msg").val('');
 
         }
@@ -3504,13 +3662,15 @@ function checaAtendimento(atendimentocod){
     });
     $( document ).on( "pageinit", "#page10", function() {
         $('#idclientemsg').val(cliente.Cliente.id);
-        recebeMensagemInicio();
+      //  recebeMensagemInicio();
+      verificaMensagem();
         setTimeout(function(){
             $("html, body").animate({ scrollTop: $(document).height() }, "slow");
             }, 4000);
         /*$('#chatZone').animate(
                 {
                     scrollTop: $('#chatZone').prop("scrollHeight"),
+
                 }, 500);*/
         //$("#chatZone").getNiceScroll().resize();
 
@@ -3525,9 +3685,8 @@ function checaAtendimento(atendimentocod){
     });
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
         myVar = setInterval(function(){
-
             verificaMensagem();
-        }, 2000);
+        }, 10000);
         $('#idpedidoempresa').val(empresa);
         $('#idpedidofilial').val(filialPadrao);
     });
@@ -3578,14 +3737,24 @@ function checaAtendimento(atendimentocod){
 
 
             success: function(data){
+               setTimeout(function(){
+                verificaMensagem();
+            },500);
                 //verificaMensagem();
                 //ultimaMsg =data.ultimomensagen.Mensagen.id;
                  /*$('#chatZone').append('<div class="chatmsg" data-msgid="'+data.ultimomensagen.Mensagen.id+'"><b>'+data.ultimomensagen.Cliente.username+'</b>: '+data.ultimomensagen.Mensagen.msg+'<br/></div>');
+
+
+
+
                 //$("#chatZone").scrollTop($("#chatZone").prop("scrollHeight"));
+
                 $('#chatZone').animate(
                 {
                     scrollTop: $('#chatZone').prop("scrollHeight"),
+
                 }, 500);
+
                 $("#chatZone").getNiceScroll().resize();
                 $("#chatZone").niceScroll({cursorcolor:"#CCC" }); */
 
@@ -3614,7 +3783,7 @@ function checaAtendimento(atendimentocod){
 
             success: function(data){
 
-
+                console.log(url);
                 $.each(data, function(i, resultados){
 
                     $.each(resultados, function(z, resultado){
@@ -3673,7 +3842,8 @@ function checaAtendimento(atendimentocod){
 
 
             success: function(data){
-
+console.log(url);
+                console.log(data);
                 contadorScroll=0;
                 acumuladorTexto="";
                 $.each(data, function(i, resultados){
@@ -3802,11 +3972,16 @@ function checaAtendimento(atendimentocod){
                              /*sitcampainha = atendimento.Atendimento.campainha;
                              atendimentoid= atendimento.Atendimento.id;
                              if(sitcampainha == null){
+
                              }else{
+
                                 if(sitcampainha >= 1){
+
                                     if(sitcampainha==10){
+
                                     }else{
                                         if(sitcampainha==11){
+
                                         }else{
                                             if(campainha==0){
                                                 $('.audioPlayer').trigger('play');
@@ -3814,7 +3989,11 @@ function checaAtendimento(atendimentocod){
                                             }
                                         }
                                     }
+
+
+
                                   }
+
                              }*/
 
 

@@ -1271,7 +1271,13 @@ function atualizarProduto(){
 
         }else{
             fezPedidoSemLogar='sim';
-            $.mobile.changePage("#Pagelogin",{ transition: "fade",  });
+            $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+             $('.pageContent').hide();
+                $.mobile.loading( "show" );
+                setTimeout(function(){
+                    $.mobile.loading( "hide" );
+                    $('.pageContent').fadeIn('slow');
+                },2000);
         }
 
     });
@@ -1297,7 +1303,7 @@ function atualizarProduto(){
             success: function(data){
 
                 var res = data.ultimopedido;
-                $.mobile.loading( "hide" );
+
 
 
                 if(res == 'ErroLogin'){
@@ -1333,12 +1339,24 @@ function atualizarProduto(){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                         filialPadrao=data.ultimopedido.Cliente.filial_id;
-                        $.mobile.changePage("#page3",{ transition: "fade",  });
+                        $.mobile.changePage("#page3",{ transition: "none",  });
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
 
                     }else{
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
-                        $.mobile.changePage("#index",{ transition: "fade",  });
+                        $.mobile.changePage("#index",{ transition: "none",  });
+                         $('.imgEntrada').hide();
+                        $.mobile.loading( "show" );
+                        setTimeout(function(){
+                            $.mobile.loading( "hide" );
+                            $('.imgEntrada').fadeIn('slow');
+                        },2000);
 
                     }
 
@@ -1354,7 +1372,9 @@ function atualizarProduto(){
                 $("#popupDialogLogin").popup( "open" );
                 $('#loginSalt').val('')
             }
+
             });
+            $.mobile.loading( "hide" );
         });
 var pedido_id ="";
 function atendimentoView(atendimentos){
@@ -1634,6 +1654,12 @@ $("#pedir").click(function(event){
                         cont=0;
                         limparPedido();
                         $.mobile.changePage("#page2",{ transition: "pop",  });
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
                         getAtendimento(atendimento.Pedido.atendimento_id);
                         getItens(atendimento.Pedido.atendimento_id);
                         $("#idAtend").html(atendimento.Pedido.atendimento_id);
@@ -1809,45 +1835,97 @@ $("#pedir").click(function(event){
 
     });
     $(".listarpedido").click(function(){
-        $.mobile.changePage("#page1",{ transition: "fade",  });
-
+        $.mobile.changePage("#page1",{ transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
     });
 
 
     $(".localizarpedido").click(function(){
-        $.mobile.changePage("#page7",{ transition: "fade",  });
+        $.mobile.changePage("#page7",{ transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
     });
 
     $(".meucadastro").click(function(){
 
-        $.mobile.changePage("#page5",{ transition: "fade",  });
+        $.mobile.changePage("#page5",{ transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
 
     $('.fazerlogin').click(function(){
-        $.mobile.changePage("#Pagelogin",{ transition: "fade",  });
+
+        $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+
+        $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
+
+
     });
 
     $(".Menusair").click(function(){
-        $.mobile.changePage("#page11", { transition: "fade",  });
+
+        $.mobile.changePage("#page11", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
     $("#cancel-button").click(function(){
-        $.mobile.changePage("#page0", { transition: "fade",  });
+        $.mobile.changePage("#page0", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
 
     $(".linkTelefone").click(function(){
         window.open(telefonePadrao, '_system');
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
     $("#mensagemChat").click(function(){
-        $.mobile.changePage("#page10", { transition: "fade",  });
+        $.mobile.changePage("#page10", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         setTimeout(function() {
             $("html, body").animate({ scrollTop: $(document).height() }, "slow");
         }, 4000);
@@ -2173,7 +2251,13 @@ $('body').on('click', '.acaoAtend', function () {
 
     $('.clonePedido').remove();
     $('#valorTotalPedido').html('R$ 00,00');
-    $.mobile.changePage("#page2", { transition: "fade",  });
+    $.mobile.changePage("#page2", { transition: "none",  });
+     $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
     getAtendimento(atendimentoid);
 
     getItens(atendimentoid);
@@ -2213,7 +2297,13 @@ function checaAtendimento(atendimentocod){
 
                     if(data.resultados.resposta=='Existe'){
                         $( "#popupDialogAtendimento2" ).popup( "open" );
-                        $.mobile.changePage("#page3", { transition: "fade",  });
+                        $.mobile.changePage("#page3", { transition: "none",  });
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
                         $("#PedidoA").val(data.resultados.resposta);
                         codigoAtend=data.resultados.resposta;
                     }else{
@@ -2235,14 +2325,26 @@ function checaAtendimento(atendimentocod){
 }
     $('body').on('click', '#btnEntrega', function () {
         codigo="entrega";
-        $.mobile.changePage("#page3", { transition: "fade",  });
+        $.mobile.changePage("#page3", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         $("#PedidoA").val(codigo);
     });
 
     $('body').on('click', '.novopedido', function () {
         codigo="entrega";
-        $.mobile.changePage("#page13", { transition: "fade",  });
-        $.mobile.changePage("#page3", { transition: "fade",  });
+        $.mobile.changePage("#page13", { transition: "none",  });
+        $.mobile.changePage("#page3", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         limparPedido();
         $("#PedidoA").val(codigo);
     });
@@ -2279,7 +2381,13 @@ function checaAtendimento(atendimentocod){
     var fezPedidoSemLogar ="";
     $("#proximoPedido").click(function(){
         if(cliente ==''){
-            $.mobile.changePage("#Pagelogin", { transition: "fade",  });
+            $.mobile.changePage("#Pagelogin", { transition: "none",  });
+             $('.pageContent').hide();
+                $.mobile.loading( "show" );
+                setTimeout(function(){
+                    $.mobile.loading( "hide" );
+                    $('.pageContent').fadeIn('slow');
+                },2000);
             fezPedidoSemLogar='sim';
 
         }else{
@@ -3177,7 +3285,13 @@ function checaAtendimento(atendimentocod){
     }
 
     $(".minhalocalizacao").click(function(){
-        $.mobile.changePage("#page6", { transition: "fade",  });
+        $.mobile.changePage("#page6", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
     });
 
     $( document ).on( "pageinit", "#page6", function() {
@@ -3281,7 +3395,13 @@ function checaAtendimento(atendimentocod){
     }
 
     $(".localizarpedido").click(function(){
-        $.mobile.changePage("#map-page", { transition: "fade",  });
+        $.mobile.changePage("#map-page", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
 
 
     });
@@ -3330,7 +3450,13 @@ function checaAtendimento(atendimentocod){
     $(".btn-locPedido").click(function(){
         var atendimentoId2 = $("#idAtend").text();
 
-        $.mobile.changePage("#map-page", { transition: "fade",  });
+        $.mobile.changePage("#map-page", { transition: "none",  });
+         $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
         var map="";
 
 

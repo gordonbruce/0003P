@@ -186,7 +186,9 @@
   border-width:10px 0 10px 50px;
   border-color:transparent #ccc;
 }
-
+.paddTopTab{
+    padding-top: 17px !important;
+}
             .imgAvancarLogin{
                   width: 59px;
                   height: 59px ;
@@ -329,7 +331,7 @@
         margin-top: 3px;
       }
       #page10 .ui-footer small{
-         padding-bottom: 4%;
+         padding-bottom: 8px;
       }
 	.applogo{width: 4em;   margin-top: 2px !important; }
 	.tituloHeader{margin-top: 1em !important;}

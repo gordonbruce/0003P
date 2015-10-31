@@ -3739,9 +3739,7 @@ function checaAtendimento(atendimentocod){
 
 
             success: function(data){
-               setTimeout(function(){
-                verificaMensagem();
-            },500);
+
                 //verificaMensagem();
                 //ultimaMsg =data.ultimomensagen.Mensagen.id;
                  /*$('#chatZone').append('<div class="chatmsg" data-msgid="'+data.ultimomensagen.Mensagen.id+'"><b>'+data.ultimomensagen.Cliente.username+'</b>: '+data.ultimomensagen.Mensagen.msg+'<br/></div>');

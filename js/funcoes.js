@@ -257,6 +257,7 @@ $(document).on("pageshow","#index",function(){
 
     $(document).on("pageshow","#page3",function(){ // When entering pagetwo
         atualizarProduto();
+        atualizarPromo();
         if(cliente !=""){
             $('#clientePedido').val(cliente.Cliente.id);
         }
@@ -865,7 +866,51 @@ function atualizarProduto(){
 
     });
 
+    function atualizarPromo(){
 
+
+        minhaUrl=URLAPP+"RestClientes/getPromoDia.json?se="+empresa+"&sf=&fp="+filialPadrao+"";
+         $.ajax({
+                type: "GET",
+                url: minhaUrl,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+                    console.log(data.ultimopedido);
+                    bebidas='<option value="">Selecione</option>';
+                    if(typeof data.ultimopedido.Bebidas !==  'undefined'){
+                        $.each(data.ultimopedido.Bebidas, function(i, beb){
+                            bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+                        });
+                    }else{
+                        bebidas=null;
+                    }
+
+
+                    pagueGanhe='<option value="">Selecione</option>';
+                    if(typeof data.ultimopedido.PagueGanhe !==  'undefined'){
+                        $.each(data.ultimopedido.PagueGanhe, function(i, pagueGan){
+                            pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+                        });
+                    }else{
+                        pagueGanhe=null;
+                    }
+
+                },error: function(data){
+
+
+
+
+                }
+
+            });
+
+
+        }
 
  $( window ).load(function() {
 

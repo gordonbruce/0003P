@@ -2959,17 +2959,19 @@ function checaAtendimento(atendimentocod){
                     $(".cidade").val(unescape(resultadoCEP["cidade"]));
                     $(".uf").val(unescape(resultadoCEP["uf"]));
                     $(".complemento").focus();
-                    $.mobile.loading( "hide" );
+
                 }else{
                     //$("#loadingCep").html(unescape(resultadoCEP["resultado_txt"]));
-                    $.mobile.loading( "hide" );
+
 
                 }
             });
+
         }
         else{
             $(".loadingCep").html('Informe o CEP');
         }
+        $.mobile.loading( "hide" );
     }
     $('.cep').focusout(function(){
         getEndereco($('.cep').val());

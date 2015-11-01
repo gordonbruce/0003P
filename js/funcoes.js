@@ -3693,6 +3693,7 @@ function checaAtendimento(atendimentocod){
 
         msg = $("#msg").val();
         if(msg !=''){
+            $.mobile.loading( "show" );
             enviaMensagem();
 
             $("#msg").val('');
@@ -3806,7 +3807,7 @@ function checaAtendimento(atendimentocod){
             },error: function(data){
                 //criar tratatmento de erros
 
-
+                $.mobile.loading( "hide" );
             }
             });
 
@@ -3887,7 +3888,7 @@ function checaAtendimento(atendimentocod){
 
 
             success: function(data){
-console.log(url);
+
                 console.log(data);
                 contadorScroll=0;
                 acumuladorTexto="";
@@ -3933,12 +3934,12 @@ console.log(url);
 
                 }
 
-
+                $.mobile.loading( "hide" );
 
             },error: function(data){
                 //criar tratatmento de erros
                 //$(".erroconexao").popup( "open" );
-
+                 $.mobile.loading( "hide" );
             }
             });
     }

@@ -3803,7 +3803,7 @@ function checaAtendimento(atendimentocod){
 
                 $("#chatZone").getNiceScroll().resize();
                 $("#chatZone").niceScroll({cursorcolor:"#CCC" }); */
-
+                $.mobile.loading( "show" );
             },error: function(data){
                 //criar tratatmento de erros
 

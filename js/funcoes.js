@@ -2966,11 +2966,12 @@ function checaAtendimento(atendimentocod){
 
                 }
             });
-              $.mobile.loading( "hide" );
+
         }
         else{
             $(".loadingCep").html('Informe o CEP');
         }
+        $.mobile.loading( "hide" );
     }
     $('.cep').focusout(function(){
         getEndereco($('.cep').val());

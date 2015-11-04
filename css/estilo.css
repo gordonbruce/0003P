@@ -228,7 +228,7 @@
 
 
 
-    .pageContent{ position:relative !important; background-color: #fcee21; /*background-image: url("../images/backgroun2.jpg");*/
+    .pageContent{ position:relative !important; background-color: #fcee21;padding-bottom:97px; margin-bottom:20px; /*background-image: url("../images/backgroun2.jpg");*/
                 }
     .hideFooter{bottom:0px; position:absolute !important;  top: auto !important; width:100%; bottom: 0%;}
       .hideFooter2{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%; }
@@ -700,7 +700,6 @@ display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 14px;
-      margin-bottom: 60px;
 }
 .imgAvancar{
     font-size: 15px;
@@ -727,10 +726,7 @@ display: block;
 .linkTelefone{
   margin-top: 1px;
 }
-.ui-page{
-  padding-top: 0px !important;
-  margin-top: 68.18px !important;
-}
+
 @media screen and (max-height: 768px) {
   .pageContent{
         min-height: 670px !important;

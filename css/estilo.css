@@ -729,50 +729,50 @@ display: block;
 
 @media screen and (max-height: 768px) {
   .pageContent{
-        min-height: 670px !important;
+        min-height: 650px !important;
   }
   .contentPage{
-       min-height: 670px !important;
+       min-height: 650px !important;
   }
 }
 @media screen and (max-height: 640px) {
   .pageContent{
-        min-height: 540px !important;
+        min-height: 520px !important;
   }
   .contentPage{
-       min-height: 540px !important;
+       min-height: 520px !important;
   }
 }
 @media screen and (max-height: 600px) {
   .pageContent{
-        min-height: 510px !important;
+        min-height: 490px !important;
   }
   .contentPage{
-       min-height: 510px !important;
+       min-height: 490px !important;
   }
 }
 @media screen and (max-height: 568px) {
   .pageContent{
-        min-height: 469px !important;
+        min-height: 459px !important;
   }
   .contentPage{
-       min-height: 469px !important;
+       min-height: 459px !important;
   }
 }
 @media screen and (max-height: 534px) {
   .pageContent{
-        min-height: 435px !important;
+        min-height: 415px !important;
   }
   .contentPage{
-       min-height: 435px !important;
+       min-height: 415px !important;
   }
 }
 @media screen and (max-height: 481px) {
   .pageContent{
-        min-height: 380px !important;
+        min-height: 360px !important;
   }
   .contentPage{
-       min-height: 380px !important;
+       min-height: 360px !important;
   }
 }
 

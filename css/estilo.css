@@ -727,7 +727,10 @@ display: block;
 .linkTelefone{
   margin-top: 1px;
 }
-
+.ui-page{
+  padding-top: 0px !important;
+  margin-top: 57px !important;
+}
 @media screen and (max-height: 768px) {
   .pageContent{
         min-height: 670px !important;

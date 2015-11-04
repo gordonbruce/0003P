@@ -228,7 +228,7 @@
 
 
 
-    .pageContent{height: 100% !important; position:relative !important; padding-bottom:97px; margin-bottom:20px;background-color: #fcee21; /*background-image: url("../images/backgroun2.jpg");*/
+    .pageContent{ position:relative !important; background-color: #fcee21;padding-bottom:97px; margin-bottom:20px; /*background-image: url("../images/backgroun2.jpg");*/
                 }
     .hideFooter{bottom:0px; position:absolute !important;  top: auto !important; width:100%; bottom: 0%;}
       .hideFooter2{bottom:0px; position:fixed !important;  top: auto !important; width:100%; bottom: 0%; }
@@ -325,6 +325,9 @@
           text-align: center !important;
 
             padding-bottom: 2%;*/
+        }
+        #page2{
+              padding-bottom: 61px;
         }
       #page2 .ui-footer small{
          padding-bottom: 6px;
@@ -710,7 +713,7 @@ display: block;
     clear: both;
 }
 .submitFormCliente{
-    margin-bottom: 6px;
+    margin-bottom: 55px;
 }
 .slidedown{position: fixed !important;}
 .ui-header .btn-menu {height: 16px !important;
@@ -719,3 +722,57 @@ display: block;
 #page10 .ui-navbar{
    margin-top: -10px
 }
+
+.linkTelefone{
+  margin-top: 1px;
+}
+
+@media screen and (max-height: 768px) {
+  .pageContent{
+        min-height: 650px !important;
+  }
+  .contentPage{
+       min-height: 650px !important;
+  }
+}
+@media screen and (max-height: 640px) {
+  .pageContent{
+        min-height: 520px !important;
+  }
+  .contentPage{
+       min-height: 520px !important;
+  }
+}
+@media screen and (max-height: 600px) {
+  .pageContent{
+        min-height: 490px !important;
+  }
+  .contentPage{
+       min-height: 490px !important;
+  }
+}
+@media screen and (max-height: 568px) {
+  .pageContent{
+        min-height: 459px !important;
+  }
+  .contentPage{
+       min-height: 459px !important;
+  }
+}
+@media screen and (max-height: 534px) {
+  .pageContent{
+        min-height: 415px !important;
+  }
+  .contentPage{
+       min-height: 415px !important;
+  }
+}
+@media screen and (max-height: 481px) {
+  .pageContent{
+        min-height: 360px !important;
+  }
+  .contentPage{
+       min-height: 360px !important;
+  }
+}
+

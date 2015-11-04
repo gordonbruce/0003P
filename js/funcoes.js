@@ -3805,10 +3805,10 @@ function checaAtendimento(atendimentocod){
 
                 $("#chatZone").getNiceScroll().resize();
                 $("#chatZone").niceScroll({cursorcolor:"#CCC" }); */
-                 $.mobile.loading( "show" );
+                $.mobile.loading( "show" );
             },error: function(data){
                 //criar tratatmento de erros
-                 $("#popupDialogLogin11").popup( "open" );
+                $("#popupDialogLogin11").popup( "open" );
                 $.mobile.loading( "hide" );
             }
             });

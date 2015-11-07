@@ -210,7 +210,9 @@
                       margin-bottom: 6%;
             }
 
-
+        #login{
+          margin-bottom: 58px;
+        }
              /***Fim das Alterações para background do aplicativo****/
         .painelMenu{
                 width: 190px;
@@ -245,7 +247,7 @@
 
     .slider{max-width: 302px;}
     /*.slider img{ margin: 0 auto;  display: block;}*/
-    .slider  h4{   text-align: center; font-size: 17pt; height: 5px;   font-weight: bolder;   margin-top: 9px;}
+    .slider  h4{   text-align: center; font-size: 17pt; height: 5px;   font-weight: bolder;   margin-top: 9px;  display: inline-block; width: 100%;}
     .slider small{margin-top: 12px;}
     .slider .icone-mais{margin-left: 85%;}
     .textoProduto{display:none;}

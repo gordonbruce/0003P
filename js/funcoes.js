@@ -98,22 +98,9 @@ function removeDiacritics (str) {
 
 $(document).ready(function() {
 
-    $('body').on('focusin','#password', function(){
-       $('.hideFooter').hide();
-    });
-    $('body').on('focusout','#password', function(){
-       $('.hideFooter').show();
-    });
 
-     $('body').on('focusin','#text-basic', function(){
-       $('.hideFooter').hide();
-    });
-    $('body').on('focusout','#text-basic', function(){
-       $('.hideFooter').show();
-    });
-
-    $('body').click(function(){
-        $('.ui-header').removeClass('slidedown');
+    $('body').on('clinck', 'body',function(){
+        //$('.ui-header-fixed').removeClass('slidedown');
     });
     $('.endEntrega').focusout(function(){
 

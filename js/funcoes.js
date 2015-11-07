@@ -558,6 +558,7 @@ $(document).on("pageshow","#index",function(){
         }
     });
     function gerarListaProdutos(ob, j){
+        $.mobile.loading( "hide" );
         var selectTamanho="";
         var  dataTamanhos="";
         var  dataTamanhosPrecos="";
@@ -863,7 +864,7 @@ function atualizarProduto(){
                      //$("div").append(field + " ");
                 });
 
-                    $.mobile.loading( "hide" );
+
 
 
                 },error: function(data){
@@ -1716,12 +1717,19 @@ $("#pedir").click(function(event){
                         $.mobile.changePage("#page2",{ transition: "pop",  });
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );
-                            setTimeout(function(){
-                                $.mobile.loading( "hide" );
-                                $('.pageContent').fadeIn('slow');
-                            },2000);
+
                         getAtendimento(atendimento.Pedido.atendimento_id);
                         getItens(atendimento.Pedido.atendimento_id);
+                        valorTotal= $('#valorTotalPedido').html();
+                        $.mobile.loading( "hide" );
+                        if(valorTotal  != '00,00'){
+
+                            $('.pageContent').fadeIn('slow');
+                        }else{
+
+                            $("#popupDialogLogin16").popup( "open" );
+                        }
+
                         $("#idAtend").html(atendimento.Pedido.atendimento_id);
 
                     }else{

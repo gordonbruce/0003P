@@ -98,22 +98,9 @@ function removeDiacritics (str) {
 
 $(document).ready(function() {
 
-    $('body').on('focusin','#password', function(){
-       $('.hideFooter').hide();
-    });
-    $('body').on('focusout','#password', function(){
-       $('.hideFooter').show();
-    });
 
-     $('body').on('focusin','#text-basic', function(){
-       $('.hideFooter').hide();
-    });
-    $('body').on('focusout','#text-basic', function(){
-       $('.hideFooter').show();
-    });
-
-    $('body').click(function(){
-        $('.ui-header').removeClass('slidedown');
+    $('body').on('clinck', 'body',function(){
+        //$('.ui-header-fixed').removeClass('slidedown');
     });
     $('.endEntrega').focusout(function(){
 
@@ -1035,18 +1022,18 @@ function atualizarProduto(){
             vlTotalSub=vlTotal.replace(",",".");
 
 
-			if (frete != null && frete !=' ' ){
-					frete = frete.toFixed(2);
-					frete = frete.toString();
-					frete = frete.replace('.', ',');
-					freteMaisProduto=parseFloat(freteMaisProduto);
-					freteMaisProduto = freteMaisProduto.toFixed(2);
-					freteMaisProduto = freteMaisProduto.toString();
-					freteMaisProduto = freteMaisProduto.replace('.', ',');
-				}else{
-					frete = null;
-					freteMaisProduto=0;
-				}
+            if (frete != null && frete !=' ' ){
+                    frete = frete.toFixed(2);
+                    frete = frete.toString();
+                    frete = frete.replace('.', ',');
+                    freteMaisProduto=parseFloat(freteMaisProduto);
+                    freteMaisProduto = freteMaisProduto.toFixed(2);
+                    freteMaisProduto = freteMaisProduto.toString();
+                    freteMaisProduto = freteMaisProduto.replace('.', ',');
+                }else{
+                    frete = null;
+                    freteMaisProduto=0;
+                }
 
 
 

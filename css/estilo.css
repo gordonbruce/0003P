@@ -735,7 +735,7 @@ display: block;
   display: inline-block;
   width: 100%;
   padding-top: 0px;
-  margin-top: 0px;
+  margin-top: 0px !important;
 }
 @media screen and (max-height: 768px) {
   .pageContent{

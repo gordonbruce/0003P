@@ -682,7 +682,7 @@ $(document).on("pageshow","#index",function(){
 
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><small class="ilustrativa">Imagem meramente ilustrativa</small><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <small>'+ob.descricao+'</small>\
                     </div></div>\
                     '+selectTamanho+'\
@@ -736,7 +736,7 @@ $(document).on("pageshow","#index",function(){
 
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><small class="ilustrativa">Imagem meramente ilustrativa</small><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <small>'+ob.descricao+'</small>\
                     </div></div>'+selectTamanho+'\
                     '+selectBebidas+'\
@@ -753,7 +753,7 @@ $(document).on("pageshow","#index",function(){
                 vlunit = vlunit.toFixed(2);
                 return '<div class= "slider">\
                 <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                <h4>'+ob.nome+'</h4><span class="preco">Indispon&iacute;vel</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                <h4>'+ob.nome+'</h4><small class="ilustrativa">Imagem meramente ilustrativa</small><span class="preco">Indispon&iacute;vel</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                 <small>'+ob.descricao+'</small>\
                 </div></div>\
                 <div class="divControles" data-role="controlgroup" data-mini="true">\

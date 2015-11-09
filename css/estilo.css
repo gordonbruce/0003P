@@ -730,7 +730,13 @@ display: block;
 .linkTelefone{
   margin-top: 1px;
 }
-
+.ilustrativa{
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  padding-top: 0px;
+  margin-top: 0px;
+}
 @media screen and (max-height: 768px) {
   .pageContent{
         min-height: 650px !important;

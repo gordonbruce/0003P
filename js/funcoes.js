@@ -1386,7 +1386,7 @@ function atualizarProduto(){
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
-                        filialPadrao=data.ultimopedido.Cliente.filial_id;
+                       // filialPadrao=data.ultimopedido.Cliente.filial_id;
                         $.mobile.changePage("#page3",{ transition: "none",  });
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );

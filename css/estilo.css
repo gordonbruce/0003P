@@ -248,11 +248,11 @@
     .slider{max-width: 302px;}
     /*.slider img{ margin: 0 auto;  display: block;}*/
     .slider  h4{   text-align: center; font-size: 17pt; height: 5px;   font-weight: bolder;   margin-top: 9px;  display: inline-block; width: 100%;}
-    .slider small{margin-top: 12px;}
+    .slider p{margin-top: 0px;}
     .slider .icone-mais{margin-left: 85%;}
     .textoProduto{display:none;}
 
-    .popDiv{display:none; text-align: center;}
+    .popDiv{ text-align: center;}
 
     .preco{
         display: block;
@@ -323,7 +323,7 @@
       .ui-footer {min-height: 68.15px; }
     .ui-footer small{font-size: 0.7em; text-align: center !important; margin-top: 20px;}
     .ui-header{min-height: 4.2em; width: 100%;}
-      #index .ui-footer small, #page3 .ui-footer small , #page1 .ui-footer small, #page13 .ui-footer small {
+      #index_old .ui-footer small, #index .ui-footer small , #page1 .ui-footer small, #page13 .ui-footer small {
         /*  font-size: 0.7em;
           text-align: center !important;
 

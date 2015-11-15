@@ -37,440 +37,7 @@
 
     </head>
  <body>
-        <div id="index" data-role="page" data-theme="b" data-content-theme="b" data-overlay-theme="b" >
-            <div data-role="panel" id="mypanelindex" data-display="overlay" data-theme="b" data-content-theme="b">
-                <img src="images/logoentrega_painel.png"  class="logoPainel" />
-               <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
-
-                    <li>
-                    <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
-                    </span>
-                    <span class="dispLoja"><span class="mediaAtendimento none">Loja Indisponível</span>
-                    </span>
-                    </li>
-                    <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
-                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
-                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
-
-                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
-                    <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
-                </ul>
-            </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
-                <h1 class="tituloHeader">Início</h1>
-
-                <img src="images/logoentrega.png" class="applogo ui-btn-right" />
-
-
-
-                <a href="#mypanelindex" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
-
-            </div><!-- /header -->
-            <div data-role="content" class="contentPage">
-                <img src="images/entregap-home.png" class="imgEntrada" />
-                <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Foto</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Enviar Foto</p>
-                        <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-                            <input type="hidden" name="_method" value="POST">
-                            <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
-                            <input type="file" name="data[Cliente][foto]" value="0" class="fotoInput" id="pickedit1">
-                            <input type="hidden" name="data[Cliente][salt]" class="clienteSalt" value="" autocomplete="off" >
-                            <input type="hidden" name="data[Cliente][token]" class="clienteToken" value="" autocomplete="off" >
-                            <button type="submit" class="submitFormClienteFoto" class="ui-shadow ui-btn ui-corner-all  ui-btn-b"  data-content-theme="b" data-theme="b"  >Enviar</button>
-                        </form>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-                <div data-role="popup" class="popupAvisoCampainha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-                        <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-                            <h2>Mensagem</h2>
-
-                        </div>
-                        <div role="main" class="ui-content">
-                            <p>Seu pedido acabou de chegar, o entregador te aguarda do lado de fora.</p>
-                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" data-idatendimento="" class="fecharcampainha">Fechar</a>
-                        </div>
-                </div>
-                <audio controls class="audioPlayer">
-                     <source src="sons/cymbals Symphony.wav" type="audio/wav">
-                </audio>
-
-            </div><!-- /content -->
-            <div data-role="popup" id="popupDialogLogin2" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Ops, ocorreu um erro.</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Verifique sua internet ou tente mais tarde</p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-            </div>
-            <div data-role="footer" class="hideFooter">
-                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
-            </div><!--Footer-->
-        </div><!-- /page -->
-        <div id="Pagelogin" data-role="page" data-theme="b" data-content-theme="a" data-overlay-theme="b" >
-            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
-                <h1 class="tituloHeader">Login</h1>
-
-                <img src="images/logoentrega.png" class=" applogo ui-btn-right" />
-
-            </div><!-- /header -->
-
-            <div data-role="content" class="contentPage">
-                <img src="images/logoLogin.png" class="imgLogin" />
-                <form method="post" data-ajax="false" id="login">
-                    <label for="text-basic">Usuário:</label>
-                    <input type="text"  id="text-basic" value="" name="username"  placeholder="Usuário" class="limpar">
-                    <label for="password">Senha:</label>
-                    <input type="password" name="password" id="password" value="" autocomplete="off"  placeholder="Senha" class="limpar" >
-                    <button class="ui-btn ui-btn-inline ui-btn-b " id="submitForm">Entrar</button>
-                    <a href="#page5" class="ui-btn ui-btn-inline ui-btn-b ">Cadastrar-se</a>
-                    <input type="hidden" name="salt" id="loginSalt" class="loginsalt" value="" autocomplete="off" >
-                    <input type="hidden" name="empresa" id="empresa_input" class="empresa_input" autocomplete="off" >
-                    <input type="hidden" name="filial" id="filial_input" class="filial_input" autocomplete="off" >
-                </form>
-                <div id="usuario"></div>
-                <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="">
-                        <div data-role="header" data-theme="b" data-position="fixed"  >
-                        <h2>Ops, ocorreu um erro</h2>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <p>Usuário ou senha incorreto(s)</p>
-                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                        </div>
-                </div>
-
-                <div data-role="popup" id="popupDialogLogin" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Ops, ocorreu um erro.</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Verifique sua internet ou tente mais tarde</p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-
-                <div id="produtos"></div>
-            </div><!-- /content -->
-
-
-            <div data-role="footer"    class="hideFooter" >
-                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
-            </div><!--Footer-->
-
-        </div><!-- /page -->
-
-
-
-
-        <div id="page1" data-role="page"   class="contentPage" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
-
-            <div data-role="panel" id="mypanel1" data-display="overlay" data-theme="b" data-content-theme="b">
-                <img src="images/logoentrega_painel.png" class="logoPainel"/>
-               <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
-                    <li>
-                    <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
-                    </span>
-                    <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
-                    </span>
-                    </li>
-                    <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
-                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
-                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
-                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
-                    <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
-                </ul>
-            </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
-                <h1 class="tituloHeader">Meus Pedidos</h1>
-
-
-                <img src="images/logoentrega.png" class="applogo ui-btn-right" />
-
-
-                <a href="#mypanel1" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
-
-            </div><!-- /header -->
-            <div data-role="content" class="contentPage">
-                <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Foto</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Enviar Foto</p>
-                        <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="enviaFotoForm1">
-                            <input type="hidden" name="_method" value="POST">
-                            <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
-                            <input type="file" name="data[Cliente][foto]" value="0" class="fotoInput" id="fotoInput1">
-                            <input type="text" name="data[Cliente][tmpurl]" value="0" class="urlnput" id="urlnput1">
-                            <input type="hidden" name="data[Cliente][salt]" class="clienteSalt" value="" autocomplete="off" >
-                            <input type="hidden" name="data[Cliente][token]" class="clienteToken" value="" autocomplete="off" >
-                            <button type="submit" class="submitFormClienteFoto" class="ui-shadow ui-btn ui-corner-all  ui-btn-b"  data-content-theme="b" data-theme="b"  >Enviar</button>
-                        </form>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-                <div class="ui-grid-a">
-                    <table data-role="table"  data-mode="columntoggle" class="ui-responsive  table-stripe tabela" id="table-atend" >
-                         <thead>
-                           <tr>
-                             <th data-priority="0">Cód</th>
-                             <th data-priority "0">Data</th>
-                             <th data-priority="0">Sit</th>
-                             <th data-priority="0">Ações</th>
-                           </tr>
-                         </thead>
-                         <tbody id="atendimentostab">
-                         </tbody>
-                   </table>
-                </div><!-- /grid-a -->
-                <div id="atendimentosView"></div>
-                <div id="atendimentos"></div>
-                <div id="itensdiv"></div>
-                <button id="bt-vermaisPedidos" >Ver Mais Pedidos</button>
-                <div data-role="popup" id="popupDialogLogin13" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Ops, ocorreu um erro.</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Verifique sua internet ou tente mais tarde</p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-            </div><!-- /content -->
-            <div data-role="footer" class="hideFooter2" >
-                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
-            </div><!--Footer-->
-        </div><!-- /page -->
-        <div id="page2" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
-
-            <div data-role="panel" id="mypanel2" data-display="overlay" data-theme="b" data-content-theme="b">
-                <img src="images/logoentrega_painel.png"class="logoPainel"/>
-               <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
-                    <li>
-                    <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
-                    </span>
-                    <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
-                    </span>
-                    </li>
-                    <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
-                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
-                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
-                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
-                    <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
-                </ul>
-            </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
-                <h1 class="tituloHeader">Atendimento</h1>
-
-                    <img src="images/logoentrega.png" class="applogo ui-btn-right"  />
-
-
-                <a href="#mypanel2" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
-
-            </div><!-- /header -->
-
-            <div data-role="content" class="contentPage">
-                <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Foto</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Enviar Foto</p>
-                        <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
-                            <input type="hidden" name="_method" value="POST">
-                            <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
-                            <input type="file" name="data[Cliente][foto]" value="0" class="fotoInput">
-                            <input type="hidden" name="data[Cliente][salt]" class="clienteSalt" value="" autocomplete="off" >
-                            <input type="hidden" name="data[Cliente][token]" class="clienteToken" value="" autocomplete="off" >
-                            <button type="submit" class="submitFormClienteFoto" class="ui-shadow ui-btn ui-corner-all  ui-btn-b"  data-content-theme="b" data-theme="b"  >Enviar</button>
-                        </form>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-                <div class="rwd-example">
-                    <!-- Lead story block -->
-                    <div class="ui-grid-solo">
-                        <div class="ui-body ui-body-d">
-                            <h3 class="h3content"><span class="h3previsao">Previsão de Entrega</spam><div id="counter"></div></h3>
-
-                            <dl>
-                            <dt>Código:</dt>
-                            <dd id="codigoAtend">
-
-                                &nbsp;
-                            </dd>
-                            <dt>Data/Hora</dt>
-                            <dd id="dataAtend">
-
-                                &nbsp;
-                            </dd>
-                            <dt>Cliente</dt>
-                            <dd id="clienteAtend">
-
-                                &nbsp;
-                            </dd>
-                            <dt>Atendendete</dt>
-                            <dd id="AtendAtend">
-
-                                &nbsp;
-                            </dd>
-                            <dt class="animaSitPag animacaoAtend">Pagamento</dt>
-                            <dd id="pagamentoAtend" class="animaSitPag animacaoAtend">
-
-                                &nbsp;
-                            </dd>
-                            <dt class="entregaPedido">Valor da Entrega</dt>
-                            <dd id="entregaPedido" class="entregaPedido">
-
-                                &nbsp;
-                            </dd>
-                            <dt class="situacaoAtend bkAnimacao">Situação</dt>
-                            <dd id="situacaoAtend" class="situacaoAtend bkAnimacao animacaoAtend">
-
-                                &nbsp;
-                            </dd>
-                            <dt>Avaliação</dt>
-                            <dd id="avliacao">
-                                <div id="avaliacaoPedido"></div>
-                                &nbsp;
-                            </dd>
-
-                            <dt class="animaPos">Posição na fila</dt>
-                            <dd id="posFilaAtend" class="bkAnimacaoPosFila animaPos animacaoAtend">
-
-                                &nbsp;
-                            </dd>
-                            <dt class="dispNone">Previsão</dt>
-                            <dd id="previsaoAtend">
-
-
-                            </dd>
-
-
-                            </dl>
-
-                            <div id="idAtend" class="dispNone"></div>
-                            <div id="idPedidoAux" class="dispNone"></div>
-                        </div>
-
-                    </div>
-                   <audio controls class="audioPlayer">
-                     <source src="sons/cymbals Symphony.wav" type="audio/wav">
-                    </audio>
-                </div><!-- /rwd-example -->
-
-                <table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive tabela table-stripe tabelaPadrao" >
-                     <thead>
-                       <tr>
-                         <th data-priority="0">Cód</th>
-                         <th data-priority="0">Produto</th>
-                         <th data-priority="0">V.Unit</th>
-                         <th data-priority="0">Qtde</th>
-                         <th data-priority="0">V.Total</th>
-                       </tr>
-                     </thead>
-                     <tbody id="itensdoPedido">
-
-
-                       <tr id="linhaTotalPedido">
-                            <td colspan="4">Total</td>
-                            <td id="valorTotalPedido">00,00</td>
-                        </tr>
-
-                     </tbody>
-               </table>
-                <dl>
-                <dt>Total à Pagar</dt>
-                    <dd id="obsTotalEntrega">
-                        <div id="obsPedidoTotal"></div>
-                        &nbsp;
-                    </dd>
-                </dl>
-                <dl>
-                <dt>Local de Entrega</dt>
-                    <dd id="obsEntregaPedido">
-                        <div id="obsPedidoEntrega"></div>
-                    </dd>
-                </dl>
-                <div style="margin-bottom:30px"></div>
-
-                <dt>Observaçoes</dt>
-                    <dd id="obs">
-                        <div id="obsPedido"></div>
-                        &nbsp;
-                    </dd>
-                </dl>
-                <div id="itensdepedido"></div>
-                <div id="atendimentosView2"></div>
-
-                <div data-role="popup" id="popupSucEnvPedido2" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:16em; margin-left: -8em; margin-top: -3em;">
-
-                    <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-                        <h2>Sucesso</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Pedido Enviado Com Sucesso</p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-
-                <div data-role="popup" id="popupComentarPedido" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-                        <h2>Comentário</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Dê sua opinião sobre este pedido</p>
-                        <div id="avaliarPedido"></div>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-                <div data-role="popup" id="popupDialogLogin16" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Ops, ocorreu um erro.</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Verifique sua internet ou tente mais tarde</p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-                <div data-role="popup" class="popupAvisoCampainha" id="popupAvisoCampainha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-                        <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-                            <h2>Mensagem</h2>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <p>Seu pedido acabou de chegar, o entregador te aguarda do lado de fora.</p>
-                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" data-idatendimento="" class="fecharcampainha">Fechar</a>
-                        </div>
-                </div>
-                <audio controls class="audioPlayer">
-                     <source src="sons/cymbals Symphony.wav" type="audio/wav">
-                </audio>
-
-            </div><!-- /content -->
-
-            <div data-role="footer" class="hideFooter"   data-tap-toggle="false">
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Speciale By Entregapp', null, 'http://entregapp.com.br/img_share/speciale.png', null)" data-icon="share">Compartilhar</a></li>
-
-                        <li><a href="#page10" data-icon="comment" id="btn-chat">Atendimento</a></li>
-                        <li><a href="#" data-icon="location" class="btn-locPedido">Localizar Pedido</a></li>
-                    </ul>
-                </div>
-                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
-            </div><!--Footer-->
-
-        </div><!-- /page -->
-        <div id="page3" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="a"  data-overlay-theme="b" >
+        <div id="index" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="a"  data-overlay-theme="b" >
 
             <div data-role="panel" id="mypanel3" data-display="overlay" data-theme="b" data-content-theme="b">
                 <img src="images/logoentrega_painel.png" class="logoPainel"/>
@@ -489,7 +56,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"    data-tap-toggle="false">
                 <h1 class="tituloHeader">Novo Pedido</h1>
 
 
@@ -500,7 +67,7 @@
 
             </div><!-- /header -->
 
-            <div data-role="content" class="contentPage">
+            <div data-role="content" class="contentPage" id="contentIndex">
                 <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
                     <div data-role="header" data-theme="b" data-position="fixed">
                     <h2>Foto</h2>
@@ -881,6 +448,363 @@
 
 
         </div><!-- /page -->
+        <div id="Pagelogin" data-role="page" data-theme="b" data-content-theme="a" data-overlay-theme="b" >
+            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
+                <h1 class="tituloHeader">Login</h1>
+
+                <img src="images/logoentrega.png" class=" applogo ui-btn-right" />
+
+            </div><!-- /header -->
+
+            <div data-role="content" class="contentPage">
+                <img src="images/logoLogin.png" class="imgLogin" />
+                <form method="post" data-ajax="false" id="login">
+                    <label for="text-basic">Usuário:</label>
+                    <input type="text"  id="text-basic" value="" name="username"  placeholder="Usuário" class="limpar">
+                    <label for="password">Senha:</label>
+                    <input type="password" name="password" id="password" value="" autocomplete="off"  placeholder="Senha" class="limpar" >
+                    <button class="ui-btn ui-btn-inline ui-btn-b " id="submitForm">Entrar</button>
+                    <a href="#page5" class="ui-btn ui-btn-inline ui-btn-b ">Cadastrar-se</a>
+                    <input type="hidden" name="salt" id="loginSalt" class="loginsalt" value="" autocomplete="off" >
+                    <input type="hidden" name="empresa" id="empresa_input" class="empresa_input" autocomplete="off" >
+                    <input type="hidden" name="filial" id="filial_input" class="filial_input" autocomplete="off" >
+                </form>
+                <div id="usuario"></div>
+                <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="">
+                        <div data-role="header" data-theme="b" data-position="fixed"  >
+                        <h2>Ops, ocorreu um erro</h2>
+                        </div>
+                        <div role="main" class="ui-content">
+                            <p>Usuário ou senha incorreto(s)</p>
+                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                        </div>
+                </div>
+
+                <div data-role="popup" id="popupDialogLogin" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed">
+                    <h2>Ops, ocorreu um erro.</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Verifique sua internet ou tente mais tarde</p>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+
+                <div id="produtos"></div>
+            </div><!-- /content -->
+
+
+            <div data-role="footer"    class="hideFooter" >
+                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
+            </div><!--Footer-->
+
+        </div><!-- /page -->
+
+
+
+
+        <div id="page1" data-role="page"   class="contentPage" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
+
+            <div data-role="panel" id="mypanel1" data-display="overlay" data-theme="b" data-content-theme="b">
+                <img src="images/logoentrega_painel.png" class="logoPainel"/>
+               <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+                    <li>
+                    <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
+                    </span>
+                    <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+                    </span>
+                    </li>
+                    <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
+                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
+                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                    <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="header" data-position="fixed"    data-tap-toggle="false">
+                <h1 class="tituloHeader">Meus Pedidos</h1>
+
+
+                <img src="images/logoentrega.png" class="applogo ui-btn-right" />
+
+
+                <a href="#mypanel1" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
+
+            </div><!-- /header -->
+            <div data-role="content" class="contentPage">
+                <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed">
+                    <h2>Foto</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Enviar Foto</p>
+                        <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="enviaFotoForm1">
+                            <input type="hidden" name="_method" value="POST">
+                            <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
+                            <input type="file" name="data[Cliente][foto]" value="0" class="fotoInput" id="fotoInput1">
+                            <input type="text" name="data[Cliente][tmpurl]" value="0" class="urlnput" id="urlnput1">
+                            <input type="hidden" name="data[Cliente][salt]" class="clienteSalt" value="" autocomplete="off" >
+                            <input type="hidden" name="data[Cliente][token]" class="clienteToken" value="" autocomplete="off" >
+                            <button type="submit" class="submitFormClienteFoto" class="ui-shadow ui-btn ui-corner-all  ui-btn-b"  data-content-theme="b" data-theme="b"  >Enviar</button>
+                        </form>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+                <div class="ui-grid-a">
+                    <table data-role="table"  data-mode="columntoggle" class="ui-responsive  table-stripe tabela" id="table-atend" >
+                         <thead>
+                           <tr>
+                             <th data-priority="0">Cód</th>
+                             <th data-priority "0">Data</th>
+                             <th data-priority="0">Sit</th>
+                             <th data-priority="0">Ações</th>
+                           </tr>
+                         </thead>
+                         <tbody id="atendimentostab">
+                         </tbody>
+                   </table>
+                </div><!-- /grid-a -->
+                <div id="atendimentosView"></div>
+                <div id="atendimentos"></div>
+                <div id="itensdiv"></div>
+                <button id="bt-vermaisPedidos" >Ver Mais Pedidos</button>
+                <div data-role="popup" id="popupDialogLogin13" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed">
+                    <h2>Ops, ocorreu um erro.</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Verifique sua internet ou tente mais tarde</p>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+            </div><!-- /content -->
+            <div data-role="footer" class="hideFooter2" >
+                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
+            </div><!--Footer-->
+        </div><!-- /page -->
+        <div id="page2" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
+
+            <div data-role="panel" id="mypanel2" data-display="overlay" data-theme="b" data-content-theme="b">
+                <img src="images/logoentrega_painel.png"class="logoPainel"/>
+               <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+                    <li>
+                    <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
+                    </span>
+                    <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+                    </span>
+                    </li>
+                    <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
+                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
+                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                    <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="header" data-position="fixed"    data-tap-toggle="false">
+                <h1 class="tituloHeader">Atendimento</h1>
+
+                    <img src="images/logoentrega.png" class="applogo ui-btn-right"  />
+
+
+                <a href="#mypanel2" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
+
+            </div><!-- /header -->
+
+            <div data-role="content" class="contentPage" id="contentPage2">
+                <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed">
+                    <h2>Foto</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Enviar Foto</p>
+                        <form action="http://appedido.lojacriandoart.com.br/RestClientes/addmobile.json" class="enviaFoto" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+                            <input type="hidden" name="_method" value="POST">
+                            <input type="hidden" name="data[Cliente][id]" value="0" class="clienteIdFoto">
+                            <input type="file" name="data[Cliente][foto]" value="0" class="fotoInput">
+                            <input type="hidden" name="data[Cliente][salt]" class="clienteSalt" value="" autocomplete="off" >
+                            <input type="hidden" name="data[Cliente][token]" class="clienteToken" value="" autocomplete="off" >
+                            <button type="submit" class="submitFormClienteFoto" class="ui-shadow ui-btn ui-corner-all  ui-btn-b"  data-content-theme="b" data-theme="b"  >Enviar</button>
+                        </form>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+                <div class="rwd-example">
+                    <!-- Lead story block -->
+                    <div class="ui-grid-solo">
+                        <div class="ui-body ui-body-d">
+                            <h3 class="h3content"><span class="h3previsao">Previsão de Entrega</spam><div id="counter"></div></h3>
+
+                            <dl>
+                            <dt>Código:</dt>
+                            <dd id="codigoAtend">
+
+                                &nbsp;
+                            </dd>
+                            <dt>Data/Hora</dt>
+                            <dd id="dataAtend">
+
+                                &nbsp;
+                            </dd>
+                            <dt>Cliente</dt>
+                            <dd id="clienteAtend">
+
+                                &nbsp;
+                            </dd>
+                            <dt>Atendendete</dt>
+                            <dd id="AtendAtend">
+
+                                &nbsp;
+                            </dd>
+                            <dt class="animaSitPag animacaoAtend">Pagamento</dt>
+                            <dd id="pagamentoAtend" class="animaSitPag animacaoAtend">
+
+                                &nbsp;
+                            </dd>
+                            <dt class="entregaPedido">Valor da Entrega</dt>
+                            <dd id="entregaPedido" class="entregaPedido">
+
+                                &nbsp;
+                            </dd>
+                            <dt class="situacaoAtend bkAnimacao">Situação</dt>
+                            <dd id="situacaoAtend" class="situacaoAtend bkAnimacao animacaoAtend">
+
+                                &nbsp;
+                            </dd>
+                            <dt>Avaliação</dt>
+                            <dd id="avliacao">
+                                <div id="avaliacaoPedido"></div>
+                                &nbsp;
+                            </dd>
+
+                            <dt class="animaPos">Posição na fila</dt>
+                            <dd id="posFilaAtend" class="bkAnimacaoPosFila animaPos animacaoAtend">
+
+                                &nbsp;
+                            </dd>
+                            <dt class="dispNone">Previsão</dt>
+                            <dd id="previsaoAtend">
+
+
+                            </dd>
+
+
+                            </dl>
+
+                            <div id="idAtend" class="dispNone"></div>
+                            <div id="idPedidoAux" class="dispNone"></div>
+                        </div>
+
+                    </div>
+                   <audio controls class="audioPlayer">
+                     <source src="sons/cymbals Symphony.wav" type="audio/wav">
+                    </audio>
+                </div><!-- /rwd-example -->
+
+                <table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive tabela table-stripe tabelaPadrao" >
+                     <thead>
+                       <tr>
+                         <th data-priority="0">Cód</th>
+                         <th data-priority="0">Produto</th>
+                         <th data-priority="0">V.Unit</th>
+                         <th data-priority="0">Qtde</th>
+                         <th data-priority="0">V.Total</th>
+                       </tr>
+                     </thead>
+                     <tbody id="itensdoPedido">
+
+
+                       <tr id="linhaTotalPedido">
+                            <td colspan="4">Total</td>
+                            <td id="valorTotalPedido">00,00</td>
+                        </tr>
+
+                     </tbody>
+               </table>
+                <dl>
+                <dt>Total à Pagar</dt>
+                    <dd id="obsTotalEntrega">
+                        <div id="obsPedidoTotal"></div>
+                        &nbsp;
+                    </dd>
+                </dl>
+                <dl>
+                <dt>Local de Entrega</dt>
+                    <dd id="obsEntregaPedido">
+                        <div id="obsPedidoEntrega"></div>
+                    </dd>
+                </dl>
+                <div style="margin-bottom:30px"></div>
+
+                <dt>Observaçoes</dt>
+                    <dd id="obs">
+                        <div id="obsPedido"></div>
+                        &nbsp;
+                    </dd>
+                </dl>
+                <div id="itensdepedido"></div>
+                <div id="atendimentosView2"></div>
+
+                <div data-role="popup" id="popupSucEnvPedido2" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:16em; margin-left: -8em; margin-top: -3em;">
+
+                    <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                        <h2>Sucesso</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Pedido Enviado Com Sucesso</p>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+
+                <div data-role="popup" id="popupComentarPedido" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                        <h2>Comentário</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Dê sua opinião sobre este pedido</p>
+                        <div id="avaliarPedido"></div>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+                <div data-role="popup" id="popupDialogLogin16" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed">
+                    <h2>Ops, ocorreu um erro.</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Verifique sua internet ou tente mais tarde</p>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+                <div data-role="popup" class="popupAvisoCampainha" id="popupAvisoCampainha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                        <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                            <h2>Mensagem</h2>
+                        </div>
+                        <div role="main" class="ui-content">
+                            <p>Seu pedido acabou de chegar, o entregador te aguarda do lado de fora.</p>
+                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" data-idatendimento="" class="fecharcampainha">Fechar</a>
+                        </div>
+                </div>
+                <audio controls class="audioPlayer">
+                     <source src="sons/cymbals Symphony.wav" type="audio/wav">
+                </audio>
+
+            </div><!-- /content -->
+
+            <div data-role="footer" class="hideFooter"   data-tap-toggle="false">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Speciale Pizzaria By Entregapp', null, 'http://entregapp.com.br/img_share/speciale.png', null)" data-icon="share">Compartilhar</a></li>
+
+                        <li><a href="#page10" data-icon="comment" id="btn-chat">Atendimento</a></li>
+                        <li><a href="#" data-icon="location" class="btn-locPedido">Localizar Pedido</a></li>
+                    </ul>
+                </div>
+                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
+            </div><!--Footer-->
+
+        </div><!-- /page -->
+
         <div id="page4" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="a" data-overlay-theme="b" >
 
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="voltar" data-position="fixed"   data-tap-toggle="false">
@@ -1319,7 +1243,7 @@
 
         </div><!-- /page -->
     <div id="page9" data-role="page" data-theme="b" data-content-theme="b" data-overlay-theme="b" >
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"    data-tap-toggle="false">
                 <h1 class="tituloHeader">Escolha o tipo de pedido</h1>
 
 
@@ -1465,7 +1389,7 @@
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>
-            <div data-role="footer" id="footerchat" data-position="fixed"  data-tap-toggle="false" >
+            <div data-role="footer" id="footerchat" data-position="fixed"   data-tap-toggle="false" >
 
             <form  data-ajax="false" id="formChat" >
                                  
@@ -1542,7 +1466,7 @@
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
-            <div data-role="header" data-position="fixed"   data-tap-toggle="false">
+            <div data-role="header" data-position="fixed"    data-tap-toggle="false">
                 <h1 class="tituloHeader">Novo Pedido</h1>
 
                 <img src="images/logoentrega.png" class="applogo ui-btn-right" />

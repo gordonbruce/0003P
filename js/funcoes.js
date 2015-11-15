@@ -1,4 +1,73 @@
+function limparPedido() {
+        cont=0;
+        itens=0;
+        //codigo="";
+        contador=0;
+        pag='dh';
+        tipoTroco='Sim';
+        itens=0;
+        $('.clone').remove();
+        $('#totalPedido').html('');
+        $('#respTroco').html('');
+        $('#respTrocoAux').val('');
+        $("#PedidoA").val('entrega');
+        $("#pagamentoPedido").val('0');
+        $("#trocoRespostaPedido").val('0');
+        $(".erroqtde").hide();
+        $('#divProdutos').show();
+        $('#divPagamento').hide();
+        $('#proximoPedido').show();
+        $('.spananterior').hide();
+        $('.spanComprar').hide();
 
+        $('.spanproximo').show();
+        $('#pedir').hide();
+        $('#spanComprar').hide();
+        $("#auxvalortroco").val('');
+        $("#respTrocoAux").val('');
+        $("#respTroco").html('0,00');
+        $('#totalPedidoPag').html('0,00');
+        $('#voltarPedido').hide();
+         $('#entrega_valor').hide();
+         $('#totalPedidoPag').html('');
+        $('#totalEntrega').html('');
+        $('#totalPedidoEntrega').html('');
+        $('#entrega_valor').val('');
+
+
+        $('#lradio-choice-t-6a').removeClass('ui-radio-on');
+
+        $('#lradio-choice-t-6b').removeClass('ui-radio-on');
+        $('#lradio-choice-t-6c').removeClass('ui-radio-on');
+        $('#lradio-choice-t-6a').removeClass('ui-radio-off');
+        $('#lradio-choice-t-6b').removeClass('ui-radio-off');
+        $('#lradio-choice-t-6c').removeClass('ui-radio-off');
+
+        $('#lradio-choice-t-6a').addClass('ui-radio-on');
+        $('#lradio-choice-t-6b').addClass('ui-radio-off');
+        $('#lradio-choice-t-6c').addClass('ui-radio-off');
+
+        $('#radio-choice-t-6a').attr('data-cacheval', true);
+        $('#radio-choice-t-6b').attr('data-cacheval', false);
+        $('#radio-choice-t-6c').attr('data-cacheval', false);
+
+        $('#lbchoicea').removeClass('ui-radio-on');
+        $('#lbchoicea').removeClass('ui-radio-off');
+        $('#lbchoiceb').removeClass('ui-radio-on');
+        $('#lbchoiceb').addClass('ui-radio-off');
+
+
+        $('#radio-choice-t-7a').attr('data-cacheval', true);
+        $('#radio-choice-t-7b').attr('data-cacheval', false);
+
+        $('#trocoRespostaPedido').val('Sim');
+        $('#pagamentoPedido').val(1);
+
+        $('#divAuxTroco').hide();
+        $('#auxCartao').hide();
+        $('#respTroco').html('R$ 0,00');
+
+    }
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -236,7 +305,7 @@ function statusLoja(){
 
 };
 
-$(document).on("pageshow","#index",function(){
+$(document).on("pageshow","#index_old",function(){
     //cliente ="";
     $('.limpar').val('');
 });
@@ -257,13 +326,49 @@ $(document).on("pageshow","#index",function(){
             $('#sendToMoip').hide();
         });
 
-    $(document).on("pageshow","#page3",function(){ // When entering pagetwo
+        var verificaPedido='';
+        $(".erroqtde").hide();
+        //$('#divProdutos').show();
+        //$('#divPagamento').hide();
+        $('#proximoPedido').show();
+        $('#pedir').hide();
+        $('#spanComprar').hide();
+        $('#voltarPedido').hide();
+        $('.spananterior').hide();
+         $('.spanComprar').hide();
+        $('.spanproximo').show();
+
         atualizarProduto();
         atualizarPromo();
-        if(cliente !=""){
-            $('#clientePedido').val(cliente.Cliente.id);
-        }
+        limparPedido();
 
+    $(document).on("pageshow","#index",function(){ // When entering pagetwo
+
+        atualizarProduto();
+        atualizarPromo();
+        limparPedido();
+
+
+         $('#filialPedido').val(filialPadrao);
+         $("#empresaPedido").val(empresa);
+         $("#PedidoA").val(codigoAtend);
+         codigo="entrega";
+        $("#PedidoA").val(codigo);
+        if(cliente != ''){
+            $('#clientePedido').val(cliente.Cliente.id);
+            if(verificaPedido != ''){
+                clearInterval(verificaPedido);
+            }
+
+            $('.cloneOptPgt').remove();
+            console.log(cliente.Pagamento);
+            $.each(cliente.Pagamento, function(i, pagamento){
+                $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+            });
+
+        }else{
+            //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+        }
     });
 
     $(document).on("change", ".compostoAdd", function(){
@@ -545,7 +650,7 @@ $(document).on("pageshow","#index",function(){
         }
     });
     function gerarListaProdutos(ob, j){
-        $.mobile.loading( "hide" );
+
         var selectTamanho="";
         var  dataTamanhos="";
         var  dataTamanhosPrecos="";
@@ -682,8 +787,8 @@ $(document).on("pageshow","#index",function(){
 
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><small class="ilustrativa">Imagem meramente ilustrativa</small><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
-                    <small>'+ob.descricao+'</small>\
+                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <p>'+ob.descricao+'</p>\
                     </div></div>\
                     '+selectTamanho+'\
                     <label id="compostoLabelAdd'+ob.id+'" class=" compostoLabelAdd  noneImportant">Sabores</label>\
@@ -736,8 +841,8 @@ $(document).on("pageshow","#index",function(){
 
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><small class="ilustrativa">Imagem meramente ilustrativa</small><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
-                    <small>'+ob.descricao+'</small>\
+                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <p>'+ob.descricao+'</p>\
                     </div></div>'+selectTamanho+'\
                     '+selectBebidas+'\
                     '+selectpagueGanhe+'\
@@ -753,8 +858,8 @@ $(document).on("pageshow","#index",function(){
                 vlunit = vlunit.toFixed(2);
                 return '<div class= "slider">\
                 <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                <h4>'+ob.nome+'</h4><small class="ilustrativa">Imagem meramente ilustrativa</small><span class="preco">Indispon&iacute;vel</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
-                <small>'+ob.descricao+'</small>\
+                <h4>'+ob.nome+'</h4><span class="preco">Indispon&iacute;vel</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                <p>'+ob.descricao+'</p>\
                 </div></div>\
                 <div class="divControles" data-role="controlgroup" data-mini="true">\
                     <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
@@ -783,7 +888,7 @@ $(document).on("pageshow","#index",function(){
      var colapsableTrue='';
      var contColapsable=0;
      function gerarListaCategoria(obj, z){
-
+          $.mobile.loading( "show");
                     varprod="";
                     objProd =obj.Produto;
                     var ncat=0;
@@ -804,7 +909,7 @@ $(document).on("pageshow","#index",function(){
 
 
             //$('.listview').owlCarousel({navigation : true,  navigationText : ["ant","prox"], pagination : false,});
-
+            $.mobile.loading( "show");
 
 
 
@@ -816,7 +921,8 @@ $(document).on("pageshow","#index",function(){
 function atualizarProduto(){
 
         $('#set').html('');
-        $.mobile.loading( "show" ,{theme: 'b'});
+        $.mobile.loading( "show");
+        $('#contentIndex').hide();
         minhaUrl=URLAPP+"RestProdutos/prodsmobile.json?se="+empresa+"&sf=&fp="+filialPadrao+"";
          $.ajax({
                 type: "GET",
@@ -852,8 +958,8 @@ function atualizarProduto(){
                 });
 
 
-
-
+                    $.mobile.loading( "hide");
+                    $('#contentIndex').fadeIn('slow');
                 },error: function(data){
 
 
@@ -1107,7 +1213,7 @@ function atualizarProduto(){
         $('#popVlTotalItem').html(' ');
         $("#popupConfirmaProd").popup( "close" );
     });
-    $(document).on("pagehide","#page3",function(){
+    $(document).on("pagehide","#index",function(){
         itenObs="";
         prodId2="";
         prodId1="";
@@ -1331,14 +1437,15 @@ function atualizarProduto(){
     });
     var pagamento;
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-    $('#submitForm').click(function(event){
+    $('body').on('submit', '#login', function(event){
         event.preventDefault();
+        $.mobile.loading( "show" );
         $('.loginsalt').val(salt);
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         var dadosForm = $("#login").serialize();
 
 
-        $.mobile.loading( "show" ,{theme: 'b'});
+
         $.ajax({
             type: "POST",
             url: urlAction,
@@ -1387,7 +1494,7 @@ function atualizarProduto(){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                        // filialPadrao=data.ultimopedido.Cliente.filial_id;
-                        $.mobile.changePage("#page3",{ transition: "none",  });
+                        $.mobile.changePage("#index",{ transition: "none",  });
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );
                             setTimeout(function(){
@@ -1399,12 +1506,13 @@ function atualizarProduto(){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                         $.mobile.changePage("#index",{ transition: "none",  });
-                         $('.imgEntrada').hide();
-                        $.mobile.loading( "show" );
-                        setTimeout(function(){
-                            $.mobile.loading( "hide" );
-                            $('.imgEntrada').fadeIn('slow');
-                        },2000);
+
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
 
                     }
 
@@ -1712,11 +1820,9 @@ $("#pedir").click(function(event){
                         if(valorTotal  != '00,00'){
 
                             $('.pageContent').fadeIn('slow');
-                        }else{
 
-                            $("#popupDialogLogin16").popup( "open" );
                         }
-
+                        $("#popupSucEnvPedido2").popup( "open" );
                         $("#idAtend").html(atendimento.Pedido.atendimento_id);
 
                     }else{
@@ -2169,7 +2275,7 @@ $("#pedir").click(function(event){
                 success: function(data){
 
 
-                    $.mobile.loading( "hide" );
+
 
 
                     $('.clonePedido').remove();
@@ -2226,7 +2332,8 @@ $("#pedir").click(function(event){
                         centsSeparator: ',',
                         thousandsSeparator: '.'
                     });
-
+                    $.mobile.loading( "hide" );
+                    $('#contentPage2').show();
                 },error: function(data){
 
 
@@ -2307,12 +2414,9 @@ $('body').on('click', '.acaoAtend', function () {
     $('.clonePedido').remove();
     $('#valorTotalPedido').html('R$ 00,00');
     $.mobile.changePage("#page2", { transition: "none",  });
-     $('.pageContent').hide();
-        $.mobile.loading( "show" );
-        setTimeout(function(){
-            $.mobile.loading( "hide" );
-            $('.pageContent').fadeIn('slow');
-        },2000);
+     $('#contentPage2').hide();
+    $.mobile.loading( "show" );
+
     getAtendimento(atendimentoid);
 
     getItens(atendimentoid);
@@ -2352,7 +2456,7 @@ function checaAtendimento(atendimentocod){
 
                     if(data.resultados.resposta=='Existe'){
                         $( "#popupDialogAtendimento2" ).popup( "open" );
-                        $.mobile.changePage("#page3", { transition: "none",  });
+                        $.mobile.changePage("#index", { transition: "none",  });
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );
                             setTimeout(function(){
@@ -2380,7 +2484,7 @@ function checaAtendimento(atendimentocod){
 }
     $('body').on('click', '#btnEntrega', function () {
         codigo="entrega";
-        $.mobile.changePage("#page3", { transition: "none",  });
+        $.mobile.changePage("#index", { transition: "none",  });
          $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){
@@ -2393,7 +2497,7 @@ function checaAtendimento(atendimentocod){
     $('body').on('click', '.novopedido', function () {
         codigo="entrega";
         $.mobile.changePage("#page13", { transition: "none",  });
-        $.mobile.changePage("#page3", { transition: "none",  });
+        $.mobile.changePage("#index", { transition: "none",  });
          $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){
@@ -2411,14 +2515,7 @@ function checaAtendimento(atendimentocod){
         checaAtendimento(atendimento);
     });
 
-    $(document).on("pageshow","#page3",function(){ // When entering pagetwo
-         $('#filialPedido').val(filialPadrao);
-         $("#empresaPedido").val(empresa);
-         $("#PedidoA").val(codigoAtend);
 
-
-
-    });
     function getMoney( str ){
             return parseInt( str.replace(/[\D]+/g,'') );
     }
@@ -2494,76 +2591,7 @@ function checaAtendimento(atendimentocod){
         $("#auxvalortroco").val(valor);
     });
 
-     function limparPedido() {
-        cont=0;
-        itens=0;
-        //codigo="";
-        contador=0;
-        pag='dh';
-        tipoTroco='Sim';
-        itens=0;
-        $('.clone').remove();
-        $('#totalPedido').html('');
-        $('#respTroco').html('');
-        $('#respTrocoAux').val('');
-        $("#PedidoA").val('entrega');
-        $("#pagamentoPedido").val('0');
-        $("#trocoRespostaPedido").val('0');
-        $(".erroqtde").hide();
-        $('#divProdutos').show();
-        $('#divPagamento').hide();
-        $('#proximoPedido').show();
-        $('.spananterior').hide();
-        $('.spanComprar').hide();
 
-        $('.spanproximo').show();
-        $('#pedir').hide();
-        $('#spanComprar').hide();
-        $("#auxvalortroco").val('');
-        $("#respTrocoAux").val('');
-        $("#respTroco").html('0,00');
-        $('#totalPedidoPag').html('0,00');
-        $('#voltarPedido').hide();
-         $('#entrega_valor').hide();
-         $('#totalPedidoPag').html('');
-        $('#totalEntrega').html('');
-        $('#totalPedidoEntrega').html('');
-        $('#entrega_valor').val('');
-
-
-        $('#lradio-choice-t-6a').removeClass('ui-radio-on');
-
-        $('#lradio-choice-t-6b').removeClass('ui-radio-on');
-        $('#lradio-choice-t-6c').removeClass('ui-radio-on');
-        $('#lradio-choice-t-6a').removeClass('ui-radio-off');
-        $('#lradio-choice-t-6b').removeClass('ui-radio-off');
-        $('#lradio-choice-t-6c').removeClass('ui-radio-off');
-
-        $('#lradio-choice-t-6a').addClass('ui-radio-on');
-        $('#lradio-choice-t-6b').addClass('ui-radio-off');
-        $('#lradio-choice-t-6c').addClass('ui-radio-off');
-
-        $('#radio-choice-t-6a').attr('data-cacheval', true);
-        $('#radio-choice-t-6b').attr('data-cacheval', false);
-        $('#radio-choice-t-6c').attr('data-cacheval', false);
-
-        $('#lbchoicea').removeClass('ui-radio-on');
-        $('#lbchoicea').removeClass('ui-radio-off');
-        $('#lbchoiceb').removeClass('ui-radio-on');
-        $('#lbchoiceb').addClass('ui-radio-off');
-
-
-        $('#radio-choice-t-7a').attr('data-cacheval', true);
-        $('#radio-choice-t-7b').attr('data-cacheval', false);
-
-        $('#trocoRespostaPedido').val('Sim');
-        $('#pagamentoPedido').val(1);
-
-        $('#divAuxTroco').hide();
-        $('#auxCartao').hide();
-        $('#respTroco').html('R$ 0,00');
-
-    }
 
     /*$('#auxvalortroco').priceFormat({
                         prefix: '',
@@ -3750,32 +3778,22 @@ function checaAtendimento(atendimentocod){
         $('#idpedidoempresa').val(empresa);
         $('#idpedidofilial').val(filialPadrao);
     });
-    var verificaPedido;
+    var verificaPedido='';
     $(document).on("pageshow","#page2",function(){ // When entering pagetwo
         clearInterval(myVar);
+        if(verificaPedido != ''){
+            clearInterval(verificaPedido);
+        }
         verificaPedido = setInterval(function(){getSituacaoPedido();}, 30000);
 
     });
 
     $(document).on("pageshow","#page1",function(){
-        clearInterval(verificaPedido);
-    });
-    $(document).on("pageshow","#page3",function(){
-       limparPedido();
-        if(cliente != ''){
-
-
+       if(verificaPedido != ''){
             clearInterval(verificaPedido);
-            $('.cloneOptPgt').remove();
-
-            $.each(cliente.Pagamento, function(i, pagamento){
-                $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-            });
-
-        }else{
-            //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
         }
     });
+
     //$("html").niceScroll({cursorcolor:"#FF5C0A" });
 
     var ultimaMsg="";

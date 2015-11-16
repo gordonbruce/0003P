@@ -325,7 +325,8 @@ $(document).on("pageshow","#index_old",function(){
             $.mobile.loading( "hide" );
             $('#sendToMoip').hide();
         });
-
+        $('#contentIndex').hide();
+        $.mobile.loading( "show" );
         var verificaPedido='';
         $(".erroqtde").hide();
         //$('#divProdutos').show();
@@ -338,9 +339,13 @@ $(document).on("pageshow","#index_old",function(){
          $('.spanComprar').hide();
         $('.spanproximo').show();
 
-        atualizarProduto();
-        atualizarPromo();
-        limparPedido();
+
+         setTimeout(function(){
+            atualizarProduto();
+            atualizarPromo();
+            limparPedido();
+         },2000);
+
 
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 

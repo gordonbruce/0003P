@@ -4017,7 +4017,7 @@ function checaAtendimento(atendimentocod){
                                 $(".situacaoAtend").animate({"margin-left": "-=50px"},"fast");
                                 $(".situacaoAtend").animate({"margin-left": "+=50px"},"fast");
                                 $(".situacaoAtend").animate({"margin-left": "-=25px"},"fast");
-                                $('#audioPlayer').trigger('play');
+                                $('.audioPlayer').trigger('play');
                             }
 
                              posFila = $('#posFilaAtend').text();
@@ -4034,7 +4034,7 @@ function checaAtendimento(atendimentocod){
                                 $(".animaPos").animate({"margin-left": "-=50px"},"fast");
                                 $(".animaPos").animate({"margin-left": "+=50px"},"fast");
                                 $(".animaPos").animate({"margin-left": "-=25px"},"fast");
-                                $('#audioPlayer').trigger('play');
+                                $('.audioPlayer').trigger('play');
                             }
                             sitAtendimento = $('#pagamentoAtend').text();
 
@@ -4048,7 +4048,7 @@ function checaAtendimento(atendimentocod){
                                 $(".animaSitPag").animate({"margin-left": "-=50px"},"fast");
                                 $(".animaSitPag").animate({"margin-left": "+=50px"},"fast");
                                 $(".animaSitPag").animate({"margin-left": "-=25px"},"fast");
-                                $('#audioPlayer').trigger('play');
+                                $('.audioPlayer').trigger('play');
                              }
                              /*sitcampainha = atendimento.Atendimento.campainha;
                              atendimentoid= atendimento.Atendimento.id;

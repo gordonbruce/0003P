@@ -10,6 +10,10 @@
         <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
             Eduardo Alves
         </author>
+         <feature name="debug-server" required="true">
+            <param name="domain" value="http://localhost/apps/master/"/>
+            <param name="key" value="com.entregapp.specialepizzaria"/>
+          </feature>
          <preference name="phonegap-version" value="3.7.0" />
         <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
         <preference name="Fullscreen" value="false" />

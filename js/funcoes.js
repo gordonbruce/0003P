@@ -996,7 +996,7 @@ function atualizarProduto(){
 
                 success: function(data){
 
-                    console.log(data.ultimopedido);
+
                     bebidas='<option value="">Selecione</option>';
                     if(typeof data.ultimopedido.Bebidas !==  'undefined'){
                         $.each(data.ultimopedido.Bebidas, function(i, beb){

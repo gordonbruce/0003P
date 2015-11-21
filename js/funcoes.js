@@ -346,7 +346,7 @@ $(document).on("pageshow","#index_old",function(){
             limparPedido();
          },2000);
 
-
+     var contPagamentos=0;
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
         atualizarProduto();
@@ -364,12 +364,14 @@ $(document).on("pageshow","#index_old",function(){
             if(verificaPedido != ''){
                 clearInterval(verificaPedido);
             }
+            if(contPagamentos == 0){
+                $('.cloneOptPgt').remove();
+                $.each(cliente.Pagamento, function(i, pagamento){
+                    $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+                });
+                contPagamentos++;
+            }
 
-            $('.cloneOptPgt').remove();
-            console.log(cliente.Pagamento);
-            $.each(cliente.Pagamento, function(i, pagamento){
-                $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-            });
 
         }else{
             //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
@@ -2085,7 +2087,7 @@ $("#pedir").click(function(event){
 
     });
     $("#mensagemChat").click(function(){
-        $.mobile.changePage("#page10", { transition: "none",  });
+        $.mobile.changePage("##page10", { transition: "none",  });
          $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){
@@ -3777,11 +3779,17 @@ function checaAtendimento(atendimentocod){
         $('#filial_input').val(filialPadrao);
     });
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
+        $('#idpedidoempresa').val(empresa);
+        $('#idpedidofilial').val(filialPadrao);
+        $('#chatZone').html('');
+        setTimeout(function(){
+          verificaMensagem();
+        },1000);
+
         myVar = setInterval(function(){
             verificaMensagem();
         }, 10000);
-        $('#idpedidoempresa').val(empresa);
-        $('#idpedidofilial').val(filialPadrao);
+
     });
     var verificaPedido='';
     $(document).on("pageshow","#page2",function(){ // When entering pagetwo

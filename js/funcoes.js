@@ -4166,10 +4166,11 @@ function checaAtendimento(atendimentocod){
                     if(data.resultados=='vazio'){
 
                     }else{
-                        atendimento_id= data.resultados.Atendimento.id;
-                        $('.audioPlayer').trigger('play');
-                         $(".popupAvisoCampainha").popup( "open" );
-
+                         if(typeof data.resultados.Atendimento.id !==undefined){
+                            atendimento_id= data.resultados.Atendimento.id;
+                            $('.audioPlayer').trigger('play');
+                            $(".popupAvisoCampainha").popup( "open" );
+                        }
                     }
 
 

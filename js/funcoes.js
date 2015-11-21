@@ -4166,7 +4166,7 @@ function checaAtendimento(atendimentocod){
                     if(data.resultados=='vazio'){
 
                     }else{
-                        if(typeof data.resultados.Atendimento.id !==undefined){
+                        if(typeof data.resultados.Atendimento.id !=='undefined'){
                             atendimento_id= data.resultados.Atendimento.id;
                             $('.audioPlayer').trigger('play');
                              $(".popupAvisoCampainha").popup( "open" );

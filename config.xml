@@ -10,7 +10,7 @@
         <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
             Eduardo Alves
         </author>
-         <feature name="debug-server" required="true">
+         <feature name="debug-server" required="false">
             <param name="domain" value="http://localhost/apps/master/"/>
             <param name="key" value="com.entregapp.specialepizzaria"/>
           </feature>

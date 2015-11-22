@@ -1444,7 +1444,9 @@ function atualizarProduto(){
     });
     var pagamento;
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+
     $('body').on('submit', '#login', function(event){
+
         event.preventDefault();
         $.mobile.loading( "show" );
         $('.loginsalt').val(salt);
@@ -1545,6 +1547,12 @@ function atendimentoView(atendimentos){
         $("#atendimentostab").html('');
 
         difHora=atendimentos.Atendimento.difhora;
+        if(atendimentos.Pedido.status =='Em Aberto' || atendimentos.Pedido.status =='Cancelado' || atendimentos.Pedido.status =='Entregue' )
+        {
+            difHora='00:00:00';
+
+
+        }
         $("#codigoAtend").html(atendimentos.Atendimento.codigo+'&nbsp;');
 
         $("#dataAtend").html(atendimentos.Pedido.data+' '+atendimentos.Pedido.hora+'&nbsp;');
@@ -1557,7 +1565,7 @@ function atendimentoView(atendimentos){
         $("#posFilaAtend").html(atendimentos.Pedido.status+'&nbsp;');
         $("#idPedidoAux").html(atendimentos.Pedido.id);
 
-        $("#previsaoAtend").html(atendimentos.Atendimento.difhora+'&nbsp;');
+        $("#previsaoAtend").html(difHora+'&nbsp;');
          $("#counter").html('');
          $('#counter').countdown({
               image: 'images/digits2.png',
@@ -2046,8 +2054,12 @@ $("#pedir").click(function(event){
                     $.mobile.loading( "hide" );
                     if(typeof getBairroFromCep !=='undefined')
                     {
+
                         $('.bairro').val(getBairroFromCep).change();
+
+                        $('.bairro option[value='+getBairroFromCep+']').attr('selected','selected');
                        // getBairroFromCep=null;
+
                     }
 
                 },error: function(data){
@@ -2983,15 +2995,18 @@ function checaAtendimento(atendimentocod){
         nome = $('.nome').val();
         username = $('.username').val();
         password = $('.password').val();
+
         //cep = $('.cep').val();
         logradouro = $('.logradouro').val();
         numero = $('.numero').val();
-        bairro = $('.bairro').val();
-        cidade = $('.cidade').val();
-        uf = $('.uf').val();
+
+        bairro = $('.bairro').find('option:selected').val();
+
+        cidade = $('.bairro').find('option:selected').val();
+        uf =  $('.uf').find('option:selected').val();
         telefone = $('.telefone').val();
         celular = $('.celular').val();
-        minhaFilial=$("#filial_id").val();
+        minhaFilial=$('#filial_id').find('option:selected').val();
 
 
         if(cliente ==''){
@@ -3762,7 +3777,7 @@ function checaAtendimento(atendimentocod){
         $('#sendToMoip').hide();
 
     });
-
+var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
         atualizarLojas();
@@ -3783,18 +3798,32 @@ function checaAtendimento(atendimentocod){
 
             $('#nomeEdit').val(cliente.Cliente.nome);
             $('#usernameEdit').val(cliente.Cliente.username);
-            //$('#passwordEdit').val(cliente.Cliente.password);
+            $('#passwordEdit').val('');
             $('#nascEdit').val(dataNascimento);
             $('#cepEdit').val(cliente.Cliente.cep);
             $('#logradouroEdit').val(cliente.Cliente.logradouro);
             $('#complementoEdit').val(cliente.Cliente.complemento);
             $('#numeroEdit').val(cliente.Cliente.numero);
             $('#bairroEdit').val(cliente.Cliente.bairro);
-            $('#cidadeEdit').val(cliente.Cliente.cidade);
+             if(typeof getBairroFromCep !=='undefined')
+            {
+               getBairroFromCep=cliente.Cliente.bairro;
+               // getBairroFromCep=null;
+            }
+            setTimeout(function(){
+                $('.cidade').val(cliente.Cliente.cidade).change();
+
+            },2000);
+
+
             $('#ufEdit').val(cliente.Cliente.uf);
             $('#emailEdit').val(cliente.Cliente.email);
             $('#telefoneEdit').val(cliente.Cliente.telefone);
-            $('.filialEdit').val(cliente.Cliente.filial_id);
+            setTimeout(function(){
+                $('.filialEdit').val(filialPadrao).change();
+
+            },2000);
+
             $('#empresaEdit').val(cliente.Cliente.empresa_id);
 
             $('#celularEdit').val(cliente.Cliente.celular);
@@ -4286,41 +4315,44 @@ function checaAtendimento(atendimentocod){
 
     }
     function getSituacaoCampainha(){
+        if(cliente !='')
+        {
+            //$.mobile.loading( "show" ,{theme: 'b'});
+            var url=URLAPP+"RestAtendimentos/getsituacaocampainha.json?entr=2&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+             $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: 'json',
+                    crossDomain: true,
 
 
-        //$.mobile.loading( "show" ,{theme: 'b'});
-        var url=URLAPP+"RestAtendimentos/getsituacaocampainha.json?entr=2&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
-         $.ajax({
-                type: "GET",
-                url: url,
-                dataType: 'json',
-                crossDomain: true,
+
+                    success: function(data){
+
+                        if(data.resultados=='vazio'){
+
+                        }else{
+                            if(typeof data.resultados.Atendimento.id !=='undefined'){
+                                atendimento_id= data.resultados.Atendimento.id;
+                                $('.audioPlayer').trigger('play');
+                                 $(".popupAvisoCampainha").popup( "open" );
+                            }
 
 
-
-                success: function(data){
-
-                    if(data.resultados=='vazio'){
-
-                    }else{
-                        if(typeof data.resultados.Atendimento.id !=='undefined'){
-                            atendimento_id= data.resultados.Atendimento.id;
-                            $('.audioPlayer').trigger('play');
-                             $(".popupAvisoCampainha").popup( "open" );
                         }
+
+
+
+                    },error: function(data){
+
 
 
                     }
 
+                });
+        }
 
 
-                },error: function(data){
-
-
-
-                }
-
-            });
 
 
 

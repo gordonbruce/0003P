@@ -507,8 +507,8 @@ $(document).on("pageshow","#index_old",function(){
         pagGanId  = $("#selectPagueGanhe_"+selectBebidasId).find('option:selected').attr('data-id');
         pagGanNome  = $("#selectPagueGanhe_"+selectBebidasId).find('option:selected').attr('data-nome');
 
-        $('#btnAddProd'+selectBebidasId).attr('data-pagueganheid',pagGanId);
-        $('#btnAddProd'+selectBebidasId).attr('data-pagueganhenome',pagGanNome);
+        $('#btnAddProd'+selectPagueGanheId).attr('data-pagueganheid',pagGanId);
+        $('#btnAddProd'+selectPagueGanheId).attr('data-pagueganhenome',pagGanNome);
     });
 
     $(document).on("change", ".comboTamanho", function(){

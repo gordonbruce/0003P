@@ -295,10 +295,19 @@
                                             <label for="radio-choice-t-9b" id="lbchoiceb">Não</label>
                                         </fieldset>
                                         <div id="holdValorEntrega"  class="none">
+                                            <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidos as cidades e os bairros que são cobertos pela nossa equipe de entregas.</span>
+                                            <legend>UF</legend>
+                                            <select name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"   value="RJ">
+                                                    <option value="RJ">RJ</option>
+                                            </select>
                                             <legend>Cidade</legend>
-                                            <input type="Text" name="data[Pedido][entrega_outro_cidade]" id="entregaOutroCidade"  class="endEntrega" value="" >
+                                            <select  name="data[Pedido][entrega_outro_cidade]" id="entregaOutroCidade"  class="endEntrega">
+                                                <option>Selecione</option>
+                                            </select>
                                             <legend>Bairro</legend>
-                                            <input type="Text" name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega" value="" >
+                                            <select name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega">
+                                                <option>Selecione</option>
+                                            </select>
                                             <legend>Endereço</legend>
                                             <input name="data[Pedido][outro_endereco_entrega_rua]" id="entregaRua" class="endEntrega"/ >
                                             <legend>Número</legend>
@@ -309,7 +318,7 @@
                                             <input name="data[Pedido][outro_endereco_telefone]" id="entregaTelefone" class="endEntrega"/ >
                                             <input  type="hidden" name="data[Pedido][outro_endereco_entrega]" id="endEntrega" class="endEntrega"/ >
                                             <input type="hidden" name="data[Pedido][entrega_outro_local]" id="entregaOutroLocal"   value="0" >
-                                            <input type="hidden" name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"   value="RJ" >
+
                                             <button id="recalcularFrete" data-theme="b" data-content-theme="b">Recalcular Entrega</button>
                                         </div>
 
@@ -975,12 +984,24 @@
                         <input type="text" name="data[Cliente][complemento]" id="complementoEdit limpar" class="complemento"value="" autocomplete="off"  placeholder="complemento" >
                         <label for="numero">Número: <span class="vermelho"> *</span></label>
                         <input type="text" name="data[Cliente][numero]" id="numeroEdit" class="numero limpar" value="" autocomplete="off"  placeholder="número" >
-                        <label for="bairro">Bairro: <span class="vermelho"> *</span></label>
-                        <input type="text" name="data[Cliente][bairro]" id="bairroEdit" class="bairro limpar" value="" autocomplete="off"  placeholder="bairro" >
-                        <label for="cidade">Cidade: <span class="vermelho"> *</span></label>
-                        <input type="text" name="data[Cliente][cidade]" id="cidadeEdit" class="cidade limpar" value="" autocomplete="off"  placeholder="cidade" >
                         <label for="uf">UF:<span class="vermelho"> *</span></label>
-                        <input type="text" name="data[Cliente][uf]" id="ufEdit" class="uf limpar" value="" autocomplete="off"  placeholder="uf" >
+                        <select name="data[Cliente][uf]" id="ufEdit" class="uf limpar" value="" autocomplete="off"  placeholder="uf">
+                            <option value="RJ">RJ</option>
+                        </select>
+                        <br />
+                        <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidos as cidades e os bairros que são cobertos pela nossa equipe de entregas.</span>
+                         <br />
+                        <label for="cidade">Cidade: <span class="vermelho"> *</span></label>
+
+                        <select name="data[Cliente][cidade]" id="cidadeEdit" class="cidade limpar">
+                            <option class="">Selecione</option>
+                        </select>
+                        <label for="bairro">Bairro: <span class="vermelho"> *</span></label>
+
+                        <select name="data[Cliente][bairro]" id="bairroEdit" class="bairro limpar" >
+                            <option class="">Selecione</option>
+                        </select>
+
                         <label for="referencia">Ponto de Referência:</label>
                         <input type="text" name="data[Cliente][p_referencia]" id="pReferenciaEdit" class="pReferencia limpar" value="" autocomplete="off"  placeholder="Ponto de Referência" >
 

@@ -12,7 +12,7 @@
         background: #FFFFFF;
     }
     ul.ui-grid-b a:visited{
-         background: #e0414e !important;
+         background: #Ed3237 !important;
 
     }
     /*background mudar
@@ -26,7 +26,7 @@
     }
 body{
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background: #e0414e !important;
+        background: #Ed3237 !important;
 
     }
     .ui-body-b, .ui-page{
@@ -64,7 +64,7 @@ body{
         background-color: #fcee21;
     }
      #envChat{
-         background: #e0414e;
+         background: #Ed3237;
     }
     .imgAvancarLogin{
            /*background-image: url("../images/backgroun2.jpg");*/
@@ -117,7 +117,7 @@ body{
     .verde-background dd{
         background-color: rgb(173, 255, 47) !important;
     }
-    .ui-header, .ui-footer{background-color: #e0414e; color: white;}
+    .ui-header, .ui-footer{background-color: #Ed3237; color: white;}
     .ui-footer {border-bottom-color: #FF0A0A }
 
     .ui-icon-share:after {
@@ -152,10 +152,10 @@ body{
     }
     .countBubl {background:#ed1d24;color:#fff;}
     .ui-panel{
-      background-color: #e0414e;
+      background-color: #Ed3237;
     }
     .ui-panel ul li a{
-      background-color: #e0414e !important;
+      background-color: #Ed3237 !important;
       color: white !important;
       /*text-shadow: 1px 1px #ccc !important;*/
         text-shadow: 0 1px 0 #111 !important;
@@ -195,13 +195,16 @@ body{
     }
     #index{
       color: #000000 !important;
-      text-shadow: 0 1px 0 #e0414e !important;
+      text-shadow: 0 1px 0 #Ed3237 !important;
     }
    .imgEntrada{width: 100%; display: block; margin: 10% auto; margin-bottom:3em; display: block;}
     .applogo{
-     width: 77px;
-      margin-top: 4px !important;
+     width: 56px;
+      margin-top: 0px !important;
     }
+    .imgLogin  {
+        margin: 0 auto;
+        }
     #itensdoPedido tr:nth-child(odd) { background-color:#D6CA1C; }
 #atendimentostab tr:nth-child(odd) { background-color:#D6CA1C; }
 #tblbodyPedido tr:nth-child(odd) { background-color:#D6CA1C; }

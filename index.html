@@ -186,7 +186,7 @@
                             <input type="hidden" name="_method" value="POST">
                             <div data-role="controlgroup" data-theme="b"  >
                                 <legend>Escolha a forma de pagamento:</legend>
-                                <select class="formaDEpagamento" name="data[Pedido][pagamento_id]" value="">
+                                <select class="formaDEpagamento" name="data[Pedido][pagamento_id]" value="" id="formaDEpagamento">
                                     <option value="">Selecione</option>
                                 </select>
                             </div>
@@ -292,17 +292,17 @@
                                             <label for="radio-choice-t-9b" id="lbchoiceb">Não</label>
                                         </fieldset>
                                         <div id="holdValorEntrega"  class="none">
-                                            <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidos as cidades e os bairros que são cobertos pela nossa equipe de entregas.</span>
+                                            <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidas as cidades e os bairros que são cobertos pela nossa equipe de entregas. Caso a sua localidade não se encontre aqui, por favor entre em contato pelo Menu -> Contato para a verificarmos a possibilidade de entregas na sua região.</span>
                                             <legend>UF</legend>
-                                            <select name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"   value="RJ">
+                                            <select name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"    data-theme="b">
                                                     <option value="RJ">RJ</option>
                                             </select>
                                             <legend>Cidade</legend>
-                                            <select  name="data[Pedido][entrega_outro_cidade]" id="entregaOutroCidade"  class="endEntrega">
+                                            <select  name="data[Pedido][entrega_outro_cidade]" id="entregaOutroCidade"  class="endEntrega"  data-theme="b" >
                                                 <option>Selecione</option>
                                             </select>
                                             <legend>Bairro</legend>
-                                            <select name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega">
+                                            <select name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega"  data-theme="b" >
                                                 <option>Selecione</option>
                                             </select>
                                             <legend>Endereço</legend>
@@ -802,7 +802,7 @@
             <div data-role="footer" class="hideFooter"   data-tap-toggle="false">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Speciale Pizzaria By Entregapp, <a href='http://entregapp.com.br/apps/principe-das-pizzas/' >clique aqui para baixar</a>.  ', null, 'http://entregapp.com.br/img_share/speciale.png', null)" data-icon="share">Compartilhar</a></li>
+                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Speciale Pizzaria By Entregapp, <a href='http://entregapp.com.br/apps/speciale' >clique aqui para baixar</a>.  ', null, 'http://entregapp.com.br/img_share/speciale.png', null)" data-icon="share">Compartilhar</a></li>
 
                         <li><a href="#page10" data-icon="comment" id="btn-chat">Atendimento</a></li>
                         <li><a href="#" data-icon="location" class="btn-locPedido">Localizar Pedido</a></li>
@@ -986,7 +986,7 @@
                             <option value="RJ">RJ</option>
                         </select>
                         <br />
-                        <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidos as cidades e os bairros que são cobertos pela nossa equipe de entregas.</span>
+                        <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidas as cidades e os bairros que são cobertos pela nossa equipe de entregas. Caso a sua localidade não se encontre aqui, por favor entre em contato pelo Menu -> Contato para a verificarmos a possibilidade de entregas na sua região.</span>
                          <br />
                         <label for="cidade">Cidade: <span class="vermelho"> *</span></label>
 

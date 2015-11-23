@@ -366,9 +366,12 @@ $(document).on("pageshow","#index_old",function(){
             }
             if(contPagamentos == 0){
                 $('.cloneOptPgt').remove();
+                selectPagamento =  $('#formaDEpagamento');
                 $.each(cliente.Pagamento, function(i, pagamento){
                     $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
                 });
+                selectPagamento.selectmenu();
+                selectPagamento.selectmenu('refresh', true);
                 contPagamentos++;
             }
 
@@ -1957,17 +1960,20 @@ $("#pedir").click(function(event){
 
                     i=0;
                      $('.cloneOptLoja').remove();
+                     selectFilialEdit= $('#filial_id');
                     $.each(data, function(i, resultado){
 
 
 
                          //$("div").append(field + " ");
 
-                         $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
+                        $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
 
 
                          i++;
                         });
+                    selectFilialEdit.selectmenu();
+                    selectFilialEdit.selectmenu('refresh', true);
                     $.mobile.loading( "hide" );
                     if(cliente != ''){
                         $('filialSelect').val(cliente.Cliente.filial_id);
@@ -2044,6 +2050,7 @@ $("#pedir").click(function(event){
 
 
                      $('.cloneOptBairro').remove();
+                     selectBairroEdit = $('#bairroEdit');
                     $.each(data, function(i, resultado){
                         $.each(resultado, function(j, bairros){
                             $('.bairro').append('<option class="cloneOptBairro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
@@ -2061,7 +2068,8 @@ $("#pedir").click(function(event){
                        // getBairroFromCep=null;
 
                     }
-
+                    selectBairroEdit.selectmenu();
+                    selectBairroEdit.selectmenu('refresh', true);
                 },error: function(data){
 
 
@@ -2088,13 +2096,15 @@ $("#pedir").click(function(event){
 
 
                      $('.cloneOptBairroOutro').remove();
+                     seletcBairro = $('#entregaOutroBairro');
                     $.each(data, function(i, resultado){
                         $.each(resultado, function(j, bairros){
                             $('#entregaOutroBairro').append('<option class="cloneOptBairroOutro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
                         });
 
                     });
-
+                    seletcBairro.selectmenu();
+                    seletcBairro.selectmenu('refresh', true);
                     $.mobile.loading( "hide" );
 
 
@@ -4332,7 +4342,8 @@ var getBairroFromCep=null;
                         if(data.resultados=='vazio'){
 
                         }else{
-                            if(typeof data.resultados.Atendimento.id !=='undefined'){
+
+                            if(typeof data.resultados.Atendimento.id !=="undefined"){
                                 atendimento_id= data.resultados.Atendimento.id;
                                 $('.audioPlayer').trigger('play');
                                  $(".popupAvisoCampainha").popup( "open" );

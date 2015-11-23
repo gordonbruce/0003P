@@ -1921,6 +1921,9 @@ $("#pedir").click(function(event){
                             var diaDt = pedidoData.substring(8, 10);
                             pedidoData = diaDt+"/"+mesDt+"/"+anoDt;
                             pedidoStatus=pedidoAtend.status;
+
+
+
                         });
                         $("#atendimentostab").append('<tr><td class="paddTopTab">'+atendimento.Atendimento.codigo+'</td>\
                         <td class="paddTopTab">'+pedidoData+'</td><td class="paddTopTab">'+pedidoStatus+'</td>\
@@ -2325,10 +2328,15 @@ $("#pedir").click(function(event){
                     $.mobile.loading( "hide" );
                     var atendimento = data.resultados;
                     difHora=atendimento.Atendimento.difhora;
+
                     $("#codigoAtend").html(atendimento.Atendimento.codigo+'&nbsp;');
                     $('#clienteAtend').html(atendimento.Cliente.nome);
                     $('#obsPedidoEntrega').html('');
                     $.each(atendimento.Pedido, function(i, pedido){
+                            if(pedido.status =='Em Aberto' || pedido.status =='Cancelado' || pedido.status =='Entregue' )
+                            {
+                                difHora='00:00:00';
+                            }
                             var dataPedido = pedido.data
                             var pedAnoDt = dataPedido.substring(0, 4);
                             var pedMesDt = dataPedido.substring(5, 7);
@@ -4191,7 +4199,18 @@ var getBairroFromCep=null;
                             statusSit = $("#situacaoAtend").text();
                             subsSit = statusSit.substring(0, 5);
                             subsSitPedido= pedido.status.substring(0, 5);
-
+                             if(pedido.status != 'Em Aberto' && pedido.status != 'Entregue' && pedido.status != 'Cancelado')
+                            {
+                                    difHora=atendimento.Atendimento.difhora;
+                                     $("#counter").html('');
+                                     $('#counter').countdown({
+                                          image: 'images/digits2.png',
+                                          startTime: difHora,
+                                          digitWidth: 34,
+                                            digitHeight: 45,
+                                            format: 'hh:mm:ss',
+                                        });
+                            }
                             if(subsSit != subsSitPedido){
                                 $('#situacaoAtend').html(pedido.status);
                                 $(".situacaoAtend").addClass("verde-background");

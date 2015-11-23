@@ -189,7 +189,7 @@
                             <input type="hidden" name="_method" value="POST">
                             <div data-role="controlgroup" data-theme="b"  >
                                 <legend>Escolha a forma de pagamento:</legend>
-                                <select class="formaDEpagamento" name="data[Pedido][pagamento_id]" value="" id="formaDEpagamento" data-theme="a">
+                                <select class="formaDEpagamento" name="data[Pedido][pagamento_id]" value="" id="formaDEpagamento">
                                     <option value="">Selecione</option>
                                 </select>
                             </div>
@@ -295,17 +295,19 @@
                                             <label for="radio-choice-t-9b" id="lbchoiceb">Não</label>
                                         </fieldset>
                                         <div id="holdValorEntrega"  class="none">
+                                            <br />
                                             <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidas as cidades e os bairros que são cobertos pela nossa equipe de entregas. Caso a sua localidade não se encontre aqui, por favor entre em contato pelo Menu -> Contato para a verificarmos a possibilidade de entregas na sua região.</span>
+                                            <br />
                                             <legend>UF</legend>
-                                            <select name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"    data-theme="a">
+                                            <select name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"    data-theme="b">
                                                     <option value="RJ">RJ</option>
                                             </select>
                                             <legend>Cidade</legend>
-                                            <select  name="data[Pedido][entrega_outro_cidade]" id="entregaOutroCidade"  class="endEntrega"  data-theme="a" >
+                                            <select  name="data[Pedido][entrega_outro_cidade]" id="entregaOutroCidade"  class="endEntrega"  data-theme="b" >
                                                 <option>Selecione</option>
                                             </select>
                                             <legend>Bairro</legend>
-                                            <select name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega"  data-theme="a" >
+                                            <select name="data[Pedido][entrega_outro_bairro]" id="entregaOutroBairro"   class="endEntrega"  data-theme="b" >
                                                 <option>Selecione</option>
                                             </select>
                                             <legend>Endereço</legend>
@@ -985,7 +987,7 @@
                         <label for="numero">Número: <span class="vermelho"> *</span></label>
                         <input type="text" name="data[Cliente][numero]" id="numeroEdit" class="numero limpar" value="" autocomplete="off"  placeholder="número" >
                         <label for="uf">UF:<span class="vermelho"> *</span></label>
-                        <select name="data[Cliente][uf]" id="ufEdit" class="uf limpar" value="" autocomplete="off"  placeholder="uf">
+                        <select name="data[Cliente][uf]" id="ufEdit" class="uf limpar" value="" autocomplete="off"  placeholder="uf" data-theme="b" >
                             <option value="RJ">RJ</option>
                         </select>
                         <br />
@@ -993,12 +995,12 @@
                          <br />
                         <label for="cidade">Cidade: <span class="vermelho"> *</span></label>
 
-                        <select name="data[Cliente][cidade]" id="cidadeEdit" class="cidade limpar">
+                        <select name="data[Cliente][cidade]" id="cidadeEdit" class="cidade limpar" data-theme="b" >
                             <option class="">Selecione</option>
                         </select>
                         <label for="bairro">Bairro: <span class="vermelho"> *</span></label>
 
-                        <select name="data[Cliente][bairro]" id="bairroEdit" class="bairro limpar" >
+                        <select name="data[Cliente][bairro]" id="bairroEdit" class="bairro limpar" data-theme="b" >
                             <option class="">Selecione</option>
                         </select>
 

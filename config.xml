@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.entregapp.specialepizzaria"
+    id          = "com.entregapp.furiososlanches"
     version     = "1.0.1" >
-	<name>Speciale Pizzaria</name>
+	<name>Furiosos Lanches</name>
         <description>
-           Faça seu pedido pelo celular, com rapidez e praticidade Speciale Pizzaria By Sistema Entregapp..
+           Faça seu pedido pelo celular, com rapidez e praticidade Furiosos Lanches By Sistema Entregapp..
         </description>
         <author email="eduardonaleves@gmail.com" href="http://entregapp.com.br">
             Eduardo Alves

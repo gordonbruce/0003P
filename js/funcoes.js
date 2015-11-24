@@ -794,10 +794,13 @@ $(document).on("pageshow","#index_old",function(){
                         });
 
                     });
-
+                    prvenda =parseFloat(ob.preco_venda);
+                    prvenda =prvenda.toFixed(2);
+                     prvenda = String(prvenda);
+                    prvenda = prvenda.replace('.',',');
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+prvenda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <p>'+ob.descricao+'</p>\
                     </div></div>\
                     '+selectTamanho+'\
@@ -848,10 +851,13 @@ $(document).on("pageshow","#index_old",function(){
                         selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
                         flagTamanho=false;
                     }
-
+                     prvenda =parseFloat(ob.preco_venda);
+                    prvenda =prvenda.toFixed(2);
+                    prvenda = String(prvenda);
+                    prvenda = prvenda.replace('.',',');
                     return '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+ob.preco_venda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+prvenda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <p>'+ob.descricao+'</p>\
                     </div></div>'+selectTamanho+'\
                     '+selectBebidas+'\

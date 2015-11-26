@@ -1696,7 +1696,7 @@ function atualizarProduto(){
           s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
           }
           $("#noteTitleList").html(s);
-          $("#noteTitleList").listview("refresh");
+         // $("#noteTitleList").listview("refresh");
           }
     }
 
@@ -1732,7 +1732,7 @@ function atualizarProduto(){
         
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo    
-           // getEntries(); 
+            getEntries(); 
         });
 
         //edit page logic needs to know to get old record (possible)

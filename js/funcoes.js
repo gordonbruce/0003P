@@ -166,6 +166,7 @@ function removeDiacritics (str) {
 }
 
 $(document).ready(function() {
+    init();
     $('body').on('focusout', '.password',function(){
         mypassword=$('#passwordEdit').val();
         checpassword = $('#passwordConfEdit').val();

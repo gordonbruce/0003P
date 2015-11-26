@@ -27,7 +27,8 @@
 		<script src="js/countdown.js"></script>
 		<script src="js/jquery.raty.js"></script>
 		<script src="js/load-image.all.min.js"></script>
-                        <script src="js/configuracoes.js"></script>
+	  <script src="js/database.js"></script>
+    <script src="js/configuracoes.js"></script>
 		<script src="js/funcoes.js"></script>
 		<script src="js/jquery.mobilegmap.min.js"></script>
 		<script src="phonegap.js"></script>
@@ -298,6 +299,7 @@
                                             <br />
                                             <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidas as cidades e os bairros que são cobertos pela nossa equipe de entregas. Caso a sua localidade não se encontre aqui, por favor entre em contato pelo Menu -> Contato para a verificarmos a possibilidade de entregas na sua região.</span>
                                             <br />
+
                                             <legend>UF</legend>
                                             <select name="data[Pedido][entrega_outro_estado]" id="entregaOutroEstado"    data-theme="b">
                                                     <option value="RJ">RJ</option>
@@ -482,6 +484,12 @@
                     <input type="hidden" name="empresa" id="empresa_input" class="empresa_input" autocomplete="off" >
                     <input type="hidden" name="filial" id="filial_input" class="filial_input" autocomplete="off" >
                 </form>
+                
+								<div id="mainContent">
+									<ul id="noteTitleList">
+										
+									</ul>
+								</div>
                 <div id="usuario"></div>
                 <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="">
                         <div data-role="header" data-theme="b" data-position="fixed"  >
@@ -970,8 +978,10 @@
                         <input type="text"  id="nomeEdit" class="nome limpar" value="" name="data[Cliente][nome]"  placeholder="nome" >
                         <label for="text-basic">Nome de usuário:<span class="vermelho"> *</span></label>
                         <input type="text"  id="usernameEdit" class="username limpar" value="" name="data[Cliente][username]"  placeholder="usuário" >
-                        <label for="text-basic">Senha:<span class="vermelho"> *</span></label>
+                        <label for="text-basic">Senha:<span class="vermelho"> *</span> <span class="none difpass">As senhas digitadas são diferentes</span></label>
                         <input type="password"  id="passwordEdit" class="password limpar" value="" name="data[Cliente][password]"  placeholder="senha" >
+                        <label for="text-basic">Confirme sua senha:<span class="vermelho"> *</span>  </label>
+                        <input type="password"  id="passwordConfEdit" class="password limpar" value="" name="data[Cliente][passwordcconfirm]"  placeholder="confirme a senha" >
                         <label for="text-basic">Data de Nascimento:</label>
                         <input type="text"  id="nascEdit" class="nasc limpar" value="" name="data[Cliente][nasc]"  placeholder="nascimento" >
                     </div>
@@ -992,6 +1002,7 @@
                         </select>
                         <br />
                         <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidas as cidades e os bairros que são cobertos pela nossa equipe de entregas. Caso a sua localidade não se encontre aqui, por favor entre em contato pelo Menu -> Contato para a verificarmos a possibilidade de entregas na sua região.</span>
+                         <br />
                          <br />
                         <label for="cidade">Cidade: <span class="vermelho"> *</span></label>
 
@@ -1094,6 +1105,15 @@
                     </div>
                     <div role="main" class="ui-content">
                         <p > O campo <span id="msgErroValidacao"></span> deve ser preenchido </p>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                    </div>
+                </div>
+                <div data-role="popup" id="erroValidaSenhaPop"  data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed">
+                    <h2>Ops, erro.</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p > O campo as senhas digitadas  devem ser iguais.</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>

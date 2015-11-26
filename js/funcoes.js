@@ -166,9 +166,27 @@ function removeDiacritics (str) {
 }
 
 $(document).ready(function() {
+    $('body').on('focusout', '.password',function(){
+        mypassword=$('#passwordEdit').val();
+        checpassword = $('#passwordConfEdit').val();
+        if(mypassword != '' && checpassword != ''){
+            if(mypassword != checpassword)
+            {
+                $('.password').addClass('red-border');
+                $('.difpass').fadeIn('slow');
+            }else{
+                 $('.password').removeClass('red-border');
+                 $('.difpass').fadeOut('fast');
 
+            }
+            setTimeout(function(){
+                $('.password').removeClass('red-border');
+                 $('.difpass').fadeOut('slow');
+                 },30000);
+        }
+    });
 
-    $('body').on('clinck', 'body',function(){
+    $('body').on('click', 'body',function(){
         //$('.ui-header-fixed').removeClass('slidedown');
     });
     $('.endEntrega').focusout(function(){
@@ -1451,9 +1469,93 @@ function atualizarProduto(){
         }
 
     });
+   
+
     var pagamento;
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+    function loginCad(data){
+        $.mobile.loading( "show" );
+        dataToSave = {
+            id:'',
+            username:data.username,
+            password:data.password,
+            filial_id:data.filial,
+            empresa_id:data.empresa,
+            ativo:'1',
+            cliente_id:data.cliente.id
+        };
+        var urlAction = URLAPP+"RestClientes/loginmobile.json";
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  data,
+            dataType: 'json',
+            crossDomain: true,
+            success: function(data){
+                var res = data.ultimopedido;
+                
+                cliente_id = data.ultimopedido.Cliente.id;
+                cliente = data.ultimopedido;
+                bebidas='<option value="">Selecione</option>';
+                if(typeof cliente.Bebidas !==  'undefined'){
+                    $.each(cliente.Bebidas, function(i, beb){
+                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+                    });
+                }else{
+                    bebidas=null;
+                }
+                pagueGanhe='<option value="">Selecione</option>';
+                if(typeof cliente.PagueGanhe !==  'undefined'){
+                    $.each(cliente.PagueGanhe, function(i, pagueGan){
+                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+                    });
+                }else{
+                    pagueGanhe=null;
+                }
 
+                saveNote(dataToSave,function() {
+                    if(fezPedidoSemLogar=='sim'){
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                       // filialPadrao=data.ultimopedido.Cliente.filial_id;
+                        $.mobile.changePage("#index",{ transition: "none",  });
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
+
+                    }else{
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                        $.mobile.changePage("#index",{ transition: "none",  });
+
+                         $('.pageContent').hide();
+                            $.mobile.loading( "show" );
+                            setTimeout(function(){
+                                $.mobile.loading( "hide" );
+                                $('.pageContent').fadeIn('slow');
+                            },2000);
+
+                    }
+
+                    
+                    
+                    setInterval(function(){
+                        getSituacaoCampainha();
+                    },20000);
+                });
+
+                
+            },error: function(data){
+                //criar tratatmento de erros
+                $.mobile.loading( "hide" );
+                $("#popupDialogLogin").popup( "open" );
+                $('#loginSalt').val('')
+            }
+        });
+    }
     $('body').on('submit', '#login', function(event){
 
         event.preventDefault();
@@ -2073,7 +2175,7 @@ $("#pedir").click(function(event){
 
                         $('.bairro').val(getBairroFromCep).change();
 
-                        $('.bairro option[value='+getBairroFromCep+']').attr('selected','selected');
+                        $('.bairro option [value="'+getBairroFromCep+']"').attr('selected','selected');
                        // getBairroFromCep=null;
 
                     }
@@ -3016,20 +3118,21 @@ function checaAtendimento(atendimentocod){
     });
 
     function validaFormCad(){
-        nome = $('.nome').val();
-        username = $('.username').val();
-        password = $('.password').val();
+        nome = $('#nomeEdit').val();
+        username = $('#usernameEdit').val();
+        password = $('#passwordEdit').val();
+        checkPassword=$('#passwordConfEdit').val();
 
         //cep = $('.cep').val();
-        logradouro = $('.logradouro').val();
-        numero = $('.numero').val();
+        logradouro = $('#logradouroEdit').val();
+        numero = $('#numeroEdit').val();
 
-        bairro = $('.bairro').find('option:selected').val();
+        bairro = $('#bairroEdit').find('option:selected').val();
 
-        cidade = $('.bairro').find('option:selected').val();
-        uf =  $('.uf').find('option:selected').val();
-        telefone = $('.telefone').val();
-        celular = $('.celular').val();
+        cidade = $('#cidadeEdit').find('option:selected').val();
+        uf =  $('#ufEdit').find('option:selected').val();
+        telefone = $('#telefoneEdit').val();
+        celular = $('#celularEdit').val();
         minhaFilial=$('#filial_id').find('option:selected').val();
 
 
@@ -3066,6 +3169,10 @@ function checaAtendimento(atendimentocod){
 
                 $('#msgErroValidacao').html('loja');
                 $("#erroValidaPop").popup( "open" );
+            }else if(password != checkPassword){
+
+                
+                $("#erroValidaSenhaPop").popup( "open" );
             }else{
                 respValida = "ok";
                 return respValida;
@@ -3097,6 +3204,10 @@ function checaAtendimento(atendimentocod){
             }else if((telefone == '') && (celular == '')){
                 $('#msgErroValidacao').html('telefone ou celular');
                 $("#erroValidaPop").popup( "open" );
+            }else if(password != checkPassword){
+
+                
+                $("#erroValidaSenhaPop").popup( "open" );
             }else if(minhaFilial ==''){
 
                 $('#msgErroValidacao').html('loja');
@@ -3117,6 +3228,9 @@ function checaAtendimento(atendimentocod){
         mes = dataNascimento.substring(3, 5);
         ano = dataNascimento.substring(6, 10);
         dataNascimento = ano + "-" + mes + "-" + dia;
+        senhaRegis= $('#passwordEdit').val();
+        loginRegis=$('#usernameEdit').val();
+        filialRegis=$('#filial_id').val();
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
@@ -3135,7 +3249,7 @@ function checaAtendimento(atendimentocod){
 
 
                         var res = data.ultimocliente;
-                        cliente =  data.ultimocliente;
+                        //cliente =  data.ultimocliente;
                         $.mobile.loading( "hide" );
                         $("#saltEdit").val('');
 
@@ -3145,20 +3259,24 @@ function checaAtendimento(atendimentocod){
                             //$( "#popupDialog" ).popup( "open" );
                         }else{
                             if(res=='ErroUsuarioDuplo'){
-
                                 $("#popupUsuarioDuplo").popup( "open" );
                             }else{
+                               
+                                dataToLog = {
+                                    username:loginRegis,
+                                    password:senhaRegis,
+                                    salt:salt,
+                                    empresa:empresa,
+                                    filial:filialRegis,
+                                    cliente:res.Cliente.id
+                                };
 
-                                $("#popupCaadastroSuccess").popup( "open" );
+
+                                loginCad(dataToLog);
+                                
                             }
-
-                            //cliente_id = data.ultimopedido.Cliente.id;
-                            //cliente = data.ultimopedido;
-                            //$.mobile.changePage("#page0");
                         }
                     },error: function(data){
-
-
                         $.mobile.loading( "hide" );
                         $("#popupDialogLogin5").popup( "open" );
                         $("#saltEdit").val('');
@@ -3829,6 +3947,7 @@ var getBairroFromCep=null;
             $('#complementoEdit').val(cliente.Cliente.complemento);
             $('#numeroEdit').val(cliente.Cliente.numero);
             $('#bairroEdit').val(cliente.Cliente.bairro);
+            $('#pReferenciaEdit').val(cliente.Cliente.p_referencia);
              if(typeof getBairroFromCep !=='undefined')
             {
                getBairroFromCep=cliente.Cliente.bairro;
@@ -3967,6 +4086,7 @@ var getBairroFromCep=null;
     $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo
         $('#empresa_input').val(empresa);
         $('#filial_input').val(filialPadrao);
+        getEntries(); 
     });
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
         $('#idpedidoempresa').val(empresa);

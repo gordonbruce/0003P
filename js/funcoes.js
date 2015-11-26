@@ -1710,7 +1710,7 @@ function atualizarProduto(){
     }
     function init(){
         
-       // document.addEventListener("deviceready", phoneReady, false);
+       document.addEventListener("deviceready", phoneReady, false);
             
         $('.meucadastroForm').submit(function(event){
 

@@ -1702,7 +1702,7 @@ function atualizarProduto(){
 
     function saveNote(entregappusers, cb) {
         //Sometimes you may want to jot down something quickly....
-        if(entregappusers.title == "") entregappusers.title = "[No Title]";
+        if(entregappusers.username == "") entregappusers.username = "[No Title]";
         dbShell.transaction(function(tx) {
         if(entregappusers.id == "") tx.executeSql("insert into entregappusers(username,password,empresa_id,filial_id,user_id,ativo,updated) values(?,?,?,?,?,?,?)",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date()]);
         else tx.executeSql("update entregappusers set username=?, password=?,empresa_id=?, filial_id=?, user_id=?,ativo=?,updated=? where id=?",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date(), entregappusers.id]);

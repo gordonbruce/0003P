@@ -740,6 +740,7 @@ display: block;
 .red-border{
   border:1px solid red !important;
 }
+.submitFormCliente{outline: none !important;}
 @media screen and (max-height: 768px) {
   .pageContent{
         min-height: 650px !important;

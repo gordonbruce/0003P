@@ -1534,7 +1534,7 @@ function atualizarProduto(){
                     position: position,
                     icon:'images/usuario2.png',
                     map: map,
-                   // draggable: true
+                   draggable: false
                 });
 
                 marker.setPosition(position);
@@ -1661,7 +1661,9 @@ function atualizarProduto(){
     function dbErrorHandler(err){
         alert("DB Error: "+err.message + "\nCode="+err.code);
     }
-
+    var clienteSalvo;
+    var checkLogado;
+    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     function phoneReady(){
         doLog("phoneReady");
         //First, open our db
@@ -1671,6 +1673,30 @@ function atualizarProduto(){
         //run transaction to create initial tables
         dbShell.transaction(setupTable,dbErrorHandler,getEntries);
         doLog("ran setup");
+
+        //Faz o login do usuario
+        dataToGetLogin = {
+            empresa_id:empresa,
+            filial_id:filialPadrao    
+        };    
+       objLogin = getLogin(dataToGetLogin);
+       if (objLogin.rows.length != 0) 
+       {
+            for(var i=0; i<objLogin.rows.length; i++) 
+            {
+                if(results.rows.item(i).username != '' && results.rows.item(i).password != '')
+                {
+                    clienteSalvo = {
+                        id:results.rows.item(i).id,
+                        username:results.rows.item(i).username,
+                        password:results.rows.item(i).password,
+                        ativo:results.rows.item(i).ativo  
+                    };
+                    checkLogado=true;
+                }
+            }
+
+       }
     }
 
     //I just create our initial table - all one of em
@@ -1700,6 +1726,15 @@ function atualizarProduto(){
           }
     }
 
+    function getLogin(entregappusers){
+        dbShell.transaction(function(tx) {
+        tx.executeSql("select * from entregappusers where empresa_id=? AND filial_id=? AND ativo= ? ",[entregappusers.empresa_id, entregappusers.filial_id,1],returnLogin,dbErrorHandler);
+        }, dbErrorHandler);
+    }
+
+    function returnLogin(tx, results){
+        return results;
+    }
     function saveNote(entregappusers, cb) {
         //Sometimes you may want to jot down something quickly....
         if(entregappusers.username == "") entregappusers.username = "[No Title]";
@@ -1712,6 +1747,8 @@ function atualizarProduto(){
         
        document.addEventListener("deviceready", phoneReady, false);
             
+
+
         $('.meucadastroForm').submit(function(event){
 
             event.preventDefault();
@@ -1732,7 +1769,7 @@ function atualizarProduto(){
         
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo    
-            getEntries(); 
+            //getEntries(); 
         });
 
         //edit page logic needs to know to get old record (possible)
@@ -1761,12 +1798,33 @@ function atualizarProduto(){
     }
     $(document).ready(function(){
         init();
+        
+   
+        if(checkLogado==true)
+        {
+            
+            clienteSalvo = {
+                        id:results.rows.item(i).id,
+                        username:results.rows.item(i).username,
+                        password:results.rows.item(i).password,
+                        ativo:results.rows.item(i).ativo  
+                    };
+            dataToLog = {
+                username:clienteSalvo.username,
+                password:clienteSalvo.password,
+                salt:salt,
+                empresa:empresa,
+                filial:filialPadrao
+            };
+            loginCad(dataToLog);
+        }
+        
     });
     var pagamento;
-    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+   
     function loginCad(data){
         $.mobile.loading( "show" );
-        dataToSave = {
+       /* dataToSave = {
             id:'',
             username:data.username,
             password:data.password,
@@ -1774,7 +1832,7 @@ function atualizarProduto(){
             empresa_id:data.empresa,
             ativo:'1',
             cliente_id:data.cliente.id
-        };
+        };*/
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({
             type: "POST",
@@ -1815,15 +1873,15 @@ function atualizarProduto(){
                     getSituacaoCampainha();
                 },20000);
 
-                saveNote(dataToSave,function() {
+               /* saveNote(dataToSave,function() {
                     $.mobile.changePage("#index",{reverse:true});
-                });
+                });*/
 
                 
             },error: function(data){
                 //criar tratatmento de erros
                 $.mobile.loading( "hide" );
-                $("#popupDialogLogin").popup( "open" );
+                $("#popupDialogLogin6").popup( "open" );
                 $('#loginSalt').val('')
             }
         });
@@ -3486,6 +3544,7 @@ function checaAtendimento(atendimentocod){
         senhaRegis= $('#passwordEdit').val();
         loginRegis=$('#usernameEdit').val();
         filialRegis=$('#filial_id').val();
+        $('.submitFormCliente').attr("disabled", 'disabled');
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
@@ -3531,10 +3590,12 @@ function checaAtendimento(atendimentocod){
                                 
                             }
                         }
+                        $('.submitFormCliente').removeAttr("disabled");
                     },error: function(data){
                         $.mobile.loading( "hide" );
                         $("#popupDialogLogin5").popup( "open" );
                         $("#saltEdit").val('');
+                        $('.submitFormCliente').removeAttr("disabled");
                     }
             });
         $('.nasc').val(dataNascimentoAux);
@@ -4089,7 +4150,7 @@ var getBairroFromCep=null;
                         position: latlng,
                         map: map,
                          icon:'images/usuario2.png',
-                       // draggable: true
+                       draggable: false
                     });
             }, 2000);
 

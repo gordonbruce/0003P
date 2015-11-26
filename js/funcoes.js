@@ -1803,39 +1803,20 @@ function atualizarProduto(){
                 }else{
                     pagueGanhe=null;
                 }
+                
+                if(fezPedidoSemLogar=='sim'){
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                }else{
+                    fezPedidoSemLogar="nao";
+                    $('.showLogado').removeClass('logadoNone');
+                }
+                setInterval(function(){
+                    getSituacaoCampainha();
+                },20000);
 
                 saveNote(dataToSave,function() {
-                    if(fezPedidoSemLogar=='sim'){
-                        fezPedidoSemLogar="nao";
-                        $('.showLogado').removeClass('logadoNone');
-                       // filialPadrao=data.ultimopedido.Cliente.filial_id;
-                        $.mobile.changePage("#index",{ transition: "none",  });
-                         $('.pageContent').hide();
-                            $.mobile.loading( "show" );
-                            setTimeout(function(){
-                                $.mobile.loading( "hide" );
-                                $('.pageContent').fadeIn('slow');
-                            },2000);
-
-                    }else{
-                        fezPedidoSemLogar="nao";
-                        $('.showLogado').removeClass('logadoNone');
-                        $.mobile.changePage("#index",{ transition: "none",  });
-
-                         $('.pageContent').hide();
-                            $.mobile.loading( "show" );
-                            setTimeout(function(){
-                                $.mobile.loading( "hide" );
-                                $('.pageContent').fadeIn('slow');
-                            },2000);
-
-                    }
-
-                    
-                    
-                    setInterval(function(){
-                        getSituacaoCampainha();
-                    },20000);
+                    $.mobile.changePage("#index",{reverse:true});
                 });
 
                 

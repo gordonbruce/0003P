@@ -166,7 +166,6 @@ function removeDiacritics (str) {
 }
 
 $(document).ready(function() {
-    init();
     $('body').on('focusout', '.password',function(){
         mypassword=$('#passwordEdit').val();
         checpassword = $('#passwordConfEdit').val();
@@ -1760,7 +1759,9 @@ function atualizarProduto(){
             }*/
         });
     }
-
+    $(document).ready(function(){
+        init();
+    });
     var pagamento;
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     function loginCad(data){

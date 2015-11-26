@@ -1682,7 +1682,7 @@ function atualizarProduto(){
     //I handle getting entries from the db
     function getEntries() {
         dbShell.transaction(function(tx) {
-        tx.executeSql("select id, username, password, empresa_id, filial_id,user_id, ativo,updated from entregappusers order by username desc",[],renderEntries,dbErrorHandler);
+        tx.executeSql("select * from entregappusers",[],renderEntries,dbErrorHandler);
         }, dbErrorHandler);
     }
         

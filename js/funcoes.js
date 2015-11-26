@@ -1873,9 +1873,9 @@ function atualizarProduto(){
                     getSituacaoCampainha();
                 },20000);
 
-               /* saveNote(dataToSave,function() {
+               saveNote(dataToSave,function() {
                     $.mobile.changePage("#index",{reverse:true});
-                });*/
+                });
 
                 
             },error: function(data){

@@ -1469,7 +1469,235 @@ function atualizarProduto(){
         }
 
     });
-   
+   function getCoordenadas() {
+
+        numero = removeDiacritics($('.numero').val());
+        numero = numero.split(' ').join('+');
+        logradouro = removeDiacritics($('.logradouro').val());
+        logradouro = logradouro.split(' ').join('+');
+        bairro = removeDiacritics($('.bairro').val());
+        bairro = bairro.split(' ').join('+');
+        complemento= removeDiacritics($('.complemento').val());
+        complemento = complemento.split(' ').join('+');
+        cidade = removeDiacritics($('.cidade').val());
+        cidade = cidade.split(' ').join('+');
+        uf = removeDiacritics($('.uf').val());
+        uf = uf.split(' ').join('+');
+
+        pesquisa=numero+','+logradouro+','+bairro+','+cidade+','+uf;
+
+
+        var url="http://maps.googleapis.com/maps/api/geocode/json?address="+pesquisa+"&sensor=true";
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+
+                success: function(data){
+
+
+                i=0;
+                var lat=0;
+                var lng =0;
+                $.each(data.results, function(i, resultados){
+
+                    $('#lngEdit').val(resultados.geometry.location.lng);
+                    lat =resultados.geometry.location.lat;
+                    lng = resultados.geometry.location.lng
+                    $('#lng').val(resultados.geometry.location.lng);
+                    $('#latEdit').val(resultados.geometry.location.lat);
+                    $('#lat').val(resultados.geometry.location.lat);
+                });
+
+                latorigin = $('#latEdit').val();
+                lngorigin =$('#lngEditDest').val();
+                latDest= $('#latEditDest').val();
+                lngDest=$('#lngEditDest').val();
+                CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
+                $('#gmapLEntrega2').val('');
+
+                var latlng = new google.maps.LatLng(lat,lng);
+
+                var options = {
+                    zoom: 16,
+                    center: latlng,
+                    scrollwheel:false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
+                position = new google.maps.LatLng(lat,lng);
+
+
+                 marker = new google.maps.Marker({
+                    position: position,
+                    icon:'images/usuario2.png',
+                    map: map,
+                   // draggable: true
+                });
+
+                marker.setPosition(position);
+                //atualiza o ponteiro
+                map.panTo( new google.maps.LatLng( lat,lng ) );
+                $.mobile.loading( "hide" );
+
+                return true;
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    //$(".erroconexao").popup( "open" );
+                    //tratar
+
+                }
+
+            });
+    }
+
+
+
+     function CalculaDistancia(lat,lng, latDest,lngDest) {
+
+
+
+
+
+        var startOrigin= new google.maps.LatLng(lat,lng);
+        var endDest =new google.maps.LatLng(latDest,lngDest);
+
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [startOrigin],
+            destinations: [endDest],
+            travelMode: google.maps.TravelMode.DRIVING,
+            avoidHighways: false,
+            avoidTolls: false
+          }, callback);
+
+
+
+
+
+    }
+
+    function callback(response, status) {
+      if (status == google.maps.DistanceMatrixStatus.OK) {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
+
+        for (var i = 0; i < origins.length; i++) {
+          var results = response.rows[i].elements;
+          for (var j = 0; j < results.length; j++) {
+            var element = results[j];
+            if(element.status !=  'ZERO_RESULTS'){
+                var distance = element.distance.text;
+                var duration = element.duration.text;
+                var from = origins[i];
+                var to = destinations[j];
+        $('#distanciaCli').val(distance);
+        $('#duracaoCli').val(duration);
+            }
+
+
+          }
+        }
+      }
+    }
+    function getCoordenadasLatLng(lat, lng) {
+
+        var url="http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+','+lng+"&sensor=true";
+
+        $.mobile.loading( "show" );
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+
+
+
+
+                success: function(data){
+
+
+                i=0;
+                $.each(data.results, function(i, resultados){
+                    if(i ==0){
+                        var endereco = resultados.formatted_address;
+
+                        var  res = endereco.split(",");
+                        cep =res[1];
+                        cep =  cep.split("-");
+                        cepAux = cep[0] + cep[1];
+                        $('#logradouroEdit').val(res[0]);
+                        $('#cepEdit').val(cepAux);
+
+                        return true;
+                    }
+                    $.mobile.loading( "hide" );
+
+                });
+
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    //$(".erroconexao").popup( "open" );
+
+                }
+
+            });
+    }
+    var respValida ='';
+    function init(){
+        document.addEventListener("deviceready", phoneReady, false);
+            
+        $('.meucadastroForm').submit(function(event){
+
+            event.preventDefault();
+
+            validaFormCad();
+
+            if(respValida == 'ok'){
+                $( ".ui-icon-minus" ).trigger('click');
+                getCoordenadas();
+                latDest= $('latEditDest').val();
+                lngDest= $('lngEditDest').val();
+                lat = $('latEdit').val();
+                lng = $('lngEdit').val();
+
+                setSubmit();
+            }
+        });
+        
+        //will run after initial show - handles regetting the list
+        $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo    
+            getEntries(); 
+        });
+
+        //edit page logic needs to know to get old record (possible)
+        $(document).on("pageshow","#page5",function(){ // When entering pagetwo      
+          /* //get the location - it is a hash - got to be a better way
+            var loc = window.location.hash;
+            if(loc.indexOf("?") >= 0) {
+                var qs = loc.substr(loc.indexOf("?")+1,loc.length);
+                var noteId = qs.split("=")[1];
+                //load the values
+                $("#submitFormCliente").attr("disabled","disabled"); 
+                dbShell.transaction(
+                    function(tx) {
+                        tx.executeSql("select id,username,password, empresa_id,filial_id,cliente_id from entregappusers where id=?",[noteId],function(tx,results) {
+                            $("#noteId").val(results.rows.item(0).id);
+                            $("#noteTitle").val(results.rows.item(0).title);
+                            $("#noteBody").val(results.rows.item(0).body);
+                            $("#editFormSubmitButton").removeAttr("disabled");   
+                        });
+                    }, dbErrorHandler);
+                
+            } else {
+             $("#submitFormCliente").removeAttr("disabled");   
+            }*/
+        });
+    }
 
     var pagamento;
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
@@ -3098,24 +3326,7 @@ function checaAtendimento(atendimentocod){
      }
     });
 
-    var respValida ='';
-    $('.meucadastroForm').submit(function(event){
-
-        event.preventDefault();
-
-        validaFormCad();
-
-        if(respValida == 'ok'){
-            $( ".ui-icon-minus" ).trigger('click');
-            getCoordenadas();
-            latDest= $('latEditDest').val();
-            lngDest= $('lngEditDest').val();
-            lat = $('latEdit').val();
-            lng = $('lngEdit').val();
-
-            setSubmit();
-        }
-    });
+    
 
     function validaFormCad(){
         nome = $('#nomeEdit').val();
@@ -3375,184 +3586,7 @@ function checaAtendimento(atendimentocod){
 
 
 
-    function getCoordenadas() {
-
-        numero = removeDiacritics($('.numero').val());
-        numero = numero.split(' ').join('+');
-        logradouro = removeDiacritics($('.logradouro').val());
-        logradouro = logradouro.split(' ').join('+');
-        bairro = removeDiacritics($('.bairro').val());
-        bairro = bairro.split(' ').join('+');
-        complemento= removeDiacritics($('.complemento').val());
-        complemento = complemento.split(' ').join('+');
-        cidade = removeDiacritics($('.cidade').val());
-        cidade = cidade.split(' ').join('+');
-        uf = removeDiacritics($('.uf').val());
-        uf = uf.split(' ').join('+');
-
-        pesquisa=numero+','+logradouro+','+bairro+','+cidade+','+uf;
-
-
-        var url="http://maps.googleapis.com/maps/api/geocode/json?address="+pesquisa+"&sensor=true";
-
-         $.ajax({
-                type: "GET",
-                url: url,
-                dataType: 'json',
-
-                success: function(data){
-
-
-                i=0;
-                var lat=0;
-                var lng =0;
-                $.each(data.results, function(i, resultados){
-
-                    $('#lngEdit').val(resultados.geometry.location.lng);
-                    lat =resultados.geometry.location.lat;
-                    lng = resultados.geometry.location.lng
-                    $('#lng').val(resultados.geometry.location.lng);
-                    $('#latEdit').val(resultados.geometry.location.lat);
-                    $('#lat').val(resultados.geometry.location.lat);
-                });
-
-                latorigin = $('#latEdit').val();
-                lngorigin =$('#lngEditDest').val();
-                latDest= $('#latEditDest').val();
-                lngDest=$('#lngEditDest').val();
-                CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
-                $('#gmapLEntrega2').val('');
-
-                var latlng = new google.maps.LatLng(lat,lng);
-
-                var options = {
-                    zoom: 16,
-                    center: latlng,
-                    scrollwheel:false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-
-                map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-                position = new google.maps.LatLng(lat,lng);
-
-
-                 marker = new google.maps.Marker({
-                    position: position,
-                    icon:'images/usuario2.png',
-                    map: map,
-                   // draggable: true
-                });
-
-                marker.setPosition(position);
-                //atualiza o ponteiro
-                map.panTo( new google.maps.LatLng( lat,lng ) );
-                $.mobile.loading( "hide" );
-
-                return true;
-                },error: function(data){
-                    $.mobile.loading( "hide" );
-                    //$(".erroconexao").popup( "open" );
-                    //tratar
-
-                }
-
-            });
-    }
-
-
-
-     function CalculaDistancia(lat,lng, latDest,lngDest) {
-
-
-
-
-
-        var startOrigin= new google.maps.LatLng(lat,lng);
-        var endDest =new google.maps.LatLng(latDest,lngDest);
-
-
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(
-          {
-            origins: [startOrigin],
-            destinations: [endDest],
-            travelMode: google.maps.TravelMode.DRIVING,
-            avoidHighways: false,
-            avoidTolls: false
-          }, callback);
-
-
-
-
-
-    }
-
-    function callback(response, status) {
-      if (status == google.maps.DistanceMatrixStatus.OK) {
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
-
-        for (var i = 0; i < origins.length; i++) {
-          var results = response.rows[i].elements;
-          for (var j = 0; j < results.length; j++) {
-            var element = results[j];
-            if(element.status !=  'ZERO_RESULTS'){
-                var distance = element.distance.text;
-                var duration = element.duration.text;
-                var from = origins[i];
-                var to = destinations[j];
-        $('#distanciaCli').val(distance);
-        $('#duracaoCli').val(duration);
-            }
-
-
-          }
-        }
-      }
-    }
-    function getCoordenadasLatLng(lat, lng) {
-
-        var url="http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+','+lng+"&sensor=true";
-
-        $.mobile.loading( "show" );
-
-         $.ajax({
-                type: "GET",
-                url: url,
-                dataType: 'json',
-
-
-
-
-                success: function(data){
-
-
-                i=0;
-                $.each(data.results, function(i, resultados){
-                    if(i ==0){
-                        var endereco = resultados.formatted_address;
-
-                        var  res = endereco.split(",");
-                        cep =res[1];
-                        cep =  cep.split("-");
-                        cepAux = cep[0] + cep[1];
-                        $('#logradouroEdit').val(res[0]);
-                        $('#cepEdit').val(cepAux);
-
-                        return true;
-                    }
-                    $.mobile.loading( "hide" );
-
-                });
-
-                },error: function(data){
-                    $.mobile.loading( "hide" );
-                    //$(".erroconexao").popup( "open" );
-
-                }
-
-            });
-    }
+    
     //google maps
      // your google map container
 
@@ -4086,7 +4120,7 @@ var getBairroFromCep=null;
     $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo
         $('#empresa_input').val(empresa);
         $('#filial_input').val(filialPadrao);
-        getEntries(); 
+       // getEntries(); 
     });
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
         $('#idpedidoempresa').val(empresa);

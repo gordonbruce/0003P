@@ -1648,29 +1648,45 @@ function atualizarProduto(){
             });
     }
     var respValida ='';
-    function init(){
-        var dbShell;
+    var dbShell;
 
-        function phoneReady() {
-          //First, open our db
-          dbShell = window.openDatabase("Entregapp", 2, "Entregapp", 1000000);
-          //run transaction to create initial tables
-          dbShell.transaction(setupTable,dbErrorHandler,getEntries);
-        }
+    function doLog(s){
+        /*
+        setTimeout(function(){
+            console.log(s);
+        }, 3000);
+        */
+    }
 
-        //I just create our initial table - all one of em
-        function setupTable(tx){
-          tx.executeSql("CREATE TABLE IF NOT EXISTS entregappusers(id INTEGER PRIMARY KEY,username,password,empresa_id,filial_id,user_id,ativo,updated)");
-        }
+    function dbErrorHandler(err){
+        alert("DB Error: "+err.message + "\nCode="+err.code);
+    }
 
-        //I handle getting entries from the db
-        function getEntries() {
-            dbShell.transaction(function(tx) {
-            tx.executeSql("select id, username, password, empresa_id, filial_id,user_id, ativo,updated from entregappusers order by username desc",[],renderEntries,dbErrorHandler);
-            }, dbErrorHandler);
-        }
+    function phoneReady(){
+        doLog("phoneReady");
+        //First, open our db
+        
+        dbShell = window.openDatabase("Entregapp", 2, "Entregapp", 1000000);
+        doLog("db was opened");
+        //run transaction to create initial tables
+        dbShell.transaction(setupTable,dbErrorHandler,getEntries);
+        doLog("ran setup");
+    }
 
-        function renderEntries(tx,results){
+    //I just create our initial table - all one of em
+    function setupTable(tx){
+        doLog("before execute sql...");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS entregappusers(id INTEGER PRIMARY KEY,username,password,empresa_id,filial_id,user_id,ativo,updated)");
+        doLog("after execute sql...");
+    }   
+    //I handle getting entries from the db
+    function getEntries() {
+        dbShell.transaction(function(tx) {
+        tx.executeSql("select id, username, password, empresa_id, filial_id,user_id, ativo,updated from entregappusers order by username desc",[],renderEntries,dbErrorHandler);
+        }, dbErrorHandler);
+    }
+        
+    function renderEntries(tx,results){
           doLog("render entries");
           if (results.rows.length == 0) {
           $("#Pagelogin").html("<p>You currently do not have any notes.</p>");
@@ -1682,17 +1698,18 @@ function atualizarProduto(){
           $("#noteTitleList").html(s);
           $("#noteTitleList").listview("refresh");
           }
-        }
+    }
 
-        function saveNote(entregappusers, cb) {
+    function saveNote(entregappusers, cb) {
         //Sometimes you may want to jot down something quickly....
         if(entregappusers.title == "") entregappusers.title = "[No Title]";
         dbShell.transaction(function(tx) {
         if(entregappusers.id == "") tx.executeSql("insert into entregappusers(username,password,empresa_id,filial_id,user_id,ativo,updated) values(?,?,?,?,?,?,?)",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date()]);
         else tx.executeSql("update entregappusers set username=?, password=?,empresa_id=?, filial_id=?, user_id=?,ativo=?,updated=? where id=?",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date(), entregappusers.id]);
         }, dbErrorHandler,cb);
-        }
-
+    }
+    function init(){
+        
         document.addEventListener("deviceready", phoneReady, false);
             
         $('.meucadastroForm').submit(function(event){

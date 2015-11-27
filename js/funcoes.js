@@ -1707,7 +1707,7 @@ function atualizarProduto(){
 
     function getLogin(entregappusers){
         dbShell.transaction(function(tx) {
-        tx.executeSql("select * from entregappusers where empresa_id=? AND filial_id=? AND ativo= ? ",[entregappusers.empresa_id, entregappusers.filial_id,1],returnLogin,dbErrorHandler);
+        tx.executeSql("select * from entregappusers where empresa_id=? AND filial_id=? AND ativo= ? ",[empresa, filialPadrao,1],returnLogin,dbErrorHandler);
         }, dbErrorHandler);
     }
     var clienteSalvo=[];

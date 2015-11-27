@@ -1699,7 +1699,7 @@ function atualizarProduto(){
                 $('#iddb').val(results.rows.item(i).id);
                 $('#ativodb').val(results.rows.item(i).ativo);   
               }
-              loginInit();
+              
              
           }
     }
@@ -1737,7 +1737,7 @@ function atualizarProduto(){
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#index",function(){ // When entering pagetwo    
             getEntries(); 
-            
+            loginInit();
             
         });
 
@@ -1771,7 +1771,7 @@ function atualizarProduto(){
     });
     var pagamento;
     function loginInit(){
-        $.mobile.loading( "show" );
+       
         dataTosend ={
             username:$('#userdb').val(),
             password:$('#passdb').val(),
@@ -1788,7 +1788,6 @@ function atualizarProduto(){
             crossDomain: true,
             success: function(data){
                 var res = data.ultimopedido;
-                alert('teste');
                 cliente_id = data.ultimopedido.Cliente.id;
                 cliente = data.ultimopedido;
                 bebidas='<option value="">Selecione</option>';
@@ -1819,11 +1818,14 @@ function atualizarProduto(){
                     getSituacaoCampainha();
                 },20000);
 
-                $.mobile.changePage("#index",{reverse:true});
+                
 
                 
             },error: function(data){
-                $.mobile.loading( "hide" );
+                setTimeout(function(){
+                    loginInit();
+                },5000);
+               
                 
             }
         });

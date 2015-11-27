@@ -1661,7 +1661,7 @@ function atualizarProduto(){
     function dbErrorHandler(err){
         alert("DB Error: "+err.message + "\nCode="+err.code);
     }
-    var clienteSalvo;
+    
     var checkLogado;
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     function phoneReady(){
@@ -1698,7 +1698,7 @@ function atualizarProduto(){
           } else {
           var s = "";
           for(var i=0; i<results.rows.length; i++) {
-          s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
+          s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>username: " + results.rows.item(i).username + " password:"+results.rows.item(i).username+" empresa:"+results.rows.item(i).empresa_id+" filial:"+results.rows.item(i).filial_id+" ativo:"+results.rows.item(i).filial_id+"</a></li>";
           }
           $("#noteTitleList").html(s);
          // $("#noteTitleList").listview("refresh");
@@ -1791,6 +1791,7 @@ function atualizarProduto(){
                 {
                     if(results.rows.item(i).username != '' && results.rows.item(i).password != '')
                     {
+                        alert('teste');
                         clienteSalvo = {
                             id:results.rows.item(i).id,
                             username:results.rows.item(i).username,
@@ -1804,24 +1805,7 @@ function atualizarProduto(){
            }
         },3000);
    
-        if(checkLogado==true)
-        {
-            
-            clienteSalvo = {
-                        id:results.rows.item(i).id,
-                        username:results.rows.item(i).username,
-                        password:results.rows.item(i).password,
-                        ativo:results.rows.item(i).ativo  
-                    };
-            dataToLog = {
-                username:clienteSalvo.username,
-                password:clienteSalvo.password,
-                salt:salt,
-                empresa:empresa,
-                filial:filialPadrao
-            };
-            loginCad(dataToLog);
-        }
+      
         
     });
     var pagamento;

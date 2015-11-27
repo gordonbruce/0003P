@@ -1824,7 +1824,7 @@ function atualizarProduto(){
    
     function loginCad(data){
         $.mobile.loading( "show" );
-       /* dataToSave = {
+       dataToSave = {
             id:'',
             username:data.username,
             password:data.password,
@@ -1832,7 +1832,7 @@ function atualizarProduto(){
             empresa_id:data.empresa,
             ativo:'1',
             cliente_id:data.cliente.id
-        };*/
+        };
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({
             type: "POST",

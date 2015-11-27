@@ -1690,7 +1690,7 @@ function atualizarProduto(){
     function renderEntries(tx,results){
           doLog("render entries");
           if (results.rows.length == 0) {
-          $("#Pagelogin").html("<p>You currently do not have any notes.</p>");
+          //$("#Pagelogin").html("<p>You currently do not have any notes.</p>");
           } else {
               var s = "";
               for(var i=0; i<results.rows.length; i++) {
@@ -1700,6 +1700,7 @@ function atualizarProduto(){
                 $('#ativodb').val(results.rows.item(i).ativo);   
               }
               loginInit();
+             
           }
     }
 
@@ -1736,9 +1737,7 @@ function atualizarProduto(){
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#index",function(){ // When entering pagetwo    
             getEntries(); 
-            setTimeout(function(){
-                loginInit();
-            },3000);
+            
             
         });
 
@@ -1824,12 +1823,7 @@ function atualizarProduto(){
 
                 
             },error: function(data){
-                if(cliente == '')
-                {
-                    setTimeout(function(){
-                        loginInit();
-                    },5000);
-                }
+                $.mobile.loading( "hide" );
                 
             }
         });

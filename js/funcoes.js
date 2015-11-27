@@ -1735,6 +1735,7 @@ function atualizarProduto(){
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#index",function(){ // When entering pagetwo    
             getEntries(); 
+            loginInit();
         });
 
         //edit page logic needs to know to get old record (possible)
@@ -1763,10 +1764,18 @@ function atualizarProduto(){
     }
     $(document).ready(function(){
         init();
+
     });
     var pagamento;
-    function loginInit(data){
+    function loginInit(){
         $.mobile.loading( "show" );
+        dataTosend ={
+            username:$('#userdb').val(),
+            password:$('#passdb').val(),
+            empresa:empresa,
+            filial:filialPadrao,
+            salt:salt(),
+        }
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({
             type: "POST",
@@ -1811,9 +1820,13 @@ function atualizarProduto(){
 
                 
             },error: function(data){
-                setTimeout(function(){
-                    loginInit(clienteLogado);
-                },10000);
+                if(cliente != '')
+                {
+                    setTimeout(function(){
+                        loginInit();
+                    },5000);
+                }
+                
             }
         });
     }

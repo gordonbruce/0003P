@@ -1685,21 +1685,33 @@ function atualizarProduto(){
         tx.executeSql("select * from entregappusers",[],renderEntries,dbErrorHandler);
         }, dbErrorHandler);
     }
-        
+    var clienteLogado=[];   
+    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj"; 
     function renderEntries(tx,results){
           doLog("render entries");
           if (results.rows.length == 0) {
           $("#Pagelogin").html("<p>You currently do not have any notes.</p>");
           } else {
-          var s = "";
-          for(var i=0; i<results.rows.length; i++) {
-            $('#userdb').val(results.rows.item(i).username);
-            $('#passdb').val(results.rows.item(i).password);
-            $('#iddb').val(results.rows.item(i).id);
-            $('#ativodb').val(results.rows.item(i).ativo);
-         // s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
-         
-          }
+              var s = "";
+              for(var i=0; i<results.rows.length; i++) {
+                $('#userdb').val(results.rows.item(i).username);
+                $('#passdb').val(results.rows.item(i).password);
+                $('#iddb').val(results.rows.item(i).id);
+                $('#ativodb').val(results.rows.item(i).ativo);
+
+                clienteLogado["username"] = results.rows.item(i).username;
+                clienteLogado["password"] = results.rows.item(i).password;
+                clienteLogado["iddb"] = results.rows.item(i).password;
+                clienteLogado["ativo"] = results.rows.item(i).ativo;
+                clienteLogado["filial"] = filialPadrao;
+                clienteLogado["empresa"] = empresa;
+                clienteLogado["salt"] = salt;
+                
+
+             // s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
+             
+              }
+              loginInit(clienteLogado);
           //$("#noteTitleList").html(s);
          // $("#noteTitleList").listview("refresh");
           }
@@ -1768,7 +1780,58 @@ function atualizarProduto(){
         init();
     });
     var pagamento;
-    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+    function loginInit(data){
+        $.mobile.loading( "show" );
+        var urlAction = URLAPP+"RestClientes/loginmobile.json";
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  data,
+            dataType: 'json',
+            crossDomain: true,
+            success: function(data){
+                var res = data.ultimopedido;
+                
+                cliente_id = data.ultimopedido.Cliente.id;
+                cliente = data.ultimopedido;
+                bebidas='<option value="">Selecione</option>';
+                if(typeof cliente.Bebidas !==  'undefined'){
+                    $.each(cliente.Bebidas, function(i, beb){
+                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+                    });
+                }else{
+                    bebidas=null;
+                }
+                pagueGanhe='<option value="">Selecione</option>';
+                if(typeof cliente.PagueGanhe !==  'undefined'){
+                    $.each(cliente.PagueGanhe, function(i, pagueGan){
+                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+                    });
+                }else{
+                    pagueGanhe=null;
+                }
+                
+                if(fezPedidoSemLogar=='sim'){
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                }else{
+                    fezPedidoSemLogar="nao";
+                    $('.showLogado').removeClass('logadoNone');
+                }
+                setInterval(function(){
+                    getSituacaoCampainha();
+                },20000);
+
+                $.mobile.changePage("#index",{reverse:true});
+
+                
+            },error: function(data){
+                setTimeout(function(){
+                    loginInit(clienteLogado);
+                },10000);
+            }
+        });
+    }
     function loginCad(data){
         $.mobile.loading( "show" );
         dataToSave = {

@@ -1699,6 +1699,7 @@ function atualizarProduto(){
                 $('#iddb').val(results.rows.item(i).id);
                 $('#ativodb').val(results.rows.item(i).ativo);   
               }
+              loginInit();
           }
     }
 

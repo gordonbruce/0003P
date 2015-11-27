@@ -1735,7 +1735,10 @@ function atualizarProduto(){
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#index",function(){ // When entering pagetwo    
             getEntries(); 
-            loginInit();
+            setTimeout(function(){
+                loginInit();
+            },3000);
+            
         });
 
         //edit page logic needs to know to get old record (possible)
@@ -1785,7 +1788,7 @@ function atualizarProduto(){
             crossDomain: true,
             success: function(data){
                 var res = data.ultimopedido;
-                
+                alert('teste');
                 cliente_id = data.ultimopedido.Cliente.id;
                 cliente = data.ultimopedido;
                 bebidas='<option value="">Selecione</option>';
@@ -1820,7 +1823,7 @@ function atualizarProduto(){
 
                 
             },error: function(data){
-                if(cliente != '')
+                if(cliente == '')
                 {
                     setTimeout(function(){
                         loginInit();

@@ -1779,7 +1779,7 @@ function atualizarProduto(){
             empresa:empresa,
             filial:filialPadrao,
             salt:salt(),
-        }
+        };
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({
             type: "POST",

@@ -1694,7 +1694,7 @@ function atualizarProduto(){
     function renderEntries(tx,results){
           doLog("render entries");
           if (results.rows.length == 0) {
-          $("#Pagelogin").html("<p>You currently do not have any notes.</p>");
+          
           } else {
           var s = "";
           for(var i=0; i<results.rows.length; i++) {
@@ -1712,19 +1712,14 @@ function atualizarProduto(){
     }
     var clienteSalvo=[];
     function returnLogin(tx, results){
-        if (objLogin.rows.length != 0) 
+        if (results.rows.length != 0) 
            {
-                for(var i=0; i<objLogin.rows.length; i++) 
+                for(var i=0; i<results.rows.length; i++) 
                 {
-                    if(results.rows.item(i).username != '' && results.rows.item(i).password != '')
-                    {           
-                        clienteSalvo["id"]=results.rows.item(i).id,
-                        clienteSalvo["username"]=results.rows.item(i).username,
-                        clienteSalvo["password"]=results.rows.item(i).password,
-                        clienteSalvo["ativo"]=results.rows.item(i).ativo  
-                        checkLogado=true;
-                        alert(checkLogado);
-                    }
+                    $('#iddb').val(results.rows.item(i).id);
+                    $('#userdb').val(results.rows.item(i).username);
+                    $('#passdb').val(results.rows.item(i).password);
+                    $('#ativodb').val(results.rows.item(i).ativo);
                 }
 
            }

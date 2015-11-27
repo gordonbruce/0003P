@@ -1534,7 +1534,7 @@ function atualizarProduto(){
                     position: position,
                     icon:'images/usuario2.png',
                     map: map,
-                   draggable: false
+                   // draggable: true
                 });
 
                 marker.setPosition(position);
@@ -1661,9 +1661,7 @@ function atualizarProduto(){
     function dbErrorHandler(err){
         alert("DB Error: "+err.message + "\nCode="+err.code);
     }
-    
-    var checkLogado;
-    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+
     function phoneReady(){
         doLog("phoneReady");
         //First, open our db
@@ -1673,9 +1671,6 @@ function atualizarProduto(){
         //run transaction to create initial tables
         dbShell.transaction(setupTable,dbErrorHandler,getEntries);
         doLog("ran setup");
-
-        
-       
     }
 
     //I just create our initial table - all one of em
@@ -1694,39 +1689,17 @@ function atualizarProduto(){
     function renderEntries(tx,results){
           doLog("render entries");
           if (results.rows.length == 0) {
-            $('#Pagelogin').val('sem dados para renderizar');
+          $("#Pagelogin").html("<p>You currently do not have any notes.</p>");
           } else {
           var s = "";
           for(var i=0; i<results.rows.length; i++) {
-          s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>username: " + results.rows.item(i).username + " password:"+results.rows.item(i).password+" empresa:"+results.rows.item(i).empresa_id+" filial:"+results.rows.item(i).filial_id+" ativo:"+results.rows.item(i).ativo+"</a></li>";
+          s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
           }
           $("#noteTitleList").html(s);
          // $("#noteTitleList").listview("refresh");
           }
     }
 
-    function getLogin(entregappusers){
-        dbShell.transaction(function(tx) {
-        tx.executeSql("select * from entregappusers",[],returnLogin,dbErrorHandler);
-        }, dbErrorHandler);
-    }
-    var clienteSalvo=[];
-    function returnLogin(tx, results){
-        if (results.rows.length != 0) 
-           {
-                for(var i=0; i<results.rows.length; i++) 
-                {
-                    $('#iddb').val(results.rows.item(i).id);
-                    $('#userdb').val(results.rows.item(i).username);
-                    $('#passdb').val(results.rows.item(i).password);
-                    $('#ativodb').val(results.rows.item(i).ativo);
-                }
-
-           }else
-           {
-            $('#Pagelogin').val('sem dados para return login');
-           }
-    }
     function saveNote(entregappusers, cb) {
         //Sometimes you may want to jot down something quickly....
         if(entregappusers.username == "") entregappusers.username = "[No Title]";
@@ -1739,8 +1712,6 @@ function atualizarProduto(){
         
        document.addEventListener("deviceready", phoneReady, false);
             
-
-
         $('.meucadastroForm').submit(function(event){
 
             event.preventDefault();
@@ -1761,7 +1732,7 @@ function atualizarProduto(){
         
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo    
-            //getEntries(); 
+            getEntries(); 
         });
 
         //edit page logic needs to know to get old record (possible)
@@ -1790,26 +1761,12 @@ function atualizarProduto(){
     }
     $(document).ready(function(){
         init();
-        
-        //Faz o login do usuario
-        dataToGetLogin = {
-            empresa_id:empresa,
-            filial_id:filialPadrao    
-        };    
-       getLogin(dataToGetLogin);
-           
-       if(checkLogado==true){
-        loginCad(clienteSalvo);
-       }
-   
-      
-        
     });
     var pagamento;
-   
+    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     function loginCad(data){
         $.mobile.loading( "show" );
-      /* dataToSave = {
+        dataToSave = {
             id:'',
             username:data.username,
             password:data.password,
@@ -1817,7 +1774,7 @@ function atualizarProduto(){
             empresa_id:data.empresa,
             ativo:'1',
             cliente_id:data.cliente.id
-        };*/
+        };
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({
             type: "POST",
@@ -1858,15 +1815,15 @@ function atualizarProduto(){
                     getSituacaoCampainha();
                 },20000);
 
-               /*saveNote(dataToSave,function() {
+                saveNote(dataToSave,function() {
                     $.mobile.changePage("#index",{reverse:true});
-                });*/
+                });
 
                 
             },error: function(data){
                 //criar tratatmento de erros
                 $.mobile.loading( "hide" );
-                $("#popupDialogLogin6").popup( "open" );
+                $("#popupDialogLogin").popup( "open" );
                 $('#loginSalt').val('')
             }
         });
@@ -3529,7 +3486,6 @@ function checaAtendimento(atendimentocod){
         senhaRegis= $('#passwordEdit').val();
         loginRegis=$('#usernameEdit').val();
         filialRegis=$('#filial_id').val();
-        $('.submitFormCliente').attr("disabled", 'disabled');
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
@@ -3575,12 +3531,10 @@ function checaAtendimento(atendimentocod){
                                 
                             }
                         }
-                        $('.submitFormCliente').removeAttr("disabled");
                     },error: function(data){
                         $.mobile.loading( "hide" );
                         $("#popupDialogLogin5").popup( "open" );
                         $("#saltEdit").val('');
-                        $('.submitFormCliente').removeAttr("disabled");
                     }
             });
         $('.nasc').val(dataNascimentoAux);
@@ -4135,7 +4089,7 @@ var getBairroFromCep=null;
                         position: latlng,
                         map: map,
                          icon:'images/usuario2.png',
-                       draggable: false
+                       // draggable: true
                     });
             }, 2000);
 

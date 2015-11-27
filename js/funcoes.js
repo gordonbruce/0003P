@@ -1777,7 +1777,7 @@ function atualizarProduto(){
             password:$('#passdb').val(),
             empresa:empresa,
             filial:filialPadrao,
-            salt:salt(),
+            salt:salt
         };
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({

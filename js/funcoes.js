@@ -1698,7 +1698,7 @@ function atualizarProduto(){
           } else {
           var s = "";
           for(var i=0; i<results.rows.length; i++) {
-          s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>username: " + results.rows.item(i).username + " password:"+results.rows.item(i).username+" empresa:"+results.rows.item(i).empresa_id+" filial:"+results.rows.item(i).filial_id+" ativo:"+results.rows.item(i).filial_id+"</a></li>";
+          s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>username: " + results.rows.item(i).username + " password:"+results.rows.item(i).password+" empresa:"+results.rows.item(i).empresa_id+" filial:"+results.rows.item(i).filial_id+" ativo:"+results.rows.item(i).ativo+"</a></li>";
           }
           $("#noteTitleList").html(s);
          // $("#noteTitleList").listview("refresh");
@@ -1710,9 +1710,24 @@ function atualizarProduto(){
         tx.executeSql("select * from entregappusers where empresa_id=? AND filial_id=? AND ativo= ? ",[entregappusers.empresa_id, entregappusers.filial_id,1],returnLogin,dbErrorHandler);
         }, dbErrorHandler);
     }
-
+    var clienteSalvo=[];
     function returnLogin(tx, results){
-        return results;
+        if (objLogin.rows.length != 0) 
+           {
+                for(var i=0; i<objLogin.rows.length; i++) 
+                {
+                    if(results.rows.item(i).username != '' && results.rows.item(i).password != '')
+                    {           
+                        clienteSalvo["id"]=results.rows.item(i).id,
+                        clienteSalvo["username"]=results.rows.item(i).username,
+                        clienteSalvo["password"]=results.rows.item(i).password,
+                        clienteSalvo["ativo"]=results.rows.item(i).ativo  
+                        checkLogado=true;
+                        alert(checkLogado);
+                    }
+                }
+
+           }
     }
     function saveNote(entregappusers, cb) {
         //Sometimes you may want to jot down something quickly....
@@ -1778,32 +1793,16 @@ function atualizarProduto(){
     $(document).ready(function(){
         init();
         
-        setTimeout(function(){
-            //Faz o login do usuario
-            dataToGetLogin = {
-                empresa_id:empresa,
-                filial_id:filialPadrao    
-            };    
-           objLogin = getLogin(dataToGetLogin);
-           if (objLogin.rows.length != 0) 
-           {
-                for(var i=0; i<objLogin.rows.length; i++) 
-                {
-                    if(results.rows.item(i).username != '' && results.rows.item(i).password != '')
-                    {
-                        alert('teste');
-                        clienteSalvo = {
-                            id:results.rows.item(i).id,
-                            username:results.rows.item(i).username,
-                            password:results.rows.item(i).password,
-                            ativo:results.rows.item(i).ativo  
-                        };
-                        checkLogado=true;
-                    }
-                }
-
-           }
-        },3000);
+        //Faz o login do usuario
+        dataToGetLogin = {
+            empresa_id:empresa,
+            filial_id:filialPadrao    
+        };    
+       getLogin(dataToGetLogin);
+           
+       if(checkLogado==true){
+        loginCad(clienteSalvo);
+       }
    
       
         
@@ -1812,7 +1811,7 @@ function atualizarProduto(){
    
     function loginCad(data){
         $.mobile.loading( "show" );
-       dataToSave = {
+      /* dataToSave = {
             id:'',
             username:data.username,
             password:data.password,
@@ -1820,7 +1819,7 @@ function atualizarProduto(){
             empresa_id:data.empresa,
             ativo:'1',
             cliente_id:data.cliente.id
-        };
+        };*/
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({
             type: "POST",
@@ -1861,9 +1860,9 @@ function atualizarProduto(){
                     getSituacaoCampainha();
                 },20000);
 
-               saveNote(dataToSave,function() {
+               /*saveNote(dataToSave,function() {
                     $.mobile.changePage("#index",{reverse:true});
-                });
+                });*/
 
                 
             },error: function(data){

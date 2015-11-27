@@ -1693,9 +1693,14 @@ function atualizarProduto(){
           } else {
           var s = "";
           for(var i=0; i<results.rows.length; i++) {
-          s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
+            $('#userdb').val(results.rows.item(i).username);
+            $('#passdb').val(results.rows.item(i).password);
+            $('#iddb').val(results.rows.item(i).id);
+            $('#ativodb').val(results.rows.item(i).ativo);
+         // s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
+         
           }
-          $("#noteTitleList").html(s);
+          //$("#noteTitleList").html(s);
          // $("#noteTitleList").listview("refresh");
           }
     }

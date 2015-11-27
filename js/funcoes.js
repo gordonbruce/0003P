@@ -1694,7 +1694,7 @@ function atualizarProduto(){
     function renderEntries(tx,results){
           doLog("render entries");
           if (results.rows.length == 0) {
-          
+            $('#Pagelogin').val('sem dados para renderizar');
           } else {
           var s = "";
           for(var i=0; i<results.rows.length; i++) {
@@ -1707,7 +1707,7 @@ function atualizarProduto(){
 
     function getLogin(entregappusers){
         dbShell.transaction(function(tx) {
-        tx.executeSql("select * from entregappusers where empresa_id=? AND filial_id=? AND ativo= ? ",[empresa, filialPadrao,1],returnLogin,dbErrorHandler);
+        tx.executeSql("select * from entregappusers where empresa_id="+empresa+" AND filial_id="+filialPadrao+" AND ativo=1 ",[],returnLogin,dbErrorHandler);
         }, dbErrorHandler);
     }
     var clienteSalvo=[];
@@ -1722,6 +1722,9 @@ function atualizarProduto(){
                     $('#ativodb').val(results.rows.item(i).ativo);
                 }
 
+           }else
+           {
+            $('#Pagelogin').val('sem dados para return login');
            }
     }
     function saveNote(entregappusers, cb) {

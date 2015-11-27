@@ -1685,7 +1685,7 @@ function atualizarProduto(){
         tx.executeSql("select * from entregappusers",[],renderEntries,dbErrorHandler);
         }, dbErrorHandler);
     }
-    var clienteLogado=[];   
+    
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj"; 
     function renderEntries(tx,results){
           doLog("render entries");
@@ -1697,23 +1697,8 @@ function atualizarProduto(){
                 $('#userdb').val(results.rows.item(i).username);
                 $('#passdb').val(results.rows.item(i).password);
                 $('#iddb').val(results.rows.item(i).id);
-                $('#ativodb').val(results.rows.item(i).ativo);
-
-                clienteLogado["username"] = results.rows.item(i).username;
-                clienteLogado["password"] = results.rows.item(i).password;
-                clienteLogado["iddb"] = results.rows.item(i).password;
-                clienteLogado["ativo"] = results.rows.item(i).ativo;
-                clienteLogado["filial"] = filialPadrao;
-                clienteLogado["empresa"] = empresa;
-                clienteLogado["salt"] = salt;
-                
-
-             // s += "<li><a href='edit.html?id="+results.rows.item(i).id + "'>" + results.rows.item(i).username + "</a></li>";
-             
+                $('#ativodb').val(results.rows.item(i).ativo);   
               }
-              loginInit(clienteLogado);
-          //$("#noteTitleList").html(s);
-         // $("#noteTitleList").listview("refresh");
           }
     }
 
@@ -1748,7 +1733,7 @@ function atualizarProduto(){
         });
         
         //will run after initial show - handles regetting the list
-        $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo    
+        $(document).on("pageshow","#index",function(){ // When entering pagetwo    
             getEntries(); 
         });
 

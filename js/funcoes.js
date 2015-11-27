@@ -1699,7 +1699,7 @@ function atualizarProduto(){
                 $('#iddb').val(results.rows.item(i).id);
                 $('#ativodb').val(results.rows.item(i).ativo);   
               }
-              
+              loginInit();
              
           }
     }
@@ -1737,7 +1737,7 @@ function atualizarProduto(){
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#index",function(){ // When entering pagetwo    
             getEntries(); 
-            loginInit();
+            
             
         });
 

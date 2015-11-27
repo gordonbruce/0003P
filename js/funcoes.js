@@ -1780,7 +1780,7 @@ function atualizarProduto(){
         $.ajax({
             type: "POST",
             url: urlAction,
-            data:  data,
+            data:  dataTosend,
             dataType: 'json',
             crossDomain: true,
             success: function(data){

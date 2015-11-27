@@ -1674,29 +1674,8 @@ function atualizarProduto(){
         dbShell.transaction(setupTable,dbErrorHandler,getEntries);
         doLog("ran setup");
 
-        //Faz o login do usuario
-        dataToGetLogin = {
-            empresa_id:empresa,
-            filial_id:filialPadrao    
-        };    
-       objLogin = getLogin(dataToGetLogin);
-       if (objLogin.rows.length != 0) 
-       {
-            for(var i=0; i<objLogin.rows.length; i++) 
-            {
-                if(results.rows.item(i).username != '' && results.rows.item(i).password != '')
-                {
-                    clienteSalvo = {
-                        id:results.rows.item(i).id,
-                        username:results.rows.item(i).username,
-                        password:results.rows.item(i).password,
-                        ativo:results.rows.item(i).ativo  
-                    };
-                    checkLogado=true;
-                }
-            }
-
-       }
+        
+       
     }
 
     //I just create our initial table - all one of em
@@ -1799,6 +1778,31 @@ function atualizarProduto(){
     $(document).ready(function(){
         init();
         
+        setTimeout(function(){
+            //Faz o login do usuario
+            dataToGetLogin = {
+                empresa_id:empresa,
+                filial_id:filialPadrao    
+            };    
+           objLogin = getLogin(dataToGetLogin);
+           if (objLogin.rows.length != 0) 
+           {
+                for(var i=0; i<objLogin.rows.length; i++) 
+                {
+                    if(results.rows.item(i).username != '' && results.rows.item(i).password != '')
+                    {
+                        clienteSalvo = {
+                            id:results.rows.item(i).id,
+                            username:results.rows.item(i).username,
+                            password:results.rows.item(i).password,
+                            ativo:results.rows.item(i).ativo  
+                        };
+                        checkLogado=true;
+                    }
+                }
+
+           }
+        },3000);
    
         if(checkLogado==true)
         {

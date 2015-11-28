@@ -2355,10 +2355,11 @@ $("#pedir").click(function(event){
 
                     $.mobile.loading( "hide" );
                     $("#pedir").show();
-                    $("errologinlog").html(data);
                      $("#spanComprar").show();
+                     $('#errologinlog').html(data);
+                     alert(data);
                     $("#popupDialogLogin4").popup( "open" );
-                    //$('#pedidoToken').val('');
+                    
                 }
             });
 

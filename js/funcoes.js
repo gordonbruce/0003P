@@ -1679,9 +1679,9 @@ function atualizarProduto(){
 
     //I handle getting entries from the db
     function deleteEntries() {
-       /*dbShell.transaction(function(tx) {
+       dbShell.transaction(function(tx) {
         tx.executeSql("delete from entregappusers",[],returnDelete,dbErrorHandler);
-        }, dbErrorHandler);*/
+        }, dbErrorHandler);
     }
     function returnDelete(){
         return true;
@@ -2260,15 +2260,10 @@ $("#pedir").click(function(event){
         $("#avisoTroco2").popup( "open" );
     }
 
-    /*minhaLoja2= $('#filialPedido').val();
-
-    if(minhaLoja2==''){
-        validarPd="falso";
-        $("#avisoPedido").popup( "open" );
-    }*/
+   
     $('#empresaPedido').val(empresa);
     $('#filialPedido').val(filialPadrao);
-    clientePedido
+    
     if(validarPd== 'verdadeiro'){
         nAtendimento= $('#PedidoA').val();
 
@@ -2305,9 +2300,9 @@ $("#pedir").click(function(event){
             $('#pedidoSalt').val(salt);
             $('#pedidoToken').val(cliente.Cliente.token);
             $('#PedidoA').val('entrega');
-
+            alert(salt);
             var dadosForm2 = $("#PedidoAddForm").serializeArray();
-
+            alert(dadosForm2);
             $.ajax({
                 type: "POST",
                 url: urlAction2,
@@ -2315,7 +2310,7 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                 success: function(data){
-
+                    alert('aqui1');
                     $("#pedir").show();
 
                      $("#spanComprar").show();
@@ -2353,7 +2348,7 @@ $("#pedir").click(function(event){
                     }
                     //$('#pedidoToken').val('');
                 },error: function(data){
-
+                    alert('aqui2');
                     $.mobile.loading( "hide" );
                     $("#pedir").show();
                      $("#spanComprar").show();

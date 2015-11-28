@@ -2032,6 +2032,7 @@ function atualizarProduto(){
                     selectPagamento(cliente);
 
                 }
+                
                 $('#loginSalt').val('');
                 getSituacaoCampainha= setInterval(function(){
                     getSituacaoCampainha();

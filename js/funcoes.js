@@ -1679,9 +1679,9 @@ function atualizarProduto(){
 
     //I handle getting entries from the db
     function deleteEntries() {
-       dbShell.transaction(function(tx) {
+       /*dbShell.transaction(function(tx) {
         tx.executeSql("delete from entregappusers",[],returnDelete,dbErrorHandler);
-        }, dbErrorHandler);
+        }, dbErrorHandler);*/
     }
     function returnDelete(){
         return true;

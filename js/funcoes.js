@@ -2299,19 +2299,11 @@ $("#pedir").click(function(event){
             $("#spanComprar").hide();
             $('#pedidoSalt').val(salt);
             $('#pedidoToken').val(cliente.Cliente.token);
+            $("#clientePedido").val(cliente.Cliente.id);
             $('#PedidoA').val('entrega');
            
             var dadosForm2 = $("#PedidoAddForm").serializeArray();
-            alert($("#urlAction2").val());
-            alert(cliente.Cliente.token);
-            alert($("#filialPedido").val());
-            alert($("#PedidoA").val());
-            alert($("#clientePedido").val());
-            alert($("#empresaPedido").val());
-            alert($("#trocovalor").val());
-            alert($("#trocoresposta").val());
-             alert($("#entrega_valor").val());
-             alert($("#pedidoToken").val());
+            
             $.ajax({
                 type: "POST",
                 url: urlAction2,

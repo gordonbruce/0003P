@@ -1666,29 +1666,29 @@ function atualizarProduto(){
 
     //I just create our initial table - all one of em
     function setupTable(tx){
-      /*  doLog("before execute sql...");
+        doLog("before execute sql...");
         tx.executeSql("CREATE TABLE IF NOT EXISTS entregappusers(id INTEGER PRIMARY KEY,username,password,empresa_id,filial_id,user_id,ativo,updated)");
-        doLog("after execute sql...");*/
+        doLog("after execute sql...");
     }   
     //I handle getting entries from the db
     function getEntries() {
-       /* dbShell.transaction(function(tx) {
+        dbShell.transaction(function(tx) {
         tx.executeSql("select * from entregappusers",[],renderEntries,dbErrorHandler);
-        }, dbErrorHandler);*/
+        }, dbErrorHandler);
     }
 
     //I handle getting entries from the db
     function deleteEntries() {
-      /*  dbShell.transaction(function(tx) {
+       dbShell.transaction(function(tx) {
         tx.executeSql("delete from entregappusers",[],returnDelete,dbErrorHandler);
-        }, dbErrorHandler);*/
+        }, dbErrorHandler);
     }
     function returnDelete(){
         return true;
     }
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj"; 
     function renderEntries(tx,results){
-        /* doLog("render entries");
+         doLog("render entries");
           if (results.rows.length == 0) {
           //$("#Pagelogin").html("<p>You currently do not have any notes.</p>");
           } else {
@@ -1702,16 +1702,16 @@ function atualizarProduto(){
               }
               loginInit();
              
-          }*/
+          }
     }
 
     function saveNote(entregappusers, cb) {
-        /*//Sometimes you may want to jot down something quickly....
+        //Sometimes you may want to jot down something quickly....
         if(entregappusers.username == "") entregappusers.username = "[No Title]";
         dbShell.transaction(function(tx) {
         if(entregappusers.id == "") tx.executeSql("insert into entregappusers(username,password,empresa_id,filial_id,user_id,ativo,updated) values(?,?,?,?,?,?,?)",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date()]);
         else tx.executeSql("update entregappusers set username=?, password=?,empresa_id=?, filial_id=?, user_id=?,ativo=?,updated=? where id=?",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date(), entregappusers.id]);
-        }, dbErrorHandler,cb);*/
+        }, dbErrorHandler,cb);
     }
     function init(){
         
@@ -1744,7 +1744,7 @@ function atualizarProduto(){
 
         //edit page logic needs to know to get old record (possible)
         $(document).on("pageshow","#page5",function(){ // When entering pagetwo      
-          /* //get the location - it is a hash - got to be a better way
+           //get the location - it is a hash - got to be a better way
             var loc = window.location.hash;
             if(loc.indexOf("?") >= 0) {
                 var qs = loc.substr(loc.indexOf("?")+1,loc.length);
@@ -1763,7 +1763,7 @@ function atualizarProduto(){
                 
             } else {
              $("#submitFormCliente").removeAttr("disabled");   
-            }*/
+            }
         });
     }
     $(document).ready(function(){
@@ -2357,8 +2357,6 @@ $("#pedir").click(function(event){
                     $.mobile.loading( "hide" );
                     $("#pedir").show();
                      $("#spanComprar").show();
-                     $('#errologinlog').html(data);
-                     alert(data);
                     $("#popupDialogLogin4").popup( "open" );
                     
                 }

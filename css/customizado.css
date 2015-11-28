@@ -65,7 +65,8 @@
   .menuSair .ui-body-a  {display:none;}
   .menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-white.png");}
   .novopedido:after{background-image: url("images/icons-png/shop-white.png");}
-            .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
+  .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
+  .esquecer:after{background-image: url("images/icons-png/action-white.png");}
   .listarpedido:after{background-image: url("images/icons-png/bullets-white.png");}
   .meucadastro:after{background-image: url("images/icons-png/user-white.png");}
   .mensagemChat:after{background-image: url("images/icons-png/comment-white.png");}

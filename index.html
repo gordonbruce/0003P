@@ -50,11 +50,14 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
+                     <span class="showLogado logadoNone"><span class="conectado"><span id="usuarioLogado"></span> conectado!</span>
+                    </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
                     <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
                     <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
@@ -144,6 +147,15 @@
                                 <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="popupCancelaitem">Sim</a>
                                 <a href="#" data-role="button"  data-overlay-theme="b" data-theme="b" id="popupCancelaitemFechar">Não</a>
                             </div>
+                        </div>
+                         <div data-role="popup" id="popupCaadastroSuccess" class="popupDialogSenha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                                <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
+                                    <h2>Sucesso</h2>
+                                </div>
+                                <div role="main" class="ui-content">
+                                    <p>Os seus dados foram salvos</p>
+                                    <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="fecharCad">Fechar</a>
+                                </div>
                         </div>
                         <div data-role="popup" id="avisoTroco" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                             <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
@@ -481,9 +493,11 @@
                 <img src="images/logoLogin.png" class="imgLogin" />
                 <form method="post" data-ajax="false" id="login">
                     <label for="text-basic">Usuário:</label>
-                    <input type="text"  id="text-basic" value="" name="username"  placeholder="Usuário" class="limpar">
+                    <input type="text"  id="username" value="" name="username"  placeholder="Usuário" class="limpar">
                     <label for="password">Senha:</label>
                     <input type="password" name="password" id="password" value="" autocomplete="off"  placeholder="Senha" class="limpar" >
+                    <input data-theme="b" type="checkbox" name="checkconectado" id="checkconectado" data-mini="true" value="1" checked>
+                    <label data-theme="b"  for="checkconectado">Manter Conectado</label>
                     <button class="ui-btn ui-btn-inline ui-btn-b " id="submitForm">Entrar</button>
                     <a href="#page5" class="ui-btn ui-btn-inline ui-btn-b ">Cadastrar-se</a>
                     <input type="hidden" name="salt" id="loginSalt" class="loginsalt" value="" autocomplete="off" >
@@ -539,11 +553,14 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
+                    <span class="showLogado logadoNone"><span class="conectado"><span id="usuarioLogado"></span> conectado!</span>
+                    </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
                     <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
                     <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
@@ -619,11 +636,14 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
+                     <span class="showLogado logadoNone"><span class="conectado"><span id="usuarioLogado"></span> conectado!</span>
+                    </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
                     <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
                     <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
@@ -1068,15 +1088,7 @@
                     <span class="cadastrarUsuario">Enviar Dados</span>
                 </form>
                 <div id="usuario"></div>
-                <div data-role="popup" id="popupCaadastroSuccess" class="popupDialogSenha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
-                        <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
-                            <h2>Sucesso</h2>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <p>Os seus dados foram salvos</p>
-                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="fecharCad">Fechar</a>
-                        </div>
-                </div>
+               
                 <div data-role="popup" id="popupSenhaIncorreta" class="popupDialogSenha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                         <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
                             <h2>Ops, ocorreu um erro</h2>
@@ -1506,12 +1518,14 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
+                     <span class="showLogado logadoNone"><span class="conectado"><span id="usuarioLogado"></span> conectado!</span>
+                    </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
                     <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
-
+                    <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
                     <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>

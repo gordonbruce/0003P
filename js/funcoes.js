@@ -164,7 +164,7 @@ function removeDiacritics (str) {
   return str;
 
 }
-
+var getSituacaoCampainha;
 $(document).ready(function() {
     $('body').on('focusout', '.password',function(){
         mypassword=$('#passwordEdit').val();
@@ -370,8 +370,10 @@ $(document).on("pageshow","#index_old",function(){
         atualizarProduto();
         atualizarPromo();
         limparPedido();
-
-
+        if(flagCadastro==true){
+            $("#popupCaadastroSuccess").popup( "open" );
+            flagCadastro=false;
+        } 
          $('#filialPedido').val(filialPadrao);
          $("#empresaPedido").val(empresa);
          $("#PedidoA").val(codigoAtend);
@@ -1685,7 +1687,16 @@ function atualizarProduto(){
         tx.executeSql("select * from entregappusers",[],renderEntries,dbErrorHandler);
         }, dbErrorHandler);
     }
-    
+
+    //I handle getting entries from the db
+    function deleteEntries() {
+        dbShell.transaction(function(tx) {
+        tx.executeSql("delete from entregappusers",[],returnDelete,dbErrorHandler);
+        }, dbErrorHandler);
+    }
+    function returnDelete(){
+        return true;
+    }
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj"; 
     function renderEntries(tx,results){
           doLog("render entries");
@@ -1697,7 +1708,8 @@ function atualizarProduto(){
                 $('#userdb').val(results.rows.item(i).username);
                 $('#passdb').val(results.rows.item(i).password);
                 $('#iddb').val(results.rows.item(i).id);
-                $('#ativodb').val(results.rows.item(i).ativo);   
+                $('#ativodb').val(results.rows.item(i).ativo);
+                $('#usuarioLogado').html(results.rows.item(i).username);   
               }
               loginInit();
              
@@ -1737,7 +1749,7 @@ function atualizarProduto(){
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#index",function(){ // When entering pagetwo    
             getEntries(); 
-            
+
             
         });
 
@@ -1810,11 +1822,13 @@ function atualizarProduto(){
                 if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
                 }else{
                     fezPedidoSemLogar="nao";
                     $('.showLogado').removeClass('logadoNone');
+                    $('.fazerlogin').addClass('logadoNone');
                 }
-                setInterval(function(){
+                getSituacaoCampainha= setInterval(function(){
                     getSituacaoCampainha();
                 },20000);
 
@@ -1830,6 +1844,7 @@ function atualizarProduto(){
             }
         });
     }
+    var flagCadastro=false;
     function loginCad(data){
         $.mobile.loading( "show" );
         dataToSave = {
@@ -1873,15 +1888,18 @@ function atualizarProduto(){
                 if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
                 }else{
                     fezPedidoSemLogar="nao";
                     $('.showLogado').removeClass('logadoNone');
+                    $('.fazerlogin').addClass('logadoNone');
                 }
-                setInterval(function(){
+              getSituacaoCampainha = setInterval(function(){
                     getSituacaoCampainha();
                 },20000);
-
+                deleteEntries();
                 saveNote(dataToSave,function() {
+                    var flagCadastro=true;
                     $.mobile.changePage("#index",{reverse:true});
                 });
 
@@ -1894,12 +1912,29 @@ function atualizarProduto(){
             }
         });
     }
+    $('body').on('submit', '.esquecer', function(event){
+        clearInterval(getSituacaoCampainha);
+        deleteEntries();
+        cliente =null;
+        $('.showLogado').addClass('logadoNone');
+        fezPedidoSemLogar="";
+        $.mobile.changePage("#Pagelogin",{reverse:true});
+
+    });
     $('body').on('submit', '#login', function(event){
 
         event.preventDefault();
+        var conectado= false;
+        if ($('#checkconectado').is(':checked'))
+        {
+            conectado=true;
+        }
+        alert(conectado);
         $.mobile.loading( "show" );
         $('.loginsalt').val(salt);
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
+        var username = $('#username').val();
+        var password =$('#password').val();
         var dadosForm = $("#login").serialize();
 
 
@@ -1948,9 +1983,28 @@ function atualizarProduto(){
                     }else{
                         pagueGanhe=null;
                     }
+                    if (conectado==true) {
+                        deleteEntries();
+                        dataToSave = {
+                            id:'',
+                            username:username,
+                            password:password,
+                            filial_id:filialPadrao,
+                            empresa_id:empresa,
+                            ativo:'1',
+                            cliente_id:cliente.Cliente.id
+                        };
+                        
+                        saveNote(dataToSave,function() {
+                            //$.mobile.changePage("#index",{reverse:true});
+                        });
+                    }
+                    
+
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
                        // filialPadrao=data.ultimopedido.Cliente.filial_id;
                         $.mobile.changePage("#index",{ transition: "none",  });
                          $('.pageContent').hide();
@@ -1963,6 +2017,7 @@ function atualizarProduto(){
                     }else{
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
                         $.mobile.changePage("#index",{ transition: "none",  });
 
                          $('.pageContent').hide();
@@ -1976,7 +2031,7 @@ function atualizarProduto(){
 
                 }
                 $('#loginSalt').val('');
-                setInterval(function(){
+                getSituacaoCampainha= setInterval(function(){
                     getSituacaoCampainha();
                 },20000);
             },error: function(data){

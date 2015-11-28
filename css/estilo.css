@@ -741,9 +741,9 @@ display: block;
   border:1px solid red !important;
 }
 .submitFormCliente{outline: none !important;}
-.conectado{
+.spanconectado{
   text-align: center;
-  display: inline-block;
+  display: inherit;
 }
 @media screen and (max-height: 768px) {
   .pageContent{

@@ -383,15 +383,7 @@ $(document).on("pageshow","#index_old",function(){
             if(verificaPedido != ''){
                 clearInterval(verificaPedido);
             }
-            $('.cloneOptPgt').remove();
-
-            selectPagamento =  $('#formaDEpagamento');
-            $('.formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
-            $.each(cliente.Pagamento, function(i, pagamento){
-                $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-            });
-          //  selectPagamento.selectmenu();
-           // selectPagamento.selectmenu('refresh', true);
+            
             
         }else{
             //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
@@ -1829,8 +1821,7 @@ function atualizarProduto(){
                     getSituacaoCampainha();
                 },20000);
 
-                
-
+                selectPagamento(cliente);
                 
             },error: function(data){
                 setTimeout(function(){
@@ -1840,6 +1831,18 @@ function atualizarProduto(){
                 
             }
         });
+    }
+    function selectPagamento(cliente)
+    {
+        $('.cloneOptPgt').remove();
+        selectPagamento =  $('#formaDEpagamento');
+        $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
+        $.each(cliente.Pagamento, function(i, pagamento){
+            $('#formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+        });
+        selectPagamento.selectmenu();
+        selectPagamento.selectmenu('refresh', true);
+
     }
     var flagCadastro=false;
     function loginCad(data){
@@ -1891,6 +1894,7 @@ function atualizarProduto(){
                     $('.showLogado').removeClass('logadoNone');
                     $('.fazerlogin').addClass('logadoNone');
                 }
+                selectPagamento(cliente);
               getSituacaoCampainha = setInterval(function(){
                     getSituacaoCampainha();
                 },20000);
@@ -2025,6 +2029,7 @@ function atualizarProduto(){
                             },2000);
 
                     }
+                    selectPagamento(cliente);
 
                 }
                 $('#loginSalt').val('');

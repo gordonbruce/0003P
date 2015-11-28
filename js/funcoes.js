@@ -363,7 +363,7 @@ $(document).on("pageshow","#index_old",function(){
             atualizarPromo();
             limparPedido();
          },2000);
-
+    flagCadastro=false;
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
         atualizarProduto();
@@ -1930,7 +1930,7 @@ function atualizarProduto(){
         {
             conectado=true;
         }
-        alert(conectado);
+       
         $.mobile.loading( "show" );
         $('.loginsalt').val(salt);
         var urlAction = URLAPP+"RestClientes/loginmobile.json";

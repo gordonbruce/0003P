@@ -364,7 +364,6 @@ $(document).on("pageshow","#index_old",function(){
             limparPedido();
          },2000);
 
-     var contPagamentos=0;
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
         atualizarProduto();
@@ -384,18 +383,16 @@ $(document).on("pageshow","#index_old",function(){
             if(verificaPedido != ''){
                 clearInterval(verificaPedido);
             }
-            if(contPagamentos == 0){
-                $('.cloneOptPgt').remove();
-                selectPagamento =  $('#formaDEpagamento');
-                $.each(cliente.Pagamento, function(i, pagamento){
-                    $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-                });
-                selectPagamento.selectmenu();
-                selectPagamento.selectmenu('refresh', true);
-                contPagamentos++;
-            }
+            $('.cloneOptPgt').remove();
 
-
+            selectPagamento =  $('#formaDEpagamento');
+            $('.formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
+            $.each(cliente.Pagamento, function(i, pagamento){
+                $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+            });
+          //  selectPagamento.selectmenu();
+           // selectPagamento.selectmenu('refresh', true);
+            
         }else{
             //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
         }
@@ -1912,7 +1909,7 @@ function atualizarProduto(){
             }
         });
     }
-    $('body').on('submit', '.esquecer', function(event){
+    $('body').on('click', '.esquecer', function(event){
         clearInterval(getSituacaoCampainha);
         deleteEntries();
         cliente =null;

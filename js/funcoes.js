@@ -2029,10 +2029,10 @@ function atualizarProduto(){
                             },2000);
 
                     }
-                    selectPagamento(cliente);
+                    
 
                 }
-                
+
                 $('#loginSalt').val('');
                 getSituacaoCampainha= setInterval(function(){
                     getSituacaoCampainha();
@@ -2355,6 +2355,7 @@ $("#pedir").click(function(event){
 
                     $.mobile.loading( "hide" );
                     $("#pedir").show();
+                    $("errologinlog").html(data);
                      $("#spanComprar").show();
                     $("#popupDialogLogin4").popup( "open" );
                     //$('#pedidoToken').val('');

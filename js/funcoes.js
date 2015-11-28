@@ -1666,29 +1666,29 @@ function atualizarProduto(){
 
     //I just create our initial table - all one of em
     function setupTable(tx){
-        doLog("before execute sql...");
+      /*  doLog("before execute sql...");
         tx.executeSql("CREATE TABLE IF NOT EXISTS entregappusers(id INTEGER PRIMARY KEY,username,password,empresa_id,filial_id,user_id,ativo,updated)");
-        doLog("after execute sql...");
+        doLog("after execute sql...");*/
     }   
     //I handle getting entries from the db
     function getEntries() {
-        dbShell.transaction(function(tx) {
+       /* dbShell.transaction(function(tx) {
         tx.executeSql("select * from entregappusers",[],renderEntries,dbErrorHandler);
-        }, dbErrorHandler);
+        }, dbErrorHandler);*/
     }
 
     //I handle getting entries from the db
     function deleteEntries() {
-        dbShell.transaction(function(tx) {
+      /*  dbShell.transaction(function(tx) {
         tx.executeSql("delete from entregappusers",[],returnDelete,dbErrorHandler);
-        }, dbErrorHandler);
+        }, dbErrorHandler);*/
     }
     function returnDelete(){
         return true;
     }
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj"; 
     function renderEntries(tx,results){
-          doLog("render entries");
+        /* doLog("render entries");
           if (results.rows.length == 0) {
           //$("#Pagelogin").html("<p>You currently do not have any notes.</p>");
           } else {
@@ -1702,16 +1702,16 @@ function atualizarProduto(){
               }
               loginInit();
              
-          }
+          }*/
     }
 
     function saveNote(entregappusers, cb) {
-        //Sometimes you may want to jot down something quickly....
+        /*//Sometimes you may want to jot down something quickly....
         if(entregappusers.username == "") entregappusers.username = "[No Title]";
         dbShell.transaction(function(tx) {
         if(entregappusers.id == "") tx.executeSql("insert into entregappusers(username,password,empresa_id,filial_id,user_id,ativo,updated) values(?,?,?,?,?,?,?)",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date()]);
         else tx.executeSql("update entregappusers set username=?, password=?,empresa_id=?, filial_id=?, user_id=?,ativo=?,updated=? where id=?",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date(), entregappusers.id]);
-        }, dbErrorHandler,cb);
+        }, dbErrorHandler,cb);*/
     }
     function init(){
         
@@ -1818,7 +1818,7 @@ function atualizarProduto(){
                     $('.fazerlogin').addClass('logadoNone');
                 }
                 getSituacaoCampainha= setInterval(function(){
-                    getSituacaoCampainha();
+                    /*getSituacaoCampainha()*/;
                 },20000);
 
                 selectPagamento(cliente);
@@ -1834,6 +1834,7 @@ function atualizarProduto(){
     }
     function selectPagamento(cliente)
     {
+        console.log(cliente);
         $('.cloneOptPgt').remove();
         selectPagamento =  $('#formaDEpagamento');
         $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
@@ -1896,7 +1897,7 @@ function atualizarProduto(){
                 }
                 selectPagamento(cliente);
               getSituacaoCampainha = setInterval(function(){
-                    getSituacaoCampainha();
+                    /*getSituacaoCampainha()*/;
                 },20000);
                 deleteEntries();
                 saveNote(dataToSave,function() {
@@ -2000,7 +2001,7 @@ function atualizarProduto(){
                             //$.mobile.changePage("#index",{reverse:true});
                         });
                     }
-                    
+                    selectPagamento(cliente);
 
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
@@ -2035,7 +2036,7 @@ function atualizarProduto(){
 
                 $('#loginSalt').val('');
                 getSituacaoCampainha= setInterval(function(){
-                    getSituacaoCampainha();
+                    /*getSituacaoCampainha()*/;
                 },20000);
             },error: function(data){
                 //criar tratatmento de erros

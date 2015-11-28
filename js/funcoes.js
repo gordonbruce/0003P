@@ -2300,9 +2300,18 @@ $("#pedir").click(function(event){
             $('#pedidoSalt').val(salt);
             $('#pedidoToken').val(cliente.Cliente.token);
             $('#PedidoA').val('entrega');
-            alert(salt);
+           
             var dadosForm2 = $("#PedidoAddForm").serializeArray();
-            alert(dadosForm2);
+            alert($("#urlAction2").val());
+            alert(cliente.Cliente.token);
+            alert($("#filialPedido").val());
+            alert($("#PedidoA").val());
+            alert($("#clientePedido").val());
+            alert($("#empresaPedido").val());
+            alert($("#trocovalor").val());
+            alert($("#trocoresposta").val());
+             alert($("#entrega_valor").val());
+             alert($("#pedidoToken").val());
             $.ajax({
                 type: "POST",
                 url: urlAction2,
@@ -2310,7 +2319,7 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                 success: function(data){
-                    alert('aqui1');
+                   
                     $("#pedir").show();
 
                      $("#spanComprar").show();
@@ -2348,7 +2357,7 @@ $("#pedir").click(function(event){
                     }
                     //$('#pedidoToken').val('');
                 },error: function(data){
-                    alert('aqui2');
+
                     $.mobile.loading( "hide" );
                     $("#pedir").show();
                      $("#spanComprar").show();

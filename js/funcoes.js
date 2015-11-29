@@ -164,11 +164,29 @@ function removeDiacritics (str) {
   return str;
 
 }
-
+var getSituacaoCampainha;
 $(document).ready(function() {
+    $('body').on('focusout', '.password',function(){
+        mypassword=$('#passwordEdit').val();
+        checpassword = $('#passwordConfEdit').val();
+        if(mypassword != '' && checpassword != ''){
+            if(mypassword != checpassword)
+            {
+                $('.password').addClass('red-border');
+                $('.difpass').fadeIn('slow');
+            }else{
+                 $('.password').removeClass('red-border');
+                 $('.difpass').fadeOut('fast');
 
+            }
+            setTimeout(function(){
+                $('.password').removeClass('red-border');
+                 $('.difpass').fadeOut('slow');
+                 },30000);
+        }
+    });
 
-    $('body').on('clinck', 'body',function(){
+    $('body').on('click', 'body',function(){
         //$('.ui-header-fixed').removeClass('slidedown');
     });
     $('.endEntrega').focusout(function(){
@@ -280,7 +298,7 @@ function statusLoja(){
                                 $('.divDisp').removeClass('none');
                                 $('.divDisp').addClass('classGren');
                                  if(resultados.Filial.tempo_atendimento !='00:00:00'){
-                                    $('.mediaAtendimento').html('Tempo de Espera: '+resultados.Filial.tempo_atendimento).addClass('mediaAtendimentoAtivo').removeClass('none');
+                                    $('.mediaAtendimento').html('Tempo de Aguardo: '+resultados.Filial.tempo_atendimento).addClass('mediaAtendimentoAtivo').removeClass('none');
                                 }
                             }else{
                                  $('.textStatus').html('Loja Indispon&iacute;vel');
@@ -345,15 +363,16 @@ $(document).on("pageshow","#index_old",function(){
             atualizarPromo();
             limparPedido();
          },2000);
-
-     var contPagamentos=0;
+    flagCadastro=false;
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
         atualizarProduto();
         atualizarPromo();
         limparPedido();
-
-
+        if(flagCadastro==true){
+            $("#popupCaadastroSuccess").popup( "open" );
+            flagCadastro=false;
+        } 
          $('#filialPedido').val(filialPadrao);
          $("#empresaPedido").val(empresa);
          $("#PedidoA").val(codigoAtend);
@@ -364,18 +383,8 @@ $(document).on("pageshow","#index_old",function(){
             if(verificaPedido != ''){
                 clearInterval(verificaPedido);
             }
-            if(contPagamentos == 0){
-                $('.cloneOptPgt').remove();
-                selectPagamento =  $('#formaDEpagamento');
-                $.each(cliente.Pagamento, function(i, pagamento){
-                    $('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-                });
-                selectPagamento.selectmenu();
-                selectPagamento.selectmenu('refresh', true);
-                contPagamentos++;
-            }
-
-
+            
+            
         }else{
             //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
         }
@@ -1243,8 +1252,11 @@ function atualizarProduto(){
 
     function validaAddBtn(idBtn){
         textoAvisoBtn=null;
-
-
+        
+         if($(".precotam"+idBtn).is(":hidden"))
+        {
+             textoAvisoBtn ="A Seleção selecionada não pode ser processada por favor selecione outras opções.";
+        }
         if($("#comboTamanho"+idBtn).is(":visible"))
         {
             vlSelecionado = $("#comboTamanho"+idBtn).find('option:selected').val();
@@ -1451,15 +1463,470 @@ function atualizarProduto(){
         }
 
     });
-    var pagamento;
-    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
+   function getCoordenadas() {
 
+        numero = removeDiacritics($('.numero').val());
+        numero = numero.split(' ').join('+');
+        logradouro = removeDiacritics($('.logradouro').val());
+        logradouro = logradouro.split(' ').join('+');
+        bairro = removeDiacritics($('.bairro').val());
+        bairro = bairro.split(' ').join('+');
+        complemento= removeDiacritics($('.complemento').val());
+        complemento = complemento.split(' ').join('+');
+        cidade = removeDiacritics($('.cidade').val());
+        cidade = cidade.split(' ').join('+');
+        uf = removeDiacritics($('.uf').val());
+        uf = uf.split(' ').join('+');
+
+        pesquisa=numero+','+logradouro+','+bairro+','+cidade+','+uf;
+
+
+        var url="http://maps.googleapis.com/maps/api/geocode/json?address="+pesquisa+"&sensor=true";
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+
+                success: function(data){
+
+
+                i=0;
+                var lat=0;
+                var lng =0;
+                $.each(data.results, function(i, resultados){
+
+                    $('#lngEdit').val(resultados.geometry.location.lng);
+                    lat =resultados.geometry.location.lat;
+                    lng = resultados.geometry.location.lng
+                    $('#lng').val(resultados.geometry.location.lng);
+                    $('#latEdit').val(resultados.geometry.location.lat);
+                    $('#lat').val(resultados.geometry.location.lat);
+                });
+
+                latorigin = $('#latEdit').val();
+                lngorigin =$('#lngEditDest').val();
+                latDest= $('#latEditDest').val();
+                lngDest=$('#lngEditDest').val();
+                CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
+                $('#gmapLEntrega2').val('');
+
+                var latlng = new google.maps.LatLng(lat,lng);
+
+                var options = {
+                    zoom: 16,
+                    center: latlng,
+                    scrollwheel:false,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
+                position = new google.maps.LatLng(lat,lng);
+
+
+                 marker = new google.maps.Marker({
+                    position: position,
+                    icon:'images/usuario2.png',
+                    map: map,
+                   // draggable: true
+                });
+
+                marker.setPosition(position);
+                //atualiza o ponteiro
+                map.panTo( new google.maps.LatLng( lat,lng ) );
+                $.mobile.loading( "hide" );
+
+                return true;
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    //$(".erroconexao").popup( "open" );
+                    //tratar
+
+                }
+
+            });
+    }
+
+
+
+     function CalculaDistancia(lat,lng, latDest,lngDest) {
+
+
+
+
+
+        var startOrigin= new google.maps.LatLng(lat,lng);
+        var endDest =new google.maps.LatLng(latDest,lngDest);
+
+
+        var service = new google.maps.DistanceMatrixService();
+        service.getDistanceMatrix(
+          {
+            origins: [startOrigin],
+            destinations: [endDest],
+            travelMode: google.maps.TravelMode.DRIVING,
+            avoidHighways: false,
+            avoidTolls: false
+          }, callback);
+
+
+
+
+
+    }
+
+    function callback(response, status) {
+      if (status == google.maps.DistanceMatrixStatus.OK) {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
+
+        for (var i = 0; i < origins.length; i++) {
+          var results = response.rows[i].elements;
+          for (var j = 0; j < results.length; j++) {
+            var element = results[j];
+            if(element.status !=  'ZERO_RESULTS'){
+                var distance = element.distance.text;
+                var duration = element.duration.text;
+                var from = origins[i];
+                var to = destinations[j];
+        $('#distanciaCli').val(distance);
+        $('#duracaoCli').val(duration);
+            }
+
+
+          }
+        }
+      }
+    }
+    function getCoordenadasLatLng(lat, lng) {
+
+        var url="http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+','+lng+"&sensor=true";
+
+        $.mobile.loading( "show" );
+
+         $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'json',
+
+
+
+
+                success: function(data){
+
+
+                i=0;
+                $.each(data.results, function(i, resultados){
+                    if(i ==0){
+                        var endereco = resultados.formatted_address;
+
+                        var  res = endereco.split(",");
+                        cep =res[1];
+                        cep =  cep.split("-");
+                        cepAux = cep[0] + cep[1];
+                        $('#logradouroEdit').val(res[0]);
+                        $('#cepEdit').val(cepAux);
+
+                        return true;
+                    }
+                    $.mobile.loading( "hide" );
+
+                });
+
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    //$(".erroconexao").popup( "open" );
+
+                }
+
+            });
+    }
+    var respValida ='';
+    var dbShell;
+
+    function doLog(s){
+        /*
+        setTimeout(function(){
+            console.log(s);
+        }, 3000);
+        */
+    }
+
+    function dbErrorHandler(err){
+        alert("DB Error: "+err.message + "\nCode="+err.code);
+    }
+
+    function phoneReady(){
+        doLog("phoneReady");
+        //First, open our db
+        
+        dbShell = window.openDatabase("Entregapp", 2, "Entregapp", 1000000);
+        doLog("db was opened");
+        //run transaction to create initial tables
+        dbShell.transaction(setupTable,dbErrorHandler,getEntries);
+        doLog("ran setup");
+    }
+
+    //I just create our initial table - all one of em
+    function setupTable(tx){
+        doLog("before execute sql...");
+        tx.executeSql("CREATE TABLE IF NOT EXISTS entregappusers(id INTEGER PRIMARY KEY,username,password,empresa_id,filial_id,user_id,ativo,updated)");
+        doLog("after execute sql...");
+    }   
+    //I handle getting entries from the db
+    function getEntries() {
+        dbShell.transaction(function(tx) {
+        tx.executeSql("select * from entregappusers",[],renderEntries,dbErrorHandler);
+        }, dbErrorHandler);
+    }
+
+    //I handle getting entries from the db
+    function deleteEntries() {
+       dbShell.transaction(function(tx) {
+        tx.executeSql("delete from entregappusers",[],returnDelete,dbErrorHandler);
+        }, dbErrorHandler);
+    }
+    function returnDelete(){
+        return true;
+    }
+    var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj"; 
+    function renderEntries(tx,results){
+         doLog("render entries");
+          if (results.rows.length == 0) {
+          //$("#Pagelogin").html("<p>You currently do not have any notes.</p>");
+          } else {
+              var s = "";
+              for(var i=0; i<results.rows.length; i++) {
+                $('#userdb').val(results.rows.item(i).username);
+                $('#passdb').val(results.rows.item(i).password);
+                $('#iddb').val(results.rows.item(i).id);
+                $('#ativodb').val(results.rows.item(i).ativo);
+                $('.usuarioLogado').html(results.rows.item(i).username);   
+              }
+              loginInit();
+             
+          }
+    }
+
+    function saveNote(entregappusers, cb) {
+        //Sometimes you may want to jot down something quickly....
+        if(entregappusers.username == "") entregappusers.username = "[No Title]";
+        dbShell.transaction(function(tx) {
+        if(entregappusers.id == "") tx.executeSql("insert into entregappusers(username,password,empresa_id,filial_id,user_id,ativo,updated) values(?,?,?,?,?,?,?)",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date()]);
+        else tx.executeSql("update entregappusers set username=?, password=?,empresa_id=?, filial_id=?, user_id=?,ativo=?,updated=? where id=?",[entregappusers.username,entregappusers.password,entregappusers.empresa_id,entregappusers.filial_id, entregappusers.user_id,entregappusers.ativo,new Date(), entregappusers.id]);
+        }, dbErrorHandler,cb);
+    }
+    function init(){
+        
+       document.addEventListener("deviceready", phoneReady, false);
+            
+        $('.meucadastroForm').submit(function(event){
+
+            event.preventDefault();
+
+            validaFormCad();
+
+            if(respValida == 'ok'){
+                $( ".ui-icon-minus" ).trigger('click');
+                getCoordenadas();
+                latDest= $('latEditDest').val();
+                lngDest= $('lngEditDest').val();
+                lat = $('latEdit').val();
+                lng = $('lngEdit').val();
+
+                setSubmit();
+            }
+        });
+        
+        //will run after initial show - handles regetting the list
+        $(document).on("pageshow","#index",function(){ // When entering pagetwo    
+           
+            
+
+            getEntries(); 
+
+            
+        });
+
+    }
+    $(document).ready(function(){
+        init();
+
+    });
+    var pagamento;
+    function loginInit(){
+       
+        dataTosend ={
+            username:$('#userdb').val(),
+            password:$('#passdb').val(),
+            empresa:empresa,
+            filial:filialPadrao,
+            salt:salt
+        };
+        var urlAction = URLAPP+"RestClientes/loginmobile.json";
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  dataTosend,
+            dataType: 'json',
+            crossDomain: true,
+            success: function(data){
+                var res = data.ultimopedido;
+                cliente_id = data.ultimopedido.Cliente.id;
+                cliente = data.ultimopedido;
+                bebidas='<option value="">Selecione</option>';
+                if(typeof cliente.Bebidas !==  'undefined'){
+                    $.each(cliente.Bebidas, function(i, beb){
+                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+                    });
+                }else{
+                    bebidas=null;
+                }
+                pagueGanhe='<option value="">Selecione</option>';
+                if(typeof cliente.PagueGanhe !==  'undefined'){
+                    $.each(cliente.PagueGanhe, function(i, pagueGan){
+                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+                    });
+                }else{
+                    pagueGanhe=null;
+                }
+                
+                if(fezPedidoSemLogar=='sim'){
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
+                }else{
+                    fezPedidoSemLogar="nao";
+                    $('.showLogado').removeClass('logadoNone');
+                    $('.fazerlogin').addClass('logadoNone');
+                }
+                getSituacaoCampainha= setInterval(function(){
+                    /*getSituacaoCampainha()*/;
+                },20000);
+
+                selectPagamento(cliente);
+                
+            },error: function(data){
+                setTimeout(function(){
+                    loginInit();
+                },5000);
+               
+                
+            }
+        });
+    }
+    function selectPagamento(cliente)
+    {
+        console.log(cliente);
+        $('.cloneOptPgt').remove();
+        selectPagamento =  $('#formaDEpagamento');
+        $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
+        $.each(cliente.Pagamento, function(i, pagamento){
+            $('#formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+        });
+        selectPagamento.selectmenu();
+        selectPagamento.selectmenu('refresh', true);
+
+    }
+    var flagCadastro=false;
+    function loginCad(data){
+        $.mobile.loading( "show" );
+        dataToSave = {
+            id:'',
+            username:data.username,
+            password:data.password,
+            filial_id:data.filial,
+            empresa_id:data.empresa,
+            ativo:'1',
+            cliente_id:data.cliente.id
+        };
+        var urlAction = URLAPP+"RestClientes/loginmobile.json";
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data:  data,
+            dataType: 'json',
+            crossDomain: true,
+            success: function(data){
+                var res = data.ultimopedido;
+                
+                cliente_id = data.ultimopedido.Cliente.id;
+                cliente = data.ultimopedido;
+                bebidas='<option value="">Selecione</option>';
+                if(typeof cliente.Bebidas !==  'undefined'){
+                    $.each(cliente.Bebidas, function(i, beb){
+                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
+                    });
+                }else{
+                    bebidas=null;
+                }
+                pagueGanhe='<option value="">Selecione</option>';
+                if(typeof cliente.PagueGanhe !==  'undefined'){
+                    $.each(cliente.PagueGanhe, function(i, pagueGan){
+                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
+                    });
+                }else{
+                    pagueGanhe=null;
+                }
+                
+                if(fezPedidoSemLogar=='sim'){
+                        fezPedidoSemLogar="nao";
+                        $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
+                }else{
+                    fezPedidoSemLogar="nao";
+                    $('.showLogado').removeClass('logadoNone');
+                    $('.fazerlogin').addClass('logadoNone');
+                }
+                selectPagamento(cliente);
+              getSituacaoCampainha = setInterval(function(){
+                    /*getSituacaoCampainha()*/;
+                },20000);
+                deleteEntries();
+                saveNote(dataToSave,function() {
+                    var flagCadastro=true;
+                    $.mobile.changePage("#index",{reverse:true});
+                });
+
+                
+            },error: function(data){
+                //criar tratatmento de erros
+                $.mobile.loading( "hide" );
+                $("#popupDialogLogin").popup( "open" );
+                $('#loginSalt').val('')
+            }
+        });
+    }
+    
+    $('body').on('click', '.esquecer', function(event){
+        $(".popEsquecer").popup( "open" );
+    });
+    $('body').on('click', '.popEsquecerBtn', function(event){
+        clearInterval(getSituacaoCampainha);
+
+        deleteEntries();
+        cliente =null;
+        $('.showLogado').addClass('logadoNone');
+        $('.fazerlogin').show();
+        fezPedidoSemLogar="";
+        $.mobile.changePage("#Pagelogin",{reverse:true});
+       // $( ".popEsquecer" ).popup( "close" );
+    });
+    var conectado= false;
     $('body').on('submit', '#login', function(event){
 
         event.preventDefault();
+        
+        if ($('#checkconectado').is(':checked'))
+        {
+            conectado=true;
+        }
+       
         $.mobile.loading( "show" );
         $('.loginsalt').val(salt);
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
+        var username = $('#username').val();
+        var password =$('#password').val();
         var dadosForm = $("#login").serialize();
 
 
@@ -1508,9 +1975,29 @@ function atualizarProduto(){
                     }else{
                         pagueGanhe=null;
                     }
+                    if (conectado==true) {
+
+                        deleteEntries();
+                        dataToSave = {
+                            id:'',
+                            username:username,
+                            password:password,
+                            filial_id:filialPadrao,
+                            empresa_id:empresa,
+                            ativo:'1',
+                            cliente_id:cliente.Cliente.id
+                        };
+                        
+                        saveNote(dataToSave,function() {
+                            $.mobile.changePage("#index",{reverse:true});
+                        });
+                    }
+                    selectPagamento(cliente);
+                    $('.usuarioLogado').html(cliente.Cliente.username);
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
                        // filialPadrao=data.ultimopedido.Cliente.filial_id;
                         $.mobile.changePage("#index",{ transition: "none",  });
                          $('.pageContent').hide();
@@ -1523,6 +2010,7 @@ function atualizarProduto(){
                     }else{
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
+                        $('.fazerlogin').addClass('logadoNone');
                         $.mobile.changePage("#index",{ transition: "none",  });
 
                          $('.pageContent').hide();
@@ -1533,11 +2021,13 @@ function atualizarProduto(){
                             },2000);
 
                     }
+                    
 
                 }
+
                 $('#loginSalt').val('');
-                setInterval(function(){
-                    getSituacaoCampainha();
+                getSituacaoCampainha= setInterval(function(){
+                    /*getSituacaoCampainha()*/;
                 },20000);
             },error: function(data){
                 //criar tratatmento de erros
@@ -1761,15 +2251,10 @@ $("#pedir").click(function(event){
         $("#avisoTroco2").popup( "open" );
     }
 
-    /*minhaLoja2= $('#filialPedido').val();
-
-    if(minhaLoja2==''){
-        validarPd="falso";
-        $("#avisoPedido").popup( "open" );
-    }*/
+   
     $('#empresaPedido').val(empresa);
     $('#filialPedido').val(filialPadrao);
-    clientePedido
+    
     if(validarPd== 'verdadeiro'){
         nAtendimento= $('#PedidoA').val();
 
@@ -1805,10 +2290,11 @@ $("#pedir").click(function(event){
             $("#spanComprar").hide();
             $('#pedidoSalt').val(salt);
             $('#pedidoToken').val(cliente.Cliente.token);
+            $("#clientePedido").val(cliente.Cliente.id);
             $('#PedidoA').val('entrega');
-
+           
             var dadosForm2 = $("#PedidoAddForm").serializeArray();
-
+            
             $.ajax({
                 type: "POST",
                 url: urlAction2,
@@ -1816,7 +2302,7 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                 success: function(data){
-
+                   
                     $("#pedir").show();
 
                      $("#spanComprar").show();
@@ -1859,7 +2345,7 @@ $("#pedir").click(function(event){
                     $("#pedir").show();
                      $("#spanComprar").show();
                     $("#popupDialogLogin4").popup( "open" );
-                    //$('#pedidoToken').val('');
+                    
                 }
             });
 
@@ -2073,7 +2559,7 @@ $("#pedir").click(function(event){
 
                         $('.bairro').val(getBairroFromCep).change();
 
-                        $('.bairro option[value='+getBairroFromCep+']').attr('selected','selected');
+                        $('.bairro option [value="'+getBairroFromCep+']"').attr('selected','selected');
                        // getBairroFromCep=null;
 
                     }
@@ -2996,40 +3482,24 @@ function checaAtendimento(atendimentocod){
      }
     });
 
-    var respValida ='';
-    $('.meucadastroForm').submit(function(event){
-
-        event.preventDefault();
-
-        validaFormCad();
-
-        if(respValida == 'ok'){
-            $( ".ui-icon-minus" ).trigger('click');
-            getCoordenadas();
-            latDest= $('latEditDest').val();
-            lngDest= $('lngEditDest').val();
-            lat = $('latEdit').val();
-            lng = $('lngEdit').val();
-
-            setSubmit();
-        }
-    });
+    
 
     function validaFormCad(){
-        nome = $('.nome').val();
-        username = $('.username').val();
-        password = $('.password').val();
+        nome = $('#nomeEdit').val();
+        username = $('#usernameEdit').val();
+        password = $('#passwordEdit').val();
+        checkPassword=$('#passwordConfEdit').val();
 
         //cep = $('.cep').val();
-        logradouro = $('.logradouro').val();
-        numero = $('.numero').val();
+        logradouro = $('#logradouroEdit').val();
+        numero = $('#numeroEdit').val();
 
-        bairro = $('.bairro').find('option:selected').val();
+        bairro = $('#bairroEdit').find('option:selected').val();
 
-        cidade = $('.bairro').find('option:selected').val();
-        uf =  $('.uf').find('option:selected').val();
-        telefone = $('.telefone').val();
-        celular = $('.celular').val();
+        cidade = $('#cidadeEdit').find('option:selected').val();
+        uf =  $('#ufEdit').find('option:selected').val();
+        telefone = $('#telefoneEdit').val();
+        celular = $('#celularEdit').val();
         minhaFilial=$('#filial_id').find('option:selected').val();
 
 
@@ -3066,6 +3536,10 @@ function checaAtendimento(atendimentocod){
 
                 $('#msgErroValidacao').html('loja');
                 $("#erroValidaPop").popup( "open" );
+            }else if(password != checkPassword){
+
+                
+                $("#erroValidaSenhaPop").popup( "open" );
             }else{
                 respValida = "ok";
                 return respValida;
@@ -3097,6 +3571,10 @@ function checaAtendimento(atendimentocod){
             }else if((telefone == '') && (celular == '')){
                 $('#msgErroValidacao').html('telefone ou celular');
                 $("#erroValidaPop").popup( "open" );
+            }else if(password != checkPassword){
+
+                
+                $("#erroValidaSenhaPop").popup( "open" );
             }else if(minhaFilial ==''){
 
                 $('#msgErroValidacao').html('loja');
@@ -3117,6 +3595,9 @@ function checaAtendimento(atendimentocod){
         mes = dataNascimento.substring(3, 5);
         ano = dataNascimento.substring(6, 10);
         dataNascimento = ano + "-" + mes + "-" + dia;
+        senhaRegis= $('#passwordEdit').val();
+        loginRegis=$('#usernameEdit').val();
+        filialRegis=$('#filial_id').val();
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
@@ -3135,7 +3616,7 @@ function checaAtendimento(atendimentocod){
 
 
                         var res = data.ultimocliente;
-                        cliente =  data.ultimocliente;
+                        //cliente =  data.ultimocliente;
                         $.mobile.loading( "hide" );
                         $("#saltEdit").val('');
 
@@ -3145,20 +3626,24 @@ function checaAtendimento(atendimentocod){
                             //$( "#popupDialog" ).popup( "open" );
                         }else{
                             if(res=='ErroUsuarioDuplo'){
-
                                 $("#popupUsuarioDuplo").popup( "open" );
                             }else{
+                               
+                                dataToLog = {
+                                    username:loginRegis,
+                                    password:senhaRegis,
+                                    salt:salt,
+                                    empresa:empresa,
+                                    filial:filialRegis,
+                                    cliente:res.Cliente.id
+                                };
 
-                                $("#popupCaadastroSuccess").popup( "open" );
+
+                                loginCad(dataToLog);
+                                
                             }
-
-                            //cliente_id = data.ultimopedido.Cliente.id;
-                            //cliente = data.ultimopedido;
-                            //$.mobile.changePage("#page0");
                         }
                     },error: function(data){
-
-
                         $.mobile.loading( "hide" );
                         $("#popupDialogLogin5").popup( "open" );
                         $("#saltEdit").val('');
@@ -3257,184 +3742,7 @@ function checaAtendimento(atendimentocod){
 
 
 
-    function getCoordenadas() {
-
-        numero = removeDiacritics($('.numero').val());
-        numero = numero.split(' ').join('+');
-        logradouro = removeDiacritics($('.logradouro').val());
-        logradouro = logradouro.split(' ').join('+');
-        bairro = removeDiacritics($('.bairro').val());
-        bairro = bairro.split(' ').join('+');
-        complemento= removeDiacritics($('.complemento').val());
-        complemento = complemento.split(' ').join('+');
-        cidade = removeDiacritics($('.cidade').val());
-        cidade = cidade.split(' ').join('+');
-        uf = removeDiacritics($('.uf').val());
-        uf = uf.split(' ').join('+');
-
-        pesquisa=numero+','+logradouro+','+bairro+','+cidade+','+uf;
-
-
-        var url="http://maps.googleapis.com/maps/api/geocode/json?address="+pesquisa+"&sensor=true";
-
-         $.ajax({
-                type: "GET",
-                url: url,
-                dataType: 'json',
-
-                success: function(data){
-
-
-                i=0;
-                var lat=0;
-                var lng =0;
-                $.each(data.results, function(i, resultados){
-
-                    $('#lngEdit').val(resultados.geometry.location.lng);
-                    lat =resultados.geometry.location.lat;
-                    lng = resultados.geometry.location.lng
-                    $('#lng').val(resultados.geometry.location.lng);
-                    $('#latEdit').val(resultados.geometry.location.lat);
-                    $('#lat').val(resultados.geometry.location.lat);
-                });
-
-                latorigin = $('#latEdit').val();
-                lngorigin =$('#lngEditDest').val();
-                latDest= $('#latEditDest').val();
-                lngDest=$('#lngEditDest').val();
-                CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
-                $('#gmapLEntrega2').val('');
-
-                var latlng = new google.maps.LatLng(lat,lng);
-
-                var options = {
-                    zoom: 16,
-                    center: latlng,
-                    scrollwheel:false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-
-                map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-                position = new google.maps.LatLng(lat,lng);
-
-
-                 marker = new google.maps.Marker({
-                    position: position,
-                    icon:'images/usuario2.png',
-                    map: map,
-                   // draggable: true
-                });
-
-                marker.setPosition(position);
-                //atualiza o ponteiro
-                map.panTo( new google.maps.LatLng( lat,lng ) );
-                $.mobile.loading( "hide" );
-
-                return true;
-                },error: function(data){
-                    $.mobile.loading( "hide" );
-                    //$(".erroconexao").popup( "open" );
-                    //tratar
-
-                }
-
-            });
-    }
-
-
-
-     function CalculaDistancia(lat,lng, latDest,lngDest) {
-
-
-
-
-
-        var startOrigin= new google.maps.LatLng(lat,lng);
-        var endDest =new google.maps.LatLng(latDest,lngDest);
-
-
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(
-          {
-            origins: [startOrigin],
-            destinations: [endDest],
-            travelMode: google.maps.TravelMode.DRIVING,
-            avoidHighways: false,
-            avoidTolls: false
-          }, callback);
-
-
-
-
-
-    }
-
-    function callback(response, status) {
-      if (status == google.maps.DistanceMatrixStatus.OK) {
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
-
-        for (var i = 0; i < origins.length; i++) {
-          var results = response.rows[i].elements;
-          for (var j = 0; j < results.length; j++) {
-            var element = results[j];
-            if(element.status !=  'ZERO_RESULTS'){
-                var distance = element.distance.text;
-                var duration = element.duration.text;
-                var from = origins[i];
-                var to = destinations[j];
-        $('#distanciaCli').val(distance);
-        $('#duracaoCli').val(duration);
-            }
-
-
-          }
-        }
-      }
-    }
-    function getCoordenadasLatLng(lat, lng) {
-
-        var url="http://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+','+lng+"&sensor=true";
-
-        $.mobile.loading( "show" );
-
-         $.ajax({
-                type: "GET",
-                url: url,
-                dataType: 'json',
-
-
-
-
-                success: function(data){
-
-
-                i=0;
-                $.each(data.results, function(i, resultados){
-                    if(i ==0){
-                        var endereco = resultados.formatted_address;
-
-                        var  res = endereco.split(",");
-                        cep =res[1];
-                        cep =  cep.split("-");
-                        cepAux = cep[0] + cep[1];
-                        $('#logradouroEdit').val(res[0]);
-                        $('#cepEdit').val(cepAux);
-
-                        return true;
-                    }
-                    $.mobile.loading( "hide" );
-
-                });
-
-                },error: function(data){
-                    $.mobile.loading( "hide" );
-                    //$(".erroconexao").popup( "open" );
-
-                }
-
-            });
-    }
+    
     //google maps
      // your google map container
 
@@ -3801,6 +4109,20 @@ function checaAtendimento(atendimentocod){
         $('#sendToMoip').hide();
 
     });
+    $('body').on('click','#unlockDatabtn', function(){
+        senhaCorreta = $('#passdb').val();
+        SenhaDigitada = $('#senhalock').val();
+        if(senhaCorreta == SenhaDigitada)
+        {
+            $(".meucadastroForm").show();
+            $('.showDataUser').hide();
+        }else
+        {
+            $(".meucadastroForm").hide();
+            $('.showDataUser').show();
+            $( "#popupSenhaUnlock" ).popup( "open" );
+        }
+    });
 var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
@@ -3808,9 +4130,12 @@ var getBairroFromCep=null;
         $('.empresaEdit').val(empresa);
         $("#saltEdit").val(salt);
         if(cliente ==""){
+            $(".meucadastroForm").show();
+            $('.showDataUser').hide();
             $("#submitFormCliente").html('Cadastrar');
         }else{
-
+            $(".meucadastroForm").hide();
+            $('.showDataUser').show();
             var dataNascimento = cliente.Cliente.nasc;
             var dataNascimentoAux = $('.nasc').val();
             ano = dataNascimento.substring(0, 4);
@@ -3829,6 +4154,7 @@ var getBairroFromCep=null;
             $('#complementoEdit').val(cliente.Cliente.complemento);
             $('#numeroEdit').val(cliente.Cliente.numero);
             $('#bairroEdit').val(cliente.Cliente.bairro);
+            $('#pReferenciaEdit').val(cliente.Cliente.p_referencia);
              if(typeof getBairroFromCep !=='undefined')
             {
                getBairroFromCep=cliente.Cliente.bairro;
@@ -3967,6 +4293,7 @@ var getBairroFromCep=null;
     $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo
         $('#empresa_input').val(empresa);
         $('#filial_input').val(filialPadrao);
+       // getEntries(); 
     });
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
         $('#idpedidoempresa').val(empresa);

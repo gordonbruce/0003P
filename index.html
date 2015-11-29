@@ -74,6 +74,16 @@
             </div><!-- /header -->
 
             <div data-role="content" class="contentPage" id="contentIndex">
+                <div data-role="popup" class="popEsquecer" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                        <h2>Aviso</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Deseja esquecer este usuário?</p>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" class="popEsquecerBtn">Sim</a>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" class="popBackEsquecerBtn">Não</a>
+                    </div>
+                </div>
                 <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
                     <div data-role="header" data-theme="b" data-position="fixed">
                     <h2>Foto</h2>
@@ -660,6 +670,16 @@
             </div><!-- /header -->
 
             <div data-role="content" class="contentPage" id="contentPage2">
+                <div data-role="popup" class="popEsquecer" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                    <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                        <h2>Aviso</h2>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>Deseja esquecer este usuário?</p>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" class="popEsquecerBtn">Sim</a>
+                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" class="popBackEsquecerBtn">Não</a>
+                    </div>
+                </div>
                 <div data-role="popup" id="popupDialogFormFoto1" class="formFoto" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
                     <div data-role="header" data-theme="b" data-position="fixed">
                     <h2>Foto</h2>
@@ -1562,14 +1582,14 @@
 
 
             </div><!-- /content -->
-             <div data-role="popup" id="popEsquecer" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+             <div data-role="popup" class="popEsquecer" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                 <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
                     <h2>Aviso</h2>
                 </div>
                 <div role="main" class="ui-content">
                     <p>Deseja esquecer este usuário?</p>
-                    <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="popEsquecerBtn">Sim</a>
-                    <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="popBackEsquecerBtn">Não</a>
+                    <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" class="popEsquecerBtn">Sim</a>
+                    <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" class="popBackEsquecerBtn">Não</a>
                 </div>
             </div>
             <div data-role="popup" id="popupDialogLogin2" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">

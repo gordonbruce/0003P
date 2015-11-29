@@ -1737,6 +1737,9 @@ function atualizarProduto(){
         
         //will run after initial show - handles regetting the list
         $(document).on("pageshow","#index",function(){ // When entering pagetwo    
+           
+            
+
             getEntries(); 
 
             
@@ -1923,10 +1926,11 @@ function atualizarProduto(){
         $.mobile.changePage("#Pagelogin",{reverse:true});
 
     });
+    var conectado= false;
     $('body').on('submit', '#login', function(event){
 
         event.preventDefault();
-        var conectado= false;
+        
         if ($('#checkconectado').is(':checked'))
         {
             conectado=true;
@@ -1986,6 +1990,7 @@ function atualizarProduto(){
                         pagueGanhe=null;
                     }
                     if (conectado==true) {
+
                         deleteEntries();
                         dataToSave = {
                             id:'',
@@ -2002,7 +2007,7 @@ function atualizarProduto(){
                         });
                     }
                     selectPagamento(cliente);
-
+                    $('.usuarioLogado').html(cliente.Cliente.username);
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');

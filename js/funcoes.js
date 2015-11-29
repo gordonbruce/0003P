@@ -1897,7 +1897,11 @@ function atualizarProduto(){
             }
         });
     }
+    
     $('body').on('click', '.esquecer', function(event){
+        $("#popEsquecer").popup( "open" );
+    });
+    $('body').on('click', '.popEsquecerBtn', function(event){
         clearInterval(getSituacaoCampainha);
         deleteEntries();
         cliente =null;

@@ -1512,7 +1512,7 @@
                         <a href="#" id="exit-button" class="ui-btn ui-btn-b ui-shadow ui-corner-all">Sair</a>
                       </div>
                       <div class="ui-block-b">
-                        <a href="#" id="cancel-button" class="ui-btn ui-shadow ui-corner-all">Cancelar</a>
+                        <a href="#" id="cancel-button" data-rel="back" class="ui-btn ui-shadow ui-corner-all">Cancelar</a>
                       </div>
                 </div>
                 <div data-role="popup" id="popupDialogLogin12" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
@@ -1562,6 +1562,16 @@
 
 
             </div><!-- /content -->
+             <div data-role="popup" id="popEsquecer" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                    <h2>Aviso</h2>
+                </div>
+                <div role="main" class="ui-content">
+                    <p>Deseja esquecer este usuário?</p>
+                    <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="popEsquecerBtn">Sim</a>
+                    <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" id="popBackEsquecerBtn">Não</a>
+                </div>
+            </div>
             <div data-role="popup" id="popupDialogLogin2" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
                     <div data-role="header" data-theme="b" data-position="fixed">
                     <h2>Ops, ocorreu um erro.</h2>

@@ -1903,6 +1903,7 @@ function atualizarProduto(){
     });
     $('body').on('click', '.popEsquecerBtn', function(event){
         clearInterval(getSituacaoCampainha);
+        $( ".popEsquecer" ).popup( "close" );
         deleteEntries();
         cliente =null;
         $('.showLogado').addClass('logadoNone');

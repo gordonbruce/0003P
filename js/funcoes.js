@@ -4112,6 +4112,7 @@ function checaAtendimento(atendimentocod){
         }else
         {
             $(".meucadastroForm").hide();
+            $( "#popupSenhaUnlock" ).popup( "open" );
         }
     });
 var getBairroFromCep=null;

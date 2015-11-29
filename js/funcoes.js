@@ -1983,7 +1983,7 @@ function atualizarProduto(){
                         };
                         
                         saveNote(dataToSave,function() {
-                            //$.mobile.changePage("#index",{reverse:true});
+                            $.mobile.changePage("#index",{reverse:true});
                         });
                     }
                     selectPagamento(cliente);
@@ -4109,9 +4109,11 @@ function checaAtendimento(atendimentocod){
         if(senhaCorreta == SenhaDigitada)
         {
             $(".meucadastroForm").show();
+            $('.showDataUser').hide();
         }else
         {
             $(".meucadastroForm").hide();
+            $('.showDataUser').show();
             $( "#popupSenhaUnlock" ).popup( "open" );
         }
     });
@@ -4123,11 +4125,11 @@ var getBairroFromCep=null;
         $("#saltEdit").val(salt);
         if(cliente ==""){
             $(".meucadastroForm").show();
-            $('#showDataUser').hide();
+            $('.showDataUser').hide();
             $("#submitFormCliente").html('Cadastrar');
         }else{
             $(".meucadastroForm").hide();
-            $('#showDataUser').show();
+            $('.showDataUser').show();
             var dataNascimento = cliente.Cliente.nasc;
             var dataNascimentoAux = $('.nasc').val();
             ano = dataNascimento.substring(0, 4);

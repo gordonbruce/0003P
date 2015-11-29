@@ -1253,7 +1253,7 @@ function atualizarProduto(){
     function validaAddBtn(idBtn){
         textoAvisoBtn=null;
         
-         if(!$("#precotam"+idBtn).is(":visible"))
+         if($(".precotam"+idBtn).is(":hidden"))
         {
              textoAvisoBtn ="A Seleção selecionada não pode ser processada por favor selecione outras opções.";
         }

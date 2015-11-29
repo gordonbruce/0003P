@@ -1252,8 +1252,11 @@ function atualizarProduto(){
 
     function validaAddBtn(idBtn){
         textoAvisoBtn=null;
-
-
+        
+         if(!$("#precotam"+idBtn).is(":visible"))
+        {
+             textoAvisoBtn ="A Seleção selecionada não pode ser processada por favor selecione outras opções.";
+        }
         if($("#comboTamanho"+idBtn).is(":visible"))
         {
             vlSelecionado = $("#comboTamanho"+idBtn).find('option:selected').val();

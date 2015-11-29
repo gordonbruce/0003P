@@ -298,7 +298,7 @@ function statusLoja(){
                                 $('.divDisp').removeClass('none');
                                 $('.divDisp').addClass('classGren');
                                  if(resultados.Filial.tempo_atendimento !='00:00:00'){
-                                    $('.mediaAtendimento').html('Tempo de Espera: '+resultados.Filial.tempo_atendimento).addClass('mediaAtendimentoAtivo').removeClass('none');
+                                    $('.mediaAtendimento').html('Tempo de Aguardo: '+resultados.Filial.tempo_atendimento).addClass('mediaAtendimentoAtivo').removeClass('none');
                                 }
                             }else{
                                  $('.textStatus').html('Loja Indispon&iacute;vel');
@@ -1701,7 +1701,7 @@ function atualizarProduto(){
                 $('#passdb').val(results.rows.item(i).password);
                 $('#iddb').val(results.rows.item(i).id);
                 $('#ativodb').val(results.rows.item(i).ativo);
-                $('#usuarioLogado').html(results.rows.item(i).username);   
+                $('.usuarioLogado').html(results.rows.item(i).username);   
               }
               loginInit();
              
@@ -1748,29 +1748,6 @@ function atualizarProduto(){
             
         });
 
-        //edit page logic needs to know to get old record (possible)
-        $(document).on("pageshow","#page5",function(){ // When entering pagetwo      
-           //get the location - it is a hash - got to be a better way
-            var loc = window.location.hash;
-            if(loc.indexOf("?") >= 0) {
-                var qs = loc.substr(loc.indexOf("?")+1,loc.length);
-                var noteId = qs.split("=")[1];
-                //load the values
-                $("#submitFormCliente").attr("disabled","disabled"); 
-                dbShell.transaction(
-                    function(tx) {
-                        tx.executeSql("select id,username,password, empresa_id,filial_id,cliente_id from entregappusers where id=?",[noteId],function(tx,results) {
-                            $("#noteId").val(results.rows.item(0).id);
-                            $("#noteTitle").val(results.rows.item(0).title);
-                            $("#noteBody").val(results.rows.item(0).body);
-                            $("#editFormSubmitButton").removeAttr("disabled");   
-                        });
-                    }, dbErrorHandler);
-                
-            } else {
-             $("#submitFormCliente").removeAttr("disabled");   
-            }
-        });
     }
     $(document).ready(function(){
         init();
@@ -4126,6 +4103,17 @@ function checaAtendimento(atendimentocod){
         $('#sendToMoip').hide();
 
     });
+    $('body').on('click','#unlockDatabtn', function(){
+        senhaCorreta = $('#passdb').val();
+        SenhaDigitada = $('#senhalock').val();
+        if(senhaCorreta == SenhaDigitada)
+        {
+            $(".meucadastroForm").show();
+        }else
+        {
+            $(".meucadastroForm").hide();
+        }
+    });
 var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
@@ -4133,9 +4121,12 @@ var getBairroFromCep=null;
         $('.empresaEdit').val(empresa);
         $("#saltEdit").val(salt);
         if(cliente ==""){
+            $(".meucadastroForm").show();
+            $('#showDataUser').hide();
             $("#submitFormCliente").html('Cadastrar');
         }else{
-
+            $(".meucadastroForm").hide();
+            $('#showDataUser').show();
             var dataNascimento = cliente.Cliente.nasc;
             var dataNascimentoAux = $('.nasc').val();
             ano = dataNascimento.substring(0, 4);

@@ -50,7 +50,7 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
-                     <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span id="usuarioLogado"></span> conectado!</span>
+                     <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
@@ -554,7 +554,7 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
-                    <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span id="usuarioLogado"></span> conectado!</span>
+                    <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
@@ -637,7 +637,7 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
-                     <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span id="usuarioLogado"></span> conectado!</span>
+                     <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
@@ -986,7 +986,7 @@
 
         </div><!-- /page -->
         <div id="page5" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="a" data-overlay-theme="b"  >
-
+           
             <div data-role="header" data-add-back-btn="true" data-back-btn-text="voltar" data-position="fixed"    data-tap-toggle="false">
                 <h1 class="tituloHeader">Meu Cadastro</h1>
 
@@ -997,6 +997,15 @@
             </div><!-- /header -->
 
             <div data-role="content" class="content contentPage">
+                <div class="showDataUser">
+                    <div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
+                            <h4>Digite Sua Senha Para Mostrar Seus Dados</h4>
+                            <label for="text-basic">Nome:<span class="vermelho"> *</span></label>
+                            <input type="password"  id="senhalock" class="senhalock limpar" value="" name="data[Cliente][senhalock]"  placeholder="Senha" >
+                            <button id="unlockDatabtn" data-theme="b" >Mostrar Dados</button>
+                    </div> 
+                </div>
+                 
                 <form method="post"  data-ajax="false" id="meucadastroEdit" class="meucadastroForm">
                     <div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
                         <h4>Dados Pessoais</h4>
@@ -1519,7 +1528,7 @@
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
-                     <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span id="usuarioLogado"></span> conectado!</span>
+                     <span class="showLogado logadoNone spanconectado"><span class="conectado">Usuário <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>

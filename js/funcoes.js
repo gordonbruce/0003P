@@ -1903,14 +1903,14 @@ function atualizarProduto(){
     });
     $('body').on('click', '.popEsquecerBtn', function(event){
         clearInterval(getSituacaoCampainha);
-        $( ".popEsquecer" ).popup( "close" );
+
         deleteEntries();
         cliente =null;
         $('.showLogado').addClass('logadoNone');
         $('.fazerlogin').show();
         fezPedidoSemLogar="";
         $.mobile.changePage("#Pagelogin",{reverse:true});
-
+       // $( ".popEsquecer" ).popup( "close" );
     });
     var conectado= false;
     $('body').on('submit', '#login', function(event){

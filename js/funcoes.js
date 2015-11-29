@@ -1906,6 +1906,7 @@ function atualizarProduto(){
         deleteEntries();
         cliente =null;
         $('.showLogado').addClass('logadoNone');
+        $('.fazerlogin').show();
         fezPedidoSemLogar="";
         $.mobile.changePage("#Pagelogin",{reverse:true});
 

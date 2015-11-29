@@ -1905,7 +1905,7 @@ function atualizarProduto(){
         clearInterval(getSituacaoCampainha);
 
         deleteEntries();
-        cliente =null;
+        cliente ='';
         $('.showLogado').addClass('logadoNone');
         $('.fazerlogin').show();
         fezPedidoSemLogar="";

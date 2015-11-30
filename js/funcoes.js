@@ -1733,7 +1733,7 @@ function atualizarProduto(){
                 lngDest= $('lngEditDest').val();
                 lat = $('latEdit').val();
                 lng = $('lngEdit').val();
-
+                $.mobile.loading( "show" );
                 setSubmit();
             }
         });
@@ -1817,7 +1817,7 @@ function atualizarProduto(){
     }
     function selectPagamento(cliente)
     {
-        console.log(cliente);
+        
         $('.cloneOptPgt').remove();
         selectPagamento =  $('#formaDEpagamento');
         $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
@@ -3602,7 +3602,7 @@ function checaAtendimento(atendimentocod){
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
-            var dadosForm = $("#meucadastroEdit").serialize();
+        var dadosForm = $("#meucadastroEdit").serialize();
             $.mobile.loading( "show" ,{theme: 'b'});
                 $.ajax({
                     type: "POST",
@@ -3618,12 +3618,12 @@ function checaAtendimento(atendimentocod){
 
                         var res = data.ultimocliente;
                         //cliente =  data.ultimocliente;
-                        $.mobile.loading( "hide" );
+                        
                         $("#saltEdit").val('');
 
                         if(res == 'Erro'){
 
-                            $("#popupSenhaIncorreta").popup( "open" );
+                            $("#ErroCadastro").popup( "open" );
                             //$( "#popupDialog" ).popup( "open" );
                         }else{
                             if(res=='ErroUsuarioDuplo'){
@@ -3644,9 +3644,10 @@ function checaAtendimento(atendimentocod){
                                 
                             }
                         }
+                        $.mobile.loading( "hide" );
                     },error: function(data){
                         $.mobile.loading( "hide" );
-                        $("#popupDialogLogin5").popup( "open" );
+                        $("#popupDialogLogin6").popup( "open" );
                         $("#saltEdit").val('');
                     }
             });

@@ -3600,7 +3600,6 @@ function checaAtendimento(atendimentocod){
         filialRegis=$('#filial_id').val();
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
-        $("#empresaEdit").val(empresa);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
             var dadosForm = $(".meucadastroForm").serialize();
             $.mobile.loading( "show" ,{theme: 'b'});

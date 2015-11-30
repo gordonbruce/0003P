@@ -1013,7 +1013,15 @@
             </div><!-- /header -->
 
             <div data-role="content" class="content contentPage">
-                
+                <div class="showDataUser">
+                    <div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
+                            <h4>Digite Sua Senha Para Mostrar Seus Dados</h4>
+                            <label for="text-basic">Nome:<span class="vermelho"> *</span></label>
+                            <input type="password"  id="senhalock" class="senhalock limpar" value="" name="data[Cliente][senhalock]"  placeholder="Senha" >
+                            <button id="unlockDatabtn" data-theme="b" >Mostrar Dados</button>
+                    </div> 
+                </div>
+                 
                 <form method="post"  data-ajax="false" id="meucadastroEdit" class="meucadastroForm">
                     <div data-role="collapsible" data-theme="b" data-content-theme="a" data-iconpos="right" data-collapsed="false">
                         <h4>Dados Pessoais</h4>
@@ -1106,7 +1114,15 @@
                     <span class="cadastrarUsuario">Enviar Dados</span>
                 </form>
                 <div id="usuario"></div>
-                
+                <div data-role="popup" id="popupSenhaUnlock" class="popupSenhaUnlock" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                        <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
+                            <h2>Ops, ocorreu um erro</h2>
+                        </div>
+                        <div role="main" class="ui-content">
+                            <p>Senha incorreta</p>
+                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                        </div>
+                </div>
                 <div data-role="popup" id="popupSenhaIncorreta" class="popupDialogSenha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                         <div data-role="header" data-theme="b" data-position="fixed" data-tap-toggle="false">
                             <h2>Ops, ocorreu um erro</h2>

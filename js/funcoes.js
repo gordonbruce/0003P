@@ -4109,7 +4109,20 @@ function checaAtendimento(atendimentocod){
         $('#sendToMoip').hide();
 
     });
-    
+    $('body').on('click','#unlockDatabtn', function(){
+        senhaCorreta = $('#passdb').val();
+        SenhaDigitada = $('#senhalock').val();
+        if(senhaCorreta == SenhaDigitada)
+        {
+            $(".meucadastroForm").show();
+            $('.showDataUser').hide();
+        }else
+        {
+            $(".meucadastroForm").hide();
+            $('.showDataUser').show();
+            $( "#popupSenhaUnlock" ).popup( "open" );
+        }
+    });
 var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
@@ -4117,10 +4130,12 @@ var getBairroFromCep=null;
         $('.empresaEdit').val(empresa);
         $("#saltEdit").val(salt);
         if(cliente ==""){
-           
+            $(".meucadastroForm").show();
+            $('.showDataUser').hide();
             $("#submitFormCliente").html('Cadastrar');
         }else{
-            
+            $(".meucadastroForm").hide();
+            $('.showDataUser').show();
             var dataNascimento = cliente.Cliente.nasc;
             var dataNascimentoAux = $('.nasc').val();
             ano = dataNascimento.substring(0, 4);

@@ -2470,6 +2470,7 @@ $("#pedir").click(function(event){
                     selectFilialEdit.selectmenu();
                     selectFilialEdit.selectmenu('refresh', true);
                     $.mobile.loading( "hide" );
+                    $("cadastroContent").show();
                     if(cliente != ''){
                         $('filialSelect').val(cliente.Cliente.filial_id);
                     }
@@ -2477,10 +2478,11 @@ $("#pedir").click(function(event){
 
                 },error: function(data){
 
+                    $.mobile.loading( "hide" );
 
-                    setTimeout(function() {
-                        atualizarLojas();
-                    },2000);
+                  $("cadastroContent").hide();
+                  
+                  $("#popupDialogLogin6").popup( "open" );
 
                 }
 
@@ -3601,6 +3603,7 @@ function checaAtendimento(atendimentocod){
         $('#empresaEdit').val(empresa);
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
+        $("#submitFormCliente").prop("disabled",true);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
         var dadosForm = $("#meucadastroEdit").serialize();
             $.mobile.loading( "show" ,{theme: 'b'});
@@ -3645,8 +3648,10 @@ function checaAtendimento(atendimentocod){
                             }
                         }
                         $.mobile.loading( "hide" );
+                        $("#submitFormCliente").prop("disabled",false);
                     },error: function(data){
                         $.mobile.loading( "hide" );
+                        $("#submitFormCliente").prop("disabled",false);
                         $("#popupDialogLogin6").popup( "open" );
                         $("#saltEdit").val('');
                     }
@@ -4128,7 +4133,9 @@ function checaAtendimento(atendimentocod){
 var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
+        $.mobile.loading( "hide" );
         atualizarLojas();
+
         $('.empresaEdit').val(empresa);
         $("#saltEdit").val(salt);
         if(cliente ==""){

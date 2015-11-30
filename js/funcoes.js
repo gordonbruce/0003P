@@ -1720,7 +1720,7 @@ function atualizarProduto(){
         
        document.addEventListener("deviceready", phoneReady, false);
             
-        $('.meucadastroForm').submit(function(event){
+        $('#meucadastroEdit').submit(function(event){
 
             event.preventDefault();
 
@@ -3598,10 +3598,11 @@ function checaAtendimento(atendimentocod){
         senhaRegis= $('#passwordEdit').val();
         loginRegis=$('#usernameEdit').val();
         filialRegis=$('#filial_id').val();
+        $('#empresaEdit').val(empresa);
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
         var urlAction = URLAPP+"RestClientes/addmobile.json";
-            var dadosForm = $(".meucadastroForm").serialize();
+            var dadosForm = $("#meucadastroEdit").serialize();
             $.mobile.loading( "show" ,{theme: 'b'});
                 $.ajax({
                     type: "POST",

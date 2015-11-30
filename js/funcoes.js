@@ -2470,7 +2470,7 @@ $("#pedir").click(function(event){
                     selectFilialEdit.selectmenu();
                     selectFilialEdit.selectmenu('refresh', true);
                     $.mobile.loading( "hide" );
-                    $("cadastroContent").show();
+                    $("#cadastroContent").show();
                     if(cliente != ''){
                         $('filialSelect').val(cliente.Cliente.filial_id);
                     }
@@ -4134,7 +4134,7 @@ var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
         $.mobile.loading( "hide" );
-        $("cadastroContent").hide();
+        $("#cadastroContent").hide();
         atualizarLojas();
 
         $('.empresaEdit').val(empresa);

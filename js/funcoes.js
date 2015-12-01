@@ -4078,21 +4078,22 @@ function checaAtendimento(atendimentocod){
 
                          i++;
                         });
-                    //selectFilialEdit.selectmenu();
-                    //selectFilialEdit.selectmenu('refresh', true);
+                    selectFilialEdit.selectmenu();
+                    selectFilialEdit.selectmenu('refresh', true);
                     
                     
                     
                     if(cliente != ''){
                         $('filialSelect').val(cliente.Cliente.filial_id).change();
                         
-                        $('#showDataUser').fadeIn();
-                         $("#cadastroContent").show();
+                        $('.showDataUser').show();
+                        
                     }else{
                         
-                        $("#cadastroContent").show();
-                        $('#meucadastroEdit').fadeIn();
+                       
+                        $('#meucadastroEdit').show();
                     }
+                    $('#cadastroContent').fadeIn();
                     $.mobile.loading( "hide" );
                     
 
@@ -4100,11 +4101,12 @@ function checaAtendimento(atendimentocod){
 
                     $.mobile.loading( "hide" );
                    
-                  $("cadastroContent").hide();
-                  ('#meucadastroEdit').hide();
+                 
+                  $('#meucadastroEdit').hide();
                    $('#showDataUser').hide();
-                  
+                  $('#cadastroContent').fadeIn();
                   $("#popupDialogLogin6").popup( "open" );
+                  
 
                 }
 

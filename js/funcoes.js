@@ -2470,7 +2470,8 @@ $("#pedir").click(function(event){
                     selectFilialEdit.selectmenu();
                     selectFilialEdit.selectmenu('refresh', true);
                     $.mobile.loading( "hide" );
-                    $("#cadastroContent").show();
+                    alert('passou');
+                    $("#cadastroContent").fadeIn();
                     if(cliente != ''){
                         $('filialSelect').val(cliente.Cliente.filial_id);
                     }

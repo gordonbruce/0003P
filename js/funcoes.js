@@ -2440,60 +2440,7 @@ $("#pedir").click(function(event){
 
 
         }
-    function atualizarLojas(){
 
-         $.ajax({
-                type: "GET",
-                url: URLAPP+"RestFilials/indexmobile?e="+empresa,
-                dataType: 'json',
-                crossDomain: true,
-
-
-
-                success: function(data){
-
-
-                    i=0;
-                     $('.cloneOptLoja').remove();
-                     selectFilialEdit= $('#filial_id');
-                    $.each(data, function(i, resultado){
-
-
-
-                         //$("div").append(field + " ");
-
-                        $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
-
-
-                         i++;
-                        });
-                    selectFilialEdit.selectmenu();
-                    selectFilialEdit.selectmenu('refresh', true);
-                    
-                    $.mobile.loading( "hide" );
-                    
-                    if(cliente != ''){
-                        $('filialSelect').val(cliente.Cliente.filial_id);
-                        $("#cadastroContent").fadeIn();
-                    }else{
-                        $('#showDataUser').fadeIn();
-                    }
-
-
-                },error: function(data){
-
-                    $.mobile.loading( "hide" );
-
-                  $("cadastroContent").hide();
-                  
-                  $("#popupDialogLogin6").popup( "open" );
-
-                }
-
-            });
-
-
-        }
 
       function atualizarCidades(){
 
@@ -4134,6 +4081,62 @@ function checaAtendimento(atendimentocod){
             $( "#popupSenhaUnlock" ).popup( "open" );
         }
     });
+       function atualizarLojas(){
+
+         $.ajax({
+                type: "GET",
+                url: URLAPP+"RestFilials/indexmobile?e="+empresa,
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                    i=0;
+                     $('.cloneOptLoja').remove();
+                     selectFilialEdit= $('#filial_id');
+                    $.each(data, function(i, resultado){
+
+
+
+                         //$("div").append(field + " ");
+
+                        $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
+
+
+                         i++;
+                        });
+                    selectFilialEdit.selectmenu();
+                    selectFilialEdit.selectmenu('refresh', true);
+                    
+                    
+                    
+                    if(cliente != ''){
+                        $('filialSelect').val(cliente.Cliente.filial_id);
+                        $("#cadastroContent").fadeIn();
+                    }else{
+                        $('#showDataUser').fadeIn();
+
+                    }
+                    $.mobile.loading( "hide" );
+                    alert('alert1');
+
+                },error: function(data){
+
+                    $.mobile.loading( "hide" );
+                    alert('alert2');
+                  $("cadastroContent").hide();
+                  
+                  $("#popupDialogLogin6").popup( "open" );
+
+                }
+
+            });
+
+
+        }
 var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {

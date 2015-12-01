@@ -1725,9 +1725,9 @@ function atualizarProduto(){
         $('#meucadastroEdit').submit(function(event){
 
             event.preventDefault();
-
+            $.mobile.loading( "show" );
             validaFormCad();
-
+            $("#submitFormCliente").show();
             if(respValida == 'ok'){
                 $( ".ui-icon-minus" ).trigger('click');
                 getCoordenadas();
@@ -1735,9 +1735,11 @@ function atualizarProduto(){
                 lngDest= $('lngEditDest').val();
                 lat = $('latEdit').val();
                 lng = $('lngEdit').val();
-                $.mobile.loading( "show" );
+                
                 setSubmit();
             }
+            $.mobile.loading( "hide" );
+            $("#submitFormCliente").hide();
         });
         
         //will run after initial show - handles regetting the list
@@ -2476,9 +2478,8 @@ $("#pedir").click(function(event){
                 },error: function(data){
 
 
-                    setTimeout(function() {
-                        atualizarCidades();
-                    },2000);
+                    
+                    $("#popupDialogLocalodade").popup( "open" );
 
                 }
 
@@ -2523,7 +2524,7 @@ $("#pedir").click(function(event){
                 },error: function(data){
 
 
-                    $("#popupDialogLogin5").popup( "open" );
+                     $("#popupDialogLocalodade").popup( "open" );
                     $.mobile.loading( "hide" );
 
                 }
@@ -3408,6 +3409,7 @@ function checaAtendimento(atendimentocod){
     
 
     function validaFormCad(){
+       $.mobile.loading( "show" );
         nome = $('#nomeEdit').val();
         username = $('#usernameEdit').val();
         password = $('#passwordEdit').val();
@@ -3512,6 +3514,7 @@ function checaAtendimento(atendimentocod){
 
     var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     function setSubmit(){
+        $.mobile.loading( "show" );
         var dataNascimento = $('.nasc').val();
         var dataNascimentoAux = $('.nasc').val();
         dia = dataNascimento.substring(0, 2);
@@ -3524,7 +3527,7 @@ function checaAtendimento(atendimentocod){
         $('#empresaEdit').val(empresa);
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
-        $("#submitFormCliente").prop("disabled",true);
+        $("#submitFormCliente").hide();
         var urlAction = URLAPP+"RestClientes/addmobile.json";
         var dadosForm = $("#meucadastroEdit").serialize();
             $.mobile.loading( "show" ,{theme: 'b'});
@@ -3569,12 +3572,13 @@ function checaAtendimento(atendimentocod){
                             }
                         }
                         $.mobile.loading( "hide" );
-                        $("#submitFormCliente").prop("disabled",false);
+                        $("#submitFormCliente").show();
                     },error: function(data){
                         $.mobile.loading( "hide" );
                         $("#submitFormCliente").prop("disabled",false);
                         $("#popupDialogLogin6").popup( "open" );
                         $("#saltEdit").val('');
+                        $("#submitFormCliente").show();
                     }
             });
         $('.nasc').val(dataNascimentoAux);

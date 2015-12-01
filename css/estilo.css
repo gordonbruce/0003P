@@ -745,6 +745,12 @@ display: block;
   text-align: center;
   display: inherit;
 }
+.showDataUser{
+  display: none;
+}
+#cadastroContent{
+  display: none;
+}
 @media screen and (max-height: 768px) {
   .pageContent{
         min-height: 650px !important;

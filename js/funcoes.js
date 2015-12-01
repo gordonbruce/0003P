@@ -1727,7 +1727,7 @@ function atualizarProduto(){
             event.preventDefault();
             $.mobile.loading( "show" );
             validaFormCad();
-            $("#submitFormCliente").show();
+            $("#submitFormCliente").hide();
             if(respValida == 'ok'){
                 $( ".ui-icon-minus" ).trigger('click');
                 getCoordenadas();
@@ -1739,7 +1739,7 @@ function atualizarProduto(){
                 setSubmit();
             }
             $.mobile.loading( "hide" );
-            $("#submitFormCliente").hide();
+            $("#submitFormCliente").show();
         });
         
         //will run after initial show - handles regetting the list
@@ -2478,8 +2478,10 @@ $("#pedir").click(function(event){
                 },error: function(data){
 
 
-                    
-                    $("#popupDialogLocalodade").popup( "open" );
+                     setTimeout(function(){
+                        atualizarCidades();
+                     },2000);
+                    //$("#popupDialogLocalodade").popup( "open" );
 
                 }
 
@@ -2524,7 +2526,8 @@ $("#pedir").click(function(event){
                 },error: function(data){
 
 
-                     $("#popupDialogLocalodade").popup( "open" );
+                    $("#popupDialogLocalodade").popup( "open" );
+                   
                     $.mobile.loading( "hide" );
 
                 }

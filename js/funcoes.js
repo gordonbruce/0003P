@@ -2469,11 +2469,14 @@ $("#pedir").click(function(event){
                         });
                     selectFilialEdit.selectmenu();
                     selectFilialEdit.selectmenu('refresh', true);
+                    
                     $.mobile.loading( "hide" );
-                    alert('passou');
-                    $("#cadastroContent").fadeIn();
+                    
                     if(cliente != ''){
                         $('filialSelect').val(cliente.Cliente.filial_id);
+                        $("#cadastroContent").fadeIn();
+                    }else{
+                        $('#showDataUser').fadeIn();
                     }
 
 

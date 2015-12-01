@@ -966,9 +966,11 @@ function atualizarProduto(){
                         $.each(resultados, function(z, resultado){
 
                          //$("div").append(field + " ");
+                            
+                                $( "#set" ).append( gerarListaCategoria(resultado,z) ).collapsibleset( "refresh" );    
+                            
 
-
-                            $( "#set" ).append( gerarListaCategoria(resultado,z) ).collapsibleset( "refresh" );
+                            
                             z=z+1;
                                 //$("#owl-example"+z).owlCarousel({navigation : true,  navigationText : ["ant","prox"], pagination : false,});
                             });
@@ -2714,39 +2716,7 @@ $("#pedir").click(function(event){
             $.mobile.loading( "hide" );
         },4000);
     });
-    $( document ).on( "pageinit", "#page5", function() {
-
-
-        if(cliente !=""){
-            setTimeout(function() {
-                function initialize252() {
-                    $("#gmapLEntrega2").html('');
-                    var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
-
-                    var options = {
-                        zoom: 16,
-                        center: latlng,
-                        scrollwheel:false,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-
-                    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-                }
-                initialize252();
-                var newLatLng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
-
-
-                marker = new google.maps.Marker({
-                    position: newLatLng,
-                    map: map,
-                     icon:'images/usuario2.png',
-                    draggable: false
-                });
-                google.maps.event.trigger(map, 'resize');
-            }, 5000);
-        }
-
-    });
+   
 
 
     var atendimentos="";
@@ -4115,23 +4085,25 @@ function checaAtendimento(atendimentocod){
                     
                     if(cliente != ''){
                         $('filialSelect').val(cliente.Cliente.filial_id).change();
-                        $("#cadastroContent").show();
-                        $('#meucadastroEdit').fadeIn();
-                    }else{
+                        
                         $('#showDataUser').fadeIn();
                          $("#cadastroContent").show();
-
+                    }else{
+                        
+                        $("#cadastroContent").show();
+                        $('#meucadastroEdit').fadeIn();
                     }
                     $.mobile.loading( "hide" );
-                    alert('alert1');
+                    
 
                 },error: function(data){
 
                     $.mobile.loading( "hide" );
-                    alert('alert2');
+                   
                   $("cadastroContent").hide();
                   ('#meucadastroEdit').hide();
                    $('#showDataUser').hide();
+                  
                   $("#popupDialogLogin6").popup( "open" );
 
                 }

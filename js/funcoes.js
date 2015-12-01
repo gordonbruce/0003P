@@ -4063,37 +4063,28 @@ function checaAtendimento(atendimentocod){
 
                 success: function(data){
 
-
+                    $('#cadastroContent').css('display','block');
                     i=0;
                      $('.cloneOptLoja').remove();
                      selectFilialEdit= $('#filial_id');
                     $.each(data, function(i, resultado){
-
-
-
-                         //$("div").append(field + " ");
-
-                        $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
-
-
-                         i++;
-                        });
+                        $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');     
+                    });
                     selectFilialEdit.selectmenu();
                     selectFilialEdit.selectmenu('refresh', true);
                     
                     
                     
                     if(cliente != ''){
-                        $('filialSelect').val(cliente.Cliente.filial_id).change();
-                        
+                        $('filialSelect').val(cliente.Cliente.filial_id).change();                        
                         $('.showDataUser').show();
+                        $('#cadastroContent').css('display','block');
                         
                     }else{
-                        
-                       
                         $('#meucadastroEdit').show();
+                        $('#cadastroContent').css('display','block');
                     }
-                    $('#cadastroContent').fadeIn();
+                    
                     $.mobile.loading( "hide" );
                     
 
@@ -4101,10 +4092,9 @@ function checaAtendimento(atendimentocod){
 
                     $.mobile.loading( "hide" );
                    
-                 
-                  $('#meucadastroEdit').hide();
-                   $('#showDataUser').hide();
-                  $('#cadastroContent').fadeIn();
+                 $('#cadastroContent').css('display','block');
+                 $('#meucadastroEdit')css('display','none');
+                 $('#showDataUser')css('display','none');
                   $("#popupDialogLogin6").popup( "open" );
                   
 

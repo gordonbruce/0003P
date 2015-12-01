@@ -4093,8 +4093,8 @@ function checaAtendimento(atendimentocod){
                     $.mobile.loading( "hide" );
                    
                  $('#cadastroContent').css('display','block');
-                 $('#meucadastroEdit')css('display','none');
-                 $('#showDataUser')css('display','none');
+                 $('#meucadastroEdit').css('display','none');
+                 $('#showDataUser').css('display','none');
                   $("#popupDialogLogin6").popup( "open" );
                   
 

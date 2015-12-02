@@ -3569,19 +3569,26 @@ function checaAtendimento(atendimentocod){
                                     cliente:res.Cliente.id
                                 };
 
-
-                                loginCad(dataToLog);
+                                setTimeout(function(){
+                                    $.mobile.loading( "show" );
+                                    loginCad(dataToLog);
+                                },2000);
+                                
                                 
                             }
                         }
-                        $.mobile.loading( "hide" );
+                        
                         $("#submitFormCliente").show();
                     },error: function(data){
-                        $.mobile.loading( "hide" );
-                        $("#submitFormCliente").prop("disabled",false);
-                        $("#popupDialogLogin6").popup( "open" );
-                        $("#saltEdit").val('');
-                        $("#submitFormCliente").show();
+                        
+                        setTimeout(function(){
+                            $("#submitFormCliente").prop("disabled",false);
+                            $("#popupDialogLogin6").popup( "open" );
+                            $("#saltEdit").val('');
+                            $("#submitFormCliente").show();
+                            $.mobile.loading( "hide" );
+                        },2000);
+                        
                     }
             });
         $('.nasc').val(dataNascimentoAux);

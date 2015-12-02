@@ -1828,8 +1828,8 @@ function atualizarProduto(){
         $.each(cliente.Pagamento, function(i, pagamento){
             $('#formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
         });
-        selectPagamento.selectmenu();
-        selectPagamento.selectmenu('refresh', true);
+       // selectPagamento.selectmenu();
+       // selectPagamento.selectmenu('refresh', true);
 
     }
     var flagCadastro=false;
@@ -2521,15 +2521,18 @@ $("#pedir").click(function(event){
                        // getBairroFromCep=null;
 
                     }
-                    selectBairroEdit.selectmenu();
-                    selectBairroEdit.selectmenu('refresh', true);
+                   // selectBairroEdit.selectmenu();
+                    //selectBairroEdit.selectmenu('refresh', true);
                 },error: function(data){
 
-
-                    $("#popupDialogLocalodade").popup( "open" );
+                    setTimeout(function(){
+                        $('#popupDialogLocalodade').popup('open');
+                         $.mobile.loading( "hide" );
+                         $('.cidadeEdit').val('').change();
+                    });
+                    
                    
-                    $.mobile.loading( "hide" );
-
+                   
                 }
 
             });
@@ -2557,8 +2560,8 @@ $("#pedir").click(function(event){
                         });
 
                     });
-                    seletcBairro.selectmenu();
-                    seletcBairro.selectmenu('refresh', true);
+                    //seletcBairro.selectmenu();
+                    //seletcBairro.selectmenu('refresh', true);
                     $.mobile.loading( "hide" );
 
 
@@ -3320,7 +3323,7 @@ function checaAtendimento(atendimentocod){
 
 
                 $('#instituicao option[value='+instituicao+']').prop('selected', true);
-                myselect.selectmenu("refresh");
+               // myselect.selectmenu("refresh");
                 //$('#instituicao').val(instituicao);
                 //$('#mymenu option[value="5"]').prop('selected', true)
             }
@@ -4084,8 +4087,8 @@ function checaAtendimento(atendimentocod){
                     $.each(data, function(i, resultado){
                         $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');     
                     });
-                    selectFilialEdit.selectmenu();
-                    selectFilialEdit.selectmenu('refresh', true);
+                   // selectFilialEdit.selectmenu();
+                    //selectFilialEdit.selectmenu('refresh', true);
                     
                     
                     
@@ -4128,12 +4131,19 @@ var getBairroFromCep=null;
         $('.empresaEdit').val(empresa);
         $("#saltEdit").val(salt);
         if(cliente ==""){
-            $(".meucadastroForm").show();
             $('.showDataUser').hide();
-            $("#submitFormCliente").html('Cadastrar');
+            setTimeout(function(){
+                 $(".meucadastroForm").show();
+                
+                 $("#submitFormCliente").html('Cadastrar');
+            },2000);
+           
         }else{
             $(".meucadastroForm").hide();
-            $('.showDataUser').show();
+            setTimeout(function(){
+                $('.showDataUser').show();
+            },2000);
+            
             var dataNascimento = cliente.Cliente.nasc;
             var dataNascimentoAux = $('.nasc').val();
             ano = dataNascimento.substring(0, 4);

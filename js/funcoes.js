@@ -2490,7 +2490,7 @@ $("#pedir").click(function(event){
 
     }
     function atualizarBairros(cidade_id){
-
+          $.mobile.loading( "show" );
          $.ajax({
                 type: "GET",
                 url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
@@ -2500,27 +2500,29 @@ $("#pedir").click(function(event){
 
 
                 success: function(data){
-
+                     $.mobile.loading( "show" );
 
                      $('.cloneOptBairro').remove();
                      selectBairroEdit = $('#bairroEdit');
+                      $('#bairroEdit').append('<option class="cloneOptBairro" value="">Selecione</option>');
                     $.each(data, function(i, resultado){
                         $.each(resultado, function(j, bairros){
-                            $('.bairro').append('<option class="cloneOptBairro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
+                            $('#bairroEdit').append('<option class="cloneOptBairro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
                         });
 
                     });
 
-                    $.mobile.loading( "hide" );
+                    
                     if(typeof getBairroFromCep !=='undefined')
                     {
 
-                        $('.bairro').val(getBairroFromCep).change();
+                        $('#bairroEdit').val(getBairroFromCep).change();
 
-                        $('.bairro option [value="'+getBairroFromCep+']"').attr('selected','selected');
+                        $('#bairroEdit option [value="'+getBairroFromCep+']"').attr('selected','selected');
                        // getBairroFromCep=null;
 
                     }
+                    $.mobile.loading( "hide" );
                    // selectBairroEdit.selectmenu();
                     //selectBairroEdit.selectmenu('refresh', true);
                 },error: function(data){
@@ -2529,7 +2531,7 @@ $("#pedir").click(function(event){
                         $('#popupDialogLocalodade').popup('open');
                          $.mobile.loading( "hide" );
                          $('.cidadeEdit').val('').change();
-                    });
+                    },1000);
                     
                    
                    
@@ -2540,7 +2542,7 @@ $("#pedir").click(function(event){
 
     }
     function atualizarBairrosOutro(cidade_id){
-
+         $.mobile.loading( "show" );
          $.ajax({
                 type: "GET",
                 url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
@@ -2550,10 +2552,11 @@ $("#pedir").click(function(event){
 
 
                 success: function(data){
-
+                     $.mobile.loading( "show" );
 
                      $('.cloneOptBairroOutro').remove();
                      seletcBairro = $('#entregaOutroBairro');
+                     $('#entregaOutroBairro').append('<option class="cloneOptBairro" value="">Selecione</option>');
                     $.each(data, function(i, resultado){
                         $.each(resultado, function(j, bairros){
                             $('#entregaOutroBairro').append('<option class="cloneOptBairroOutro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
@@ -2566,9 +2569,11 @@ $("#pedir").click(function(event){
 
 
                 },error: function(data){
-
-                    $("#popupDialogLogin4").popup( "open" );
-                    $.mobile.loading( "hide" );
+                    setTimeout(function(){
+                        $("#popupDialogLogin4").popup( "open" );
+                        $.mobile.loading( "hide" ); 
+                    },1000);
+                   
 
                 }
 

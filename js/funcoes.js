@@ -2456,9 +2456,11 @@ $("#pedir").click(function(event){
 
 
                      setTimeout(function(){
-                        atualizarCidades();
+                        $("#popupDialogLogin6").popup( "open" );
+                       // atualizarCidades();
+
                      },2000);
-                    //$("#popupDialogLocalodade").popup( "open" );
+                    
 
                 }
 

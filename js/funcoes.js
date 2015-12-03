@@ -1040,6 +1040,7 @@ function atualizarProduto(){
 
 
                     $.mobile.loading( "hide" );
+                    $("#popupDialogLogin4").popup( "open" );
 
                 }
 

@@ -1004,7 +1004,7 @@ function atualizarProduto(){
 
     function atualizarPromo(){
 
-
+        $.mobile.loading( "show" );
         minhaUrl=URLAPP+"RestClientes/getPromoDia.json?se="+empresa+"&sf=&fp="+filialPadrao+"";
          $.ajax({
                 type: "GET",
@@ -1035,11 +1035,11 @@ function atualizarProduto(){
                     }else{
                         pagueGanhe=null;
                     }
-
+                    $.mobile.loading( "hide" );
                 },error: function(data){
 
 
-
+                    $.mobile.loading( "hide" );
 
                 }
 

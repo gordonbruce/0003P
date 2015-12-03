@@ -3589,6 +3589,10 @@ function checaAtendimento(atendimentocod){
                                 setTimeout(function(){
                                     $.mobile.loading( "show" );
                                     loginCad(dataToLog);
+                                    $.mobile.changePage("#index",{reverse:true});
+                                    setTimeout(function(){
+                                        $("#popuCadastropSalvo").popup( "open" );
+                                    },1000);
                                 },2000);
                                 
                                 

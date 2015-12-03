@@ -2459,6 +2459,7 @@ $("#pedir").click(function(event){
                         $("#popupDialogLogin6").popup( "open" );
                        // atualizarCidades();
 
+                       $.mobile.loading( "hide" );
                      },2000);
                     
 

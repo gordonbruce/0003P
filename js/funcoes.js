@@ -2496,11 +2496,13 @@ $("#pedir").click(function(event){
                     
                     if(typeof getBairroFromCep !=='undefined')
                     {
-
-                        $('#bairroEdit').val(getBairroFromCep).change();
-
-                        $('#bairroEdit option [value="'+getBairroFromCep+']"').attr('selected','selected');
-                       // getBairroFromCep=null;
+                        if(getBairroFromCep != null)
+                        {
+                            $('#bairroEdit').val(getBairroFromCep).change();
+                            $('#bairroEdit option [value="'+getBairroFromCep+']"').attr('selected','selected');
+                            getBairroFromCep=null;
+                        }
+                        
 
                     }
                     setTimeout(function(){
@@ -4183,8 +4185,11 @@ var getBairroFromCep=null;
             $('#pReferenciaEdit').val(cliente.Cliente.p_referencia);
              if(typeof getBairroFromCep !=='undefined')
             {
-               getBairroFromCep=cliente.Cliente.bairro;
-               // getBairroFromCep=null;
+               if(getBairroFromCep != null)
+                {     
+                    getBairroFromCep=cliente.Cliente.bairro;
+                    getBairroFromCep=null;
+                }
             }
             setTimeout(function(){
                 $('.cidade').val(cliente.Cliente.cidade).change();

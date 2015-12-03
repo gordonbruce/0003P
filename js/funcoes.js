@@ -1608,12 +1608,12 @@ function atualizarProduto(){
 
                         return true;
                     }
-                   // $.mobile.loading( "hide" );
+                  //  $.mobile.loading( "hide" );
 
                 });
 
                 },error: function(data){
-                  //  $.mobile.loading( "hide" );
+                  // $.mobile.loading( "hide" );
                     //$(".erroconexao").popup( "open" );
 
                 }
@@ -2510,7 +2510,7 @@ $("#pedir").click(function(event){
                     setTimeout(function(){
                         $('#popupDialogLocalodade').popup('open');
                          $.mobile.loading( "hide" );
-                         $('#cidadeEdit').val('').change();
+                         //$('#cidadeEdit').val('').change();
                     },5000);
                     
                    
@@ -2570,11 +2570,7 @@ $("#pedir").click(function(event){
         $('#bairroEdit').css('height',altura);
     });
 
-    $('body').on('focusout','#cidadeEdit', function(){
-        selectBairroEdit = $('#bairroEdit');
-        selectBairroEdit.selectmenu('refresh', true);
-    });
-
+   
 
     $('body').on('change','#bairroEdit', function(){
         

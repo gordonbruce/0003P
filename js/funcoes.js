@@ -2558,7 +2558,7 @@ $("#pedir").click(function(event){
 
     }
     atualizarCidades();
-    $('body').on('focusout','#cidadeEdit', function(){
+    $('body').on('change','#cidadeEdit', function(){
         $.mobile.loading( "show" );
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
@@ -2567,7 +2567,13 @@ $("#pedir").click(function(event){
         $('#bairroEdit').css('height',altura);
     });
 
-    $('body').on('focusout','#bairroEdit', function(){
+    $('body').on('focusout','#cidadeEdit', function(){
+        selectBairroEdit = $('#bairroEdit');
+        selectBairroEdit.selectmenu('refresh', true);
+    });
+
+
+    $('body').on('change','#bairroEdit', function(){
         
         meuBairro = $('#bairroEdit').find('option:selected').val();
         if(meuBairro =='')
@@ -2583,6 +2589,8 @@ $("#pedir").click(function(event){
         }
         
     });
+
+
 
     $('body').on('change','#entregaOutroCidade', function(){
         $.mobile.loading( "show" );
@@ -3630,7 +3638,7 @@ function checaAtendimento(atendimentocod){
                 getCoordenadas();
             }
         }, 3000);
-        google.maps.event.trigger(map, 'resize');
+       
 
     });
 
@@ -3639,7 +3647,7 @@ function checaAtendimento(atendimentocod){
         if(lograd != ''){
             getCoordenadas();
         }
-        google.maps.event.trigger(map, 'resize');
+       
 
     });
 
@@ -3648,7 +3656,7 @@ function checaAtendimento(atendimentocod){
         if(lograd != ''){
             getCoordenadas();
         }
-        google.maps.event.trigger(map, 'resize');
+       
 
     });
     $('.uf').focusout(function(){
@@ -3656,7 +3664,7 @@ function checaAtendimento(atendimentocod){
         if(lograd != ''){
             getCoordenadas();
         }
-        google.maps.event.trigger(map, 'resize');
+       
 
     });
     $('.cidade').focusout(function(){
@@ -3664,7 +3672,7 @@ function checaAtendimento(atendimentocod){
         if(lograd != ''){
             getCoordenadas();
         }
-        google.maps.event.trigger(map, 'resize');
+       
 
     });
     $('.bairro').focusout(function(){
@@ -3672,7 +3680,7 @@ function checaAtendimento(atendimentocod){
         if(lograd != ''){
             getCoordenadas();
         }
-        google.maps.event.trigger(map, 'resize');
+       
 
     });
 
@@ -3862,7 +3870,7 @@ function checaAtendimento(atendimentocod){
         //atualiza o ponteiro
         map.panTo( new google.maps.LatLng( lat,lng ) );
         $.mobile.loading( "hide" );
-        google.maps.event.trigger(map, 'resize');
+       
         // crie qualquer coisa legal usando as coordenadas
     };
 

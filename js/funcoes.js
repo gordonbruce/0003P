@@ -4090,10 +4090,13 @@ function checaAtendimento(atendimentocod){
 
                     $.mobile.loading( "hide" );
                    
-                 $('#cadastroContent').css('display','block');
+                 $('#cadastroContent').css('display','none');
                  $('#meucadastroEdit').css('display','none');
                  $('#showDataUser').css('display','none');
-                  $("#popupDialogLogin6").popup( "open" );
+                 setTimeout(function(){
+                    $("#popupDialogLogin6").popup( "open" );
+                 },10000);
+                  
                   
 
                 }

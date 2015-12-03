@@ -2558,13 +2558,30 @@ $("#pedir").click(function(event){
 
     }
     atualizarCidades();
-    $('body').on('change','#cidadeEdit', function(){
+    $('body').on('focusout','#cidadeEdit', function(){
         $.mobile.loading( "show" );
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
 
         atualizarBairros(idCidade);
         $('#bairroEdit').css('height',altura);
+    });
+
+    $('body').on('focusout','#bairroEdit', function(){
+        
+        meuBairro = $('#bairroEdit').find('option:selected').val();
+        if(meuBairro =='')
+        {
+            $.mobile.loading( "show" );
+            idCidade = $('#cidadeEdit').find(":selected").attr('data-id');
+            if(idCidade != 'undefined' && idCidade != ''){
+                altura = $('#cidadeEdit').height();
+                atualizarBairros(idCidade);
+                $('#bairroEdit').css('height',altura);
+            }
+            
+        }
+        
     });
 
     $('body').on('change','#entregaOutroCidade', function(){
@@ -2624,7 +2641,7 @@ $("#pedir").click(function(event){
          $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){
-            $.mobile.loading( "hide" );
+           
             $('.pageContent').fadeIn('slow');
         },2000);
 
@@ -4050,7 +4067,7 @@ function checaAtendimento(atendimentocod){
         }
     });
        function atualizarLojas(){
-
+         $.mobile.loading( "show" );
          $.ajax({
                 type: "GET",
                 url: URLAPP+"RestFilials/indexmobile?e="+empresa,
@@ -4088,14 +4105,15 @@ function checaAtendimento(atendimentocod){
 
                 },error: function(data){
 
-                    $.mobile.loading( "hide" );
+                    
                    
                  $('#cadastroContent').css('display','none');
                  $('#meucadastroEdit').css('display','none');
                  $('#showDataUser').css('display','none');
                  setTimeout(function(){
+                    $.mobile.loading( "hide" );
                     $("#popupDialogLogin6").popup( "open" );
-                 },10000);
+                 },1000);
                   
                   
 

@@ -2514,7 +2514,7 @@ $("#pedir").click(function(event){
                     setTimeout(function(){
                         $('#popupDialogLocalodade').popup('open');
                          $.mobile.loading( "hide" );
-                         $('#cidadeEdit').val('').change();
+                         //$('#cidadeEdit').val('').change();
                     },5000);
                     
                    
@@ -2570,12 +2570,10 @@ $("#pedir").click(function(event){
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
         bairroEdit = $('#bairroEdit').find(":selected").val();
-        if(idCidade !=0){
+       
             atualizarBairros(idCidade);
             $('#bairroEdit').css('height',altura);
-        }else{
-          $.mobile.loading( "hide" );  
-        }
+       
         
     });
 

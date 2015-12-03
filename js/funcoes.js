@@ -1714,9 +1714,13 @@ function atualizarProduto(){
                 lng = $('lngEdit').val();
                 
                 setSubmit();
+            }else{
+                $.mobile.loading( "hide" );
+                $("#submitFormCliente").show();
+                $('.subbtnGroup').show();
             }
-            $.mobile.loading( "hide" );
-            $("#submitFormCliente").show();
+           //$.mobile.loading( "hide" );
+           // $("#submitFormCliente").show();
         });
         
         //will run after initial show - handles regetting the list
@@ -2569,6 +2573,8 @@ $("#pedir").click(function(event){
         if(idCidade !=0){
             atualizarBairros(idCidade);
             $('#bairroEdit').css('height',altura);
+        }else{
+          $.mobile.loading( "hide" );  
         }
         
     });
@@ -3541,7 +3547,7 @@ function checaAtendimento(atendimentocod){
         $('#empresaEdit').val(empresa);
         $('.nasc').val(dataNascimento);
         $("#saltEdit").val(salt);
-        $("#submitFormCliente").hide();
+        $(".subbtnGroup").hide();
         var urlAction = URLAPP+"RestClientes/addmobile.json";
         var dadosForm = $("#meucadastroEdit").serialize();
             $.mobile.loading( "show" ,{theme: 'b'});
@@ -3590,6 +3596,7 @@ function checaAtendimento(atendimentocod){
                         }
                         
                         $("#submitFormCliente").show();
+                        $(".subbtnGroup").show();
                     },error: function(data){
                         
                         setTimeout(function(){
@@ -3598,6 +3605,7 @@ function checaAtendimento(atendimentocod){
                             $("#saltEdit").val('');
                             $("#submitFormCliente").show();
                             $.mobile.loading( "hide" );
+                            $(".subbtnGroup").show();
                         },2000);
                         
                     }

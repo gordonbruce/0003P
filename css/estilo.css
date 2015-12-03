@@ -715,6 +715,8 @@ display: block;
     max-height: 20px;
     margin: 0 auto;
     clear: both;
+    margin-bottom: 80px;
+    margin-top: -36px;
 }
 .submitFormCliente{
     margin-bottom: 55px;

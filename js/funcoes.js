@@ -1511,31 +1511,8 @@ function atualizarProduto(){
                 latDest= $('#latEditDest').val();
                 lngDest=$('#lngEditDest').val();
                 CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
-                $('#gmapLEntrega2').val('');
+                
 
-                var latlng = new google.maps.LatLng(lat,lng);
-
-                var options = {
-                    zoom: 16,
-                    center: latlng,
-                    scrollwheel:false,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-
-                map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-                position = new google.maps.LatLng(lat,lng);
-
-
-                 marker = new google.maps.Marker({
-                    position: position,
-                    icon:'images/usuario2.png',
-                    map: map,
-                   // draggable: true
-                });
-
-                marker.setPosition(position);
-                //atualiza o ponteiro
-                map.panTo( new google.maps.LatLng( lat,lng ) );
                 $.mobile.loading( "hide" );
 
                 return true;
@@ -2504,7 +2481,7 @@ $("#pedir").click(function(event){
 
                      $('.cloneOptBairro').remove();
                      selectBairroEdit = $('#bairroEdit');
-                      $('#bairroEdit').append('<option class="cloneOptBairro" value="">Selecione</option>');
+                      
                     $.each(data, function(i, resultado){
                         $.each(resultado, function(j, bairros){
                             $('#bairroEdit').append('<option class="cloneOptBairro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
@@ -2556,7 +2533,6 @@ $("#pedir").click(function(event){
 
                      $('.cloneOptBairroOutro').remove();
                      seletcBairro = $('#entregaOutroBairro');
-                     $('#entregaOutroBairro').append('<option class="cloneOptBairro" value="">Selecione</option>');
                     $.each(data, function(i, resultado){
                         $.each(resultado, function(j, bairros){
                             $('#entregaOutroBairro').append('<option class="cloneOptBairroOutro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
@@ -4200,40 +4176,10 @@ var getBairroFromCep=null;
 
         if(cliente ==""){
 
-            setTimeout(function() {
-                    var latlng = new google.maps.LatLng(-22.7734767, -43.4346817);
-
-                    var options = {
-                        zoom: 16,
-                        center: latlng,
-                        scrollwheel: false,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-
-                    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-            }, 2000);
+            
 
         }else{
-            setTimeout(function() {
-                    var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
-
-                    var options = {
-                        zoom: 16,
-                        center: latlng,
-                        scrollwheel: false,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-
-                    map = new google.maps.Map(document.getElementById("gmapLEntrega2"), options);
-
-
-                    marker = new google.maps.Marker({
-                        position: latlng,
-                        map: map,
-                         icon:'images/usuario2.png',
-                       // draggable: true
-                    });
-            }, 2000);
+            
 
         }
     });

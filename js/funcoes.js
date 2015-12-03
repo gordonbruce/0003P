@@ -1513,11 +1513,11 @@ function atualizarProduto(){
                 CalculaDistancia(latorigin,lngorigin, latDest,lngDest);
                 
 
-                $.mobile.loading( "hide" );
+                //$.mobile.loading( "hide" );
 
                 return true;
                 },error: function(data){
-                    $.mobile.loading( "hide" );
+                    //$.mobile.loading( "hide" );
                     //$(".erroconexao").popup( "open" );
                     //tratar
 
@@ -1608,12 +1608,12 @@ function atualizarProduto(){
 
                         return true;
                     }
-                    $.mobile.loading( "hide" );
+                   // $.mobile.loading( "hide" );
 
                 });
 
                 },error: function(data){
-                    $.mobile.loading( "hide" );
+                  //  $.mobile.loading( "hide" );
                     //$(".erroconexao").popup( "open" );
 
                 }
@@ -2499,7 +2499,10 @@ $("#pedir").click(function(event){
                        // getBairroFromCep=null;
 
                     }
-                    $.mobile.loading( "hide" );
+                    setTimeout(function(){
+                        $.mobile.loading( "hide" );
+                    },5000);
+                    
                    // selectBairroEdit.selectmenu();
                     //selectBairroEdit.selectmenu('refresh', true);
                 },error: function(data){
@@ -2508,7 +2511,7 @@ $("#pedir").click(function(event){
                         $('#popupDialogLocalodade').popup('open');
                          $.mobile.loading( "hide" );
                          $('#cidadeEdit').val('').change();
-                    },1000);
+                    },5000);
                     
                    
                    
@@ -3610,8 +3613,8 @@ function checaAtendimento(atendimentocod){
             $.getScript("http://cep.republicavirtual.com.br/web_cep.php?formato=javascript&cep="+cep, function(){
                 if (resultadoCEP["resultado"] != 0) {
                     $(".logradouro").val(unescape(resultadoCEP["tipo_logradouro"]) + " " + unescape(resultadoCEP["logradouro"]));
-                    $(".cidade").val(unescape(resultadoCEP["cidade"])).change();
-                    $(".bairro").val(unescape(resultadoCEP["bairro"]));
+                    $("#cidadeEdit").val(unescape(resultadoCEP["cidade"])).change();
+                    $("#bairroEdit").val(unescape(resultadoCEP["bairro"]));
 
                     getBairroFromCep = unescape(resultadoCEP["bairro"]);
                     //console.log(getBairroFromCep);
@@ -3667,7 +3670,7 @@ function checaAtendimento(atendimentocod){
        
 
     });
-    $('.cidade').focusout(function(){
+    $('#bairroEdit').focusout(function(){
         lograd= $('.logradouro').val();
         if(lograd != ''){
             getCoordenadas();
@@ -3869,7 +3872,7 @@ function checaAtendimento(atendimentocod){
             marker.setPosition(position);
         //atualiza o ponteiro
         map.panTo( new google.maps.LatLng( lat,lng ) );
-        $.mobile.loading( "hide" );
+       // $.mobile.loading( "hide" );
        
         // crie qualquer coisa legal usando as coordenadas
     };
@@ -3879,24 +3882,24 @@ function checaAtendimento(atendimentocod){
             case 1:
                 // permissao negada pelo usuario
                 alert('permissao negada pelo usuario');
-                $.mobile.loading( "hide" );
+              //  $.mobile.loading( "hide" );
                 break;
 
             case 2:
                 alert('nao foi possivel alcancar os satelites GPS');
-                $.mobile.loading( "hide" );
+                //$.mobile.loading( "hide" );
                 // nao foi possivel alcancar os satelites GPS
                 break;
 
             case 3:
                 alert('a requisicao demorou demais para retornar');
-                $.mobile.loading( "hide" );
+              //  $.mobile.loading( "hide" );
                 // a requisicao demorou demais para retornar
                 break;
 
             case 0:
                 alert('ocorreu um erro desconhecido...');
-                $.mobile.loading( "hide" );
+                //$.mobile.loading( "hide" );
                 // ocorreu um erro desconhecido...
                 break;
         }

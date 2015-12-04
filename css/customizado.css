@@ -84,6 +84,7 @@ body{
     .mensagemChat:after{background-image: url("images/icons-png/comment-white.png");}
     .linkTelefone:after{background-image: url("images/icons-png/phone-white.png");}
     .menuSair:after{background-image: url("images/icons-png/power-white.png");}
+    .esquecer:after{background-image: url("images/icons-png/action-white.png");}
     .pageContent{
         background-color: #fcee21;
     }

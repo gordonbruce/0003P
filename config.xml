@@ -2,7 +2,7 @@
     <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.entregapp.furiososlanches"
-    version     = "1.0.1" >
+    version     = "1.0.4" >
 	<name>Furiosos Lanches</name>
         <description>
            Faça seu pedido pelo celular, com rapidez e praticidade Furiosos Lanches By Sistema Entregapp..
@@ -15,6 +15,7 @@
             <param name="key" value="com.entregapp.specialepizzaria"/>
           </feature>
          <preference name="phonegap-version" value="3.7.0" />
+         <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.10" source="pgb" />
         <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
         <preference name="Fullscreen" value="false" />
         <preference name="WebViewBounce" value="true" />

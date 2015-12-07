@@ -555,7 +555,9 @@ $(document).on("pageshow","#index_old",function(){
             atualizarProduto();
          },2000);
     flagCadastro=false;
-    
+    $('body').on('click','#page5 .ui-btn-icon-left',function(){
+        $.mobile.changePage("#index",{ transition: "none",  });
+    });
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
         

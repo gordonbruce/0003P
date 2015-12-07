@@ -2634,7 +2634,7 @@ $("#pedir").click(function(event){
                 atualizarBairros(idCidade);
                 $('#bairroEdit').css('height',altura);
             }else{
-                 $.mobile.loading( "show" );
+                 $.mobile.loading( "hide" );
             }
             
        

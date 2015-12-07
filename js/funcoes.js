@@ -820,6 +820,7 @@ $(document).on("pageshow","#index_old",function(){
         selectBebidas="";
         selectpagueGanhe="";
         contTam=0;
+        $.mobile.loading( "show" );
         if(bebidas != null){
 
 
@@ -1041,7 +1042,7 @@ $(document).on("pageshow","#index_old",function(){
             return nda;
         }
 
-
+        $.mobile.loading( "hide" );
      }
 
      var optionsValues='<option value="1" selected="selected">1</option>';

@@ -68,6 +68,50 @@ function limparPedido() {
         $('#respTroco').html('R$ 0,00');
 
     }
+    function atualizarCidadesIndex(){
+
+
+         $.ajax({
+                type: "GET",
+                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=c",
+                dataType: 'json',
+                crossDomain: true,
+
+
+
+                success: function(data){
+
+
+                    $('.cloneOptCitade').remove();
+
+
+                    $.each(data, function(i, resultado){
+                        $.each(resultado, function(j, cidades){
+
+                        $('.cidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
+                        $('#entregaOutroCidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
+
+                        });
+
+                    });
+
+                     //$.mobile.loading( "hide" );
+
+                },error: function(data){
+
+
+                     
+                    
+                    $("#popupDialogLocalodade2").popup( "open" );
+                    
+                     $.mobile.loading( "hide" );
+                    //$('#cidadeEdit').val('').change();
+
+                }
+
+            });
+
+    }
  function atualizarCidades(){
 
 
@@ -102,6 +146,8 @@ function limparPedido() {
 
                      
                     $("#popupDialogLocalodade").popup( "open" );
+                    $("#popupDialogLocalodade2").popup( "open" );
+                    
                      $.mobile.loading( "hide" );
                      $('#cidadeEdit').val('').change();
 
@@ -509,7 +555,7 @@ $(document).on("pageshow","#index_old",function(){
         
         atualizarPromo();
         limparPedido();
-        atualizarCidades();
+        atualizarCidadesIndex();
         atualizarProduto();
         if(flagCadastro==true){
             $("#popupCaadastroSuccess").popup( "open" );
@@ -4162,7 +4208,7 @@ var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
        
-        $.mobile.loading( "hide" );
+        
         $("#cadastroContent").hide();
          atualizarCidades();
         atualizarLojas();
@@ -4244,6 +4290,7 @@ var getBairroFromCep=null;
 
         }
         setTimeout(function(){
+            $.mobile.loading( "hide" );
             $('#cadastroContent').show();
         },1000);
         

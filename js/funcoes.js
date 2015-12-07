@@ -2517,7 +2517,7 @@ $("#pedir").click(function(event){
                     setTimeout(function(){
                         $('#popupDialogLocalodade').popup('open');
                          $.mobile.loading( "hide" );
-                         $('#cidadeEdit').val('').change();
+                         //$('#cidadeEdit').val('').change();
                     },5000);
                     
                    

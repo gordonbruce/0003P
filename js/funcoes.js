@@ -2572,9 +2572,11 @@ $("#pedir").click(function(event){
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
         bairroEdit = $('#bairroEdit').find(":selected").val();
-       
-            atualizarBairros(idCidade);
-            $('#bairroEdit').css('height',altura);
+            if(idCidade != 'undefined'){
+                atualizarBairros(idCidade);
+                $('#bairroEdit').css('height',altura);
+            }
+            
        
         
     });

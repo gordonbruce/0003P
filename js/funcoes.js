@@ -76,7 +76,8 @@ function limparPedido() {
                 url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=c",
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -120,7 +121,8 @@ function limparPedido() {
                 url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=c",
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -164,7 +166,8 @@ function limparPedido() {
                 url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -221,7 +224,8 @@ function limparPedido() {
                 url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -410,7 +414,8 @@ $(document).ready(function() {
             data:  dadosForm2,
             dataType: 'json',
             crossDomain: true,
-
+            timeout:15000,
+            async:false,
 
 
             success: function(data){
@@ -1145,7 +1150,8 @@ function atualizarProduto(){
                 url: minhaUrl,
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -1175,8 +1181,13 @@ function atualizarProduto(){
                         
                     });
                     
-                    $.mobile.loading( "hide");
-                     $('#contentIndex').fadeIn();
+                    
+
+                    setTimeout(function(){
+                        $('#contentIndex').fadeIn('slow');
+                       $.mobile.loading( "hide");
+                    },1000);
+                     
                     
                     
                     
@@ -1205,7 +1216,8 @@ function atualizarProduto(){
                 url: minhaUrl,
                 dataType: 'json',
                 crossDomain: true,
-
+                 timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -1950,6 +1962,8 @@ function atualizarProduto(){
             data:  dataTosend,
             dataType: 'json',
             crossDomain: true,
+            timeout:15000,
+            async:false,
             success: function(data){
                 var res = data.ultimopedido;
                 cliente_id = data.ultimopedido.Cliente.id;
@@ -2027,6 +2041,8 @@ function atualizarProduto(){
             data:  data,
             dataType: 'json',
             crossDomain: true,
+             timeout:15000,
+                async:false,
             success: function(data){
                 var res = data.ultimopedido;
                 
@@ -2117,7 +2133,8 @@ function atualizarProduto(){
             data:  dadosForm,
             dataType: 'json',
             crossDomain: true,
-
+             timeout:15000,
+                async:false,
 
 
             success: function(data){
@@ -2281,7 +2298,8 @@ function getTokenMoip(){
             data:  dadosForm,
             dataType: 'json',
             crossDomain: true,
-
+             timeout:15000,
+                async:false,
 
 
             success: function(data){
@@ -2332,7 +2350,8 @@ function enviaDadosCartao(){
             data:  dadosForm,
             dataType: 'json',
             crossDomain: true,
-
+             timeout:15000,
+                async:false,
 
 
             success: function(data){
@@ -2481,6 +2500,8 @@ $("#pedir").click(function(event){
                 data:  dadosForm2,
                 dataType: 'json',
                 crossDomain: true,
+                 timeout:15000,
+                async:false,
                 success: function(data){
                    
                     $("#pedir").show();
@@ -2573,7 +2594,8 @@ $("#pedir").click(function(event){
                 url: URLAPP+"RestAtendimentos/indexmobile.json?lj="+empresa+"&clt="+clienteid+"&limit="+limitPedido+"&token="+cliente.Cliente.token+"&fp="+filialPadrao+"",
                 dataType: 'json',
                 crossDomain: true,
-
+                 timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -2815,7 +2837,8 @@ $("#pedir").click(function(event){
                 url: url,
                 dataType: 'json',
                 crossDomain: true,
-
+                 timeout:15000,
+                async:false,
 
 
                 success: function(data){
@@ -2879,7 +2902,8 @@ $("#pedir").click(function(event){
                                     url: URLAPP+"RestPedidos/avalpedidomobile.json?id="+pedido_id+"&nota="+score+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"",
                                     dataType: 'json',
                                     crossDomain: true,
-
+                                    timeout:15000,
+                                    async:false,
 
 
                                     success: function(data){
@@ -2938,7 +2962,8 @@ $("#pedir").click(function(event){
                 url: url,
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                async:false,
 
 
                 success: function(data){

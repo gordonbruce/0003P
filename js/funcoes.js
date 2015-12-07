@@ -369,6 +369,7 @@ $(document).on("pageshow","#index_old",function(){
         atualizarProduto();
         atualizarPromo();
         limparPedido();
+        atualizarCidades();
         if(flagCadastro==true){
             $("#popupCaadastroSuccess").popup( "open" );
             flagCadastro=false;
@@ -2455,13 +2456,14 @@ $("#pedir").click(function(event){
 
                     });
 
-
+                     $.mobile.loading( "hide" );
 
                 },error: function(data){
 
 
                      
                     $("#popupDialogLocalodade").popup( "open" );
+                     $.mobile.loading( "hide" );
                      $('#cidadeEdit').val('').change();
 
                 }
@@ -2566,7 +2568,7 @@ $("#pedir").click(function(event){
 
 
     }
-    atualizarCidades();
+    
     $('body').on('change','#cidadeEdit', function(){
         $.mobile.loading( "show" );
         idCidade = $(this).find(":selected").attr('data-id');
@@ -4150,8 +4152,10 @@ function checaAtendimento(atendimentocod){
 var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
+       
         $.mobile.loading( "hide" );
         $("#cadastroContent").hide();
+         atualizarCidades();
         atualizarLojas();
 
         $('.empresaEdit').val(empresa);

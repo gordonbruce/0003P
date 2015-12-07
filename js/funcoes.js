@@ -1182,11 +1182,11 @@ function atualizarProduto(){
                     });
                     
                     
-
+                     $('#contentIndex').fadeIn('slow');
                     setTimeout(function(){
-                        $('#contentIndex').fadeIn('slow');
+                       
                        $.mobile.loading( "hide");
-                    },1000);
+                    },2000);
                      
                     
                     

@@ -2460,10 +2460,9 @@ $("#pedir").click(function(event){
                 },error: function(data){
 
 
-                     setTimeout(function(){
-                        atualizarCidades();
-                     },2000);
-                    //$("#popupDialogLocalodade").popup( "open" );
+                     
+                    $("#popupDialogLocalodade").popup( "open" );
+                     $('#cidadeEdit').val('').change();
 
                 }
 
@@ -2517,7 +2516,7 @@ $("#pedir").click(function(event){
                     setTimeout(function(){
                         $('#popupDialogLocalodade').popup('open');
                          $.mobile.loading( "hide" );
-                         //$('#cidadeEdit').val('').change();
+                         $('#cidadeEdit').val('').change();
                     },5000);
                     
                    

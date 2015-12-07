@@ -2629,6 +2629,7 @@ $("#pedir").click(function(event){
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
         bairroEdit = $('#bairroEdit').find(":selected").val();
+        alert(idCidade);
             if(idCidade != 'undefined' && idCidade != ''){
                 atualizarBairros(idCidade);
                 $('#bairroEdit').css('height',altura);

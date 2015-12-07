@@ -498,17 +498,19 @@ $(document).on("pageshow","#index_old",function(){
 
 
          setTimeout(function(){
-            atualizarProduto();
+            
             atualizarPromo();
             limparPedido();
+            atualizarProduto();
          },2000);
     flagCadastro=false;
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
-        atualizarProduto();
+        
         atualizarPromo();
         limparPedido();
         atualizarCidades();
+        atualizarProduto();
         if(flagCadastro==true){
             $("#popupCaadastroSuccess").popup( "open" );
             flagCadastro=false;

@@ -555,6 +555,7 @@ $(document).on("pageshow","#index_old",function(){
             atualizarProduto();
          },2000);
     flagCadastro=false;
+    
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
         
@@ -1151,7 +1152,7 @@ function atualizarProduto(){
                 dataType: 'json',
                 crossDomain: true,
                 timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -1217,7 +1218,7 @@ function atualizarProduto(){
                 dataType: 'json',
                 crossDomain: true,
                  timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -2299,7 +2300,7 @@ function getTokenMoip(){
             dataType: 'json',
             crossDomain: true,
              timeout:15000,
-                async:false,
+                
 
 
             success: function(data){
@@ -2351,7 +2352,7 @@ function enviaDadosCartao(){
             dataType: 'json',
             crossDomain: true,
              timeout:15000,
-                async:false,
+                
 
 
             success: function(data){
@@ -2595,7 +2596,7 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                  timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -2838,7 +2839,7 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                  timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -2903,7 +2904,7 @@ $("#pedir").click(function(event){
                                     dataType: 'json',
                                     crossDomain: true,
                                     timeout:15000,
-                                    async:false,
+                                    
 
 
                                     success: function(data){
@@ -2963,7 +2964,7 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                 timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){

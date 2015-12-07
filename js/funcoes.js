@@ -2625,7 +2625,7 @@ $("#pedir").click(function(event){
       
     
     $('body').on('change','#cidadeEdit', function(){
-        $.mobile.loading( "show" );
+       
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
         bairroEdit = $('#bairroEdit').find(":selected").val();
@@ -2633,6 +2633,8 @@ $("#pedir").click(function(event){
             if(idCidade != 'undefined' && idCidade != 0){
                 atualizarBairros(idCidade);
                 $('#bairroEdit').css('height',altura);
+            }else{
+                 $.mobile.loading( "show" );
             }
             
        

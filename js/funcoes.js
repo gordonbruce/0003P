@@ -813,14 +813,14 @@ $(document).on("pageshow","#index_old",function(){
         }
     });
     function gerarListaProdutos(ob, j){
-
+        $.mobile.loading( "show");
         var selectTamanho="";
         var  dataTamanhos="";
         var  dataTamanhosPrecos="";
         selectBebidas="";
         selectpagueGanhe="";
         contTam=0;
-        $.mobile.loading( "show" );
+        
         if(bebidas != null){
 
 
@@ -1042,7 +1042,7 @@ $(document).on("pageshow","#index_old",function(){
             return nda;
         }
 
-        $.mobile.loading( "hide" );
+       
      }
 
      var optionsValues='<option value="1" selected="selected">1</option>';
@@ -1063,7 +1063,7 @@ $(document).on("pageshow","#index_old",function(){
                     objProd =obj.Produto;
                     var ncat=0;
                     $.each(objProd, function(i, ob){
-
+                        $.mobile.loading( "show");
                         varprod = varprod + gerarListaProdutos(ob, i);
 
 
@@ -1109,9 +1109,9 @@ function atualizarProduto(){
                     $.each(data, function(i, resultados){
                         z=0;
                         $.each(resultados, function(z, resultado){
-
+                           $.mobile.loading( "show");
                          //$("div").append(field + " ");
-                            
+                                
                                 $( "#set" ).append( gerarListaCategoria(resultado,z) ).collapsibleset( "refresh" );    
                             
 
@@ -1121,17 +1121,20 @@ function atualizarProduto(){
                             });
                         d=0;
                         $(".listview").each( function() {
-
+                           $.mobile.loading( "show");
                             $('#owl-example'+d).owlCarousel({navigation : true,  navigationText : ["<img src='images/setaesquerda.png' class='setaSlider' width='56px' />","<img src='images/setadireita.png' class='setaSlider' width='56px' />"], pagination : false,});
 
                             d=d+1;
                         });
-                     //$("div").append(field + " ");
-                });
-
-
+                        
+                    });
+                    
                     $.mobile.loading( "hide");
-                    $('#contentIndex').fadeIn('slow');
+                     $('#contentIndex').fadeIn();
+                    
+                    
+                    
+                    
                 },error: function(data){
 
 
@@ -1149,7 +1152,7 @@ function atualizarProduto(){
 
     function atualizarPromo(){
 
-        $.mobile.loading( "show" );
+        
         minhaUrl=URLAPP+"RestClientes/getPromoDia.json?se="+empresa+"&sf=&fp="+filialPadrao+"";
          $.ajax({
                 type: "GET",
@@ -1180,11 +1183,11 @@ function atualizarProduto(){
                     }else{
                         pagueGanhe=null;
                     }
-                    $.mobile.loading( "hide" );
+                   
                 },error: function(data){
 
 
-                    $.mobile.loading( "hide" );
+                 
                     $("#popupDialogLogin4").popup( "open" );
 
                 }

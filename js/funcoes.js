@@ -531,9 +531,7 @@ $(document).on("pageshow","#index_old",function(){
             //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
         }
         
-        setTimeout(function(){
-            $('#contentIndex').show();
-        },1000);
+        
     });
 
     $(document).on("change", ".compostoAdd", function(){

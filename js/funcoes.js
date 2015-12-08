@@ -372,10 +372,13 @@ $(document).ready(function() {
                  $('.difpass').fadeOut('slow');
                  },30000);
         }
-        $('#btn-novamente').click(function(){
+        $('body').on('click', '#btn-novamente', function(){
+            alert();
             $.mobile.loading( "show" );
             atualizarCidades();
             $("#popupDialogLocalodade").popup( "close" );  
+            
+            
         }); 
     });
 

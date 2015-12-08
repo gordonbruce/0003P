@@ -35,7 +35,7 @@
         <script type="text/javascript" src="js/transparente.js"></script>
 
     </head>
-<body>
+ <body>
         <div id="index" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="a"  data-overlay-theme="b" >
 
             <div data-role="panel" id="mypanel3" data-display="overlay" data-theme="b" data-content-theme="b">
@@ -198,6 +198,15 @@
                                 <p id="avisoValidaBtnTexto"></p>
                                 <a href="#" data-role="button" data-rel="back" data-overlay-theme="a" data-theme="b">Fechar</a>
                             </div>
+                        </div>
+                    </div>
+                    <div data-role="popup" id="popupDialogLocalodade2" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                        <div data-role="header" data-theme="b" data-position="fixed">
+                        <h2>Ops, ocorreu um erro.</h2>
+                        </div>
+                        <div role="main" class="ui-content">
+                            <p>Houve um erro ao carregar a localidade, verifique sua internet e tente novamente.</p>
+                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                         </div>
                     </div>
                     <div id="divPagamento">
@@ -866,7 +875,7 @@
             <div data-role="footer" class="hideFooter"   data-tap-toggle="false">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Principe das Pizzas By Entregapp, <a href='http://entregapp.com.br/apps/principe-das-pizzas' >clique aqui para baixar</a>.  ', null, 'http://entregapp.com.br/img_share/furiosos-lanches.png', null)" data-icon="share">Compartilhar</a></li>
+                        <li><a href="#" id="compartilhar" onclick="window.plugins.socialsharing.share('Aplicativo Principe das Pizzas By Entregapp, <a href='http://entregapp.com.br/apps/principe-das-pizzas' >clique aqui para baixar</a>.  ', null, 'http://entregapp.com.br/img_share/speciale.png', null)" data-icon="share">Compartilhar</a></li>
 
                         <li><a href="#page10" data-icon="comment" id="btn-chat">Atendimento</a></li>
                         <li><a href="#" data-icon="location" class="btn-locPedido">Localizar Pedido</a></li>
@@ -1028,7 +1037,8 @@
                     <h2>Ops, ocorreu um erro.</h2>
                     </div>
                     <div role="main" class="ui-content">
-                        <p>Houve um erro ao carregar a localidade, verifique sua internet e tente novamente.</p>
+                        <p>Houve um erro ao carregar as cidades para o cadastro, verifique sua conexão com a internet e tente novamente.</p>
+                     
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
                 </div>

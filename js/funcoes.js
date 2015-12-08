@@ -68,6 +68,197 @@ function limparPedido() {
         $('#respTroco').html('R$ 0,00');
 
     }
+    function atualizarCidadesIndex(){
+
+
+         $.ajax({
+                type: "GET",
+                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=c",
+                dataType: 'json',
+                crossDomain: true,
+                timeout:15000,
+                
+
+
+                success: function(data){
+
+
+                    $('.cloneOptCitade').remove();
+
+
+                    $.each(data, function(i, resultado){
+                        $.each(resultado, function(j, cidades){
+
+                        $('.cidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
+                        $('#entregaOutroCidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
+
+                        });
+
+                    });
+
+                     //$.mobile.loading( "hide" );
+
+                },error: function(data){
+
+
+                     
+                    
+                    $("#popupDialogLocalodade2").popup( "open" );
+                    
+                     $.mobile.loading( "hide" );
+                    //$('#cidadeEdit').val('').change();
+
+                }
+
+            });
+
+    }
+
+ function atualizarCidades(){
+    $.mobile.loading( "show" );
+
+         $.ajax({
+                type: "GET",
+                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=c",
+                dataType: 'json',
+                crossDomain: true,
+                timeout:15000,
+                
+
+
+                success: function(data){
+
+
+                    $('.cloneOptCitade').remove();
+
+
+                    $.each(data, function(i, resultado){
+                        $.each(resultado, function(j, cidades){
+
+                        $('.cidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
+                        $('#entregaOutroCidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
+
+                        });
+
+                    });
+
+                     $.mobile.loading( "hide" );
+
+                },error: function(data){
+
+
+                     
+                    $("#popupDialogLocalodade").popup( "open" );    
+                     $.mobile.loading( "hide" );
+                     $('#cidadeEdit').val('').change();
+                     setTimeout(function(){
+                        atualizarCidades();
+                     },15000);
+
+                }
+
+            });
+
+
+    }
+    function atualizarBairros(cidade_id){
+          $.mobile.loading( "show" );
+         $.ajax({
+                type: "GET",
+                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
+                dataType: 'json',
+                crossDomain: true,
+                timeout:15000,
+                
+
+
+                success: function(data){
+                     $.mobile.loading( "show" );
+
+                     $('.cloneOptBairro').remove();
+                     selectBairroEdit = $('#bairroEdit');
+                      
+                    $.each(data, function(i, resultado){
+                        $.each(resultado, function(j, bairros){
+                            $('#bairroEdit').append('<option class="cloneOptBairro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
+                        });
+
+                    });
+
+                    
+                    if(typeof getBairroFromCep !=='undefined')
+                    {
+                        if(getBairroFromCep != null)
+                        {
+                            $('#bairroEdit').val(getBairroFromCep).change();
+                            $('#bairroEdit option [value="'+getBairroFromCep+']"').attr('selected','selected');
+                            getBairroFromCep=null;
+                        }
+                        
+
+                    }
+                    setTimeout(function(){
+                        $.mobile.loading( "hide" );
+                    },5000);
+                    
+                   // selectBairroEdit.selectmenu();
+                    //selectBairroEdit.selectmenu('refresh', true);
+                },error: function(data){
+
+                    setTimeout(function(){
+                        $('#popupDialogLocalodade').popup('open');
+                         $.mobile.loading( "hide" );
+                         $('#cidadeEdit').val('').change();
+                    },5000);
+                    
+                   
+                   
+                }
+
+            });
+
+
+    }
+    function atualizarBairrosOutro(cidade_id){
+         $.mobile.loading( "show" );
+         $.ajax({
+                type: "GET",
+                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
+                dataType: 'json',
+                crossDomain: true,
+                timeout:15000,
+                
+
+
+                success: function(data){
+                     $.mobile.loading( "show" );
+
+                     $('.cloneOptBairroOutro').remove();
+                     seletcBairro = $('#entregaOutroBairro');
+                    $.each(data, function(i, resultado){
+                        $.each(resultado, function(j, bairros){
+                            $('#entregaOutroBairro').append('<option class="cloneOptBairroOutro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
+                        });
+
+                    });
+                    //seletcBairro.selectmenu();
+                    //seletcBairro.selectmenu('refresh', true);
+                    $.mobile.loading( "hide" );
+
+
+                },error: function(data){
+                    setTimeout(function(){
+                        $("#popupDialogLogin4").popup( "open" );
+                        $.mobile.loading( "hide" ); 
+                    },1000);
+                   
+
+                }
+
+            });
+
+
+    }   
 function removeDiacritics (str) {
 
   var defaultDiacriticsRemovalMap = [
@@ -184,6 +375,7 @@ $(document).ready(function() {
                  $('.difpass').fadeOut('slow');
                  },30000);
         }
+       
     });
 
     $('body').on('click', 'body',function(){
@@ -225,7 +417,8 @@ $(document).ready(function() {
             data:  dadosForm2,
             dataType: 'json',
             crossDomain: true,
-
+            timeout:15000,
+            
 
 
             success: function(data){
@@ -359,16 +552,20 @@ $(document).on("pageshow","#index_old",function(){
 
 
          setTimeout(function(){
-            atualizarProduto();
+            
             atualizarPromo();
             limparPedido();
+            atualizarProduto();
          },2000);
     flagCadastro=false;
+    
     $(document).on("pageshow","#index",function(){ // When entering pagetwo
 
-        atualizarProduto();
+        
         atualizarPromo();
         limparPedido();
+        atualizarCidadesIndex();
+        atualizarProduto();
         if(flagCadastro==true){
             $("#popupCaadastroSuccess").popup( "open" );
             flagCadastro=false;
@@ -388,6 +585,8 @@ $(document).on("pageshow","#index_old",function(){
         }else{
             //$('.formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
         }
+        
+        
     });
 
     $(document).on("change", ".compostoAdd", function(){
@@ -669,13 +868,14 @@ $(document).on("pageshow","#index_old",function(){
         }
     });
     function gerarListaProdutos(ob, j){
-
+        $.mobile.loading( "show");
         var selectTamanho="";
         var  dataTamanhos="";
         var  dataTamanhosPrecos="";
         selectBebidas="";
         selectpagueGanhe="";
         contTam=0;
+        
         if(bebidas != null){
 
 
@@ -897,7 +1097,7 @@ $(document).on("pageshow","#index_old",function(){
             return nda;
         }
 
-
+       
      }
 
      var optionsValues='<option value="1" selected="selected">1</option>';
@@ -918,7 +1118,7 @@ $(document).on("pageshow","#index_old",function(){
                     objProd =obj.Produto;
                     var ncat=0;
                     $.each(objProd, function(i, ob){
-
+                        $.mobile.loading( "show");
                         varprod = varprod + gerarListaProdutos(ob, i);
 
 
@@ -954,7 +1154,8 @@ function atualizarProduto(){
                 url: minhaUrl,
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                
 
 
                 success: function(data){
@@ -964,9 +1165,9 @@ function atualizarProduto(){
                     $.each(data, function(i, resultados){
                         z=0;
                         $.each(resultados, function(z, resultado){
-
+                           $.mobile.loading( "show");
                          //$("div").append(field + " ");
-                            
+                                
                                 $( "#set" ).append( gerarListaCategoria(resultado,z) ).collapsibleset( "refresh" );    
                             
 
@@ -976,17 +1177,25 @@ function atualizarProduto(){
                             });
                         d=0;
                         $(".listview").each( function() {
-
+                           $.mobile.loading( "show");
                             $('#owl-example'+d).owlCarousel({navigation : true,  navigationText : ["<img src='images/setaesquerda.png' class='setaSlider' width='56px' />","<img src='images/setadireita.png' class='setaSlider' width='56px' />"], pagination : false,});
 
                             d=d+1;
                         });
-                     //$("div").append(field + " ");
-                });
-
-
-                    $.mobile.loading( "hide");
-                    $('#contentIndex').fadeIn('slow');
+                        
+                    });
+                    
+                    
+                     $('#contentIndex').fadeIn('slow');
+                    setTimeout(function(){
+                       
+                       $.mobile.loading( "hide");
+                    },2000);
+                     
+                    
+                    
+                    
+                    
                 },error: function(data){
 
 
@@ -1004,14 +1213,15 @@ function atualizarProduto(){
 
     function atualizarPromo(){
 
-        $.mobile.loading( "show" );
+        
         minhaUrl=URLAPP+"RestClientes/getPromoDia.json?se="+empresa+"&sf=&fp="+filialPadrao+"";
          $.ajax({
                 type: "GET",
                 url: minhaUrl,
                 dataType: 'json',
                 crossDomain: true,
-
+                 timeout:15000,
+                
 
 
                 success: function(data){
@@ -1035,11 +1245,11 @@ function atualizarProduto(){
                     }else{
                         pagueGanhe=null;
                     }
-                    $.mobile.loading( "hide" );
+                   
                 },error: function(data){
 
 
-                    $.mobile.loading( "hide" );
+                 
                     $("#popupDialogLogin4").popup( "open" );
 
                 }
@@ -1756,6 +1966,8 @@ function atualizarProduto(){
             data:  dataTosend,
             dataType: 'json',
             crossDomain: true,
+            timeout:15000,
+            
             success: function(data){
                 var res = data.ultimopedido;
                 cliente_id = data.ultimopedido.Cliente.id;
@@ -1833,6 +2045,8 @@ function atualizarProduto(){
             data:  data,
             dataType: 'json',
             crossDomain: true,
+             timeout:15000,
+                
             success: function(data){
                 var res = data.ultimopedido;
                 
@@ -1923,7 +2137,8 @@ function atualizarProduto(){
             data:  dadosForm,
             dataType: 'json',
             crossDomain: true,
-
+             timeout:15000,
+                
 
 
             success: function(data){
@@ -2087,7 +2302,8 @@ function getTokenMoip(){
             data:  dadosForm,
             dataType: 'json',
             crossDomain: true,
-
+             timeout:15000,
+                
 
 
             success: function(data){
@@ -2138,7 +2354,8 @@ function enviaDadosCartao(){
             data:  dadosForm,
             dataType: 'json',
             crossDomain: true,
-
+             timeout:15000,
+                
 
 
             success: function(data){
@@ -2287,6 +2504,8 @@ $("#pedir").click(function(event){
                 data:  dadosForm2,
                 dataType: 'json',
                 crossDomain: true,
+                 timeout:15000,
+                
                 success: function(data){
                    
                     $("#pedir").show();
@@ -2379,7 +2598,8 @@ $("#pedir").click(function(event){
                 url: URLAPP+"RestAtendimentos/indexmobile.json?lj="+empresa+"&clt="+clienteid+"&limit="+limitPedido+"&token="+cliente.Cliente.token+"&fp="+filialPadrao+"",
                 dataType: 'json',
                 crossDomain: true,
-
+                 timeout:15000,
+                
 
 
                 success: function(data){
@@ -2428,154 +2648,21 @@ $("#pedir").click(function(event){
         }
 
 
-      function atualizarCidades(){
-
-
-         $.ajax({
-                type: "GET",
-                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=c",
-                dataType: 'json',
-                crossDomain: true,
-
-
-
-                success: function(data){
-
-
-                    $('.cloneOptCitade').remove();
-
-
-                    $.each(data, function(i, resultado){
-                        $.each(resultado, function(j, cidades){
-
-                        $('.cidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
-                        $('#entregaOutroCidade').append('<option class="cloneOptCitade" data-id="'+cidades.Cidad.id+'" value="'+cidades.Cidad.cidade+'">'+cidades.Cidad.cidade+'</option>');
-
-                        });
-
-                    });
-
-
-
-                },error: function(data){
-
-
-                     setTimeout(function(){
-                        atualizarCidades();
-                     },2000);
-                    //$("#popupDialogLocalodade").popup( "open" );
-
-                }
-
-            });
-
-
-    }
-    function atualizarBairros(cidade_id){
-          $.mobile.loading( "show" );
-         $.ajax({
-                type: "GET",
-                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
-                dataType: 'json',
-                crossDomain: true,
-
-
-
-                success: function(data){
-                     $.mobile.loading( "show" );
-
-                     $('.cloneOptBairro').remove();
-                     selectBairroEdit = $('#bairroEdit');
-                      
-                    $.each(data, function(i, resultado){
-                        $.each(resultado, function(j, bairros){
-                            $('#bairroEdit').append('<option class="cloneOptBairro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
-                        });
-
-                    });
-
-                    
-                    if(typeof getBairroFromCep !=='undefined')
-                    {
-                        if(getBairroFromCep != null)
-                        {
-                            $('#bairroEdit').val(getBairroFromCep).change();
-                            $('#bairroEdit option [value="'+getBairroFromCep+']"').attr('selected','selected');
-                            getBairroFromCep=null;
-                        }
-                        
-
-                    }
-                    setTimeout(function(){
-                        $.mobile.loading( "hide" );
-                    },5000);
-                    
-                   // selectBairroEdit.selectmenu();
-                    //selectBairroEdit.selectmenu('refresh', true);
-                },error: function(data){
-
-                    setTimeout(function(){
-                        $('#popupDialogLocalodade').popup('open');
-                         $.mobile.loading( "hide" );
-                         //$('#cidadeEdit').val('').change();
-                    },5000);
-                    
-                   
-                   
-                }
-
-            });
-
-
-    }
-    function atualizarBairrosOutro(cidade_id){
-         $.mobile.loading( "show" );
-         $.ajax({
-                type: "GET",
-                url: URLAPP+"RestPedidos/getLocalidadePedidos.json?fp="+filialPadrao+"&p=b&c="+cidade_id+"",
-                dataType: 'json',
-                crossDomain: true,
-
-
-
-                success: function(data){
-                     $.mobile.loading( "show" );
-
-                     $('.cloneOptBairroOutro').remove();
-                     seletcBairro = $('#entregaOutroBairro');
-                    $.each(data, function(i, resultado){
-                        $.each(resultado, function(j, bairros){
-                            $('#entregaOutroBairro').append('<option class="cloneOptBairroOutro" data-taxa="'+bairros.Bairro.valor+'" data-id="'+bairros.Bairro.id+'" value="'+bairros.Bairro.bairro+'">'+bairros.Bairro.bairro+'</option>');
-                        });
-
-                    });
-                    //seletcBairro.selectmenu();
-                    //seletcBairro.selectmenu('refresh', true);
-                    $.mobile.loading( "hide" );
-
-
-                },error: function(data){
-                    setTimeout(function(){
-                        $("#popupDialogLogin4").popup( "open" );
-                        $.mobile.loading( "hide" ); 
-                    },1000);
-                   
-
-                }
-
-            });
-
-
-    }
-    atualizarCidades();
+      
+    
     $('body').on('change','#cidadeEdit', function(){
-        $.mobile.loading( "show" );
+       
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
         bairroEdit = $('#bairroEdit').find(":selected").val();
-       
-            atualizarBairros(idCidade);
-            $('#bairroEdit').css('height',altura);
+        
+            if(idCidade != 'undefined' && idCidade != 0){
+                atualizarBairros(idCidade);
+                $('#bairroEdit').css('height',altura);
+            }else{
+                 $.mobile.loading( "hide" );
+            }
+            
        
         
     });
@@ -2754,7 +2841,8 @@ $("#pedir").click(function(event){
                 url: url,
                 dataType: 'json',
                 crossDomain: true,
-
+                 timeout:15000,
+                
 
 
                 success: function(data){
@@ -2818,7 +2906,8 @@ $("#pedir").click(function(event){
                                     url: URLAPP+"RestPedidos/avalpedidomobile.json?id="+pedido_id+"&nota="+score+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"",
                                     dataType: 'json',
                                     crossDomain: true,
-
+                                    timeout:15000,
+                                    
 
 
                                     success: function(data){
@@ -2877,7 +2966,8 @@ $("#pedir").click(function(event){
                 url: url,
                 dataType: 'json',
                 crossDomain: true,
-
+                timeout:15000,
+                
 
 
                 success: function(data){
@@ -4149,8 +4239,10 @@ function checaAtendimento(atendimentocod){
 var getBairroFromCep=null;
     salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
     $(document).on( "pageshow",'#page5', function() {
-        $.mobile.loading( "hide" );
+       
+        
         $("#cadastroContent").hide();
+         atualizarCidades();
         atualizarLojas();
 
         $('.empresaEdit').val(empresa);
@@ -4229,6 +4321,11 @@ var getBairroFromCep=null;
             
 
         }
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('#cadastroContent').show();
+        },1000);
+        
     });
 
 

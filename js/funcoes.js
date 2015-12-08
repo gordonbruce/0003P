@@ -115,7 +115,7 @@ function limparPedido() {
     }
 
  function atualizarCidades(){
-
+    $.mobile.loading( "show" );
 
          $.ajax({
                 type: "GET",

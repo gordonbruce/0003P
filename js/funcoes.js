@@ -372,7 +372,7 @@ $(document).ready(function() {
                  $('.difpass').fadeOut('slow');
                  },30000);
         }
-        $('body').on('click', '#btn-novamente', function(){
+        $('body').on('click', '#btnnovamente', function(){
             alert();
             $.mobile.loading( "show" );
             atualizarCidades();

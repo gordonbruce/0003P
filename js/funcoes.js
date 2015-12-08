@@ -77,7 +77,7 @@ function limparPedido() {
                 dataType: 'json',
                 crossDomain: true,
                 timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -113,6 +113,9 @@ function limparPedido() {
             });
 
     }
+   $('body').on('click','#btn-tentar-novamente',function(){
+            atualizarCidades();
+        });  
  function atualizarCidades(){
 
 
@@ -122,7 +125,7 @@ function limparPedido() {
                 dataType: 'json',
                 crossDomain: true,
                 timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -147,9 +150,7 @@ function limparPedido() {
 
 
                      
-                    $("#popupDialogLocalodade").popup( "open" );
-                    $("#popupDialogLocalodade2").popup( "open" );
-                    
+                    $("#popupDialogLocalodade").popup( "open" );    
                      $.mobile.loading( "hide" );
                      $('#cidadeEdit').val('').change();
 
@@ -225,7 +226,7 @@ function limparPedido() {
                 dataType: 'json',
                 crossDomain: true,
                 timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -373,6 +374,7 @@ $(document).ready(function() {
                  $('.difpass').fadeOut('slow');
                  },30000);
         }
+
     });
 
     $('body').on('click', 'body',function(){
@@ -1966,7 +1968,7 @@ function atualizarProduto(){
             dataType: 'json',
             crossDomain: true,
             timeout:15000,
-            async:false,
+            
             success: function(data){
                 var res = data.ultimopedido;
                 cliente_id = data.ultimopedido.Cliente.id;

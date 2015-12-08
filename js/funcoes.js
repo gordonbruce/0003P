@@ -153,7 +153,7 @@ function limparPedido() {
                      $('#cidadeEdit').val('').change();
                      setTimeout(function(){
                         atualizarCidades();
-                     },10000);
+                     },15000);
 
                 }
 

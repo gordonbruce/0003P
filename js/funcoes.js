@@ -151,6 +151,9 @@ function limparPedido() {
                     $("#popupDialogLocalodade").popup( "open" );    
                      $.mobile.loading( "hide" );
                      $('#cidadeEdit').val('').change();
+                     setTimeout(function(){
+                        atualizarCidades)();
+                     },10000);
 
                 }
 
@@ -372,14 +375,7 @@ $(document).ready(function() {
                  $('.difpass').fadeOut('slow');
                  },30000);
         }
-        $('body').on('click', '#btnnovamente', function(){
-            alert();
-            $.mobile.loading( "show" );
-            atualizarCidades();
-            $("#popupDialogLocalodade").popup( "close" );  
-            
-            
-        }); 
+       
     });
 
     $('body').on('click', 'body',function(){

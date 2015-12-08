@@ -114,7 +114,7 @@ function limparPedido() {
 
     }
    $('body').on('click','#btn-tentar-novamente',function(){
-            $.mobile.loading( "hide" );
+            $.mobile.loading( "show" );
             atualizarCidades();
         });  
  function atualizarCidades(){

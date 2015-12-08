@@ -169,7 +169,7 @@ function limparPedido() {
                 dataType: 'json',
                 crossDomain: true,
                 timeout:15000,
-                async:false,
+                
 
 
                 success: function(data){
@@ -418,7 +418,7 @@ $(document).ready(function() {
             dataType: 'json',
             crossDomain: true,
             timeout:15000,
-            async:false,
+            
 
 
             success: function(data){
@@ -2046,7 +2046,7 @@ function atualizarProduto(){
             dataType: 'json',
             crossDomain: true,
              timeout:15000,
-                async:false,
+                
             success: function(data){
                 var res = data.ultimopedido;
                 
@@ -2138,7 +2138,7 @@ function atualizarProduto(){
             dataType: 'json',
             crossDomain: true,
              timeout:15000,
-                async:false,
+                
 
 
             success: function(data){
@@ -2505,7 +2505,7 @@ $("#pedir").click(function(event){
                 dataType: 'json',
                 crossDomain: true,
                  timeout:15000,
-                async:false,
+                
                 success: function(data){
                    
                     $("#pedir").show();

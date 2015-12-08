@@ -152,7 +152,7 @@ function limparPedido() {
                      $.mobile.loading( "hide" );
                      $('#cidadeEdit').val('').change();
                      setTimeout(function(){
-                        atualizarCidades)();
+                        atualizarCidades();
                      },10000);
 
                 }

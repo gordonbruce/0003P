@@ -360,9 +360,11 @@ var sessionIdPag;
 $(document).ready(function() {
 
 
-    function pagSeguroGetSession() {
+    function pagSeguroGetSession(id) {
+
     //  var urlAction2 = URLAPP+"RestPedidos/getSessionPag.json?b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"&lj="+empresa+"";
-      var urlAction2 = URLAPP+"RestPedidos/getSessionPag.json";
+      var urlAction2 = URLAPP+"RestPedidos/getSessionPag.json?id="+id+"";
+
   //    var dadosForm2 = $("#PedidoAddForm").serializeArray();
       $.ajax({
           type: "GET",
@@ -373,10 +375,24 @@ $(document).ready(function() {
            timeout:15000,
 
           success: function(data){
-
+              $.mobile.loading( "hide" );
+                console.log(data);
               //sessionIdPag=data.resultados;
               PagSeguroLightbox(data.resultados);
           },error: function(data){
+              $.mobile.loading( "hide" );
+              resposta  = data.responseText;
+              resposta= resposta.substring(37,47);
+              if(resposta == 'senderName'){
+                resposta = "O nome cadastrado deve ser composto por nome e sobrenome. Por favor atualize seu cadastro."
+              }else{
+
+                resposta=data.responseText;
+              }
+
+              $('#erroPagseguro').html(resposta);
+              $("#popupErroPagSeguro").popup( "open" );
+
 
           //fazer a critica do erro
           }
@@ -384,19 +400,13 @@ $(document).ready(function() {
     }
 
 
-    function simPag() {
-      pagSeguroGetSession();
-    }
-    function pagSucesso() {
-      console.log('sucesso');
-    }
-    function pagErro() {
-      console.log('erro');
-    }
-    function pagFim() {
-      console.log('Finalizou');
-    }
-    simPag();
+    $('#btn-pagseguro').click(function () {
+      pedidoId=$('#idPedidoAux').html();
+      $.mobile.loading( "show" );
+      pagSeguroGetSession(pedidoId);
+      console.log(pedidoId);
+    });
+    //simPag();
     $('body').on('click','#bt-lgesqueci',function(){
         $("#popEsqueciSenha").popup( "open" );
     });
@@ -2025,7 +2035,7 @@ function atualizarProduto(){
 
 
 
-            getEntries();
+          //  getEntries();
 
 
         });
@@ -2036,6 +2046,7 @@ function atualizarProduto(){
 
     });
     var pagamento;
+    var tipoPagSeguro=null;
     function loginInit(){
 
         dataTosend ={
@@ -2107,6 +2118,15 @@ function atualizarProduto(){
         $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
         $.each(cliente.Pagamento, function(i, pagamento){
             $('#formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+            var pagTipo  = pagamento.tipo;
+            pagTipo = pagTipo.replace('-', '');
+            pagTipo = pagTipo.replace(' ', '');
+            pagTipo = pagTipo.replace('/', '');
+            pagTipo = pagTipo.toLowerCase();
+            if(pagTipo=='pagseguro')
+            {
+              tipoPagSeguro=pagamento.id;
+            }
         });
        // selectPagamento.selectmenu();
        // selectPagamento.selectmenu('refresh', true);
@@ -2342,9 +2362,14 @@ function atendimentoView(atendimentos){
         $("#codigoAtend").html(atendimentos.Atendimento.codigo+'&nbsp;');
 
         $("#dataAtend").html(atendimentos.Pedido.data+' '+atendimentos.Pedido.hora+'&nbsp;');
+
         //$("#clienteAtend").html(atendimentos.Cliente.nome+'&nbsp;');
         $("#AtendAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
-        $("#pagamentoAtend").html(atendimentos.Pedido.user_id+'&nbsp;');
+        $("#pagamentoAtend").html(atendimentos.Pedido.status_pagamento+'&nbsp;');
+        if(Pedido.status_pagamento != 'Pendente')
+        {
+          $('.pagSeguro').hide();
+        }
          $("#entregaPedido").html(atendimentos.Pedido.entrega_valor+'&nbsp;');
 
         $("#situacaoAtend").html(atendimentos.Pedido.status+'&nbsp;');
@@ -2964,6 +2989,14 @@ $("#pedir").click(function(event){
                         }
                         $('#obsPedidoEntrega').html(entregaLocal);
                         $("#AtendAtend").html(pedido.user_id+'&nbsp;');
+
+                        console.log(tipoPagSeguro);
+                        if((pedido.pagamento_id == tipoPagSeguro) && (pedido.pagamento_id  != null )  && (pedido.status_pagamento  == 'Pendente' ))
+                        {
+                          $('.pagSeguro').show();
+                        }else{
+                          $('.pagSeguro').hide();
+                        }
                         $("#pagamentoAtend").html(pedido.status_pagamento+'&nbsp;');
                         ventrega =pedido.entrega_valor;
                         ventrega =parseFloat(ventrega) ;
@@ -4762,9 +4795,12 @@ var getBairroFromCep=null;
                                 $('.audioPlayer').trigger('play');
                             }
                             sitAtendimento = $('#pagamentoAtend').text();
+                            if(sitAtendimento != 'Pendente')
+                            {
+                              $('.pagSeguro').hide();
+                            }
 
-                             sitAtendimento = pedido.status_pagamento;
-                             if(sitAtendimento != sitAtendimento){
+                             if(sitAtendimento != pedido.status_pagamento){
                                 $('#pagamentoAtend').html(pedido.status_pagamento);
                                 $(".animaSitPag").addClass("verde-background");
                                 $(".animaSitPag").animate({"margin-left": "+=25px"},"fast");
@@ -4928,13 +4964,7 @@ var getBairroFromCep=null;
             pag='cartao';
 
         }
-        var tipoPagSeguro=valorFormaPg;
-        tipoPagSeguro = tipoPagSeguro.replace(' ','');
-        tipoPagSeguro = tipoPagSeguro.toLowerCase();
 
-        if(tipoPagSeguro=='pagseguro'){
-          $('.auxCartao').show();
-        }
     });
     /*$('.applogo').click(function(){
         $("#popupDialogFormFoto1").popup( "open" );

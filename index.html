@@ -854,6 +854,14 @@
                         &nbsp;
                     </dd>
                 </dl>
+                <dt class="pagSeguro">Efetue o seu pagamento:</dt>
+                    <dd id="obsPagSeguro" class="pagSeguro">
+                        <div id="obsPagSeguroDiv" class="pagSeguro">
+                          <img src="images/pagseguro.png" alt="PagSeguro" width="200" id="btn-pagseguro"/>
+                        </div>
+                        &nbsp;
+                    </dd>
+                </dl>
                 <div id="itensdepedido"></div>
                 <div id="atendimentosView2"></div>
 
@@ -886,6 +894,16 @@
                         <p>Verifique sua internet ou tente mais tarde</p>
                         <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                     </div>
+                </div>
+                <div data-role="popup" class="popupErroPagSeguro" id="popupErroPagSeguro" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                        <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                            <h2>Erro</h2>
+                        </div>
+                        <div role="main" class="ui-content">
+                            <p id="erroPagseguro">
+                              </p>
+                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b" >Fechar</a>
+                        </div>
                 </div>
                 <div data-role="popup" class="popupAvisoCampainha" id="popupAvisoCampainha" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                         <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">

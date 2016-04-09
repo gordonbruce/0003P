@@ -18,4 +18,5 @@ var itemPagueGanheId=null;
 var itemPagueGanheNome=null;
 var itemBebidaId =null;
 var itemBebidaNome  = null;
+var isCatalog=true;
 //Bloco de Configurações do aplicativo Fim

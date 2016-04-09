@@ -2,7 +2,7 @@
 <html>
 <html lang=”pt-br”>
     <head>
-        <title>Appedido</title>
+        <title>Entregapp</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,10 +13,12 @@
         <link rel="stylesheet" href="css/jquery.mobile.inline-png-1.4.5.min.css">
         <link rel="stylesheet" href="css/jquery.mobile.inline-svg-1.4.5.min.css">
         <link rel="stylesheet" href="css/themes/entregapp.min.css" />
+
     <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
         <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css">
         <link rel="stylesheet" href="css/estilo.css">
         <link rel="stylesheet" href="css/customizado.css">
+        <link rel="stylesheet" href="css/swipebox.min.css" />
         <script src="js/jquery-1.11.1.min.js"></script>
         <script src="js/jquery.mobile-1.4.5.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
@@ -25,6 +27,7 @@
         <script src="js/countdown.js"></script>
         <script src="js/jquery.raty.js"></script>
         <script src="js/load-image.all.min.js"></script>
+        <script src="js/jquery.swipebox.min.js"></script>
     <script src="js/configuracoes.js"></script>
         <script src="js/funcoes.js"></script>
         <script src="js/jquery.mobilegmap.min.js"></script>
@@ -49,7 +52,7 @@
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <li class="showLogado logadoNone listarmenu listarpedido"><a href="#"   data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
@@ -497,8 +500,22 @@
                     <input type="hidden" name="passdb" id="passdb" class="passdb" autocomplete="off" >
                     <input type="hidden" name="iddb" id="iddb" class="iddb" autocomplete="off" >
                     <input type="hidden" name="ativodb" id="ativodb" class="ativodb" autocomplete="off" >
-            </div><!-- /content -->
+                    <div class="formasDePagamento">
+                      <h3 class="formas-pagamento">Formas de Pagamento</h3>
+                     <ul>
+                     </ul>
+                    </div>
+                    <div class="parceiros">
+                      <h3 class="parceiros-h3">Parceiros</h3>
+                       <ul>
+                       </ul>
+                    </div>
 
+            </div><!-- /content -->
+            <br>
+            <br>
+            <br>
+            <br>
             <div data-role="footer" class="hideFooter" >
                 <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
             </div><!--Footer-->
@@ -586,6 +603,7 @@
                 </div>
 
                 <div id="produtos"></div>
+
             </div><!-- /content -->
 
 
@@ -612,7 +630,7 @@
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <li class="showLogado logadoNone listarmenu listarpedido"><a href="#"  data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
@@ -681,6 +699,46 @@
                 <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
             </div><!--Footer-->
         </div><!-- /page -->
+        <div id="contatos" data-role="page"   class="contentPage" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
+
+            <div data-role="panel" id="mypanel1" data-display="overlay" data-theme="b" data-content-theme="b">
+                <img src="images/logoentrega_painel.png" class="logoPainel"/>
+               <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+                    <li>
+                    <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
+                    </span>
+                    <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+                    </span>
+                    <span class="showLogado logadoNone spanconectado"><span class="conectado"> <span class="usuarioLogado"></span></span> conectado!</span>
+                    </span>
+                    </li>
+                    <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
+                    <li class="showLogado logadoNone listarmenu listarpedido"><a href="#"  data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
+                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
+                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                    <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="header" data-position="fixed"    data-tap-toggle="false">
+                <h1 class="tituloHeader">Contato</h1>
+                <img src="images/logoentrega.png" class="applogo ui-btn-right" />
+                <a href="#mypanel1" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
+            </div><!-- /header -->
+            <div data-role="content" class="contentPage">
+
+              <ul class="ul-endereco">
+
+              </ul>
+            </div><!-- /content -->
+            <br>
+            <br>
+            <br>
+            <div data-role="footer" class="hideFooter2" >
+                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
+            </div><!--Footer-->
+        </div><!-- /page -->
         <div id="page2" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
 
             <div data-role="panel" id="mypanel2" data-display="overlay" data-theme="b" data-content-theme="b">
@@ -695,7 +753,7 @@
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <li class="showLogado logadoNone listarmenu listarpedido"><a href="#" data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
@@ -1496,7 +1554,7 @@
                     </span>
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <li class="showLogado logadoNone listarmenu listarpedido"><a href="#" data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>

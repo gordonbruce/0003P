@@ -358,6 +358,18 @@ function removeDiacritics (str) {
 var getSituacaoCampainha;
 var sessionIdPag;
 $(document).ready(function() {
+    if(isCatalog==true)
+    {
+      $('.ui-listview .ui-first-child').hide();
+      $('.listarmenu').removeClass('logadoNone');
+      $('.listarmenu').removeClass('showLogado');
+      $('.listarmenu').hide();
+      $('#divProdutos .ui-btn').hide();
+      $('#divProdutos #pedido').hide();
+      $('.control-btn').hide();
+
+      $('.inputAdd').css("display", "none");;
+    }
 
 
     function pagSeguroGetSession(id) {
@@ -963,7 +975,8 @@ $(document).on("pageshow","#index_old",function(){
             $('#btnAddProd'+produtoTamId).attr('data-pagueganhenome','');
         }
     });
-    function gerarListaProdutos(ob, j){
+    function gerarListaProdutos(ob, j, objFilial){
+
         $.mobile.loading( "show");
         var selectTamanho="";
         var  dataTamanhos="";
@@ -999,17 +1012,11 @@ $(document).on("pageshow","#index_old",function(){
             if(ob.disponivel == 1){
                 vlunit= parseFloat(ob.preco_venda);
                 vlunit = vlunit.toFixed(2);
-
                 tamanhoAddValues = "<option value='0'>Selecione</option>";
                 selectTamanho="";
                 classNone="";
                 if(ob.composto == 1){
-
                     compostoAddValues = "<option value='0'>Selecione</option>";
-
-
-
-
                         $.each(ob.tamanhos, function(p, tamanhoscompostos){
                             $.each(ob.tamanhos, function(h, tam){
 
@@ -1045,6 +1052,11 @@ $(document).on("pageshow","#index_old",function(){
                         });
 
                     selectTamanho='<label class="labelTamanho">Tamanho</label><select class="compostoTamanho" id="compostoTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+
+                    if(isCatalog==true)
+                    {
+                      selectTamanho='';
+                    }
                     var dataTam="";
                     $.each(ob.produtoscomposicao, function(n, composicao){
 
@@ -1099,13 +1111,60 @@ $(document).on("pageshow","#index_old",function(){
                         });
 
                     });
+
                     prvenda =parseFloat(ob.preco_venda);
                     prvenda =prvenda.toFixed(2);
-                     prvenda = String(prvenda);
+                    prvenda = String(prvenda);
                     prvenda = prvenda.replace('.',',');
-                    return '<div class= "slider">\
+                    preconone='';
+                    if(objFilial.modo_catalogo_precos==false)
+                    {
+                        preconone='preconone';
+                    }
+
+                    morepicks ='';
+                    falgMorePick=false;
+                    if(ob.foto != '' && typeof ob.foto != 'undefined')
+                    {
+                      morepicks= morepicks + 'data-foto="'+ob.foto+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_1 != '' && typeof ob.foto_ext_1 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext1="'+ob.foto_ext_1+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_2 != '' && typeof ob.foto_ext_2 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext2="'+ob.foto_ext_2+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_3 != '' && typeof ob.foto_ext_3 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext3="'+ob.foto_ext_3+'" ';
+                      falgMorePick=true;
+                    }
+
+                    if(ob.foto_ext_4 != '' && typeof ob.foto_ext_4 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext4="'+ob.foto_ext_4+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_5 != '' && typeof ob.foto_ext_5 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext5="'+ob.foto_ext_5+'" ';
+                      falgMorePick=true;
+                    }
+
+                    if(isCatalog==true)
+                    {
+                      selectBebidas='';
+                      selectpagueGanhe='';
+                    }
+
+                    var concatString = '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+prvenda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><span class="preco '+preconone+' precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+prvenda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <p>'+ob.descricao+'</p>\
                     </div></div>\
                     '+selectTamanho+'\
@@ -1115,9 +1174,11 @@ $(document).on("pageshow","#index_old",function(){
                     '+selectBebidas+'\
                     '+selectpagueGanhe+'\
                     <div class="divControles" data-role="controlgroup" data-mini="true">\
-                    <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
-                    <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-                    <input type="image" src="images/carrinho.png" class="addProduto addProdutoComposto" alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-produtoid1="" data-produtoid2="" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
+                    <input type="image" src="images/lupa.png" '+morepicks+' alt="info" class=" morepicks morepicks'+ob.id+'" id="morepicks'+ob.id+'" >\
+                    <input type="image" src="images/info3.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'"';
+                    concatString = concatString + " onclick='window.plugins.socialsharing.share('Aplicativo Principe das Pizzas By Entregapp', null, "+ob.foto+", null)'></div></div>  ";
+
+                    return concatString;
                     compostoAddValues="";
                     selectTamanho="";
                 }else{
@@ -1156,36 +1217,131 @@ $(document).on("pageshow","#index_old",function(){
                         selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
                         flagTamanho=false;
                     }
-                     prvenda =parseFloat(ob.preco_venda);
+                    if(isCatalog==true)
+                    {
+                      selectTamanho='';
+                    }
+
+                    preconone='';
+                    prvenda =parseFloat(ob.preco_venda);
                     prvenda =prvenda.toFixed(2);
                     prvenda = String(prvenda);
                     prvenda = prvenda.replace('.',',');
-                    return '<div class= "slider">\
+                    if(objFilial.modo_catalogo_precos==false)
+                    {
+                        preconone='preconone';
+                    }
+
+                    morepicks ='';
+                    falgMorePick=false;
+                    if(ob.foto != '' && typeof ob.foto != 'undefined')
+                    {
+                      morepicks= morepicks + 'data-foto="'+ob.foto+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_1 != '' && typeof ob.foto_ext_1 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext1="'+ob.foto_ext_1+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_2 != '' && typeof ob.foto_ext_2 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext2="'+ob.foto_ext_2+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_3 != '' && typeof ob.foto_ext_3 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext3="'+ob.foto_ext_3+'" ';
+                      falgMorePick=true;
+                    }
+
+                    if(ob.foto_ext_4 != '' && typeof ob.foto_ext_4 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext4="'+ob.foto_ext_4+'" ';
+                      falgMorePick=true;
+                    }
+                    if(ob.foto_ext_5 != '' && typeof ob.foto_ext_5 != 'undefined')
+                    {
+                      morepicks= morepicks + ' data-fotoext5="'+ob.foto_ext_5+'" ';
+                      falgMorePick=true;
+                    }
+
+                    if(isCatalog==true)
+                    {
+                      selectBebidas='';
+                      selectpagueGanhe='';
+                    }
+
+                    var concatString = '<div class= "slider">\
                     <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+'  precotam precotam'+ob.id+'" >R$ '+prvenda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                    <h4>'+ob.nome+'</h4><span class="preco '+classNone+' '+preconone+' precotam precotam'+ob.id+'" >R$ '+prvenda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                     <p>'+ob.descricao+'</p>\
                     </div></div>'+selectTamanho+'\
                     '+selectBebidas+'\
                     '+selectpagueGanhe+'\
                     <div class="divControles" data-role="controlgroup" data-mini="true">\
-                        <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
-                    <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-                    <input type="image" src="images/carrinho.png" class="addProduto " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-tamanho="" id="btnAddProd'+ob.id+'" ></div></div>';
+                    <input type="image" '+morepicks+' src="images/lupa.png" alt="info" class=" morepicks morepicks'+ob.id+'" id="morepicks'+ob.id+'" >\
+                    <input type="image" src="images/info3.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
+                    <input type="image" src="images/share1.png" class="shareProduto " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-tamanho="" id="shareProduto'+ob.id+'"';
+                    concatString = concatString + " onclick='window.plugins.socialsharing.share('Aplicativo Principe das Pizzas By Entregapp.', null, "+ob.foto+", null)'></div></div> ";
+                    return concatString;
                     selectTamanho="";
                 }
             }else{
 
                 vlunit= parseFloat(ob.preco_venda);
                 vlunit = vlunit.toFixed(2);
-                return '<div class= "slider">\
+                morepicks ='';
+                falgMorePick=false;
+                if(ob.foto != '' && typeof ob.foto != 'undefined')
+                {
+                  morepicks= morepicks + 'data-foto="'+ob.foto+'" ';
+                  falgMorePick=true;
+                }
+                if(ob.foto_ext_1 != '' && typeof ob.foto_ext_1 != 'undefined')
+                {
+                  morepicks= morepicks + ' data-fotoext1="'+ob.foto_ext_1+'" ';
+                  falgMorePick=true;
+                }
+                if(ob.foto_ext_2 != '' && typeof ob.foto_ext_2 != 'undefined')
+                {
+                  morepicks= morepicks + ' data-fotoext2="'+ob.foto_ext_2+'" ';
+                  falgMorePick=true;
+                }
+                if(ob.foto_ext_3 != '' && typeof ob.foto_ext_3 != 'undefined')
+                {
+                  morepicks= morepicks + ' data-fotoext3="'+ob.foto_ext_3+'" ';
+                  falgMorePick=true;
+                }
+
+                if(ob.foto_ext_4 != '' && typeof ob.foto_ext_4 != 'undefined')
+                {
+                  morepicks= morepicks + ' data-fotoext4="'+ob.foto_ext_4+'" ';
+                  falgMorePick=true;
+                }
+                if(ob.foto_ext_5 != '' && typeof ob.foto_ext_5 != 'undefined')
+                {
+                  morepicks= morepicks + ' data-fotoext5="'+ob.foto_ext_5+'" ';
+                  falgMorePick=true;
+                }
+
+                preconone='';
+                if(objFilial.modo_catalogo_precos==false)
+                {
+                    preconone='preconone';
+                }
+
+                var concatString = '<div class= "slider">\
                 <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                <h4>'+ob.nome+'</h4><span class="preco">Indispon&iacute;vel</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
+                <h4>'+ob.nome+'</h4><span class="preco '+preconone+'">Indispon&iacute;vel</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
                 <p>'+ob.descricao+'</p>\
                 </div></div>\
                 <div class="divControles" data-role="controlgroup" data-mini="true">\
-                    <select type="text" class="inputAdd" id="inputAdd'+ob.id+'"  data-theme="a" value="1"  data-mini="true">'+optionsValues+'</select>\
-                <input type="image" src="images/info.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
-                <input type="image" src="images/carrinho.png" class="addProduto" DISABLED alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" id="btnAddProd'+ob.id+'" ></div></div>';
+                <input type="image" '+morepicks+' src="images/lupa.png" alt="info" class=" morepicks morepicks'+ob.id+'" id="morepicks'+ob.id+'" >\
+                <input type="image" src="images/info3.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
+                <input type="image" src="images/share1.png" class="shareProduto"  alt="compartilhar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" id="shareProduto'+ob.id+'" ';
+                concatString = concatString + " onclick='window.plugins.socialsharing.share('Aplicativo Principe das Pizzas By Entregapp.', null, "+ob.foto+", null)'></div></div> ";
+                return concatString;
             }
 
         }else{
@@ -1205,27 +1361,249 @@ $(document).on("pageshow","#index_old",function(){
      }
 
      geraoption();
+     function gerarParceiros(parceiro) {
+       var lipar='';
+       if(parceiro.parceiro_1 != '' && parceiro.parceiro_1 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_1+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_2 != '' && parceiro.parceiro_2 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_2+'" alt="parceiro" /></div></li>';
+       }
+       if(parceiro.parceiro_3 != '' && parceiro.parceiro_3 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_3+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_4 != '' && parceiro.parceiro_4 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_4+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_5 != '' && parceiro.parceiro_5 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_5+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_6 != '' && parceiro.parceiro_6 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_5+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_7 != '' && parceiro.parceiro_7 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_7+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_8 != '' && parceiro.parceiro_8 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_8+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_9 != '' && parceiro.parceiro_9 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_9+'" alt="parceiro"/></div></li>';
+       }
+       if(parceiro.parceiro_10 != '' && parceiro.parceiro_10 != null)
+       {
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_10+'" alt="parceiro"/></div></li>';
+       }
+       console.log(lipar);
+       $('.parceiros ul').html();
+       $('.parceiros ul').html(lipar);
+     }
+     function gerarFormasDepagamento(pagamento)
+     {
+       var lipag='';
+       if(pagamento.aceita_visa == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="visa"></span></li>';
+       }
+       if(pagamento.aceita_master == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="master"></span></li>';
+       }
+       if(pagamento.aceita_diners == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="aceita_diners"></span></li>';
+       }
+       if(pagamento.aceita_amex == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="aceita_amex"></span></li>';
+       }
 
+       if(pagamento.transf_bb == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="transf_bb"></span></li>';
+       }
+       if(pagamento.transf_itau == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="transf_itau"></span></li>';
+       }
+       if(pagamento.transf_bradesco == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="transf_bradesco"></span></li>';
+       }
+       if(pagamento.transf_caixa == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="transf_caixa"></span></li>';
+       }
+       if(pagamento.transf_santander == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="transf_santander"></span></li>';
+       }
+
+       if(pagamento.hipercard == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="hipercard"></span></li>';
+       }
+       if(pagamento.elo == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="elo"></span></li>';
+       }
+       if(pagamento.aura == true)
+       {
+          lipag= lipag +'<li class="formaPgto"><span class="aura"></span></li>';
+       }
+       $('.formasDePagamento ul').html();
+       $('.formasDePagamento ul').html(lipag);
+     }
+     $('body').on('click', '.divLigar', function(){
+       telefone = $(this).data('tel');
+       window.open(telefone, '_system');
+
+     });
+     function gerarFiliais(filiais)
+     {
+
+
+
+         var ulEndereco='';
+         $.each(filiais, function(i, ob){
+
+           var concatEndereco='';
+           var concatTel='';
+           if(ob.Filial.logradouro != null)
+           {
+             logradouro = ob.Filial.logradouro || '' ;
+           }else{
+             logradouro='';
+           }
+           if(ob.Filial.numero != null)
+           {
+             numero = ', '+ ob.Filial.numero;
+           }else
+           {
+             numero='';
+           }
+           if(ob.Filial.complemento != null)
+           {
+             complemento =' ' + ob.Filial.complemento;
+           }else
+           {
+             complemento='';
+           }
+           if(ob.Filial.bairro  != null)
+           {
+             bairro = ' ' + ob.Filial.bairro || '';
+           }else
+           {
+             bairro='';
+           }
+           if(ob.Filial.cidade != null)
+           {
+             cidade = ' - ' + ob.Filial.cidade || '';
+           }else
+           {
+              cidade='';
+           }
+           if(ob.Filial.estado != null)
+           {
+             estado = ' - ' + ob.Filial.estado || '';
+           }else
+           {
+             estado ='';
+           }
+           if(ob.Filial.telefone1 != null)
+           {
+             telefone1 = '<span class="divLigar" data-tel="'+ob.Filial.telefone1+'"> <img src="images/phone.png" class="ligar" data-tel="'+ob.Filial.telefone1+'"/><span class="spantel"> ' + ob.Filial.telefone1 + '</span></span>' || '';
+           }else
+           {////
+             telefone1='';
+           }
+           if (ob.Filial.telefone2 != null)
+           {
+             telefone2 = '<span class="divLigar" data-tel="'+ob.Filial.telefone2+'">    <img src="images/phone.png" class="ligar" data-tel="'+ob.Filial.telefone2+'"/><span class="spantel"> '  + ob.Filial.telefone2 + '</span></span>'  || '';
+           }else
+           {
+             telefone2='';
+           }
+           if (ob.Filial.telefone3 != null)
+           {
+             telefone3 = '<span class="divLigar" data-tel="'+ob.Filial.telefone3+'">   <img src="images/phone.png" class="ligar" data-tel="'+ob.Filial.telefone3+'"/><span class="spantel"> ' +  ob.Filial.telefone3 + '</span></span>'  || '';
+           }else
+           {
+              telefone3='';
+           }
+           if (ob.Filial.telefone4 != null)
+           {
+             telefone4 = '<span class="divLigar" data-tel="'+ob.Filial.telefone4+'">   <img src="images/phone.png" class="ligar" data-tel="'+ob.Filial.telefone4+'"/><span class="spantel"> ' + ob.Filial.telefone4 + '</span></span>'  || '';
+           }else
+           {
+             telefone4 = '';
+           }
+           if (ob.Filial.email != null) {
+             email = ob.Filial.email || '';
+           }else
+           {
+              email='';
+           }
+           if (ob.Filial.site) {
+             site = ob.Filial.site || '';
+           }else
+           {
+              site='';
+           }
+
+          concatTel = telefone1 + telefone2 + telefone3 + telefone4;
+          concatEndereco = logradouro + numero + complemento + bairro + cidade + estado;
+          ulEndereco = ulEndereco + '<li class="EnderecoContato"><h3>'+ob.Filial.nome+'</h3><p>'+concatEndereco+'</p><p>'+email+'</p><p>'+site+'</p><p>'+concatTel+'</p></li>';
+
+         });
+         $('.ul-endereco').html();
+         $('.ul-endereco').html(ulEndereco);
+     }
      var colapsableTrue='';
      var contColapsable=0;
-     function gerarListaCategoria(obj, z){
+     function gerarListaCategoria(obj, z)
+     {
           $.mobile.loading( "show");
                     varprod="";
                     objProd =obj.Produto;
                     var ncat=0;
+                    if(typeof obj.filiais != 'undefined')
+                    {
+                      gerarFiliais(obj.filiais);
+                    }
+                    gerarFormasDepagamento(obj.Filial);
+                    if(obj.Filial.mostrar_parceiros==true)
+                    {
+                      gerarParceiros(obj.Filial);
+                    }else{
+                      $('.parceiros').hide();
+                    }
+
                     $.each(objProd, function(i, ob){
                         $.mobile.loading( "show");
-                        varprod = varprod + gerarListaProdutos(ob, i);
-
-
+                        varprod = varprod + gerarListaProdutos(ob, i, obj.Filial);
                     });
 
-        if(z == 0){
-            colapsableTrue= 'data-collapsed="false"';
-        }else{
-            colapsableTrue="";
-        }
-         var content = '<div data-role="collapsible" id="set'+z+'" data-theme="b" data-content-theme="b" class ="abaconteudo" >\
+          colapsableTrue='';
+          if(isCatalog==true)
+          {
+            if(z == 0){
+                colapsableTrue= 'data-collapsed="false"';
+            }else{
+                colapsableTrue="";
+            }
+          }
+
+         var content = '<div data-role="collapsible" id="set'+z+'" data-theme="b" data-content-theme="b" class ="abaconteudo" '+colapsableTrue+'>\
          <h3>'+obj.Categoria.nome+'</h3><div id="owl-example'+z+'" data-role="listview" data-inset="true" class="listview" >'+varprod+'</div></div>';
 
 
@@ -1626,6 +2004,59 @@ function atualizarProduto(){
         }
 
     }
+    $('body').on('click', '.morepicks', function (e) {
+      e.preventDefault();
+      var idn=  $(this).attr('id');
+      var expReg01 = /\D+/gi;
+      idnumero= idn.replace(expReg01,'');
+      var foto = $(this).data('foto');
+      var fotoext1 = $(this).data('fotoext1');
+      var fotoext2 = $(this).data('fotoext2');
+      var fotoext3 = $(this).data('fotoext3');
+      var fotoext4 = $(this).data('fotoext4');
+      var fotoext5 = $(this).data('fotoext5');
+
+      objeto=[];
+      if(foto != '' && typeof foto != 'undefined' && foto != null )
+      {
+        arrJs = {href:foto,title:'Foto do Catálogo'};
+        objeto.push(arrJs);
+      }
+
+      if(fotoext1 != '' && typeof fotoext1 != 'undefined'  && fotoext1 != null)
+      {
+        arrJs = {href:fotoext1,title:'Foto do Catálogo'};
+        objeto.push(arrJs);
+      }
+
+      if(fotoext2 != '' && typeof fotoext2 != 'undefined' && fotoext2 != null)
+      {
+        arrJs = {href:fotoext2,title:'Foto do Catálogo'};
+        objeto.push(arrJs);
+      }
+
+      if(fotoext3 != '' && typeof fotoext3 != 'undefined' && fotoext3 != null)
+      {
+        arrJs = {href:fotoext3,title:'Foto do Catálogo'};
+        objeto.push(arrJs);
+      }
+
+      if(fotoext4 != '' && typeof fotoext4 != 'undefined' && fotoext4 != null)
+      {
+        arrJs = {href:fotoext4,title:'Foto do Catálogo'};
+        objeto.push(arrJs);
+      }
+      if(fotoext5 != '' && typeof fotoext5 != 'undefined' && fotoext5 != null)
+      {
+        arrJs = {href:fotoext5,title:'Foto do Catálogo'};
+        objeto.push(arrJs);
+      }
+
+      console.log(objeto);
+      $.swipebox(
+    	   objeto
+    	);
+    });
     $('body').on('click', '.addProduto', function () {
 
                 var idn=  $(this).attr('id');
@@ -2902,15 +3333,13 @@ $("#pedir").click(function(event){
     });
 
     $(".linkTelefone").click(function(){
-        window.open(telefonePadrao, '_system');
-         $('.pageContent').hide();
+        $.mobile.changePage("#contatos",{ transition: "none",  });
+        $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){
             $.mobile.loading( "hide" );
             $('.pageContent').fadeIn('slow');
         },2000);
-
-
     });
     $("#mensagemChat").click(function(){
         $.mobile.changePage("##page10", { transition: "none",  });

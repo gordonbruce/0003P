@@ -252,7 +252,10 @@
     .slider .icone-mais{margin-left: 85%;}
     .textoProduto{display:none;}
 
-    .popDiv{ text-align: center;}
+    .popDiv{
+      text-align: center;
+      height: 40px;
+    }
 
     .preco{
         display: block;
@@ -534,7 +537,7 @@ input, textarea {
 .divControles{
     width: 149px;
     margin: 1px auto;
-    margin-top: 3px;
+    margin-top: 9px;
 }
     .imgProduto{ padding: 3px; }
 
@@ -550,6 +553,20 @@ input, textarea {
         border: 0;
         outline: none;
         margin-top: 3px;
+     }
+     .morepicks{
+        width: 47px;
+        border: 0;
+        outline: none;
+        margin-top: 3px;
+        background: none;
+     }
+     .shareProduto{
+       width: 47px;
+       border: 0;
+       outline: none;
+       margin-top: 3px;
+       background: none;
      }
     .imgProduto img{
         max-width: 220px;
@@ -808,4 +825,158 @@ display: block;
 }
 .pagSeguro{
   display: none;
+}
+/*Css Catalogo**/
+.preconone{
+  display: none;
+}
+.formasDePagamento ul{
+	display: block;
+	text-align: center;
+	position: relative;
+  padding: 1px;
+}
+
+li.formaPgto{
+	display: inline-block;
+	position: relative;
+  margin-left: 5px;
+}
+
+li.formaPgto span{
+	display: block;
+	width: 115px;
+	height: 73px;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	border: 1px solid white;
+}
+
+.formaPgto .visa{
+	background-image: url("../images/sprite_formaspagamento.png");
+}
+
+.formaPgto .master{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -69px;
+}
+
+.formaPgto .aceita_amex{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -139px;
+}
+
+.formaPgto .hipercard{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -139px;
+}
+.formaPgto .aceita_diners{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -281px;
+}
+.formaPgto .elo{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -349px;
+}
+.formaPgto .aura{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -419px;
+}
+.formaPgto .transf_bb{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -1610px;
+}
+.formaPgto .transf_itau{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -1679px;
+}
+.formaPgto .transf_bradesco{
+	background-image: url("../images/sprite_formaspagamento.png");
+  background-position-y: -1749px;
+}
+.formaPgto .transf_santander{
+	background-image: url("../images/logo-santander.png");
+  background-repeat:no-repeat;
+  background-position-x: 28px;
+  background-position-y: 6px;
+}
+
+.formaPgto .transf_caixa{
+	background-image: url("../images/logo-caixa.png");
+  background-repeat:no-repeat;
+  background-position-y: 23px;
+  background-position-x: 8px;
+
+}
+
+.formas-pagamento{
+  text-align: center;
+}
+.ul-endereco{
+  list-style: none;
+}
+.EnderecoContato{
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  border: 1px solid white;
+  margin-bottom: 23px;
+}
+.EnderecoContato h3{
+  text-align: center;
+}
+.EnderecoContato p{
+  text-align: center;
+}
+.ligar{
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+
+}
+.divLigar{
+    display: inline-block;
+    margin-left: 10px;
+}
+.ui-panel-inner .ui-first-child{
+  display: none;
+}
+.ul-endereco{
+    padding: 0px;
+}
+.h2-contatos{
+  text-align: center;
+}
+
+.parceiros ul{
+	display: block;
+	text-align: center;
+	position: relative;
+  padding: 1px;
+}
+
+li.liparceiro{
+	display: inline-block;
+	position: relative;
+  margin-left: 5px;
+}
+
+li.liparceiro span{
+	display: block;
+	width: 115px;
+	height: 73px;
+	margin: 0 auto;
+	background: rgba(255, 255, 255, 0.6);
+	border-radius: 10px;
+	border: 1px solid white;
+  overflow: hidden;
+
+}
+li.liparceiro img{
+    max-width: 100px;
+    display: block;
+    margin: 9px auto;
+}
+.parceiros-h3{
+  text-align: center;
 }

@@ -1,12 +1,12 @@
 //Bloco de Configurações do aplicativo inicio
 var cliente ="";
-var empresa='5';
+var empresa='8';
 var URLAPP = 'http://develop.entregapp.com.br/';
 var salt ="jmgl33mg1221kjgruyky232ho2l3437mhljio90hueemmgjktjmmmgko2tut35ymmmh221eenngl4y73kkkj";
-var filialPadrao="9";
+var filialPadrao="12";
 var prodId1='';
 var prodId2='';
-var telefonePadrao='tel:2697-2563';
+var telefonePadrao='tel:(21) 3474-1637';
 
 var prodId1='';
 var prodId2='';

@@ -438,7 +438,14 @@ input, textarea {
     overflow: hidden;
     margin-top: 0.4em;
 }
-
+.circulodivFotoLogo{
+  background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 41px;
+    
+    overflow: hidden;
+}
 .countBubl {float:left;margin-top:-42px;margin-left:35px;padding:2px; }
 .owl-controls .owl-buttons .owl-next{   position: absolute; right: 0%;  top: 37%;}
 .owl-controls .owl-buttons .owl-prev{
@@ -848,9 +855,9 @@ li.formaPgto span{
 	width: 115px;
 	height: 73px;
 	margin: 0 auto;
-	background: rgba(255, 255, 255, 0.6);
+	/*background: rgba(255, 255, 255, 0.6);
 	border-radius: 10px;
-	border: 1px solid white;
+	border: 1px solid white;*/
 }
 
 .formaPgto .visa{
@@ -859,53 +866,53 @@ li.formaPgto span{
 
 .formaPgto .master{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -69px;
+  background-position:0px -69px;
 }
 
 .formaPgto .aceita_amex{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -139px;
+  background-position:0px -139px;
 }
 
 .formaPgto .hipercard{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -139px;
+  background-position:0px -139px;
 }
 .formaPgto .aceita_diners{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -281px;
+  background-position:0px -281px;
 }
 .formaPgto .elo{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -349px;
+  background-position:0px -349px;
 }
 .formaPgto .aura{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -419px;
+  background-position:0px -419px;
 }
 .formaPgto .transf_bb{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -1610px;
+  background-position:0px -1610px;
 }
 .formaPgto .transf_itau{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -1679px;
+  background-position:0px -1679px;
 }
 .formaPgto .transf_bradesco{
 	background-image: url("../images/sprite_formaspagamento.png");
-  background-position-y: -1749px;
+  background-position:0px -1749px;
 }
 .formaPgto .transf_santander{
 	background-image: url("../images/logo-santander.png");
   background-repeat:no-repeat;
-  background-position-x: 28px;
-  background-position-y: 6px;
+
+  background-position:28px 6px;
 }
 
 .formaPgto .transf_caixa{
 	background-image: url("../images/logo-caixa.png");
   background-repeat:no-repeat;
-  background-position-y: 23px;
+  background-position:0px 23px;
   background-position-x: 8px;
 
 }
@@ -966,10 +973,10 @@ li.liparceiro span{
 	width: 115px;
 	height: 73px;
 	margin: 0 auto;
-	background: rgba(255, 255, 255, 0.6);
+	/*background: rgba(255, 255, 255, 0.6);
 	border-radius: 10px;
 	border: 1px solid white;
-  overflow: hidden;
+  overflow: hidden;*/
 
 }
 li.liparceiro img{

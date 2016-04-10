@@ -83,7 +83,7 @@ function limparPedido() {
                 success: function(data){
 
 
-                    $('.cloneOptCitade').remove();
+                  /*  $('.cloneOptCitade').remove();
 
 
                     $.each(data, function(i, resultado){
@@ -94,7 +94,7 @@ function limparPedido() {
 
                         });
 
-                    });
+                    });*/
 
                      //$.mobile.loading( "hide" );
 
@@ -1015,208 +1015,7 @@ $(document).on("pageshow","#index_old",function(){
                 tamanhoAddValues = "<option value='0'>Selecione</option>";
                 selectTamanho="";
                 classNone="";
-                if(ob.composto == 1){
-                    compostoAddValues = "<option value='0'>Selecione</option>";
-                        $.each(ob.tamanhos, function(p, tamanhoscompostos){
-                            $.each(ob.tamanhos, function(h, tam){
 
-                                    $.each(tam, function(y, ta){
-                                        if(contTam<=4){
-                                               if(typeof  ta.Tamanho !== 'undefined'){
-                                                    if(ta.Tamanho.ativo==1){
-                                                        classNone="dispNoneTam";
-                                                        myString= ta.Tamanho.nome;
-                                                        if(typeof myString !== "undefined")
-                                                        {
-                                                            myString = removeDiacritics(myString);
-                                                            myString = myString.replace(' ','');
-
-                                                            myString= myString.toLowerCase();
-                                                        }
-                                                        vlunitTamSimples= parseFloat(ta.Tamanho.preco);
-                                                        vlunitTamSimples = vlunitTamSimples.toFixed(2);
-                                                        if(ta.Tamanho.nome != '' ){
-                                                            tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"'' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
-                                                        }
-
-                                                    }
-                                            }
-                                            contTam++;
-                                        }
-
-                                    });
-
-
-                            });
-
-                        });
-
-                    selectTamanho='<label class="labelTamanho">Tamanho</label><select class="compostoTamanho" id="compostoTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
-
-                    if(isCatalog==true)
-                    {
-                      selectTamanho='';
-                    }
-                    var dataTam="";
-                    $.each(ob.produtoscomposicao, function(n, composicao){
-
-
-                        $.each(composicao, function(m, composto){
-
-
-                            $.each(composto, function(n, tamanho){
-
-                                if(typeof tamanho.tamanhos !== "undefined")
-                                {
-                                    $.each(tamanho.tamanhos, function(k, tam){
-
-                                        contTam=0;
-                                        $.each(tam, function(h, ta){
-
-                                            //if(contTam==0){
-
-
-                                            if(typeof  ta.Tamanho !== 'undefined'){
-                                                if(ta.Tamanho.ativo==true){
-
-                                                    if(typeof ta.Tamanho.nome !== 'undefined' && ta.Tamanho.nome !='' ){
-                                                        vlunitTam= parseFloat(ta.Tamanho.preco);
-                                                        vlunitTam = vlunitTam.toFixed(2);
-                                                        tamNome = removeDiacritics(ta.Tamanho.nome);
-                                                        tamNome = tamNome.replace(' ','');
-                                                        tamNome= tamNome.toLowerCase();
-                                                        dataTam = dataTam + " data-"+tamNome+"='"+vlunitTam+"'";
-                                                    }
-
-
-
-                                                }
-                                            }
-                                                contTam++;
-                                            //}
-                                        });
-
-                                    });
-                                }
-
-                            });
-
-                            //vlunitComposto= parseFloat(composto.Produto.preco_venda);
-                            //vlunitComposto = vlunitComposto.toFixed(2);
-
-                            compostoAddValues = compostoAddValues+ " <option id=produtoComb"+n+composto.Produto.id+"  "+dataTam+">"+composto.Produto.nome+"</option> ";
-                            dataTamanhos="";
-                            dataTamanhosPrecos="";
-                            dataTam="";
-                        });
-
-                    });
-
-                    prvenda =parseFloat(ob.preco_venda);
-                    prvenda =prvenda.toFixed(2);
-                    prvenda = String(prvenda);
-                    prvenda = prvenda.replace('.',',');
-                    preconone='';
-                    if(objFilial.modo_catalogo_precos==false)
-                    {
-                        preconone='preconone';
-                    }
-
-                    morepicks ='';
-                    falgMorePick=false;
-                    if(ob.foto != '' && typeof ob.foto != 'undefined')
-                    {
-                      morepicks= morepicks + 'data-foto="'+ob.foto+'" ';
-                      falgMorePick=true;
-                    }
-                    if(ob.foto_ext_1 != '' && typeof ob.foto_ext_1 != 'undefined')
-                    {
-                      morepicks= morepicks + ' data-fotoext1="'+ob.foto_ext_1+'" ';
-                      falgMorePick=true;
-                    }
-                    if(ob.foto_ext_2 != '' && typeof ob.foto_ext_2 != 'undefined')
-                    {
-                      morepicks= morepicks + ' data-fotoext2="'+ob.foto_ext_2+'" ';
-                      falgMorePick=true;
-                    }
-                    if(ob.foto_ext_3 != '' && typeof ob.foto_ext_3 != 'undefined')
-                    {
-                      morepicks= morepicks + ' data-fotoext3="'+ob.foto_ext_3+'" ';
-                      falgMorePick=true;
-                    }
-
-                    if(ob.foto_ext_4 != '' && typeof ob.foto_ext_4 != 'undefined')
-                    {
-                      morepicks= morepicks + ' data-fotoext4="'+ob.foto_ext_4+'" ';
-                      falgMorePick=true;
-                    }
-                    if(ob.foto_ext_5 != '' && typeof ob.foto_ext_5 != 'undefined')
-                    {
-                      morepicks= morepicks + ' data-fotoext5="'+ob.foto_ext_5+'" ';
-                      falgMorePick=true;
-                    }
-
-                    if(isCatalog==true)
-                    {
-                      selectBebidas='';
-                      selectpagueGanhe='';
-                    }
-
-                    var concatString = '<div class= "slider">\
-                    <div class="layerslide img-rounded"><div class="circulodivGrande"><img id="imgProd'+ob.id+'" src="'+ob.foto+'"  title="'+ob.nome+'" alt="'+ob.nome+'"   width="100px"  height="100px"/></div>\
-                    <h4>'+ob.nome+'</h4><span class="preco '+preconone+' precoComposto precotam '+classNone+' precotam'+ob.id+'" id="precoComposto'+ob.id+'">R$ '+prvenda+'</span><div data-role="popup" id="popupCloseRight'+ob.id+'" class="ui-content popDiv" style="max-width:280px" id="popDiv'+ob.id+'" >\
-                    <p>'+ob.descricao+'</p>\
-                    </div></div>\
-                    '+selectTamanho+'\
-                    <label id="compostoLabelAdd'+ob.id+'" class=" compostoLabelAdd  noneImportant">Sabores</label>\
-                    <select type="text" class="compostoAdd '+classNone+'" id="compostoAdd1'+ob.id+'"  data-produto="'+ob.id+'" data-theme="b"  data-mini="true" >'+compostoAddValues+'</select>\
-                    <select type="text" class="compostoAdd '+classNone+'" id="compostoAdd2'+ob.id+'" data-produto="'+ob.id+'"   data-theme="b"  data-mini="true">'+compostoAddValues+'</select>\
-                    '+selectBebidas+'\
-                    '+selectpagueGanhe+'\
-                    <div class="divControles" data-role="controlgroup" data-mini="true">\
-                    <input type="image" src="images/lupa.png" '+morepicks+' alt="info" class=" morepicks morepicks'+ob.id+'" id="morepicks'+ob.id+'" >\
-                    <input type="image" src="images/info3.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'"';
-                    concatString = concatString + " onclick='window.plugins.socialsharing.share('Aplicativo Principe das Pizzas By Entregapp', null, "+ob.foto+", null)'></div></div>  ";
-
-                    return concatString;
-                    compostoAddValues="";
-                    selectTamanho="";
-                }else{
-
-
-                    selectTamanho="";
-                    flagTamanho=false;
-                    tamanhoAddValues="<option value='0'>Selecione</option>";
-                    contTam=0;
-                    $.each(ob.tamanhos, function(p, tamanhoscompostos){
-                        $.each(ob.tamanhos, function(h, tam){
-                            $.each(tam, function(y, ta){
-                                if(contTam<=4){
-                                    if(ta.Tamanho.ativo==1){
-                                        classNone="dispNoneTam";
-                                        myString= ta.Tamanho.nome;
-                                        if(typeof myString !== "undefined")
-                                        {
-                                            myString = removeDiacritics(myString);
-                                            myString.split(' ').join('');
-
-                                            myString= myString.toLowerCase();
-                                        }
-                                        vlunitTamSimples= parseFloat(ta.Tamanho.preco);
-                                        vlunitTamSimples = vlunitTamSimples.toFixed(2);
-                                        tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
-                                        flagTamanho=true;
-
-                                    }
-                                    contTam++;
-                                }
-                            });
-                        });
-                    });
-                    if(flagTamanho != false){
-                        selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
-                        flagTamanho=false;
-                    }
                     if(isCatalog==true)
                     {
                       selectTamanho='';
@@ -1286,7 +1085,7 @@ $(document).on("pageshow","#index_old",function(){
                     concatString = concatString + " onclick='window.plugins.socialsharing.share('Aplicativo Principe das Pizzas By Entregapp.', null, "+ob.foto+", null)'></div></div> ";
                     return concatString;
                     selectTamanho="";
-                }
+
             }else{
 
                 vlunit= parseFloat(ob.preco_venda);
@@ -1385,7 +1184,7 @@ $(document).on("pageshow","#index_old",function(){
        }
        if(parceiro.parceiro_6 != '' && parceiro.parceiro_6 != null)
        {
-         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_5+'" alt="parceiro"/></div></li>';
+         lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_6+'" alt="parceiro"/></div></li>';
        }
        if(parceiro.parceiro_7 != '' && parceiro.parceiro_7 != null)
        {
@@ -1403,7 +1202,7 @@ $(document).on("pageshow","#index_old",function(){
        {
          lipar= lipar +'<li class="liparceiro"><span class="parceiro"><img src="'+parceiro.parceiro_10+'" alt="parceiro"/></div></li>';
        }
-       console.log(lipar);
+
        $('.parceiros ul').html();
        $('.parceiros ul').html(lipar);
      }
@@ -1572,16 +1371,16 @@ $(document).on("pageshow","#index_old",function(){
      var contColapsable=0;
      function gerarListaCategoria(obj, z)
      {
-          $.mobile.loading( "show");
+        $.mobile.loading( "show");
                     varprod="";
                     objProd =obj.Produto;
-                    var ncat=0;
+                      var ncat=0;
                     if(typeof obj.filiais != 'undefined')
                     {
                       gerarFiliais(obj.filiais);
                     }
                     gerarFormasDepagamento(obj.Filial);
-                    if(obj.Filial.mostrar_parceiros==true)
+                  if(obj.Filial.mostrar_parceiros==true)
                     {
                       gerarParceiros(obj.Filial);
                     }else{
@@ -1590,10 +1389,11 @@ $(document).on("pageshow","#index_old",function(){
 
                     $.each(objProd, function(i, ob){
                         $.mobile.loading( "show");
+
                         varprod = varprod + gerarListaProdutos(ob, i, obj.Filial);
                     });
 
-          colapsableTrue='';
+       colapsableTrue='';
           if(isCatalog==true)
           {
             if(z == 0){
@@ -1701,7 +1501,7 @@ function atualizarProduto(){
                 success: function(data){
 
 
-                    bebidas='<option value="">Selecione</option>';
+                  /*  bebidas='<option value="">Selecione</option>';
                     if(typeof data.ultimopedido.Bebidas !==  'undefined'){
                         $.each(data.ultimopedido.Bebidas, function(i, beb){
                             bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
@@ -1718,7 +1518,7 @@ function atualizarProduto(){
                         });
                     }else{
                         pagueGanhe=null;
-                    }
+                    }*/
 
                 },error: function(data){
 
@@ -3192,7 +2992,7 @@ $("#pedir").click(function(event){
 
 
 
-    $('body').on('change','#cidadeEdit', function(){
+  /*  $('body').on('change','#cidadeEdit', function(){
 
         idCidade = $(this).find(":selected").attr('data-id');
         altura = $(this).height();
@@ -3226,7 +3026,7 @@ $("#pedir").click(function(event){
 
         }
 
-    });
+    }); */
 
 
 
@@ -4078,10 +3878,10 @@ function checaAtendimento(atendimentocod){
         logradouro = $('#logradouroEdit').val();
         numero = $('#numeroEdit').val();
 
-        bairro = $('#bairroEdit').find('option:selected').val();
+        bairro = $('#bairroEdit').val();
 
-        cidade = $('#cidadeEdit').find('option:selected').val();
-        uf =  $('#ufEdit').find('option:selected').val();
+        cidade = $('#cidadeEdit').val();
+        uf =  $('#ufEdit').val();
         telefone = $('#telefoneEdit').val();
         celular = $('#celularEdit').val();
         minhaFilial=$('#filial_id').find('option:selected').val();

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.entregapp.specialepizzaria"
+    id          = "com.entregapp.helioequipamentos"
     version     = "1.0.4" >
 	<name>Helio Equipamentos</name>
         <description>
-          Consulte o catálogo da Helio Equipamentos de forma rápida e prática utilizando o aplicativo by Entregapp.
+          Consulte o nosso catálogo de produtos de uma forma rápida e prática utilizando o aplicativo Helio Equipamentos by Entregapp.
         </description>
         <author email="contato@entregapp.com.br" href="http://entregapp.com.br">
             Eduardo Alves

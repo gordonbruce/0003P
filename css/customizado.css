@@ -208,7 +208,7 @@ body{
 #atendimentostab tr:nth-child(odd) { background-color:#D6CA1C; }
 #tblbodyPedido tr:nth-child(odd) { background-color:#D6CA1C; }
 .logoPainel {
-    width: 271px;
+    width: 113%;
     margin-bottom: 38px;
         margin-left: -15px;
 }

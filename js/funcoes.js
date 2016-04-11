@@ -1082,7 +1082,7 @@ $(document).on("pageshow","#index_old",function(){
                     <input type="image" '+morepicks+' src="images/lupa.png" alt="info" class=" morepicks morepicks'+ob.id+'" id="morepicks'+ob.id+'" >\
                     <input type="image" src="images/info3.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
                     <input type="image" src="images/share1.png" class="shareProduto " alt="adicionar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" data-tamanho="" id="shareProduto'+ob.id+'"';
-                    concatString = concatString + " onclick='window.plugins.socialsharing.share('Aplicativo Helio Hequipamentos By Entregapp.', null, "+ob.foto+", null)'></div></div> ";
+                    concatString = concatString + " data-foto="+ob.foto+"></div></div> ";
                     return concatString;
                     selectTamanho="";
 
@@ -1139,7 +1139,7 @@ $(document).on("pageshow","#index_old",function(){
                 <input type="image" '+morepicks+' src="images/lupa.png" alt="info" class=" morepicks morepicks'+ob.id+'" id="morepicks'+ob.id+'" >\
                 <input type="image" src="images/info3.png" alt="info" class=" infoProduto infoProduto'+ob.id+'" id="infoProduto'+ob.id+'" >\
                 <input type="image" src="images/share1.png" class="shareProduto"  alt="compartilhar" data-codigo="'+ob.id+'" data-produto="'+ob.nome+'" data-vlu="'+ob.preco_venda+'" id="shareProduto'+ob.id+'" ';
-                concatString = concatString + " onclick='window.plugins.socialsharing.share('Aplicativo Helio Hequipamentos By Entregapp.', null, "+ob.foto+", null)'></div></div> ";
+                concatString = concatString + " data-foto="+ob.foto+"></div></div> ";
                 return concatString;
             }
 
@@ -1556,7 +1556,16 @@ function atualizarProduto(){
 });
 
     $( document ).ready(function() {
-
+      $('body').on('click', '.shareProduto ', function (event) {
+        event.preventDefault();
+        var idn=  $(this).attr('id');
+        var expReg01 = /\D+/gi;
+        idnumero= idn.replace(expReg01,'');
+        minhaFoto = $(this).data('foto');
+        if(minhaFoto != '' && minhaFoto != null){
+          window.plugins.socialsharing.share('Aplicativo Helio Hequipamentos By Entregapp, <a href="'+configSite+'" >clique aqui para acessar nosso site </a>.', null, minhaFoto, null);
+        }
+      });
 
     $('body').on('keyup', '.inputAdd', function () {
 

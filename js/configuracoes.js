@@ -19,4 +19,5 @@ var itemPagueGanheNome=null;
 var itemBebidaId =null;
 var itemBebidaNome  = null;
 var isCatalog=true;
+var configSite='http://helioequipamentos.com.br/';
 //Bloco de Configurações do aplicativo Fim

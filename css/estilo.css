@@ -443,7 +443,7 @@ input, textarea {
     width: 60px;
     height: 60px;
     border-radius: 41px;
-    
+    margin-top: -1px;
     overflow: hidden;
 }
 .countBubl {float:left;margin-top:-42px;margin-left:35px;padding:2px; }

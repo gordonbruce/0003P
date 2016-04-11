@@ -1578,7 +1578,7 @@ function atualizarProduto(){
         }
         setTimeout(function() {
             $.mobile.loading( "hide" );
-        },2000);
+        },5000);
 
       });
 

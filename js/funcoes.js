@@ -1541,12 +1541,12 @@ function atualizarProduto(){
         var expReg01 = /\D+/gi;
         numero= id.replace(expReg01,'');
 
-        if ($('#popupCloseRight'+numero).is(":hidden")) {
+        if ($('#popupCloseRight'+numero).hasClass("showConteudo")) {
 
-            $('#popupCloseRight'+numero).slideDown();
+            $('#popupCloseRight'+numero).removeClass('showConteudo');
             //$('#infoProduto'+numero).html('Menos');
         }else{
-            $('#popupCloseRight'+numero).slideUp();
+            $('#popupCloseRight'+numero).addClass('showConteudo');
             //$('#infoProduto'+numero).html('Mais');
         }
 
@@ -1558,13 +1558,28 @@ function atualizarProduto(){
     $( document ).ready(function() {
       $('body').on('click', '.shareProduto ', function (event) {
         event.preventDefault();
+        $.mobile.loading( "show" );
         var idn=  $(this).attr('id');
         var expReg01 = /\D+/gi;
         idnumero= idn.replace(expReg01,'');
         minhaFoto = $(this).data('foto');
-        if(minhaFoto != '' && minhaFoto != null){
-          window.plugins.socialsharing.share('Aplicativo Helio Hequipamentos By Entregapp, <a href="'+configSite+'" >clique aqui para acessar nosso site </a>.', null, minhaFoto, null);
+        dataPreco = $(this).data('preco');
+        dataProduto =  $(this).data('produto');
+        concatTexto='';
+        if(typeof dataPreco != 'undefined' &&  dataPreco != '' && dataPreco != null)
+        {
+          if(typeof dataProduto != 'undefined' &&  dataProduto != '' && dataProduto != null)
+          {
+            concatTexto= dataProduto +' '+' por R$ '+dataPreco +', produto compartilhado por ';
+          }
         }
+        if(minhaFoto != '' && minhaFoto != null){
+          window.plugins.socialsharing.share(concatTexto+'Aplicativo Helio Hequipamentos by Entregapp, acesse nosso site e confira esta e outras ofertas '+configSite+'.', null, minhaFoto, null);
+        }
+        setTimeout(function() {
+            $.mobile.loading( "hide" );
+        },2000);
+
       });
 
     $('body').on('keyup', '.inputAdd', function () {

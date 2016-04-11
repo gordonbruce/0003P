@@ -220,5 +220,6 @@ body{
     margin-bottom: 2%;
 }
 .circulodivFotoLogo{
-  margin-top: 0px !important;
+  position: absolute;
+  top: 3%;
 }

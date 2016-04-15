@@ -12,7 +12,7 @@
         background: #FFFFFF;
     }
     ul.ui-grid-b a:visited{
-         background: #214478 !important;
+         background: #B34D8E !important;
 
     }
     /*background mudar
@@ -26,56 +26,56 @@
     }*/
 body{
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background: #214478 !important;
+        background: #B34D8E !important;
 
     }
     .ui-body-b, .ui-page{
           color: #000000 !important;
-        text-shadow: 0 1px #214478  !important;
+      /*  text-shadow: 0 1px #B34D8E  !important;*/
     }
     .submitFormCliente{
      /* background-image: url("../images/backgroun2.jpg");*/
-        background-color: #E6E6E6;
+        background-color: #fefcfd;
     }
 
 
     .imgAvancarLogin{
          /*background-image: url("../images/backgroun2.jpg");*/
-         background-color: #E6E6E6;
+         background-color: #fefcfd;
     }
     .infoProduto{
        /* background-image: url("../images/backgroun2.jpg");*/
-       background-color: #E6E6E6;
+       background-color: #fefcfd;
     }
     .addProduto{
         /*background-image: url("../images/backgroun2.jpg");*/
-        background-color: #E6E6E6;
+        background-color: #fefcfd;
     }
     .ui-content{
         /* background-image: url("../images/backgroun2.jpg");*/
-        background-color: #E6E6E6;
+        background-color: #fefcfd;
     }
     .ui-collapsible-content{
         /*background-image: url("../images/backgroun2.jpg");*/
-        background-color: #E6E6E6;
+        background-color: #fefcfd;
     }
     .ui-page{
         /*background-image: url("../images/backgroun2.jpg");*/
-        background-color: #E6E6E6;
+        background-color: #fefcfd;
     }
      #envChat{
-         background: #214478;
+         background: #B34D8E;
     }
     .imgAvancarLogin{
            /*background-image: url("../images/backgroun2.jpg");*/
-           background-color: #E6E6E6;
+           background-color: #fefcfd;
     }
     .ui-icon-info:after {
       background-image: url("images/icons-png/info-white.png") !important;
       background-color: #666 !important;
       background-color: rgba(0,0,0,.3) !important;
     }
-    .vermelho{color:#214478;}
+    .vermelho{color:#B34D8E;}
     .menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-white.png");}
     .novopedido:after{background-image: url("images/icons-png/shop-white.png");}
     .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
@@ -86,7 +86,7 @@ body{
     .menuSair:after{background-image: url("images/icons-png/power-white.png");}
     .esquecer:after{background-image: url("images/icons-png/action-white.png");}
     .pageContent{
-        background-color: #E6E6E6;
+        background-color: #fefcfd;
     }
     .table-stripe thead th,
     .table-stripe tbody tr:last-child {
@@ -95,7 +95,7 @@ body{
     }
     .table-stripe tbody th,
     .table-stripe tbody td {
-        border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+        border-bottom: 1px solid #fefcfd; /* non-RGBA fallback  */
         border-bottom: 1px solid rgba(0,0,0,.05);
     }
     .table-stripe tbody tr:last-child th,
@@ -107,7 +107,7 @@ body{
         background-color: #eeeeee; /* non-RGBA fallback  */
         background-color: rgba(0,0,0,.04);
     }
-    .slider  h4{ color: #214478;}
+    .slider  h4{ color: #B34D8E;}
     .verde-background{
           background-color: rgb(173, 255, 47);
 
@@ -118,8 +118,8 @@ body{
     .verde-background dd{
         background-color: rgb(173, 255, 47) !important;
     }
-    .ui-header, .ui-footer{background-color: #214478; color: white;}
-    .ui-footer {border-bottom-color: #214478 }
+    .ui-header, .ui-footer{background-color: #B34D8E; color: white;}
+    .ui-footer {border-bottom-color: #B34D8E }
 
     .ui-icon-share:after {
     background-image: url("../images/icons-png/share-white1.png") !important;
@@ -133,7 +133,7 @@ body{
     }
     .tabelaPadrao tbody th,
     .tabelaPadrao tbody td {
-        border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+        border-bottom: 1px solid #fefcfd; /* non-RGBA fallback  */
         border-bottom: 1px solid rgba(0,0,0,.05);
     }
     .tabelaPadrao tbody tr:last-child th,
@@ -151,12 +151,12 @@ body{
     .chatmsgb b{
      color: orange;
     }
-    .countBubl {background:#214478color:#fff;}
+    .countBubl {background:#B34D8Ecolor:#fff;}
     .ui-panel{
-      background-color: #214478;
+      background-color: #B34D8E;
     }
     .ui-panel ul li a{
-      background-color: #214478 !important;
+      background-color: #B34D8E !important;
       color: white !important;
       /*text-shadow: 1px 1px #ccc !important;*/
         text-shadow: 0 1px 0 #111 !important;
@@ -196,17 +196,17 @@ body{
     }
     #index{
       color: #000000 !important;
-      text-shadow: 0 1px 0 #214478 !important;
+      text-shadow: 0 1px 0 #B34D8E !important;
     }
    .imgEntrada{width: 100%; display: block; margin: 10% auto; margin-bottom:3em; display: block;}
     .applogo{
-      width: 68px;
- margin-top: 22px !important;
- margin-left: -4px;
+      width: 100%;
+  margin-bottom: 38px;
+  margin-left: 1px;
     }
-    #itensdoPedido tr:nth-child(odd) { background-color:#D6CA1C; }
-#atendimentostab tr:nth-child(odd) { background-color:#D6CA1C; }
-#tblbodyPedido tr:nth-child(odd) { background-color:#D6CA1C; }
+    #itensdoPedido tr:nth-child(odd) { background-color:#b04b8b; }
+#atendimentostab tr:nth-child(odd) { background-color:#b04b8b; }
+#tblbodyPedido tr:nth-child(odd) { background-color:#b04b8b; }
 .logoPainel {
     width: 113%;
     margin-bottom: 38px;

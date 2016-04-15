@@ -3,9 +3,9 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.entregapp.ancorar"
     version     = "1.0.4" >
-	<name>Helio Equipamentos</name>
+	<name>Ancorar</name>
         <description>
-          Consulte o nosso catálogo de produtos de uma forma rápida e prática utilizando o aplicativo Helio Equipamentos by Entregapp.
+          Consulte o nosso catálogo de produtos de uma forma rápida e prática utilizando o aplicativo Ancorar by Entregapp.
         </description>
         <author email="contato@entregapp.com.br" href="http://entregapp.com.br">
             Eduardo Alves

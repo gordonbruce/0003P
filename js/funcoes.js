@@ -3187,7 +3187,7 @@ $("#pedir").click(function(event){
         $.mobile.loading( "show" );
         setTimeout(function(){
             $.mobile.loading( "hide" );
-        },4000);
+        },10000);
     });
 
 

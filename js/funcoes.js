@@ -1003,13 +1003,14 @@ $(document).on("pageshow","#index_old",function(){
                 tamanhoAddValues = "<option value='0'>Selecione</option>";
                 selectTamanho="";
                 classNone="";
+
                 if(ob.composto == 1){
 
                     compostoAddValues = "<option value='0'>Selecione</option>";
 
 
-
-
+                      if(typeof ob.tamanhos != 'undefined')
+                      {
                         $.each(ob.tamanhos, function(p, tamanhoscompostos){
                             $.each(ob.tamanhos, function(h, tam){
 
@@ -1043,62 +1044,69 @@ $(document).on("pageshow","#index_old",function(){
                             });
 
                         });
+                        selectTamanho='<label class="labelTamanho">Tamanho</label><select class="compostoTamanho" id="compostoTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+                      }
 
-                    selectTamanho='<label class="labelTamanho">Tamanho</label><select class="compostoTamanho" id="compostoTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+
+
                     var dataTam="";
-                    $.each(ob.produtoscomposicao, function(n, composicao){
+                    if(typeof ob.produtoscomposicao !='undefined')
+                    {
+                      $.each(ob.produtoscomposicao, function(n, composicao){
 
 
-                        $.each(composicao, function(m, composto){
+                          $.each(composicao, function(m, composto){
 
 
-                            $.each(composto, function(n, tamanho){
+                              $.each(composto, function(n, tamanho){
 
-                                if(typeof tamanho.tamanhos !== "undefined")
-                                {
-                                    $.each(tamanho.tamanhos, function(k, tam){
+                                  if(typeof tamanho.tamanhos !== "undefined")
+                                  {
+                                      $.each(tamanho.tamanhos, function(k, tam){
 
-                                        contTam=0;
-                                        $.each(tam, function(h, ta){
+                                          contTam=0;
+                                          $.each(tam, function(h, ta){
 
-                                            //if(contTam==0){
-
-
-                                            if(typeof  ta.Tamanho !== 'undefined'){
-                                                if(ta.Tamanho.ativo==true){
-
-                                                    if(typeof ta.Tamanho.nome !== 'undefined' && ta.Tamanho.nome !='' ){
-                                                        vlunitTam= parseFloat(ta.Tamanho.preco);
-                                                        vlunitTam = vlunitTam.toFixed(2);
-                                                        tamNome = removeDiacritics(ta.Tamanho.nome);
-                                                        tamNome = tamNome.replace(' ','');
-                                                        tamNome= tamNome.toLowerCase();
-                                                        dataTam = dataTam + " data-"+tamNome+"='"+vlunitTam+"'";
-                                                    }
+                                              //if(contTam==0){
 
 
+                                              if(typeof  ta.Tamanho !== 'undefined'){
+                                                  if(ta.Tamanho.ativo==true){
 
-                                                }
-                                            }
-                                                contTam++;
-                                            //}
-                                        });
+                                                      if(typeof ta.Tamanho.nome !== 'undefined' && ta.Tamanho.nome !='' ){
+                                                          vlunitTam= parseFloat(ta.Tamanho.preco);
+                                                          vlunitTam = vlunitTam.toFixed(2);
+                                                          tamNome = removeDiacritics(ta.Tamanho.nome);
+                                                          tamNome = tamNome.replace(' ','');
+                                                          tamNome= tamNome.toLowerCase();
+                                                          dataTam = dataTam + " data-"+tamNome+"='"+vlunitTam+"'";
+                                                      }
 
-                                    });
-                                }
 
-                            });
 
-                            //vlunitComposto= parseFloat(composto.Produto.preco_venda);
-                            //vlunitComposto = vlunitComposto.toFixed(2);
+                                                  }
+                                              }
+                                                  contTam++;
+                                              //}
+                                          });
 
-                            compostoAddValues = compostoAddValues+ " <option id=produtoComb"+n+composto.Produto.id+"  "+dataTam+">"+composto.Produto.nome+"</option> ";
-                            dataTamanhos="";
-                            dataTamanhosPrecos="";
-                            dataTam="";
-                        });
+                                      });
+                                  }
 
-                    });
+                              });
+
+                              //vlunitComposto= parseFloat(composto.Produto.preco_venda);
+                              //vlunitComposto = vlunitComposto.toFixed(2);
+
+                              compostoAddValues = compostoAddValues+ " <option id=produtoComb"+n+composto.Produto.id+"  "+dataTam+">"+composto.Produto.nome+"</option> ";
+                              dataTamanhos="";
+                              dataTamanhosPrecos="";
+                              dataTam="";
+                          });
+
+                      });
+                    }
+
                     prvenda =parseFloat(ob.preco_venda);
                     prvenda =prvenda.toFixed(2);
                      prvenda = String(prvenda);
@@ -1127,35 +1135,39 @@ $(document).on("pageshow","#index_old",function(){
                     flagTamanho=false;
                     tamanhoAddValues="<option value='0'>Selecione</option>";
                     contTam=0;
-                    $.each(ob.tamanhos, function(p, tamanhoscompostos){
-                        $.each(ob.tamanhos, function(h, tam){
-                            $.each(tam, function(y, ta){
-                                if(contTam<=4){
-                                    if(ta.Tamanho.ativo==1){
-                                        classNone="dispNoneTam";
-                                        myString= ta.Tamanho.nome;
-                                        if(typeof myString !== "undefined")
-                                        {
-                                            myString = removeDiacritics(myString);
-                                            myString.split(' ').join('');
+                    if(typeof ob.tamanhos != 'undefined')
+                    {
+                      $.each(ob.tamanhos, function(p, tamanhoscompostos){
+                          $.each(ob.tamanhos, function(h, tam){
+                              $.each(tam, function(y, ta){
+                                  if(contTam<=4){
+                                      if(ta.Tamanho.ativo==1){
+                                          classNone="dispNoneTam";
+                                          myString= ta.Tamanho.nome;
+                                          if(typeof myString !== "undefined")
+                                          {
+                                              myString = removeDiacritics(myString);
+                                              myString.split(' ').join('');
 
-                                            myString= myString.toLowerCase();
-                                        }
-                                        vlunitTamSimples= parseFloat(ta.Tamanho.preco);
-                                        vlunitTamSimples = vlunitTamSimples.toFixed(2);
-                                        tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
-                                        flagTamanho=true;
+                                              myString= myString.toLowerCase();
+                                          }
+                                          vlunitTamSimples= parseFloat(ta.Tamanho.preco);
+                                          vlunitTamSimples = vlunitTamSimples.toFixed(2);
+                                          tamanhoAddValues = tamanhoAddValues+ " <option id=produtoComb"+ta.Tamanho.id+" data-tamanho='"+myString+"' value='"+myString+"' data-id='"+ta.Tamanho.id+"'' data-preco='"+vlunitTamSimples+"' data-bolbebida='"+ta.Tamanho.acompanha_bebida+"''  data-bolganhe='"+ta.Tamanho.promo_compre_ganhe+"''>"+ta.Tamanho.nome+"</option> ";
+                                          flagTamanho=true;
 
-                                    }
-                                    contTam++;
-                                }
-                            });
-                        });
-                    });
-                    if(flagTamanho != false){
-                        selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
-                        flagTamanho=false;
+                                      }
+                                      contTam++;
+                                  }
+                              });
+                          });
+                      });
+                      if(flagTamanho != false){
+                          selectTamanho='<label class="labelTamanho">Tamanho</label><select class="selectTamanho comboTamanho" id="comboTamanho'+ob.id+'"  data-produto="'+ob.id+'" >'+tamanhoAddValues+'</select>';
+                          flagTamanho=false;
+                      }
                     }
+
                      prvenda =parseFloat(ob.preco_venda);
                     prvenda =prvenda.toFixed(2);
                     prvenda = String(prvenda);

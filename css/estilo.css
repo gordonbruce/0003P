@@ -521,11 +521,12 @@ input, textarea {
 
 .inputAdd{
   height: 44px;
-  width: 44px;
+  width: 51px;
   float: left;
   margin-top: 1.6%;
-  margin-right: 5px;
+  margin-right: 4px;
   background: #111 !important;
+  background-color: #111 !important;
   border: 0;
   color: white;
 /*  border-radius: 38px;
@@ -698,12 +699,13 @@ input, textarea {
 display: block;
 }
 .control-btn{
-    width: 128px;
-    height: 100px;
+    width: 128px !important;
+    height: 100px !important;
     margin-left: auto;
     margin-right: auto;
     margin-top: 14px !important;
      margin-bottom: 5% !important ;
+     overflow: hidden !important;
 }
 .imgAvancar{
     font-size: 15px;

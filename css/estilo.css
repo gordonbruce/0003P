@@ -525,11 +525,11 @@ input, textarea {
   float: left;
   margin-top: 1.6%;
   margin-right: 5px;
-  background: black !important;
+  background: #111 !important;
   border: 0;
   color: white;
-  border-radius: 38px !important;
-  text-indent: 13px;
+/*  border-radius: 38px;
+  text-indent: 13px;*/
 }
 .divControles{
     width: 149px;
@@ -702,8 +702,8 @@ display: block;
     height: 100px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 14px;
-     margin-bottom: 5%;
+    margin-top: 14px !important;
+     margin-bottom: 5% !important ;
 }
 .imgAvancar{
     font-size: 15px;

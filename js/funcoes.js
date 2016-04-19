@@ -2290,7 +2290,7 @@ function atualizarProduto(){
 
 
 
-          //  getEntries();
+            getEntries();
 
 
         });
@@ -2321,25 +2321,6 @@ function atualizarProduto(){
             timeout:15000,
 
             success: function(data){
-                var res = data.ultimopedido;
-                cliente_id = data.ultimopedido.Cliente.id;
-                cliente = data.ultimopedido;
-                bebidas='<option value="">Selecione</option>';
-                if(typeof cliente.Bebidas !==  'undefined'){
-                    $.each(cliente.Bebidas, function(i, beb){
-                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
-                    });
-                }else{
-                    bebidas=null;
-                }
-                pagueGanhe='<option value="">Selecione</option>';
-                if(typeof cliente.PagueGanhe !==  'undefined'){
-                    $.each(cliente.PagueGanhe, function(i, pagueGan){
-                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
-                    });
-                }else{
-                    pagueGanhe=null;
-                }
 
                 if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
@@ -2350,12 +2331,7 @@ function atualizarProduto(){
                     $('.showLogado').removeClass('logadoNone');
                     $('.fazerlogin').addClass('logadoNone');
                 }
-              //  $('.cupons').show();
-                getSituacaoCampainha= setInterval(function(){
-                    /*getSituacaoCampainha()*/;
-                },20000);
 
-                selectPagamento(cliente);
 
             },error: function(data){
                 setTimeout(function(){
@@ -2414,22 +2390,6 @@ function atualizarProduto(){
 
                 cliente_id = data.ultimopedido.Cliente.id;
                 cliente = data.ultimopedido;
-                bebidas='<option value="">Selecione</option>';
-                if(typeof cliente.Bebidas !==  'undefined'){
-                    $.each(cliente.Bebidas, function(i, beb){
-                        bebidas += '<option id="optBebida'+beb.id+'" value="'+beb.id+'"  data-id="'+beb.id+'" data-nome="'+beb.nome+'" >'+beb.nome+'</option>';
-                    });
-                }else{
-                    bebidas=null;
-                }
-                pagueGanhe='<option value="">Selecione</option>';
-                if(typeof cliente.PagueGanhe !==  'undefined'){
-                    $.each(cliente.PagueGanhe, function(i, pagueGan){
-                        pagueGanhe += '<option  id="optPagueGanhe'+pagueGan.id+'" value="'+pagueGan.id+'" data-id="'+pagueGan.id+'" data-nome="'+pagueGan.nome+'">'+pagueGan.nome+'</option>';
-                    });
-                }else{
-                    pagueGanhe=null;
-                }
 
                 if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
@@ -2440,11 +2400,8 @@ function atualizarProduto(){
                     $('.showLogado').removeClass('logadoNone');
                     $('.fazerlogin').addClass('logadoNone');
                 }
-              //  $('.cupons').show();
-                selectPagamento(cliente);
-              getSituacaoCampainha = setInterval(function(){
-                    /*getSituacaoCampainha()*/;
-                },20000);
+
+
                 deleteEntries();
                 saveNote(dataToSave,function() {
                     var flagCadastro=true;
@@ -4813,7 +4770,7 @@ var getBairroFromCep=null;
     $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo
         $('#empresa_input').val(empresa);
         $('#filial_input').val(filialPadrao);
-       // getEntries();
+        getEntries();
     });
     $(document).on("pageshow","#page10",function(){ // When entering pagetwo
         $('#idpedidoempresa').val(empresa);

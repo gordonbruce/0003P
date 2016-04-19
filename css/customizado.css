@@ -223,3 +223,9 @@ body{
   position: absolute !important;
   top: 0% !important;
 }
+.licupon{
+  background: rgba(176, 75, 139, 0.3);
+}
+.licodigo{
+  color: rgb(156, 0, 192);
+}

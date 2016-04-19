@@ -53,6 +53,7 @@
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Catálogo</a></li>
                     <li class="showLogado logadoNone listarmenu listarpedido"><a href="#"   data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="cupons showLogado logadoNone" data-icon="action">Meus Cupons</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
@@ -635,6 +636,7 @@
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Catálogo</a></li>
                     <li class="showLogado logadoNone listarmenu listarpedido"><a href="#"  data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="cupons showLogado logadoNone" data-icon="action">Meus Cupons</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
@@ -720,6 +722,7 @@
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Catálogo</a></li>
                     <li class="showLogado logadoNone listarmenu listarpedido"><a href="#"  data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="cupons showLogado logadoNone" data-icon="action">Meus Cupons</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
@@ -747,6 +750,49 @@
                 <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
             </div><!--Footer-->
         </div><!-- /page -->
+        <div id="cuponsPage" data-role="page"   class="contentPage" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
+
+            <div data-role="panel" id="mypanelCupon" data-display="overlay" data-theme="b" data-content-theme="b">
+                <img src="images/logoentrega_painel.png" class="logoPainel"/>
+               <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
+                    <li>
+                    <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
+                    </span>
+                    <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
+                    </span>
+                    <span class="showLogado logadoNone spanconectado"><span class="conectado"> <span class="usuarioLogado"></span></span> conectado!</span>
+                    </span>
+                    </li>
+                    <li><a href="#" class="novopedido" data-icon="plus">Catálogo</a></li>
+                    <li class="showLogado logadoNone listarmenu listarpedido"><a href="#"  data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="cupons showLogado logadoNone" data-icon="action">Meus Cupons</a></li>
+                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
+                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
+                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                    <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-role="header" data-position="fixed"    data-tap-toggle="false">
+                <h1 class="tituloHeader">Meus Cupons</h1>
+                <div class="circulodivFotoLogo ui-btn-right">
+                  <img src="images/logoentrega.png" class="applogo"  />
+                </div>
+                <a href="#mypanel1" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-left ui-btn-b btn-menu" data-transition="pop">Menu</a>
+            </div><!-- /header -->
+            <div data-role="content" class="contentPage">
+
+              <ul class="ul-cupons">
+
+              </ul>
+            </div><!-- /content -->
+            <br>
+            <br>
+            <br>
+            <div data-role="footer" class="hideFooter2" >
+                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
+            </div><!--Footer-->
+        </div><!-- /page -->
         <div id="page2" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="b" data-overlay-theme="b"  >
 
             <div data-role="panel" id="mypanel2" data-display="overlay" data-theme="b" data-content-theme="b">
@@ -762,6 +808,7 @@
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Catálogo</a></li>
                     <li class="showLogado logadoNone listarmenu listarpedido"><a href="#" data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="cupons showLogado logadoNone" data-icon="action">Meus Cupons</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
@@ -1566,6 +1613,7 @@
                     </li>
                     <li><a href="#" class="novopedido" data-icon="plus">Catálogo</a></li>
                     <li class="showLogado logadoNone listarmenu listarpedido"><a href="#" data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="cupons showLogado logadoNone" data-icon="action">Meus Cupons</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>

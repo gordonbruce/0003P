@@ -917,11 +917,29 @@ li.formaPgto span{
 
 }
 
+.ul-cupons{
+  list-style: none;
+}
+.licupon{
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  border: 1px solid white;
+  margin-bottom: 23px;
+  padding: 3%;
+}
 .formas-pagamento{
   text-align: center;
 }
+
 .ul-endereco{
   list-style: none;
+}
+
+.licodigo{
+  text-align: center !important;
+  display: block;
+  font-size: 18px !important;
+  font-weight: 600 !important;
 }
 .EnderecoContato{
   background: rgba(255, 255, 255, 0.6);

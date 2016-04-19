@@ -3014,7 +3014,38 @@ $("#pedir").click(function(event){
         }
 
 
+        atualizarCupons(76);
+        function atualizarCupons(clienteid){
+            $.mobile.loading( "show" ,{theme: 'b'});
+            $.ajax({
+                type: "GET",
+                url: URLAPP+"RestCupons/indexmobile.json?lj="+empresa+"&clt="+clienteid+"&limit="+limitPedido+"&token="+clienteid+"&fp="+filialPadrao+"",
+                dataType: 'json',
+                crossDomain: true,
+                timeout:15000,
+                success: function(data){
+                  console.log(empresa);
+                  console.log(clienteid);
+                  console.log(filialPadrao);
+                    $(".ul-cupons").html('');
+                    $.mobile.loading( "hide" );
+                    $.each(data.resultados, function(i, cupon){
+                      console.log(cupon.Cupon);
+                      $('.ul-cupons').append('<li class="licupon"><div class="divcupon">'+cupon.Cupon.descricao+'</div><div style="cleare:both;"></div><span class="licodigo" style="block; text-align:center;">Código: '+cupon.Cupon.numero+'</span></li>');
+                      /*  $("#atendimentostab").append('<tr><td class="paddTopTab">'+atendimento.Atendimento.codigo+'</td>\
+                        <td class="paddTopTab">'+pedidoData+'</td><td class="paddTopTab">'+pedidoStatus+'</td>\
+                        <td><a href="#" class="ui-btn ui-shadow ui-corner-all ui-icon-eye ui-btn-icon-notext ui-btn-b ui-btn-inline acaoAtend" id="acaoAtend'+i+'"data-atendimento="'+atendimento.Atendimento.id+'">Visualisar</a></td></tr>');
+                        if(limitPedido > 4){
+                            //$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+                        }*/
+                    });
+                },error: function(data){
+                    $.mobile.loading( "hide" );
+                    $("#popupDialogCuponsErro").popup( "open" );
+                }
+            });
 
+        }
 
   /*  $('body').on('change','#cidadeEdit', function(){
 
@@ -3158,6 +3189,15 @@ $("#pedir").click(function(event){
 
     $(".linkTelefone").click(function(){
         $.mobile.changePage("#contatos",{ transition: "none",  });
+        $('.pageContent').hide();
+        $.mobile.loading( "show" );
+        setTimeout(function(){
+            $.mobile.loading( "hide" );
+            $('.pageContent').fadeIn('slow');
+        },2000);
+    });
+    $(".cupons").click(function(){
+        $.mobile.changePage("#cuponsPage",{ transition: "none",  });
         $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){

@@ -2350,6 +2350,7 @@ function atualizarProduto(){
                     $('.showLogado').removeClass('logadoNone');
                     $('.fazerlogin').addClass('logadoNone');
                 }
+                $('.cupons').show();
                 getSituacaoCampainha= setInterval(function(){
                     /*getSituacaoCampainha()*/;
                 },20000);
@@ -2439,6 +2440,7 @@ function atualizarProduto(){
                     $('.showLogado').removeClass('logadoNone');
                     $('.fazerlogin').addClass('logadoNone');
                 }
+                $('.cupons').show();
                 selectPagamento(cliente);
               getSituacaoCampainha = setInterval(function(){
                     /*getSituacaoCampainha()*/;
@@ -2469,6 +2471,7 @@ function atualizarProduto(){
         cliente ='';
         $('.showLogado').addClass('logadoNone');
         $('.fazerlogin').show();
+        $('cupons').hide();
         fezPedidoSemLogar="";
         $.mobile.changePage("#Pagelogin",{reverse:true});
        // $( ".popEsquecer" ).popup( "close" );
@@ -2560,6 +2563,7 @@ function atualizarProduto(){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                         $('.fazerlogin').addClass('logadoNone');
+
                        // filialPadrao=data.ultimopedido.Cliente.filial_id;
                         $.mobile.changePage("#index",{ transition: "none",  });
                          $('.pageContent').hide();
@@ -2572,6 +2576,7 @@ function atualizarProduto(){
                     }else{
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
+                        $('.cupons').removeClass('logadoNone');
                         $('.fazerlogin').addClass('logadoNone');
                         $.mobile.changePage("#index",{ transition: "none",  });
 
@@ -2586,7 +2591,7 @@ function atualizarProduto(){
 
 
                 }
-
+                $('.cupons').show();
                 $('#loginSalt').val('');
                 getSituacaoCampainha= setInterval(function(){
                     /*getSituacaoCampainha()*/;

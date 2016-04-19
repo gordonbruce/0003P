@@ -78,6 +78,7 @@ body{
     .vermelho{color:#B34D8E;}
     .menuSair .ui-btn-icon-left:after{background-image: url("images/icons-png/power-white.png");}
     .novopedido:after{background-image: url("images/icons-png/shop-white.png");}
+    .cupons:after{background-image: url("images/icons-png/grid-white.png");}
     .fazerlogin:after{background-image: url("images/icons-png/action-white.png");}
     .listarpedido:after{background-image: url("images/icons-png/bullets-white.png");}
     .meucadastro:after{background-image: url("images/icons-png/user-white.png");}

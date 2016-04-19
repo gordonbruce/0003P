@@ -358,8 +358,8 @@ function removeDiacritics (str) {
 var getSituacaoCampainha;
 var sessionIdPag;
 $(document).ready(function() {
-    if(isCatalog==true)
-    {
+    /*if(isCatalog==true)
+    {*/
       $('.ui-listview .ui-first-child').hide();
       $('.listarmenu').removeClass('logadoNone');
       $('.listarmenu').removeClass('showLogado');
@@ -369,7 +369,7 @@ $(document).ready(function() {
       $('.control-btn').hide();
 
       $('.inputAdd').css("display", "none");;
-    }
+    //}
 
 
     function pagSeguroGetSession(id) {
@@ -2350,7 +2350,7 @@ function atualizarProduto(){
                     $('.showLogado').removeClass('logadoNone');
                     $('.fazerlogin').addClass('logadoNone');
                 }
-                $('.cupons').show();
+              //  $('.cupons').show();
                 getSituacaoCampainha= setInterval(function(){
                     /*getSituacaoCampainha()*/;
                 },20000);
@@ -2440,7 +2440,7 @@ function atualizarProduto(){
                     $('.showLogado').removeClass('logadoNone');
                     $('.fazerlogin').addClass('logadoNone');
                 }
-                $('.cupons').show();
+              //  $('.cupons').show();
                 selectPagamento(cliente);
               getSituacaoCampainha = setInterval(function(){
                     /*getSituacaoCampainha()*/;
@@ -2591,7 +2591,7 @@ function atualizarProduto(){
 
 
                 }
-                $('.cupons').show();
+              //  $('.cupons').show();
                 $('#loginSalt').val('');
                 getSituacaoCampainha= setInterval(function(){
                     /*getSituacaoCampainha()*/;

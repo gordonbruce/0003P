@@ -919,6 +919,7 @@ li.formaPgto span{
 
 .ul-cupons{
   list-style: none;
+  padding: 0px;
 }
 .licupon{
   background: rgba(255, 255, 255, 0.6);

@@ -1,3 +1,44 @@
+function selectPagamento(cliente)
+{
+
+    $('.cloneOptPgt').remove();
+    selectPagamento =  $('#formaDEpagamento');
+    $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
+    if(typeof cliente.Pagamento !==  'undefined'){
+    $.each(cliente.Pagamento, function(i, pagamento){
+        $('#formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+        var pagTipo  = pagamento.tipo;
+        pagTipo = pagTipo.replace('-', '');
+        pagTipo = pagTipo.replace(' ', '');
+        pagTipo = pagTipo.replace('/', '');
+        pagTipo = pagTipo.toLowerCase();
+        if(pagTipo=='pagseguro')
+        {
+          tipoPagSeguro=pagamento.id;
+        }
+    });
+    }
+   // selectPagamento.selectmenu();
+   // selectPagamento.selectmenu('refresh', true);
+
+}
+function selecMesa(cliente)
+{
+  //  console.log(cliente);
+    $('.cloneOptMesa').remove();
+    selecMesa =  $('#selecMesa');
+    $('#selecMesa').append('<option value="" class="cloneOptMesa">Selecione</option>');
+    if(typeof cliente.Mesa != 'undefined'){
+      $.each(cliente.Mesa, function(i, mesa){
+          $('#selecMesa').append('<option class="cloneOptPgt" value="'+mesa.id+'">'+mesa.identificacao+'</option>');
+      });
+    }
+
+   // selectPagamento.selectmenu();
+   // selectPagamento.selectmenu('refresh', true);
+
+}
+
 function limparPedido() {
         cont=0;
         itens=0;
@@ -66,6 +107,17 @@ function limparPedido() {
         $('#divAuxTroco').hide();
         $('#auxCartao').hide();
         $('#respTroco').html('R$ 0,00');
+        $('#nomecadclientePedido').val('');
+        $('.cadClientePedido').css('display','block');
+        $('.selecMesa').val('');
+        $('#pedidoObs').val('');
+        if(typeof cliente !== 'undefined' ){
+          if(cliente != ''){
+              $('.selecMesa').trigger('change')
+          }
+
+        }
+        //;
 
     }
     function atualizarCidadesIndex(){
@@ -360,6 +412,63 @@ var sessionIdPag;
 $(document).ready(function() {
 
 
+
+  function selectCliente(clientes)
+  {
+
+
+
+     // selectPagamento.selectmenu();
+     // selectPagamento.selectmenu('refresh', true);
+
+  }
+  $('.selectCliente').change(function() {
+      if($(this).val() != ''){
+        $('#nomecadclientePedido').val($(this).val());
+        $('.cadClientePedido').css('display','none');
+      }else{
+        $('#nomecadclientePedido').val('');
+        $('.cadClientePedido').css('display','block');
+      }
+  });
+  $('.selecMesa').change(function() {
+
+
+      $.mobile.loading( "show" );
+      dataToSave = {
+          token:cliente.Cliente.token,
+          mesa_id:$('#selecMesa').val(),
+          filial_id:cliente.Cliente.filial_id,
+          empresa_id:cliente.Cliente.empresa_id,
+          salt:salt,
+      };
+      var urlAction = URLAPP+"RestClientes/indexmobile.json";
+      $.ajax({
+          type: "POST",
+          url: urlAction,
+          data:  dataToSave,
+          dataType: 'json',
+          crossDomain: true,
+          timeout:15000,
+          success: function(data){
+              //console.log(data.ultimopedido.Pedido);
+              $('.cloneOptCliente').remove();
+              selectCliente =  $('#selectCliente');
+              $('#selectCliente').append('<option value="" class="cloneOptCliente">Selecione</option>');
+              if(typeof data != 'undefined'){
+                $.each(data.ultimopedido.Pedido, function(i, clientes){
+                //  console.log(clientes);
+                    $('#selectCliente').append('<option class="cloneOptCliente" value="'+clientes.nomecadcliente+'">'+clientes.nomecadcliente+'</option>');
+                });
+              }
+               $.mobile.loading( "hide" );
+          },error: function(data){
+            $.mobile.loading( "hide" );
+          }
+      });
+
+  });
+
     function pagSeguroGetSession(id) {
 
     //  var urlAction2 = URLAPP+"RestPedidos/getSessionPag.json?b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"&lj="+empresa+"";
@@ -376,7 +485,7 @@ $(document).ready(function() {
 
           success: function(data){
               $.mobile.loading( "hide" );
-                console.log(data);
+              //  console.log(data);
               //sessionIdPag=data.resultados;
               PagSeguroLightbox(data.resultados);
           },error: function(data){
@@ -404,7 +513,7 @@ $(document).ready(function() {
       pedidoId=$('#idPedidoAux').html();
       $.mobile.loading( "show" );
       pagSeguroGetSession(pedidoId);
-      console.log(pedidoId);
+    //  console.log(pedidoId);
     });
     //simPag();
     $('body').on('click','#bt-lgesqueci',function(){
@@ -505,7 +614,7 @@ $(document).ready(function() {
         estadoCheck =estadoCheck.replace(/ /g,'');
         filialCheck =  $('#filialPedido').val();
         var dadosForm2={'Pedido':{'entrega_outro_cidade':cidadeCheck, 'entrega_outro_bairro':bairroCheck, 'entrega_outro_estado':estadoCheck,'filial_id':filialCheck}};
-        console.log(dadosForm2);
+      //  console.log(dadosForm2);
         $.mobile.loading( "show" ,{theme: 'b'});
         $.ajax({
             type: "POST",
@@ -560,9 +669,9 @@ $(document).ready(function() {
             }
         });
 });
-statusLoja();
+//statusLoja();
 setInterval(function(){
-    statusLoja();
+  //  statusLoja();
 },120000);
 function statusLoja(){
 
@@ -612,7 +721,7 @@ function statusLoja(){
 
 };
 
-$(document).on("pageshow","#index_old",function(){
+$(document).on("pageshow","#cardapio_old",function(){
     //cliente ="";
     $('.limpar').val('');
 });
@@ -632,8 +741,7 @@ $(document).on("pageshow","#index_old",function(){
             $.mobile.loading( "hide" );
             $('#sendToMoip').hide();
         });
-        $('#contentIndex').hide();
-        $.mobile.loading( "show" );
+
         var verificaPedido='';
         $(".erroqtde").hide();
         //$('#divProdutos').show();
@@ -647,16 +755,18 @@ $(document).on("pageshow","#index_old",function(){
         $('.spanproximo').show();
 
 
-         setTimeout(function(){
 
-            atualizarPromo();
-            limparPedido();
-            atualizarProduto();
-         },2000);
     flagCadastro=false;
 
-    $(document).on("pageshow","#index",function(){ // When entering pagetwo
+    $(document).on("pageshow","#cardapio",function(){ // When entering pagetwo
+       $('#contentIndex').hide();
+       $.mobile.loading( "show" );
+      setTimeout(function(){
 
+         atualizarPromo();
+         limparPedido();
+         atualizarProduto();
+      },2000);
 
         atualizarPromo();
         limparPedido();
@@ -672,6 +782,7 @@ $(document).on("pageshow","#index_old",function(){
          codigo="entrega";
         $("#PedidoA").val(codigo);
         if(cliente != ''){
+      //  console.log(cliente);
             $('#clientePedido').val(cliente.Cliente.id);
             if(verificaPedido != ''){
                 clearInterval(verificaPedido);
@@ -1559,7 +1670,7 @@ function atualizarProduto(){
         $('#popVlTotalItem').html(' ');
         $("#popupConfirmaProd").popup( "close" );
     });
-    $(document).on("pagehide","#index",function(){
+    $(document).on("pagehide","#cardapio",function(){
         itenObs="";
         prodId2="";
         prodId1="";
@@ -1774,7 +1885,7 @@ function atualizarProduto(){
 
         }else{
             fezPedidoSemLogar='sim';
-            $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+            $.mobile.changePage("#index",{ transition: "none",  });
              $('.pageContent').hide();
                 $.mobile.loading( "show" );
                 setTimeout(function(){
@@ -1991,7 +2102,7 @@ function atualizarProduto(){
     function renderEntries(tx,results){
          doLog("render entries");
           if (results.rows.length == 0) {
-          //$("#Pagelogin").html("<p>You currently do not have any notes.</p>");
+          //$("#index").html("<p>You currently do not have any notes.</p>");
           } else {
               var s = "";
               for(var i=0; i<results.rows.length; i++) {
@@ -2026,7 +2137,7 @@ function atualizarProduto(){
             $("#submitFormCliente").hide();
             if(respValida == 'ok'){
                 $( ".ui-icon-minus" ).trigger('click');
-                getCoordenadas();
+                //getCoordenadas();
                 latDest= $('latEditDest').val();
                 lngDest= $('lngEditDest').val();
                 lat = $('latEdit').val();
@@ -2043,7 +2154,7 @@ function atualizarProduto(){
         });
 
         //will run after initial show - handles regetting the list
-        $(document).on("pageshow","#index",function(){ // When entering pagetwo
+        $(document).on("pageshow","#cardapio",function(){ // When entering pagetwo
 
 
 
@@ -2066,6 +2177,7 @@ function atualizarProduto(){
             password:$('#passdb').val(),
             empresa:empresa,
             filial:filialPadrao,
+            atendente_id:true,
             salt:salt
         };
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
@@ -2078,8 +2190,11 @@ function atualizarProduto(){
             timeout:15000,
 
             success: function(data){
+              console.log(data.ultimopedido.Cliente);
                 var res = data.ultimopedido;
-                cliente_id = data.ultimopedido.Cliente.id;
+                cliente_id = data.ultimopedido.Atendente.id;
+                empresa = data.ultimopedido.Atendente.empresa_id;
+                filialPadrao = data.ultimopedido.Atendente.filial_id;
                 cliente = data.ultimopedido;
                 bebidas='<option value="">Selecione</option>';
                 if(typeof cliente.Bebidas !==  'undefined'){
@@ -2112,7 +2227,14 @@ function atualizarProduto(){
                 },20000);
 
                 selectPagamento(cliente);
-
+                $('.cloneOptMesa').remove();
+                selecMesa =  $('#selecMesa');
+                $('#selecMesa').append('<option value="" class="cloneOptMesa">Selecione</option>');
+                if(typeof cliente.Mesa != 'undefined'){
+                  $.each(cliente.Mesa, function(i, mesa){
+                      $('#selecMesa').append('<option class="cloneOptPgt" value="'+mesa.id+'">'+mesa.identificacao+'</option>');
+                  });
+                }
             },error: function(data){
                 setTimeout(function(){
                     loginInit();
@@ -2122,28 +2244,7 @@ function atualizarProduto(){
             }
         });
     }
-    function selectPagamento(cliente)
-    {
 
-        $('.cloneOptPgt').remove();
-        selectPagamento =  $('#formaDEpagamento');
-        $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
-        $.each(cliente.Pagamento, function(i, pagamento){
-            $('#formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
-            var pagTipo  = pagamento.tipo;
-            pagTipo = pagTipo.replace('-', '');
-            pagTipo = pagTipo.replace(' ', '');
-            pagTipo = pagTipo.replace('/', '');
-            pagTipo = pagTipo.toLowerCase();
-            if(pagTipo=='pagseguro')
-            {
-              tipoPagSeguro=pagamento.id;
-            }
-        });
-       // selectPagamento.selectmenu();
-       // selectPagamento.selectmenu('refresh', true);
-
-    }
     var flagCadastro=false;
     function loginCad(data){
         $.mobile.loading( "show" );
@@ -2154,7 +2255,8 @@ function atualizarProduto(){
             filial_id:data.filial,
             empresa_id:data.empresa,
             ativo:'1',
-            cliente_id:data.cliente.id
+            cliente_id:data.cliente.id,
+            atendente_id:true,
         };
         var urlAction = URLAPP+"RestClientes/loginmobile.json";
         $.ajax({
@@ -2170,6 +2272,8 @@ function atualizarProduto(){
 
                 cliente_id = data.ultimopedido.Cliente.id;
                 cliente = data.ultimopedido;
+                empresa = data.ultimopedido.Atendente.empresa_id;
+                filialPadrao = data.ultimopedido.Atendente.filial_id;
                 bebidas='<option value="">Selecione</option>';
                 if(typeof cliente.Bebidas !==  'undefined'){
                     $.each(cliente.Bebidas, function(i, beb){
@@ -2197,13 +2301,21 @@ function atualizarProduto(){
                     $('.fazerlogin').addClass('logadoNone');
                 }
                 selectPagamento(cliente);
+                $('.cloneOptMesa').remove();
+                selecMesa =  $('#selecMesa');
+                $('#selecMesa').append('<option value="" class="cloneOptMesa">Selecione</option>');
+                if(typeof cliente.Mesa != 'undefined'){
+                  $.each(cliente.Mesa, function(i, mesa){
+                      $('#selecMesa').append('<option class="cloneOptPgt" value="'+mesa.id+'">'+mesa.identificacao+'</option>');
+                  });
+                }
               getSituacaoCampainha = setInterval(function(){
                     /*getSituacaoCampainha()*/;
                 },20000);
                 deleteEntries();
                 saveNote(dataToSave,function() {
                     var flagCadastro=true;
-                    $.mobile.changePage("#index",{reverse:true});
+                    $.mobile.changePage("#cardapio",{reverse:true});
                 });
 
 
@@ -2227,7 +2339,7 @@ function atualizarProduto(){
         $('.showLogado').addClass('logadoNone');
         $('.fazerlogin').show();
         fezPedidoSemLogar="";
-        $.mobile.changePage("#Pagelogin",{reverse:true});
+        $.mobile.changePage("#index",{reverse:true});
        // $( ".popEsquecer" ).popup( "close" );
     });
     var conectado= false;
@@ -2271,8 +2383,9 @@ function atualizarProduto(){
                     $("#popupDialog").popup( "open" );
 
                 }else{
-
-                    cliente_id = data.ultimopedido.Cliente.id;
+                  empresa = data.ultimopedido.Atendente.empresa_id;
+                  filialPadrao = data.ultimopedido.Atendente.filial_id;
+                    cliente_id = data.ultimopedido.Atendente.id;
                     cliente = data.ultimopedido;
 
 
@@ -2308,17 +2421,41 @@ function atualizarProduto(){
                         };
 
                         saveNote(dataToSave,function() {
-                            $.mobile.changePage("#index",{reverse:true});
+                            $.mobile.changePage("#cardapio",{reverse:true});
                         });
                     }
-                    selectPagamento(cliente);
+                    $('.cloneOptPgt').remove();
+                    selectPagamento =  $('#formaDEpagamento');
+                    $('#formaDEpagamento').append('<option value="" class="cloneOptPgt">Selecione</option>');
+                    if(typeof cliente.Pagamento !==  'undefined'){
+                    $.each(cliente.Pagamento, function(i, pagamento){
+                        $('#formaDEpagamento').append('<option class="cloneOptPgt" value="'+pagamento.id+'">'+pagamento.tipo+'</option>');
+                        var pagTipo  = pagamento.tipo;
+                        pagTipo = pagTipo.replace('-', '');
+                        pagTipo = pagTipo.replace(' ', '');
+                        pagTipo = pagTipo.replace('/', '');
+                        pagTipo = pagTipo.toLowerCase();
+                        if(pagTipo=='pagseguro')
+                        {
+                          tipoPagSeguro=pagamento.id;
+                        }
+                    });
+                    }
+                    $('.cloneOptMesa').remove();
+                    selecMesa =  $('#selecMesa');
+                    $('#selecMesa').append('<option value="" class="cloneOptMesa">Selecione</option>');
+                    if(typeof cliente.Mesa != 'undefined'){
+                      $.each(cliente.Mesa, function(i, mesa){
+                          $('#selecMesa').append('<option class="cloneOptPgt" value="'+mesa.id+'">'+mesa.identificacao+'</option>');
+                      });
+                    }
                     $('.usuarioLogado').html(cliente.Cliente.username);
                     if(fezPedidoSemLogar=='sim'){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                         $('.fazerlogin').addClass('logadoNone');
                        // filialPadrao=data.ultimopedido.Cliente.filial_id;
-                        $.mobile.changePage("#index",{ transition: "none",  });
+                        $.mobile.changePage("#cardapio",{ transition: "none",  });
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );
                             setTimeout(function(){
@@ -2330,7 +2467,7 @@ function atualizarProduto(){
                         fezPedidoSemLogar="nao";
                         $('.showLogado').removeClass('logadoNone');
                         $('.fazerlogin').addClass('logadoNone');
-                        $.mobile.changePage("#index",{ transition: "none",  });
+                        $.mobile.changePage("#cardapio",{ transition: "none",  });
 
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );
@@ -2536,54 +2673,33 @@ $('#instituicao').change(function(){
 
 
 function validarPedido(){
-
-
-    if(pag == 'dh' ){
-
-        if(tipoTroco=='Sim'){
-            texto = $('#respTroco').html();
-
-            if(texto=='InvÃ¡lido'){
-                validarPd = 'falso'
-                return validarPd;
-            }else if(texto=='R$ 0,00'){
-                validarPd = 'falso'
-                return validarPd;
-            }else{
-                validarPd = 'verdadeiro'
-                return validarPd;
-            }
-
-        }else{
-
-            validarPd = 'verdadeiro'
-            return validarPd;
-        }
-    }else{
-        validarPd = 'verdadeiro'
-        return validarPd;
-    }
+  if($('.selectCliente').val() != '' ||  $('#nomecadclientePedido').val() != ''){
+    validarPd ='verdadeiro';
+  }
 }
 $("#pedir").click(function(event){
 
     validarPedido();
-    if(cliente.Cliente.frete_cadastro==false){
-        $("#popupNaoEntrega").popup( "open" );
-        return false;
-    }
-    formPagamento = $('formaDEpagamento').val();
-    if(formPagamento==''){
-        validarPd="falso";
-        $("#avisoTroco2").popup( "open" );
-    }
+    //if(cliente.Cliente.frete_cadastro==false){
+      //  $("#popupNaoEntrega").popup( "open" );
+        //return false;
+    //}
+    //formPagamento = $('formaDEpagamento').val();
+    //if(formPagamento==''){
+      //  validarPd="falso";
+        //$("#avisoTroco2").popup( "open" );
+    //}
 
 
     $('#empresaPedido').val(empresa);
     $('#filialPedido').val(filialPadrao);
 
-    if(validarPd== 'verdadeiro'){
+    if($('.selectCliente').val() != '' ||  $('#nomecadclientePedido').val() != ''){
         nAtendimento= $('#PedidoA').val();
-
+        if($('.selectCliente').val() != '')
+        {
+            $('#nomecadclientePedido').val($('.selectCliente').val());
+        }
 
         $.mobile.loading( "show" ,{theme: 'b'});
         event.preventDefault();
@@ -2647,7 +2763,7 @@ $("#pedir").click(function(event){
                         $("#totalPedido").html('00,00');
                         cont=0;
                         limparPedido();
-                        $.mobile.changePage("#page2",{ transition: "pop",  });
+                        $.mobile.changePage("#cardapio",{ transition: "pop",  });
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );
 
@@ -2730,8 +2846,8 @@ $("#pedir").click(function(event){
 
                     $("#atendimentos").html('');
                     $.mobile.loading( "hide" );
-
-                    $.each(data.resultados, function(i, atendimento){
+                    if(typeof data.resultados !==  'undefined'){
+                      $.each(data.resultados, function(i, atendimento){
 
                         $.each(atendimento.Pedido, function(i, pedidoAtend){
 
@@ -2756,7 +2872,7 @@ $("#pedir").click(function(event){
                         }
 
                     });
-
+                    }
                 },error: function(data){
 
                     $.mobile.loading( "hide" );
@@ -2877,7 +2993,7 @@ $("#pedir").click(function(event){
 
     $('.fazerlogin').click(function(){
 
-        $.mobile.changePage("#Pagelogin",{ transition: "none",  });
+        $.mobile.changePage("#index",{ transition: "none",  });
 
         $('.pageContent').hide();
         $.mobile.loading( "show" );
@@ -2980,7 +3096,8 @@ $("#pedir").click(function(event){
                     $("#codigoAtend").html(atendimento.Atendimento.codigo+'&nbsp;');
                     $('#clienteAtend').html(atendimento.Cliente.nome);
                     $('#obsPedidoEntrega').html('');
-                    $.each(atendimento.Pedido, function(i, pedido){
+                    if(typeof atendimento.Pedido !==  'undefined'){
+                      $.each(atendimento.Pedido, function(i, pedido){
                             if(pedido.status =='Em Aberto' || pedido.status =='Cancelado' || pedido.status =='Entregue' )
                             {
                                 difHora='00:00:00';
@@ -3002,7 +3119,7 @@ $("#pedir").click(function(event){
                         $('#obsPedidoEntrega').html(entregaLocal);
                         $("#AtendAtend").html(pedido.user_id+'&nbsp;');
 
-                        console.log(tipoPagSeguro);
+                        //console.log(tipoPagSeguro);
                         if((pedido.pagamento_id == tipoPagSeguro) && (pedido.pagamento_id  != null )  && (pedido.status_pagamento  == 'Pendente' ))
                         {
                           $('.pagSeguro').show();
@@ -3057,7 +3174,7 @@ $("#pedir").click(function(event){
                             }
                         });
                     });
-
+                    }
 
                      $("#counter").html('');
                      $('#counter').countdown({
@@ -3110,7 +3227,8 @@ $("#pedir").click(function(event){
                     $('.clonePedido').remove();
                     $('#obsPedidoTotal').html('');
                     //atendimentos = JSON.parse(atend);
-                    $.each(data.resultados, function(i, iten){
+                    if(typeof data.resultados !==  'undefined'){
+                      $.each(data.resultados, function(i, iten){
                         vlunit =parseFloat(iten.Itensdepedido.valor_unit) ;
                         vlunit = vlunit.toFixed(2);
                         vtot=parseFloat(iten.Itensdepedido.valor_total);
@@ -3122,6 +3240,7 @@ $("#pedir").click(function(event){
                         }
                         $('#itensdoPedido').append('<tr class="clonePedido"><td>'+iten.Itensdepedido.produto_id+'</td><td>'+iten.Produto.nome+' '+obsItem+'</td><td class="dinheiro">'+vlunit+'</td><td>'+iten.Itensdepedido.qtde+'</td><td class="dinheiro somaIten">'+vtot+'</td></tr>');
                     });
+                    }
                     $('#linhaTotalPedido').remove();
 
                     $('.dinheiro').priceFormat({
@@ -3132,6 +3251,7 @@ $("#pedir").click(function(event){
 
 
                     var sum = 0;
+
                     $('.somaIten').each(function() {
                         var value = $(this).text();
                         value = value.substring(3);
@@ -3285,7 +3405,7 @@ function checaAtendimento(atendimentocod){
 
                     if(data.resultados.resposta=='Existe'){
                         $( "#popupDialogAtendimento2" ).popup( "open" );
-                        $.mobile.changePage("#index", { transition: "none",  });
+                        $.mobile.changePage("#cardapio", { transition: "none",  });
                          $('.pageContent').hide();
                             $.mobile.loading( "show" );
                             setTimeout(function(){
@@ -3313,7 +3433,7 @@ function checaAtendimento(atendimentocod){
 }
     $('body').on('click', '#btnEntrega', function () {
         codigo="entrega";
-        $.mobile.changePage("#index", { transition: "none",  });
+        $.mobile.changePage("#cardapio", { transition: "none",  });
          $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){
@@ -3326,7 +3446,7 @@ function checaAtendimento(atendimentocod){
     $('body').on('click', '.novopedido', function () {
         codigo="entrega";
         $.mobile.changePage("#page13", { transition: "none",  });
-        $.mobile.changePage("#index", { transition: "none",  });
+        $.mobile.changePage("#cardapio", { transition: "none",  });
          $('.pageContent').hide();
         $.mobile.loading( "show" );
         setTimeout(function(){
@@ -3362,7 +3482,7 @@ function checaAtendimento(atendimentocod){
     var fezPedidoSemLogar ="";
     $("#proximoPedido").click(function(){
         if(cliente ==''){
-            $.mobile.changePage("#Pagelogin", { transition: "none",  });
+            $.mobile.changePage("#index", { transition: "none",  });
              $('.pageContent').hide();
                 $.mobile.loading( "show" );
                 setTimeout(function(){
@@ -3811,7 +3931,7 @@ function checaAtendimento(atendimentocod){
                                 setTimeout(function(){
                                     $.mobile.loading( "show" );
                                     loginCad(dataToLog);
-                                    $.mobile.changePage("#index",{reverse:true});
+                                    $.mobile.changePage("#cardapio",{reverse:true});
                                     setTimeout(function(){
                                         $("#popuCadastropSalvo").popup( "open" );
                                     },1000);
@@ -3871,7 +3991,7 @@ function checaAtendimento(atendimentocod){
         setTimeout(function(){
             lograd= $('.logradouro').val();
             if(lograd != ''){
-                getCoordenadas();
+              //  getCoordenadas();
             }
         }, 3000);
 
@@ -3881,7 +4001,7 @@ function checaAtendimento(atendimentocod){
     $('.numero').focusout(function(){
         lograd= $('.logradouro').val();
         if(lograd != ''){
-            getCoordenadas();
+          //  getCoordenadas();
         }
 
 
@@ -3890,7 +4010,7 @@ function checaAtendimento(atendimentocod){
     $('.logradouro').focusout(function(){
         lograd= $('.logradouro').val();
         if(lograd != ''){
-            getCoordenadas();
+          //  getCoordenadas();
         }
 
 
@@ -3898,7 +4018,7 @@ function checaAtendimento(atendimentocod){
     $('.uf').focusout(function(){
         lograd= $('.logradouro').val();
         if(lograd != ''){
-            getCoordenadas();
+          //  getCoordenadas();
         }
 
 
@@ -3906,7 +4026,7 @@ function checaAtendimento(atendimentocod){
     $('#bairroEdit').focusout(function(){
         lograd= $('.logradouro').val();
         if(lograd != ''){
-            getCoordenadas();
+          //  getCoordenadas();
         }
 
 
@@ -3914,7 +4034,7 @@ function checaAtendimento(atendimentocod){
     $('.bairro').focusout(function(){
         lograd= $('.logradouro').val();
         if(lograd != ''){
-            getCoordenadas();
+            //getCoordenadas();
         }
 
 
@@ -3940,7 +4060,7 @@ function checaAtendimento(atendimentocod){
     var localizacaoEntrega="";
     function getAtendimentoPosition(atendimentoid){
 
-
+      /*
         //$.mobile.loading( "show" ,{theme: 'b'});
         var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
          $.ajax({
@@ -3989,7 +4109,7 @@ function checaAtendimento(atendimentocod){
                 }
 
             });
-
+            */
 
     }
 
@@ -3997,7 +4117,7 @@ function checaAtendimento(atendimentocod){
 
 
         //$.mobile.loading( "show" ,{theme: 'b'});
-        var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
+        /*var url=URLAPP+"RestAtendimentos/viewmobile.json?a="+atendimentoid+"&b="+cliente.Cliente.id+"&c="+cliente.Cliente.token+"&fp="+filialPadrao+"";
          $.ajax({
                 type: "GET",
                 url: url,
@@ -4043,7 +4163,7 @@ function checaAtendimento(atendimentocod){
                 }
 
             });
-
+            */
 
     }
 
@@ -4059,7 +4179,7 @@ function checaAtendimento(atendimentocod){
 
     $( document ).on( "pageinit", "#page6", function() {
 
-        setTimeout(function() {
+        /*setTimeout(function() {
             function initialize() {
                 $("#gmapLEntrega").html('');
                 var latlng = new google.maps.LatLng(cliente.Cliente.lat, cliente.Cliente.lng);
@@ -4082,9 +4202,9 @@ function checaAtendimento(atendimentocod){
                 map: map,
                  icon:'images/usuario2.png',
             });
-        }, 1000);
+        }, 1000);*/
     });
-    var longetudeMeLoc ="";
+    /*var longetudeMeLoc ="";
     var latitudeMeLoc="";
     function geoSuccess( pos ) {
 
@@ -4142,7 +4262,7 @@ function checaAtendimento(atendimentocod){
         enableHighAccuracy: true,
         timeout: 30000,
         maximumAge: 3000
-    };
+    };*/
 
 
     $('body').on('click', '.meLocalize', function (event) {
@@ -4189,7 +4309,7 @@ function checaAtendimento(atendimentocod){
 
     var map;
     var directionsDisplay; // Instanciaremos ele mais tarde, que serÃ¡ o nosso google.maps.DirectionsRenderer
-    var directionsService = new google.maps.DirectionsService();
+    //var directionsService = new google.maps.DirectionsService();
 
     function initializeDistancia() {
        directionsDisplay = new google.maps.DirectionsRenderer(); // Instanciando...
@@ -4226,13 +4346,13 @@ function checaAtendimento(atendimentocod){
 
 
         setTimeout(function() {
-            initializeDistancia();
-            getAtendimentoPositionAlterado(atendimentoId2);
+          //  initializeDistancia();
+          //  getAtendimentoPositionAlterado(atendimentoId2);
 
          }, 3000);
 
         checaPosition = setInterval(function(){
-            getAtendimentoPositionAlterado(atendimentoId2);
+            //getAtendimentoPositionAlterado(atendimentoId2);
         },30000);
 
         /*setTimeout(function() {
@@ -4326,9 +4446,11 @@ function checaAtendimento(atendimentocod){
                     i=0;
                      $('.cloneOptLoja').remove();
                      selectFilialEdit= $('#filial_id');
+                     if(typeof data !==  'undefined'){
                     $.each(data, function(i, resultado){
                         $('.filialSelect').append('<option class="cloneOptLoja" value="'+resultado.Filial.id+'">'+resultado.Filial.nome+'</option>');
                     });
+                    }
                    // selectFilialEdit.selectmenu();
                     //selectFilialEdit.selectmenu('refresh', true);
 
@@ -4524,7 +4646,7 @@ var getBairroFromCep=null;
 
     });
 
-    $(document).on("pageshow","#Pagelogin",function(){ // When entering pagetwo
+    $(document).on("pageshow","#index",function(){ // When entering pagetwo
         $('#empresa_input').val(empresa);
         $('#filial_input').val(filialPadrao);
        // getEntries();
@@ -4623,8 +4745,9 @@ var getBairroFromCep=null;
 
             success: function(data){
 
-                console.log(url);
-                $.each(data, function(i, resultados){
+                //console.log(url);
+                if(typeof data !==  'undefined'){
+                  $.each(data, function(i, resultados){
 
                     $.each(resultados, function(z, resultado){
 
@@ -4659,7 +4782,7 @@ var getBairroFromCep=null;
 
                     });
                 });
-
+                }
 
             },error: function(data){
                 //criar tratatmento de erros
@@ -4683,10 +4806,11 @@ var getBairroFromCep=null;
 
             success: function(data){
 
-                console.log(data);
+              //  console.log(data);
                 contadorScroll=0;
                 acumuladorTexto="";
-                $.each(data, function(i, resultados){
+                if(typeof data !==  'undefined'){
+                  $.each(data, function(i, resultados){
 
                     $.each(resultados, function(z, resultado){
 
@@ -4719,6 +4843,7 @@ var getBairroFromCep=null;
 
                     });
                 });
+                }
                 if(acumuladorTexto !=''){
                     $('#chatZone').append(acumuladorTexto);
                     setTimeout(function(){
@@ -4758,7 +4883,8 @@ var getBairroFromCep=null;
                 //$.mobile.loading( "hide" );
 
                     //$.mobile.loading( "hide" );
-                    $.each(data, function(i, atendimento){
+                    if(typeof data !==  'undefined'){
+                      $.each(data, function(i, atendimento){
 
 
                         $.each(atendimento.Pedido, function(i, pedido){
@@ -4854,7 +4980,7 @@ var getBairroFromCep=null;
                         });
 
                     });
-
+                    }
 
                 },error: function(data){
                     //$.mobile.loading( "hide" );

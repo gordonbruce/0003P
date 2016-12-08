@@ -25,35 +25,129 @@
         <script src="js/countdown.js"></script>
         <script src="js/jquery.raty.js"></script>
         <script src="js/load-image.all.min.js"></script>
-    <script src="js/configuracoes.js"></script>
+        <script src="js/configuracoes.js"></script>
         <script src="js/funcoes.js"></script>
-        <script src="js/jquery.mobilegmap.min.js"></script>
-        <script src="phonegap.js"></script>
-        <script src="js/SocialSharing.js"></script>
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC1Fq4149nqLAr86NBlDE0_01kgzOaV_Qg&amp;"></script>
-        <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+
+      <script src="phonegap.js"></script>
+    <!--    <script src="js/SocialSharing.js"></script>
+  <script src="js/jquery.mobilegmap.min.js"></script>
+      <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC1Fq4149nqLAr86NBlDE0_01kgzOaV_Qg&amp;"></script>
+        <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
 
     </head>
   <body>
-        <div id="index" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="a"  data-overlay-theme="b" >
+    <div id="index" data-role="page" data-theme="b" data-content-theme="a" data-overlay-theme="b" >
+              <div data-role="header" data-position="fixed"  data-tap-toggle="false">
+                  <h1 class="tituloHeader">Login</h1>
+
+                  <img src="images/logoentrega.png" class=" applogo ui-btn-right" />
+
+              </div><!-- /header -->
+
+              <div data-role="content" class="contentPage">
+                  <img src="images/logoLogin.png" class="imgLogin" />
+                  <form method="post" data-ajax="false" id="login">
+                      <label for="text-basic">Usuário:</label>
+                      <input type="text"  id="username" value="" name="username"  placeholder="Usuário" class="limpar">
+                      <label for="password">Senha:</label>
+                      <input type="password" name="password" id="password" value="" autocomplete="off"  placeholder="Senha" class="limpar" >
+                      <input data-theme="b" type="checkbox" name="checkconectado" id="checkconectado" data-mini="true" value="1" checked>
+                      <label data-theme="b"  for="checkconectado">Manter Conectado</label>
+                      <button class="ui-btn ui-btn-inline ui-btn-b " id="submitForm">Entrar</button>
+                      <a href="#page5" class="ui-btn ui-btn-inline ui-btn-b ">Cadastrar-se</a>
+                      <a href="#" class="ui-btn ui-btn-inline ui-btn-b "id="bt-lgesqueci">Esqueci a Senha</a>
+                      <input type="hidden" name="salt" id="loginSalt" class="loginsalt" value="" autocomplete="off" >
+                      <input type="hidden" name="empresa" id="empresa_input" class="empresa_input" autocomplete="off" >
+                      <input type="hidden" name="filial" id="filial_input" class="filial_input" autocomplete="off" >
+                      <input type="hidden" name="atendente_id" id="atendente_id" class="atendente_id" value="true" autocomplete="off" >
+
+                      <input type="hidden" name="isatendente" id="isatendente" class="isatendente" value="true" autocomplete="off" >
+
+
+                  </form>
+
+
+                  <div id="usuario"></div>
+                  <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="">
+                          <div data-role="header" data-theme="b" data-position="fixed"  >
+                          <h2>Ops, ocorreu um erro</h2>
+                          </div>
+                          <div role="main" class="ui-content">
+                              <p>Usuário ou senha incorreto(s)</p>
+                              <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                          </div>
+                  </div>
+
+                  <div data-role="popup" id="popupDialogLogin" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                      <div data-role="header" data-theme="b" data-position="fixed">
+                      <h2>Ops, ocorreu um erro.</h2>
+                      </div>
+                      <div role="main" class="ui-content">
+                          <p>Verifique sua internet ou tente mais tarde</p>
+                          <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                      </div>
+                  </div>
+                  <div data-role="popup" id="popRecoverPassword" class="" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                      <div data-role="header" data-theme="b" data-position="fixed">
+                      <h2>Aviso</h2>
+                      </div>
+                      <div role="main" class="ui-content">
+                          <p id="html-popRecover"></p>
+                          <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                      </div>
+                  </div>
+                   <div data-role="popup" id="popEsqueciSenha" class="esqueciSenha" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
+                      <div data-role="header" data-theme="b" data-position="fixed">
+                      <h2>Recuperar Senha.</h2>
+
+                      </div>
+                      <div role="main" class="ui-content">
+                          <br >
+                       <p>Digite seu usuáio para recuperar a sua senha, enviaremos sua solicitação para o email cadastrado.</p>
+
+
+
+                           <form method="post" data-ajax="false" id="esqueciSenha">
+                              <label for="text-basic">Usuário:</label>
+                              <input type="text"  id="usernamerecorver" value="" name="username"  data-theme="a" placeholder="Digite seu Usuário" class="limpar">
+                              <input type="hidden"  id="usernamerecorversalt" value="" name="salt"  data-theme="a" class="limpar">
+                              <br>
+                              <button class="ui-btn ui-btn-b "  id="btn_esqueci">Enviar</button>
+                           </form>
+                          <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                      </div>
+                  </div>
+
+                  <div id="produtos"></div>
+              </div><!-- /content -->
+
+
+              <div data-role="footer"    class="hideFooter" >
+                  <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
+              </div><!--Footer-->
+
+          </div><!-- /page -->
+
+
+        <div id="cardapio" data-role="page" data-add-back-btn="true" data-theme="b" data-content-theme="a"  data-overlay-theme="b" >
 
             <div data-role="panel" id="mypanel3" data-display="overlay" data-theme="b" data-content-theme="b">
                 <img src="images/logoentrega_painel.png" class="logoPainel"/>
                <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
-                    <li>
+                  <!--  <li>
                     <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
                      <span class="showLogado logadoNone spanconectado"><span class="conectado"> <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
-                    </li>
+                  </li>-->
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <!--<li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
-                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>-->
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
-                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                    <!--<li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>-->
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
@@ -208,23 +302,53 @@
                             <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
                         </div>
                     </div>
+                    <div data-role="popup" id="popupSucEnvPedido2" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:16em; margin-left: -8em; margin-top: -3em;">
+
+                        <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
+                            <h2>Sucesso</h2>
+                        </div>
+                        <div role="main" class="ui-content">
+                            <p>Pedido Enviado Com Sucesso</p>
+                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
+                        </div>
+                    </div>
                     <div id="divPagamento">
                         <p><strong>Total dos Produtos</strong> <span id="totalPedidoPag">0,00</span></p>
-                        <p class="h3entrega none"><strong>Valor da Entrega</strong> <span id="totalEntrega">0,00</span></p>
-                        <p class="h3entrega none"><strong>Valor Total do Pedido </strong><span id="totalPedidoEntrega">0,00</span></p>
+                      <!--  <p class="h3entrega none"><strong>Valor da Entrega</strong> <span id="totalEntrega">0,00</span></p>-->
+                        <!--<p class="h3entrega none"><strong>Valor Total do Pedido </strong><span id="totalPedidoEntrega">0,00</span></p>-->
                         <form action="http://appedido.lojacriandoart.com.br/RestPedidos/addmobile.json" id="PedidoAddForm" method="post" accept-charset="utf-8">
                             <input type="hidden" name="_method" value="POST">
-                            <div data-role="controlgroup" data-theme="b"  >
+                            <!--<div data-role="controlgroup" data-theme="b"  >
                                 <legend>Escolha a forma de pagamento:</legend>
                                 <select class="formaDEpagamento" name="data[Pedido][pagamento_id]" value="" id="formaDEpagamento">
 
                                 </select>
+                            </div>-->
+                            <div data-role="controlgroup" data-theme="b"  >
+                                <legend>Escolha a Mesa:</legend>
+                                <select class="selecMesa" name="data[Pedido][mesa_id]" value="" id="selecMesa">
+
+                                </select>
                             </div>
+
+                            <div data-role="controlgroup" class="cadClientePedido" data-theme="b"  >
+                                <legend>Cadastrar Cliente:</legend>
+                                <input type="text" name="data[Pedido][nomecadcliente]" value="" id="nomecadclientePedido">
+                            </div>
+
+                            <div data-role="controlgroup" data-theme="b"  >
+                                <legend>Cliente já cadastrado:</legend>
+                                <select class="selectCliente" name="data[Pedido][cliente_id]" value="" id="selectCliente">
+
+                                </select>
+                            </div>
+
 
                             <input type="hidden" name="data[Pedido][filial_id]" value="" id="filialPedido">
 
                             <input type="hidden" name="data[Pedido][a]" value="entrega" id="PedidoA">
-                            <input type="hidden" name="data[Pedido][cliente_id]" value="0" id="clientePedido">
+                            <input type="hidden" name="data[Pedido][fromAtendentePedido]" value="1" id="fromAtendentePedido">
+                            <input type="hidden" name="data[Pedido][atendente_id]" value="0" id="clientePedido">
                             <input type="hidden" name="data[Pedido][empresa_id]" value="0" id="empresaPedido">
                             <input type="hidden" name="data[Pedido][trocovalor]" value="0" id="trocoValorPedido">
                             <input type="hidden" name="data[Pedido][trocoresposta]" value="Sim" id="trocoresposta">
@@ -313,14 +437,14 @@
                                 </div>
                                 <div id="divAuxEntrega" class="divAuxEntrega">
 
-                                        <h4>Dados da entrega</h4>
+                                        <!--<h4>Dados da entrega</h4>
                                         <fieldset data-role="controlgroup" data-type="horizontal"  data-theme="b" >
                                             <legend>Entregar no endereço cadastrado?</legend>
                                              <input type="radio" name="radio-choice-t-9" id="radio-choice-t-9a" value="on" checked="checked" class="ckTroco" data-valor="1">
                                             <label for="radio-choice-t-9a" id="lbchoicea">Sim</label>
                                             <input type="radio" name="radio-choice-t-9" id="radio-choice-t-9b" value="off" class="ckTroco" data-valor="0">
                                             <label for="radio-choice-t-9b" id="lbchoiceb">Não</label>
-                                        </fieldset>
+                                        </fieldset>-->
                                         <div id="holdValorEntrega"  class="none">
                                             <br />
                                             <span style="text-align: center; width: 100%; display: inline-block;">Observação Importante: Só serão exibidas as cidades e os bairros que são cobertos pela nossa equipe de entregas. Caso a sua localidade não se encontre aqui, por favor entre em contato pelo Menu -> Contato para a verificarmos a possibilidade de entregas na sua região.</span>
@@ -505,96 +629,6 @@
 
 
         </div><!-- /page -->
-        <div id="Pagelogin" data-role="page" data-theme="b" data-content-theme="a" data-overlay-theme="b" >
-            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
-                <h1 class="tituloHeader">Login</h1>
-
-                <img src="images/logoentrega.png" class=" applogo ui-btn-right" />
-
-            </div><!-- /header -->
-
-            <div data-role="content" class="contentPage">
-                <img src="images/logoLogin.png" class="imgLogin" />
-                <form method="post" data-ajax="false" id="login">
-                    <label for="text-basic">Usuário:</label>
-                    <input type="text"  id="username" value="" name="username"  placeholder="Usuário" class="limpar">
-                    <label for="password">Senha:</label>
-                    <input type="password" name="password" id="password" value="" autocomplete="off"  placeholder="Senha" class="limpar" >
-                    <input data-theme="b" type="checkbox" name="checkconectado" id="checkconectado" data-mini="true" value="1" checked>
-                    <label data-theme="b"  for="checkconectado">Manter Conectado</label>
-                    <button class="ui-btn ui-btn-inline ui-btn-b " id="submitForm">Entrar</button>
-                    <a href="#page5" class="ui-btn ui-btn-inline ui-btn-b ">Cadastrar-se</a>
-                    <a href="#" class="ui-btn ui-btn-inline ui-btn-b "id="bt-lgesqueci">Esqueci a Senha</a>
-                    <input type="hidden" name="salt" id="loginSalt" class="loginsalt" value="" autocomplete="off" >
-                    <input type="hidden" name="empresa" id="empresa_input" class="empresa_input" autocomplete="off" >
-                    <input type="hidden" name="filial" id="filial_input" class="filial_input" autocomplete="off" >
-
-
-
-                </form>
-
-
-                <div id="usuario"></div>
-                <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="">
-                        <div data-role="header" data-theme="b" data-position="fixed"  >
-                        <h2>Ops, ocorreu um erro</h2>
-                        </div>
-                        <div role="main" class="ui-content">
-                            <p>Usuário ou senha incorreto(s)</p>
-                            <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                        </div>
-                </div>
-
-                <div data-role="popup" id="popupDialogLogin" class="erroconexao" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Ops, ocorreu um erro.</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Verifique sua internet ou tente mais tarde</p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-                <div data-role="popup" id="popRecoverPassword" class="" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Aviso</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p id="html-popRecover"></p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-                 <div data-role="popup" id="popEsqueciSenha" class="esqueciSenha" data-overlay-theme="b" data-theme="b" data-dismissible="true" style="max-width:400px;">
-                    <div data-role="header" data-theme="b" data-position="fixed">
-                    <h2>Recuperar Senha.</h2>
-
-                    </div>
-                    <div role="main" class="ui-content">
-                        <br >
-                     <p>Digite seu usuáio para recuperar a sua senha, enviaremos sua solicitação para o email cadastrado.</p>
-
-
-
-                         <form method="post" data-ajax="false" id="esqueciSenha">
-                            <label for="text-basic">Usuário:</label>
-                            <input type="text"  id="usernamerecorver" value="" name="username"  data-theme="a" placeholder="Digite seu Usuário" class="limpar">
-                            <input type="hidden"  id="usernamerecorversalt" value="" name="salt"  data-theme="a" class="limpar">
-                            <br>
-                            <button class="ui-btn ui-btn-b "  id="btn_esqueci">Enviar</button>
-                         </form>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
-
-                <div id="produtos"></div>
-            </div><!-- /content -->
-
-
-            <div data-role="footer"    class="hideFooter" >
-                <small>EntregApp - Copyright 2015 - v1.0, www.entregapp.com.br</small>
-            </div><!--Footer-->
-
-        </div><!-- /page -->
-
 
 
 
@@ -603,20 +637,20 @@
             <div data-role="panel" id="mypanel1" data-display="overlay" data-theme="b" data-content-theme="b">
                 <img src="images/logoentrega_painel.png" class="logoPainel"/>
                <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
-                    <li>
+                  <!--  <li>
                     <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
                     <span class="showLogado logadoNone spanconectado"><span class="conectado"> <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
-                    </li>
+                  </li>-->
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
-                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
+                    <!--<li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>-->
                     <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
-                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                    <!--<li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>-->
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
@@ -686,20 +720,20 @@
             <div data-role="panel" id="mypanel2" data-display="overlay" data-theme="b" data-content-theme="b">
                 <img src="images/logoentrega_painel.png"class="logoPainel"/>
                <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
-                    <li>
+                    <!--<li>
                     <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
                      <span class="showLogado logadoNone spanconectado"><span class="conectado"> <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
-                    </li>
+                  </li>-->
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                  <!--  <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
-                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>-->
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
-                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                  <!--<li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>-->
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->
@@ -865,16 +899,7 @@
                 <div id="itensdepedido"></div>
                 <div id="atendimentosView2"></div>
 
-                <div data-role="popup" id="popupSucEnvPedido2" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:16em; margin-left: -8em; margin-top: -3em;">
 
-                    <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
-                        <h2>Sucesso</h2>
-                    </div>
-                    <div role="main" class="ui-content">
-                        <p>Pedido Enviado Com Sucesso</p>
-                        <a href="#" data-role="button" data-rel="back" data-overlay-theme="b" data-theme="b">Fechar</a>
-                    </div>
-                </div>
 
                 <div data-role="popup" id="popupComentarPedido" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                     <div data-role="header" data-theme="b" data-position="fixed"  data-tap-toggle="false">
@@ -1487,20 +1512,20 @@
                 <img src="images/logoentrega_painel.png"  class="logoPainel" />
                <ul data-role="listview" data-inset="false" data-theme="a" data-divider-theme="a" data-icon="true" class="">
 
-                    <li>
+                    <!--<li>
                     <span class="dispLoja"><span class="textStatus">Loja Indisponível</span><div class="divDisp none"></div>
                     </span>
                     <span class="dispLoja"><span class="mediaAtendimento none">Indisponível</span>
                     </span>
                      <span class="showLogado logadoNone spanconectado"><span class="conectado"> <span class="usuarioLogado"></span></span> conectado!</span>
                     </span>
-                    </li>
+                  </li>-->
                     <li><a href="#" class="novopedido" data-icon="plus">Cardápio</a></li>
-                    <li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
+                    <!--<li class="showLogado logadoNone"><a href="#"  class="listarpedido " data-icon="plus">Lista de Pedidos</a></li>
                     <li><a href="#"  class="meucadastro" data-icon="plus">Cadastro</a></li>
-                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>
+                    <li><a href="#"  class="fazerlogin" data-icon="action">Login</a></li>-->
                     <li><a href="#"  class="esquecer showLogado logadoNone" data-icon="action">Esquecer Usuário</a></li>
-                    <li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>
+                    <!--<li><a href="#" class="linkTelefone" id="linkTelefone" data-icon="plus">Contato</a></li>-->
                     <li><a href="#page11"  class="menuSair"  data-icon="power">Sair</a></li>
                 </ul>
             </div><!-- /panel -->

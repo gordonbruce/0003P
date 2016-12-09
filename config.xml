@@ -14,9 +14,9 @@
             <param name="domain" value="http://localhost/apps/master/"/>
             <param name="key" value="com.entregapp.entregapp"/>
           </feature>
-          <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.10" source="pgb" />
+          <!--<plugin name="io.litehelpers.cordova.sqlite" spec="0.7.10" source="pgb" />
 
-        
+        <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />-->
         <plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
         <preference name="Fullscreen" value="false" />
         <preference name="WebViewBounce" value="true" />

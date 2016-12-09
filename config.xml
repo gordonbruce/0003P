@@ -15,9 +15,9 @@
             <param name="key" value="com.entregapp.entregapp"/>
           </feature>
           <preference name="phonegap-version" value="cli-5.2.0" />
-          <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.10" source="pgb" />
 
-        
+          <gap:plugin name="github.com/hypery2k/cordova-sqlite-plugin" source="npm" version="1.0.3" />
+
         <plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
         <preference name="Fullscreen" value="false" />
         <preference name="WebViewBounce" value="true" />

@@ -456,10 +456,12 @@ $(document).ready(function() {
               selectCliente =  $('#selectCliente');
               $('#selectCliente').append('<option value="" class="cloneOptCliente">Selecione</option>');
               if(typeof data != 'undefined'){
-                $.each(data.ultimopedido.Pedido, function(i, clientes){
-                //  console.log(clientes);
-                    $('#selectCliente').append('<option class="cloneOptCliente" value="'+clientes.nomecadcliente+'">'+clientes.nomecadcliente+'</option>');
-                });
+                if(typeof data.ultimopedido.Pedido != 'undefined'){
+                  $.each(data.ultimopedido.Pedido, function(i, clientes){
+                  //  console.log(clientes);
+                      $('#selectCliente').append('<option class="cloneOptCliente" value="'+clientes.nomecadcliente+'">'+clientes.nomecadcliente+'</option>');
+                  });
+                }
               }
                $.mobile.loading( "hide" );
           },error: function(data){
@@ -1380,7 +1382,6 @@ function atualizarProduto(){
                 success: function(data){
                     $('#set').html('');
 
-
                     $.each(data, function(i, resultados){
                         z=0;
                         $.each(resultados, function(z, resultado){
@@ -1417,9 +1418,9 @@ function atualizarProduto(){
 
                 },error: function(data){
 
-
-                    $.mobile.loading( "hide" );
-                    $("#popupDialogLogin4").popup( "open" );
+                  //alert('aqui');
+                    //$.mobile.loading( "hide" );
+                    //$("#popupDialogLogin4").popup( "open" );
 
                 }
 

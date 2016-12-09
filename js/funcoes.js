@@ -763,16 +763,15 @@ $(document).on("pageshow","#cardapio_old",function(){
     $(document).on("pageshow","#cardapio",function(){ // When entering pagetwo
        $('#contentIndex').hide();
        $.mobile.loading( "show" );
-      setTimeout(function(){
-
+      /*setTimeout(function(){
+        limparPedido();
          atualizarPromo();
-         limparPedido();
          atualizarProduto();
-      },2000);
+      },2000);*/
 
         atualizarPromo();
         limparPedido();
-        atualizarCidadesIndex();
+        //atualizarCidadesIndex();
         atualizarProduto();
         if(flagCadastro==true){
             $("#popupCaadastroSuccess").popup( "open" );

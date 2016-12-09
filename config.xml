@@ -3,7 +3,7 @@
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.entregapp.entregapp"
     version     = "1.0.4" >
-	<name>Speciale Pizzaria</name>
+	<name>Entregapp Atendimento</name>
         <description>
            Sistema de atendimento de mesas para restaurantes.
         </description>
@@ -16,7 +16,7 @@
           </feature>
           <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.10" source="pgb" />
 
-        <gap:plugin name="nl.x-services.plugins.socialsharing" version="4.3.8" />
+        
         <plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
         <preference name="Fullscreen" value="false" />
         <preference name="WebViewBounce" value="true" />
